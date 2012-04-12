@@ -1,4 +1,5 @@
 </body>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="assets/js/jquery.js"></script>
 <script type="text/javascript" src="assets/js/underscore.js"></script>
 <script type="text/javascript" src="assets/js/backbone.js"></script>

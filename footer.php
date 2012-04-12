@@ -9,13 +9,13 @@
 <script type="text/javascript" src="assets/js/collection.js"></script>
 
 <?php include("assets/js/templates/mapViewTemplates.html"); ?>
-
+<?php include("assets/js/templates/navigationTemplates.html"); ?>
 
 
 <script type="text/javascript">
 
 //set routes
-var app_router = new AppRouter();
+var app_router = new AppRouter;
 Backbone.history.start();
 
 //initialize objects
@@ -30,6 +30,7 @@ var markerCollection = new MarkerCollection([m1, m2, m3]);
 
 //set views
 var map_view = new MapView;
+var nav_view = new NavigationView;
 
 
 //_.each(markerCollection.toArray(), function(m){ alert(m.get("name")); });

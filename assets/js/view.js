@@ -30,3 +30,19 @@ var MapView = Backbone.View.extend({
 		alert("h2 gelickt!!! :)");
 	}
 });
+
+var NavigationView = Backbone.View.extend({
+	el: $("#navigation"),
+	initialize: function() {
+		this.render();
+	},
+	render: function() {
+		var variables = {
+			title: "Meine erste Seite",
+			text: "juhuuuuuuu"
+		};
+		
+		var template = _.template( $('#navigation_template').html(), variables );
+		$(this.el).html(template);
+	}
+});

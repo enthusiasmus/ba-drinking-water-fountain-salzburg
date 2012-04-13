@@ -1,4 +1,4 @@
-	</body>
+</body>
 	
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="assets/js/collection.js"></script>
 	
 	<?php include("templates/mapView.html"); ?>
+	<?php include("templates/navigationView.html"); ?>	
 	
 	<script type="text/javascript">
 		//set routes
@@ -26,6 +27,8 @@
 		
 		//set views
 		var mapView = new MapView;
+		var nav_view = new NavigationView;
+
 		
 		//_.each(markerCollection.toArray(), function(m){ alert(m.get("name")); });
 	</script>

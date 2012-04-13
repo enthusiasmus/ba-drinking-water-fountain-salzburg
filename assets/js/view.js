@@ -5,11 +5,11 @@ var MapView = Backbone.View.extend({
 	},
 	render: function() {
 		var myOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
+	        center: new google.maps.LatLng(-34.397, 150.644),
+	        zoom: 8,
+	        mapTypeId: google.maps.MapTypeId.ROADMAP
+	  };
+	
 		var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
 		var variables = {
@@ -34,15 +34,6 @@ var NavigationView = Backbone.View.extend({
 		this.render();
 	},
 	render: function() {
-	
-		var myOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-		
-        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
 		var variables = {
 			title: "Meine erste Seite",
 			text: "juhuuuuuuu"

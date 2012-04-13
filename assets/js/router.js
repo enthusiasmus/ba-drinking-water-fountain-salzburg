@@ -1,13 +1,24 @@
 var AppRouter = Backbone.Router.extend({
-        routes: {
-        	"/:route/:action": "loadView",
-            "*actions": "defaultRoute" // Backbone will try match the route above first
-        },
-		loadView: function( route, action ){ 
-            alert(route + "_" + action);
-        },
-        defaultRoute: function( actions ){
-            alert( actions ); 
-        }
+  routes: {
+  	"adress": "showAdressSearch",
+    "location": "showLocation",
+    "next": "showRouteNextSpring",
+    "rss": "showRssFeed",
+    "*actions": "defaultRoute"
+  },
+  showAdressSearch: function(){
+  	alert("Adresseingabe zum Suchen")
+  },
+  showLocation: function(){
+  	alert("Derzeitiger Standort")
+  },
+  showRouteNextSpring: function(){
+  	alert("Route zum nächsten Trinkbrunnen")
+  },
+  showRssFeed: function(){
+  	alert("RSS-Feed")
+  },
+  defaultRoute: function( action ){
+      alert("Default-Route: " + action); 
+  }
 });
-

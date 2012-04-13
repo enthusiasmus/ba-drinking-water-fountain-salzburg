@@ -27,8 +27,7 @@
 		
 		//set views
 		var mapView = new MapView;
-		var nav_view = new NavigationView;
-
+		var navView = new NavigationView;
 		
 		//_.each(markerCollection.toArray(), function(m){ alert(m.get("name")); });
 	</script>

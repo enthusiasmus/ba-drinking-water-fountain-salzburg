@@ -13,9 +13,13 @@
 	<?php include("templates/navigationView.html"); ?>	
 	
 	<script type="text/javascript">
+		$(document).ready(function(){
+			//History uses iframes so the dom should be finished loading
+			Backbone.history.start();
+		});
+		
 		//set routes
 		var appRouter = new AppRouter();
-		Backbone.history.start();
 		
 		//initialize objects
 		var map = new Map({name: "Google Map"});

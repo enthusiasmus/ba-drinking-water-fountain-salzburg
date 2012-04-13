@@ -1,0 +1,11 @@
+CamelCase für Klassen (Subjektive)
+camelBack für Instancen (Subkjektive)
+Funktionen fangen mit Verb an (z.B: doSomething)
+Einrückungen zur Übersicht
+Kommentare für WAS- und nicht WIE-Erklärung
+Anführungszeichen durchgehend ' anstatt "
+
+Weitere Info:
+http://javascript.crockford.com/code.html
+http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+http://neil.rashbrook.org/Js.htm

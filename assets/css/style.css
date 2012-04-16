@@ -1,19 +1,22 @@
 html { 
-	height: 100% 
 }
 body {
 	height: 100%;
+	width:100%;
 	margin: 0;
 	padding: 0; 
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 11px;
 }
 
 #map_canvas {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 90%;
+	height: 80%;
 	z-index: 5;
+	background: #444;
 }
 
 #navigation {
@@ -21,7 +24,38 @@ body {
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 10%;
+	height: 20%;
 	border-top: 1px solid black;
 	z-index: 10;
+
+	/* gradient-background of navigation bar for all browsers */
+	background-image: linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
+	background-image: -o-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
+	background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
+	background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
+	background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.01, rgb(0,0,0)),
+		color-stop(0.72, rgb(84,84,84)),
+		color-stop(0.86, rgb(105,102,105))
+	);
+	/* gradient-background end */
+}
+
+#navigation a:link, a:visited{
+	color:#fff;
+}
+
+.menueButton{
+	float:left;
+	width:50px;
+	height:30px;
+	border:1px solid #000;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px;
 }

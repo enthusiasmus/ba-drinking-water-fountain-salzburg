@@ -11,13 +11,8 @@ var MapView = Backbone.View.extend({
 	  };
 	
 		var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-		var variables = {
-			title: "Meine erste Seite",
-			text: "juhuuuuuuu"
-		};
 		
-		var template = _.template( $('#map_template').html(), variables );
+		var template = _.template( $('#map_template').html() );
 		$(this.el).html(template);
 	},
 	events: {
@@ -35,8 +30,11 @@ var NavigationView = Backbone.View.extend({
 	},
 	render: function() {
 		var variables = {
-			title: "Meine erste Seite",
-			text: "juhuuuuuuu"
+			first: { title: "Position", url: "location" },
+			second: { title: "Brunnen", url: "next" },
+			third: { title: "Suche", url: "search" },
+			fourth: { title: "News", url: "rss" },
+			fifth: { title: "Info", url: "about" },
 		};
 		
 		var template = _.template( $('#navigation_template').html(), variables );

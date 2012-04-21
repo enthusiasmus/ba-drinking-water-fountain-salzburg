@@ -5,12 +5,12 @@ var MapView = Backbone.View.extend({
 	},
 	render: function() {
 		var myOptions = {
-	        center: new google.maps.LatLng(-34.397, 150.644),
-	        zoom: 8,
+	        center: new google.maps.LatLng(47.500, 13.000),
+	        zoom: 7,
 	        mapTypeId: google.maps.MapTypeId.ROADMAP
 	  };
 	
-		var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		mainMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 		
 		var template = _.template( $('#map_template').html() );
 		$(this.el).html(template);

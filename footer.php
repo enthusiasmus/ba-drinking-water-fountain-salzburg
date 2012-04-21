@@ -4,10 +4,13 @@
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/underscore.js"></script>
 	<script type="text/javascript" src="assets/js/backbone.js"></script>
+	
 	<script type="text/javascript" src="assets/js/model.js"></script>
 	<script type="text/javascript" src="assets/js/view.js"></script>
 	<script type="text/javascript" src="assets/js/router.js"></script>
 	<script type="text/javascript" src="assets/js/collection.js"></script>
+	
+	<script type="text/javascript" src="assets/js/ajax.js"></script>
 	
 	<?php include("templates/mapView.html"); ?>
 	<?php include("templates/navigationView.html"); ?>	
@@ -17,6 +20,9 @@
 			//History uses iframes so the dom should be finished loading
 			Backbone.history.start();
 		});
+		
+		//reserved variables
+		var mainMap;
 		
 		//set routes
 		var appRouter = new AppRouter();

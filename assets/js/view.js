@@ -16,10 +16,7 @@ var MapView = Backbone.View.extend({
 		$(this.el).html(template);
 	},
 	events: {
-		"click h2": "doAlert"
-	},
-	doAlert: function() {
-		alert("h2 gelickt!!! :)");
+		//enter some events here
 	}
 });
 

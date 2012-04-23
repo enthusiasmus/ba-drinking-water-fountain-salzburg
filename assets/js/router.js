@@ -8,21 +8,21 @@ var AppRouter = Backbone.Router.extend({
     "*actions": "defaultRoute"
   },
   showAdressSearch: function(){
-  	alert("Adresseingabe zum Suchen")
+  	//alert("Adresseingabe zum Suchen")
   },
   showLocation: function(){
-  	alert("Derzeitiger Standort")
+  	//alert("Derzeitiger Standort")
   },
   showRouteNextSpring: function(){
-  	alert("Route zum nächsten Trinkbrunnen")
+  	//alert("Route zum nächsten Trinkbrunnen")
   },
   showRssFeed: function(){
-  	alert("RSS-Feed")
+  	//alert("RSS-Feed")
   },
   showAbout: function(){
-  	alert("Info-Seite");
+  	//alert("Info-Seite");
   },
   defaultRoute: function( action ){
-      alert("Default-Route: " + action); 
+      //alert("Default-Route: " + action); 
   }
 });

@@ -6,8 +6,14 @@ var Map = Backbone.Model.extend({
 });
 
 var Marker = Backbone.Model.extend({
+	defaults: {
+		latitude: 0,
+		longitude: 0
+    },
 	initialize: function() {
 		//alert("Marker wurde erzeugt");	
 	},
-	name: ""
+	name: "",
+	latitude: 0,
+	longitude: 0
 });

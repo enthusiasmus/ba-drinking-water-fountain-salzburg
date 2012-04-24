@@ -7,6 +7,12 @@ var MapView = Backbone.View.extend({
 		var myOptions = {
 	        center: new google.maps.LatLng(47.500, 13.000),
 	        zoom: 7,
+	        keyboardShortcuts: false,
+	        mapTypeControl: false,
+	        panControl: false,
+	        rotateControl: false,
+	        streetViewControl: false,
+	        scaleControl: true,
 	        mapTypeId: google.maps.MapTypeId.ROADMAP
 	  };
 	

@@ -11,7 +11,7 @@ var AppRouter = Backbone.Router.extend({
   	//alert("Adresseingabe zum Suchen")
   },
   showLocation: function(){
-  	//alert("Derzeitiger Standort")
+  	getUserLocation();
   },
   showRouteNextSpring: function(){
   	//alert("Route zum nächsten Trinkbrunnen")
@@ -23,6 +23,6 @@ var AppRouter = Backbone.Router.extend({
   	//alert("Info-Seite");
   },
   defaultRoute: function( action ){
-      //alert("Default-Route: " + action); 
+    //alert("Default-Route: " + action); 
   }
 });

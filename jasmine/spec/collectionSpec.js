@@ -4,7 +4,7 @@ describe("COLLECTIONS", function() {
 		
 	  beforeEach(function() {
 		this.markercollection = new MarkerCollection;
-		this.marker = new Marker;
+		this.marker = new MarkerModel;
 	  });
 		  
 	  it("should add a model", function() {

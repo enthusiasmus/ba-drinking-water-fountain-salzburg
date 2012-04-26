@@ -2,7 +2,7 @@ var AppRouter = Backbone.Router.extend({
   routes: {
   	"adress": "showAdressSearch",
     "next": "showRouteNextSpring",
-    "rss": "showRssFeed",
+    "feed": "showRssFeed",
     "about": "showAbout",
     "*actions": "defaultRoute"
   },
@@ -13,7 +13,7 @@ var AppRouter = Backbone.Router.extend({
   	//alert("Route zum nächsten Trinkbrunnen")
   },
   showRssFeed: function(){
-  	//alert("RSS-Feed")
+  	getFeed();
   },
   showAbout: function(){
   	//alert("Info-Seite");

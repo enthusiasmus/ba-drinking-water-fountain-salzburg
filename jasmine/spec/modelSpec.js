@@ -4,7 +4,7 @@ describe("MODELS", function() {
 	  
 	  describe("when it is instantiated", function() {
 		  beforeEach(function() {
-			this.map = new Map({name: "my map"});
+			this.map = new MapModel({name: "my map"});
 		  });
 	
 		  it("should have a attribute name", function() {
@@ -19,7 +19,7 @@ describe("MODELS", function() {
 	  
 	  describe("when it is instantiated", function() {
 		  beforeEach(function() {
-			this.marker = new Marker({name: "my marker"});
+			this.marker = new MarkerModel({name: "my marker"});
 		  });
 	
 		  it("should have a attribute name", function() {

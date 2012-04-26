@@ -40,4 +40,12 @@ var UserLocationModel = Backbone.Model.extend({
 		//alert('Der Standort um ' + time + ' lautet ' + lat + ', ' + lng + ', Genaugikeit: ' + precision + ', Höhe: ' + altitude + ', Geschwindigkeit: ' + speed + ', Bewegung in: ' + heading);
 	},
 });
+
 UserLocationModel.prototyp = MarkerModel;
+
+var FeedModel = Backbone.Model.extend({
+	title: "RSS Feed",
+	initialize: function() {		
+		console.log("Feed created");
+	},
+});

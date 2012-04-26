@@ -26,11 +26,6 @@ function placeMarkers(data){
 			title: data[idx].f_key + ": " + data[idx].water_distributor + " - " + data[idx].fontain_name});
 		markerCollection.push(markerModel, []);
 	}
-	// mapView.addMarkerCollection(markerCollection);
-	// mapView.placeMarkersToMap();
-}
-
-
-function placeUserLocation(test){
-	alert(test.get("name"));
+	mapView.addMarkerCollection(markerCollection);
+	mapView.placeMarkersToMap();
 }

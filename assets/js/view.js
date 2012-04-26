@@ -16,13 +16,39 @@ var MapView = Backbone.View.extend({
 	        mapTypeId: google.maps.MapTypeId.ROADMAP
 	  };
 	
-		mainMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		this.mainMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 		
 		var template = _.template( $('#map_template').html() );
 		$(this.el).html(template);
 	},
+	markerCollection: "",
+	mainMap: "",
+	markerCluster: "",
+	markerArray: [],
 	events: {
 		//enter some events here
+	},
+	addMarkerCollection: function(markerCollection){
+		this.markerCollection = markerCollection;
+	},
+	placeMarkersToMap: function(){
+		var markerArray = [];
+		_.each(this.markerCollection.toArray(), function(marker){ 
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(marker.get("latitude"), marker.get("longitude")),
+				icon: 'assets/img/marker.png',
+				title: marker.get("title"),
+			});
+			google.maps.event.addListener(marker, 'dblclick', function() {
+				mainMap.setZoom(14);
+				mainMap.setCenter(marker.getPosition());
+			});
+			markerArray.push(marker);
+		});
+		this.markerCluster = new MarkerClusterer(this.mainMap, markerArray);
+	},
+	removeMarkersFromMap: function(){
+		this.markerCluster.removeMarkers(this.mainMap, markerArray)
 	}
 });
 

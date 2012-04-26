@@ -24,41 +24,31 @@
 		});
 		
 		//reserved variables
-		var mainMap;
 		var userLocationMarker;
 		
 		//set routes
 		var appRouter = new AppRouter();
 		
 		//initialize objects
-		var map = new Map({title: "Google Map"});
-		var m1 = new Marker({latitude: "47.5", longitude: "13.00", title: "hey hey"});
-		var m2 = new Marker({title: "Google Map 2"});
-		var m3 = new Marker({title: "Google Map 3"});
-		
-		var markerCollection = new MarkerCollection([m1, m2, m3]);
-		
+		var mapModel = new MapModel({title: "Google Map"});		
+
 		//set views
 		var mapView = new MapView;
 		var navView = new NavigationView;
-		
-		//_.each(markerCollection.toArray(), function(m){ alert(m.get("name")); });
-		
-		function placeMarkers(data){
-			var markers = [];
+
+		var markerCollection = new MarkerCollection;
+
+		function createMarkers(data){
 			for(idx in data){
-				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(data[idx].latitude, data[idx].longitude),
-					icon: 'assets/img/marker.png',
-					title: data[idx].f_key + ": " + data[idx].water_distributor + " - " + data[idx].fontain_name,
-				});
-				google.maps.event.addListener(marker, 'dblclick', function() {
-			    mainMap.setZoom(14);
-			    mainMap.setCenter(marker.getPosition());
-			  });
-			  markers.push(marker);
+				var markerModel = new MarkerModel({
+					latitude: data[idx].latitude, 
+					longitude: data[idx].longitude, 
+					title: data[idx].f_key + ": " + data[idx].water_distributor + " - " + data[idx].fontain_name});
+				markerCollection.push(markerModel, []);
 			}
-			var markerCluster = new MarkerClusterer(mainMap, markers);
+			console.log("finished createMarkers");
+			mapView.addMarkerCollection(markerCollection);
+			mapView.placeMarkersToMap();
 		}
 	</script>
 </html>

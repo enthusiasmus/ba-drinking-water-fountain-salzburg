@@ -41,3 +41,15 @@ var FeedModel = Backbone.Model.extend({
 		console.log("Feed created");
 	},
 });
+
+var FeedItemModel = Backbone.Model.extend({
+	defaults: {
+		title: "",
+		description: "",
+		pubDate: "",
+		link: ""
+	},
+	initialize: function() {		
+		console.log("FeedItem created");
+	},
+});

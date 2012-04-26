@@ -7,10 +7,7 @@
 
 <div id="map_canvas"></div>
 
-<div id="feed">
-  <span class="loading">RSS Feed von Landesrat Sepp Eis wird geladen...</span>  
-  <section id="rss"></section>
-</div>
+<div id="feed"></div>
 
 <div id="info"></div>
 

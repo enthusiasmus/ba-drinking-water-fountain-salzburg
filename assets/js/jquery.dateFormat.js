@@ -103,15 +103,15 @@
                     } else {
                         var values = value.split(" ");
                         switch (values.length) {
-                        case 6:
-                            /* Wed Jan 13 10:43:41 CET 2010 */
+                        /* case 6:
+                            // Wed Jan 13 10:43:41 CET 2010
                             year = values[5];
                             month = parseMonth(values[1]);
                             dayOfMonth = values[2];
                             time = parseTime(values[3]);
                             date = new Date(year, month - 1, dayOfMonth);
                             dayOfWeek = date.getDay();
-                            break;
+                            break; */
                         case 2:
                             /* 2009-12-18 10:54:50.546 */
                             var values2 = values[0].split("-");
@@ -124,13 +124,13 @@
                             break;
                         case 7:
                             /* Tue Mar 01 2011 12:01:42 GMT-0800 (PST) */
-                        case 9:
+                        // case 9:
                             /*added by Larry, for Fri Apr 08 2011 00:00:00 GMT+0800 (China Standard Time) */
-                        case 10:
+                        case 6:
                             /* added by Larry, for Fri Apr 08 2011 00:00:00 GMT+0200 (W. Europe Daylight Time) */
                             year = values[3];
-                            month = parseMonth(values[1]);
-                            dayOfMonth = values[2];
+                            month = parseMonth(values[2]);
+                            dayOfMonth = values[1];
                             time = parseTime(values[4]);
                             date = new Date(year, month - 1, dayOfMonth);
                             dayOfWeek = date.getDay();

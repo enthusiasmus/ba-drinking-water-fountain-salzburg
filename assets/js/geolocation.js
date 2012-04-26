@@ -1,4 +1,6 @@
 function getUserLocation(){
+  $('#feed').hide();
+  
 	if(navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(function(position){
 			

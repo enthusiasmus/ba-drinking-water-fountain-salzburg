@@ -83,3 +83,33 @@ var NavigationView = Backbone.View.extend({
 		$(this.el).html(template);
 	}
 });
+
+var FeedView = Backbone.View.extend({
+	el: $("#feed"),
+	initialize: function() {
+		this.render();
+	},
+	addFeedItemCollection: function(feedItemCollection) {
+		this.feedItemCollection = feedItemCollection;
+	},
+	render: function() {
+
+		_.each(this.feedItemCollection.toArray(), function(feedItem) {
+			alert(feedItem.get("title"));
+		});
+
+		// alert(feedItemModel.get("title"));
+
+		/*var pubDate = $.format.date($(this).find('pubDate').text(), 'dd. MMMM yyyy HH:mm:ss');
+    $('#rss').append(
+    	'<article>' + 
+    	'<h3 class="feed-title"><a href="' + $(this).find('link').text() + '">' + $(this).find('title').text() + '</a></h3>' + 
+    	'<p class="feed-date">' + pubDate + '</p>' + 
+ 			'<div class="feed-content">' + $(this).find('description').text() + '</div>' +
+    	'</article>'); */
+
+		var template = _.template( $('#feed_template').html());
+		$(this.el).html(template);
+	}
+	
+});

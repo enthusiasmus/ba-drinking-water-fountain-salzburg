@@ -1,7 +1,6 @@
 var AppRouter = Backbone.Router.extend({
   routes: {
   	"adress": "showAdressSearch",
-    "location": "showLocation",
     "next": "showRouteNextSpring",
     "rss": "showRssFeed",
     "about": "showAbout",
@@ -9,9 +8,6 @@ var AppRouter = Backbone.Router.extend({
   },
   showAdressSearch: function(){
   	//alert("Adresseingabe zum Suchen")
-  },
-  showLocation: function(){
-  	getUserLocation();
   },
   showRouteNextSpring: function(){
   	//alert("Route zum nächsten Trinkbrunnen")

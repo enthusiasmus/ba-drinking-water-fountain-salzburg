@@ -13,7 +13,3 @@ var MarkerModel = Backbone.Model.extend({
 	initialize: function() {		
 	},
 });
-
-var userLocationModel.prototyp.MarkerModel({
-	
-});

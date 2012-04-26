@@ -31,8 +31,6 @@
 		
 		//initialize objects
 		var mapModel = new MapModel({title: "Google Map"});		
-		
-		var userLocationModel = new MarkerModel
 
 		//set views
 		var mapView = new MapView;

@@ -5,7 +5,7 @@ var MapModel = Backbone.Model.extend({
 });
 
 var MarkerModel = Backbone.Model.extend({
-	defaults: {
+	defaults:{
 		latitude: 0,
 		longitude: 0,
 		title: "Trinkbrunnen",
@@ -14,6 +14,25 @@ var MarkerModel = Backbone.Model.extend({
 	},
 });
 
-var userLocationModel.prototyp.MarkerModel({
-	
+var UserLocationModel = Backbone.Model.extend({
+	defaults: {
+		time: 0,
+		precision: 0,
+		altitude: 0,
+		altitudeAcc: 0,
+		speed: 0,
+		heading: 0,
+		precisionStrokeColor: 0,
+		precisionStrokeOpacity: 0,
+		precisionStrokeWeight: 0,
+		precisionFillColor: "",
+		precisionFillOpacity: 0,		
+		precisionRadius: this.precision,
+	},
+	initialize: function(){
+		//alert('Der Standort um ' + time + ' lautet ' + lat + ', ' + lng + ', Genaugikeit: ' + precision + ', Höhe: ' + altitude + ', Geschwindigkeit: ' + speed + ', Bewegung in: ' + heading);
+	},
 });
+
+UserLocationModel.prototyp = MarkerModel;
+

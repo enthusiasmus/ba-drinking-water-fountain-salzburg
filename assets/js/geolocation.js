@@ -17,17 +17,7 @@ function getUserLocation(){
       var heading = position.coords.heading; //Grad von wahrem Norden
 			
 			//alert('Der Standort um ' + time + ' lautet ' + lat + ', ' + lng + ', Genaugikeit: ' + precision + ', Höhe: ' + altitude + ', Geschwindigkeit: ' + speed + ', Bewegung in: ' + heading);
-			
-			var icon = new google.maps.MarkerImage(
-				'assets/img/userlocation.png',
-      	new google.maps.Size(24, 24),
-      	new google.maps.Point(0,0),
-      	new google.maps.Point(12, 12));
 
-
-	    mainMap.setCenter(new google.maps.LatLng(lat, lng));
-	    mainMap.setZoom(14);
-	    
 	    var userLocationPrecisionCircleOptions = {
 				strokeColor: "#0000FF",
 	      strokeOpacity: 0.4,

@@ -4,7 +4,7 @@ $(document).ready(function(){
 });
 
 //reserved variables
-var userLocationMarker;
+var userLocationModel = new UserLocationModel;
 
 //set routes
 var appRouter = new AppRouter();
@@ -12,7 +12,6 @@ var appRouter = new AppRouter();
 //initialize objects
 var mapModel = new MapModel({title: "Google Map"});		
 var feedModel = new FeedModel;
-var userLocationModel = new MarkerModel;
 
 //set views
 var mapView = new MapView;
@@ -22,7 +21,7 @@ var feedView = new FeedView;
 var markerCollection = new MarkerCollection;
 var feedItemCollection = new FeedItemCollection;
 
-function createMarkers(data){
+function placeMarkers(data){
 	for(idx in data){
 		var markerModel = new MarkerModel({
 			latitude: data[idx].latitude, 
@@ -31,7 +30,6 @@ function createMarkers(data){
 		});
 		markerCollection.push(markerModel, []);
 	}
-	console.log("finished createMarkers");
 	mapView.addMarkerCollection(markerCollection);
 	mapView.placeMarkersToMap();
 }

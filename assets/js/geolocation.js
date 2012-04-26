@@ -15,18 +15,19 @@ function getUserLocation(){
       var speed = position.coords.speed; //Meter pro Sek.
       var heading = position.coords.heading; //Grad von wahrem Norden
 
-	    var userLocationPrecisionCircleOptions = {
-				strokeColor: "#0000FF",
-	      strokeOpacity: 0.4,
-	      strokeWeight: 2,
-	      fillColor: "#0000ff",
-	      fillOpacity: 0.1,
-	      map: mainMap,
-	      center: new google.maps.LatLng(lat, lng),
-	      radius: precision
-	    };
-    	var userLocationPrecisionCircle = new google.maps.Circle(userLocationPrecisionCircleOptions);
-    	
+      userLocationModel.set({
+      	latitude: lat,
+      	longitude: lng,
+      	time: time,
+      	precisionRadius: precision,
+      	altitude: altitude,
+      	altitudeAcc: altitudeAcc,
+      	speed: speed,
+      	heading: heading
+      });
+
+      mapView.placePositionMarker(userLocationModel);
+
     	/*var watchID = navigator.geolocation.watchPosition(function(position){
 	      var lat = position.coords.latitude; //dezimal Grad
 	      var lng = position.coords.longitude; //dezimal Grad

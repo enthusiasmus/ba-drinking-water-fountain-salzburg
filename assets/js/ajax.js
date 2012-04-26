@@ -4,14 +4,13 @@ $.ajax({
 	timeoutNumber: 5000,
 	url: "db/elements.php",
 	success: function(data){	
-		createMarkers(data);
+		placeMarkers(data);
 	},
 	error: function(data){
 		alert("Die Trinkbrunnen konnten nicht geladen werden!");
 	}
 });
 
-// feed
 function getFeed() {
 	$('#map_canvas').hide();
 	$.get('/qpt2b/trinkbrunnen_salzburg_webapp/rss.php', {

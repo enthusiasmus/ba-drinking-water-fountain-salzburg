@@ -1,5 +1,8 @@
 function getUserLocation(){
+  $('#feed').hide();
+  
 	var shouldCenterMap = true;
+
 	if(navigator.geolocation){
 		//TODO: Important to know that the watchPosition() function is still in development
 		//so we have to check the correct working of the function in more browsers

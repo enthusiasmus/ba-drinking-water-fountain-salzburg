@@ -133,3 +133,32 @@ var NavigationView = Backbone.View.extend({
 		$(this.el).html(template);
 	}
 });
+
+var FeedView = Backbone.View.extend({
+	el: $("#feed"),
+	feedItemCollection: "",
+	initialize: function() {
+		
+	},
+	addFeedItemCollection: function(feedItemCollection) {
+		this.feedItemCollection = feedItemCollection;
+		this.render();
+	},
+	render: function() {
+		var template = _.template( $('#feed_template').html());
+		$(this.el).html(template);
+
+		$('.loading').hide();
+
+		_.each(this.feedItemCollection.toArray(), function(feedItem) {
+			$('#rss').append(
+	    	'<article>' + 
+	    	'<h3 class="feed-title"><a href="' + feedItem.get('link') + '">' + feedItem.get('title') + '</a></h3>' + 
+	    	'<p class="feed-date">' + feedItem.get('pubDate') + '</p>' + 
+	 			'<div class="feed-content">' + feedItem.get('description') + '</div>' +
+	    	'</article>'
+    	);
+		});
+	}
+	
+});

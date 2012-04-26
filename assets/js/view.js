@@ -62,7 +62,7 @@ var NavigationView = Backbone.View.extend({
 			first: { title: "Position", url: "location" },
 			second: { title: "Brunnen", url: "next" },
 			third: { title: "Suche", url: "search" },
-			fourth: { title: "News", url: "rss" },
+			fourth: { title: "News", url: "feed" },
 			fifth: { title: "Info", url: "about" },
 		};
 		

@@ -15,3 +15,10 @@ var MarkerModel = Backbone.Model.extend({
 		console.log("Marker created");
 	},
 });
+
+var FeedModel = Backbone.Model.extend({
+	title: "RSS Feed",
+	initialize: function() {		
+		console.log("Feed created");
+	},
+});

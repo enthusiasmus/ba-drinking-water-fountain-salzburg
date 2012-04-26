@@ -1,8 +1,7 @@
-</body>
-	
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript" src="assets/js/markerclusterer.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.dateFormat.js"></script>
 	<script type="text/javascript" src="assets/js/underscore.js"></script>
 	<script type="text/javascript" src="assets/js/backbone.js"></script>
 	
@@ -30,13 +29,15 @@
 		var appRouter = new AppRouter();
 		
 		//initialize objects
-		var mapModel = new MapModel({title: "Google Map"});		
+		var mapModel = new MapModel({title: "Google Map"});
+		var feedModel = new FeedModel();		
 
 		//set views
 		var mapView = new MapView;
 		var navView = new NavigationView;
 
 		var markerCollection = new MarkerCollection;
+		var feedCollection = new FeedCollection;
 
 		function createMarkers(data){
 			for(idx in data){
@@ -51,4 +52,6 @@
 			mapView.placeMarkersToMap();
 		}
 	</script>
+
+	</body>
 </html>

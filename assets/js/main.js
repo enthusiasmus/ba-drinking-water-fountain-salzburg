@@ -45,5 +45,4 @@ function getFeedItems(xml) {
 		feedItemCollection.push(feedItemModel, []);
   });
 	feedView.addFeedItemCollection(feedItemCollection);
-	$('.loading').hide();
 }

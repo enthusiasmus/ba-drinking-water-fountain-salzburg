@@ -6,7 +6,6 @@ var MarkerCollection = Backbone.Collection.extend({
 
 var FeedItemCollection = Backbone.Collection.extend({
   initialize: function() {
-    console.log("Feed-Collection wurde erzeugt"); 
   },
   model: FeedItemModel
 });

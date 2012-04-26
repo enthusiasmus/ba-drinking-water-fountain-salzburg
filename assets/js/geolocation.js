@@ -1,6 +1,10 @@
 function getUserLocation(){
+
   $('#feed').hide();
+  $('#map_canvas').show();
   
+  appRouter.navigate('#');
+
 	var shouldCenterMap = true;
 
 	if(navigator.geolocation){

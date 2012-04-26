@@ -1,38 +1,18 @@
 function getUserLocation(){
 	if(navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(function(position){
+			
 			var lat = position.coords.latitude;
 			var lng = position.coords.longitude;
-			
 			var time = position.timestamp;
- 
       var lat = position.coords.latitude; //dezimal Grad
       var lng = position.coords.longitude; //dezimal Grad
       var precision = position.coords.accuracy; //Meter
- 
       var altitude = position.coords.altitude; //Meter
       var altitudeAcc = position.coords.altitudeAccuracy; //Meter
- 
       var speed = position.coords.speed; //Meter pro Sek.
       var heading = position.coords.heading; //Grad von wahrem Norden
-			
-			//alert('Der Standort um ' + time + ' lautet ' + lat + ', ' + lng + ', Genaugikeit: ' + precision + ', Höhe: ' + altitude + ', Geschwindigkeit: ' + speed + ', Bewegung in: ' + heading);
-			
-			var icon = new google.maps.MarkerImage(
-				'assets/img/userlocation.png',
-      	new google.maps.Size(24, 24),
-      	new google.maps.Point(0,0),
-      	new google.maps.Point(12, 12));
 
-			userLocationMarker = new google.maps.Marker({
-	      map: mainMap,
-	      icon: icon,
-	      title: 'Userlocation',
-	      position: new google.maps.LatLng(lat, lng)
-	    });
-	    mainMap.setCenter(new google.maps.LatLng(lat, lng));
-	    mainMap.setZoom(14);
-	    
 	    var userLocationPrecisionCircleOptions = {
 				strokeColor: "#0000FF",
 	      strokeOpacity: 0.4,

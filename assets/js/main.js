@@ -1,6 +1,15 @@
 $(document).ready(function(){
 	//History uses iframes so the dom should be finished loading
-	Backbone.history.start();
+	try{
+		if(!(Backbone.history.start()))
+			throw "Couldn't start backbone history!";
+	}
+	catch(e){
+		console.log(e);
+	}
+	finally{
+	}
+	
 });
 
 //reserved variables

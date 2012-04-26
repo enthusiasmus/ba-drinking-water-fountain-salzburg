@@ -24,12 +24,7 @@ function getUserLocation(){
       	new google.maps.Point(0,0),
       	new google.maps.Point(12, 12));
 
-			userLocationMarker = new google.maps.Marker({
-	      map: mainMap,
-	      icon: icon,
-	      title: 'Userlocation',
-	      position: new google.maps.LatLng(lat, lng)
-	    });
+
 	    mainMap.setCenter(new google.maps.LatLng(lat, lng));
 	    mainMap.setZoom(14);
 	    

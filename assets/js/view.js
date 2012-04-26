@@ -21,12 +21,8 @@ var MapView = Backbone.View.extend({
 		var template = _.template( $('#map_template').html() );
 		$(this.el).html(template);
 	},
-	markerCollection: "",
-	mainMap: "",
-	markerCluster: "",
-	markerArray: [],
 	events: {
-		//enter some events here
+
 	},
 	addMarkerCollection: function(markerCollection){
 		this.markerCollection = markerCollection;
@@ -48,7 +44,24 @@ var MapView = Backbone.View.extend({
 		this.markerCluster = new MarkerClusterer(this.mainMap, markerArray);
 	},
 	removeMarkersFromMap: function(){
-		this.markerCluster.removeMarkers(this.mainMap, markerArray)
+		this.markerCluster.clearMarkers();
+	},
+	placePositionMarker: function(){
+		var icon = new google.maps.MarkerImage(
+			'assets/img/userlocation.png',
+    	new google.maps.Size(24, 24),
+    	new google.maps.Point(0,0),
+    	new google.maps.Point(12, 12));
+
+		userLocationMarker = new google.maps.Marker({
+		 	map: this.mainMap,
+		  icon: icon,
+		  title: 'Userlocation',
+		  position: new google.maps.LatLng(lat, lng)
+		});
+		
+			    mainMap.setCenter(new google.maps.LatLng(lat, lng));
+	    mainMap.setZoom(14);
 	}
 });
 

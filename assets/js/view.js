@@ -41,8 +41,8 @@ var MapView = Backbone.View.extend({
 				title: marker.get("title"),
 			});
 			google.maps.event.addListener(marker, 'dblclick', function() {
-				map.setZoom(14);
-				map.setCenter(marker.getPosition());
+				this.map.setZoom(16);
+				this.map.setCenter(marker.getPosition());
 			});
 			markerArray.push(marker);
 		});
@@ -51,7 +51,7 @@ var MapView = Backbone.View.extend({
 	removeMarkersFromMap: function(){
 		this.markerCluster.clearMarkers();
 	},
-	placePositionMarker: function(markerModel){
+	placePositionMarker: function(markerModel, shouldCenterMap){
 
 		var userLocationPrecisionCircleOptions = {
 			strokeColor: markerModel.get("precisionStrokeColor"),
@@ -78,8 +78,20 @@ var MapView = Backbone.View.extend({
 		  position: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude"))
 		});
 		
-		this.map.setCenter(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
-    this.map.setZoom(markerModel.get("initialZoom"));
+		if(shouldCenterMap){
+			this.map.setCenter(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
+	    this.map.setZoom(markerModel.get("initialZoom"));
+	 	}
+	},
+	removePositionMarker: function(){
+		if(this.userLocationMarker){
+			this.userLocationMarker.setMap(0);
+			this.userLocationMarker = null;
+		}
+		if(this.userLocationPrecisionCircle){
+			this.userLocationPrecisionCircle.setMap(0);
+			this.userLocationPrecisionCircle = null;
+		}
 	}
 });
 

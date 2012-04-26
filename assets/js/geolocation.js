@@ -1,7 +1,13 @@
 function getUserLocation(){
+	var shouldCenterMap = true;
 	if(navigator.geolocation){
+		//TODO: Important to know that the watchPosition() function is still in development
+		//so we have to check the correct working of the function in more browsers
+		//otherwise we have to set the intervall, but then get sure, that the user
+		//gives complete access, not only once, because otherwise the permission message
+		//apears every second
+		
 		navigator.geolocation.getCurrentPosition(function(position){
-			
 			var lat = position.coords.latitude;
 			var lng = position.coords.longitude;
 			var time = position.timestamp;
@@ -12,7 +18,7 @@ function getUserLocation(){
       var altitudeAcc = position.coords.altitudeAccuracy; //Meter
       var speed = position.coords.speed; //Meter pro Sek.
       var heading = position.coords.heading; //Grad von wahrem Norden
-
+			
       userLocationModel.set({
       	latitude: lat,
       	longitude: lng,
@@ -24,31 +30,32 @@ function getUserLocation(){
       	heading: heading
       });
 
-      mapView.placePositionMarker(userLocationModel);
-
-    	/*var watchID = navigator.geolocation.watchPosition(function(position){
-	      var lat = position.coords.latitude; //dezimal Grad
-	      var lng = position.coords.longitude; //dezimal Grad
-	    	mainMap.setCenter(new google.maps.LatLng(lat, lng));
-	    	userLocationPrecisionCircle.setCenter(new google.maps.LatLng(lat, lng));
-    	}, 
-    	function(error){
-     		switch (error.code) {
-          case error.PERMISSION_DENIED: break;
-          case error.POSITION_UNAVAILABLE: break;
-          case error.TIMEOUT: break;
-          case error.UNKNOWN_ERROR: break;
-     		}
-     		window.console.log(error.message);
-    	});*/
+			mapView.removePositionMarker();
+      mapView.placePositionMarker(userLocationModel, shouldCenterMap);
+      shouldCenterMap = false;
 		}, 
-		function(){
-			console.log("Fehler bei der Positionsbestimmung!");
-		},
-		{enableHighAccuracy:true, timeout:5000, maximumAge:1000});
+		function(error){
+			clearInterval(checkPositionInterval);
+			switch (error.code) {
+        case error.PERMISSION_DENIED:
+        	alert("Zugriff auf Position wurde verweigert!");
+        	break;
+        case error.POSITION_UNAVAILABLE: 
+        	alert("Position konnte nicht ermittelt werden!");
+        	break;
+        case error.TIMEOUT:
+        	alert("Zeitüberschreitung beim Ermitteln der Position!");
+        	break;
+        case error.UNKNOWN_ERROR: 
+        	alert("Positionsbestimmung zur Zeit nicht möglich!");
+        	break;
+        default:
+        	alert("Fehler bei der Positionsbestimmung!");
+        	break;
+   		}
+		},{enableHighAccuracy:true, timeout:5000, maximumAge:60000});
 	}
 	else{
-		console.log("Bitte updaten Sie Ihren Browser!");
+		console.log("Ihr Browser unterstützt keine Positionsbestimmung!");
 	}
 }
-//http://wiki.selfhtml.org/wiki/Doku:JavaScript/API/Geolocation#Position_verfolgen

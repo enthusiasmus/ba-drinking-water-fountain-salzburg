@@ -40,6 +40,26 @@ var MapView = Backbone.View.extend({
 				icon: 'assets/img/marker.png',
 				title: marker.get("title"),
 			});
+			
+			var infoBubble = new InfoBubble({
+				map: map,
+				maxWidth: 290,
+				maxHeight: 320,
+				shadowStyle: 0,
+				padding: 0,
+				backgroundColor: '#fff',
+				borderRadius: 5,
+				arrowSize: 20,
+				borderWidth: 0,
+				arrowPosition: 20,
+				backgroundClassName: 'ejw-gruppe-infowindow',
+				arrowStyle: 2,
+				hideCloseButton: false
+			});   
+			
+			google.maps.event.addListener(marker, 'click', function() {
+			  infoBubble.open(this.map,marker);
+			});
 			google.maps.event.addListener(marker, 'dblclick', function() {
 				this.map.setZoom(16);
 				this.map.setCenter(marker.getPosition());

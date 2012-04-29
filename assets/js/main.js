@@ -9,26 +9,20 @@ $(document).ready(function(){
 	}
 	finally{
 	}
-	
 });
 
-//reserved variables
-var userLocationModel = new UserLocationModel;
-
-//set routes
 var appRouter = new AppRouter();
 
-//initialize objects
-var mapModel = new MapModel({title: "Google Map"});		
+var mapModel = new MapModel;		
 var feedModel = new FeedModel;
-
-//set views
-var mapView = new MapView;
-var navView = new NavigationView;
-var feedView = new FeedView;
+var userLocationModel = new UserLocationModel;
 
 var markerCollection = new MarkerCollection;
 var feedItemCollection = new FeedItemCollection;
+
+var mapView = new MapView({model: mapModel});
+var navView = new NavigationView;
+var feedView = new FeedView;
 
 function placeMarkers(data){
 	for(idx in data){

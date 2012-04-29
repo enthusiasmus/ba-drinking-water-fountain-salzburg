@@ -5,8 +5,8 @@ var MapView = Backbone.View.extend({
 	},
 	render: function(){
 		var myOptions = {
-      center: new google.maps.LatLng(47.500, 13.000),
-      zoom: 7,
+      center: new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude')),
+      zoom: this.model.get('zoom'),
       keyboardShortcuts: false,
       mapTypeControl: false,
       panControl: false,
@@ -15,7 +15,7 @@ var MapView = Backbone.View.extend({
       scaleControl: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP
 	  };
-	
+
 		this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 		
 		var template = _.template( $('#map_template').html() );
@@ -34,45 +34,55 @@ var MapView = Backbone.View.extend({
 	},
 	placeMarkersToMap: function(){
 		var markerArray = [];
-		_.each(this.markerCollection.toArray(), function(marker){ 
+		google.maps.Marker.prototype.content = "";
+		_.each(this.markerCollection.toArray(), function(markerModel){ 
 			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(marker.get("latitude"), marker.get("longitude")),
-				icon: 'assets/img/marker.png',
-				title: marker.get("title"),
+				position: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
+				icon: markerModel.get('imageUrl'),
+				title: markerModel.get("title"),
+				content: markerModel.get('title'),
 			});
 			
-			var infoBubble = new InfoBubble({
-				map: map,
-				maxWidth: 290,
-				maxHeight: 320,
-				shadowStyle: 0,
-				padding: 0,
-				backgroundColor: '#fff',
-				borderRadius: 5,
-				arrowSize: 20,
-				borderWidth: 0,
-				arrowPosition: 20,
-				backgroundClassName: 'ejw-gruppe-infowindow',
-				arrowStyle: 2,
-				hideCloseButton: false
-			});   
+			infoWindow = new google.maps.InfoWindow({
+		    disableAutoPan: false
+			});
+
+			
 			
 			google.maps.event.addListener(marker, 'click', function() {
-			  infoBubble.open(this.map,marker);
-			});
+				console.log("this userloc: " + userLocationMarker);
+				//calculating the air distance from the current position to the marker
+				/*if(this.userLocationMarker){
+					console.log("verfügbar");
+					var currentContent = infoWindow.getContent();
+					var distanceUserLocationToMarker = google.maps.geometry.spherical.computeDistanceBetween(
+							new google.maps.LatLng(
+								this.userLocationMarker.latitude,
+								this.userLocationMarker.longitude)
+							);
+					currentContent += "Distanz: " + distanceUserLocationToMarker;
+					infoWindow.setContent(currentContent);
+				}*/
+				infoWindow.setContent(marker.content);
+				infoWindow.open(this.map, marker);
+		  });
+ 
 			google.maps.event.addListener(marker, 'dblclick', function() {
 				this.map.setZoom(16);
 				this.map.setCenter(marker.getPosition());
 			});
+			
 			markerArray.push(marker);
 		});
 		this.markerCluster = new MarkerClusterer(this.map, markerArray);
+		google.maps.event.addListener(this.map, 'click', function() {
+			infoWindow.close();
+	  });
 	},
 	removeMarkersFromMap: function(){
 		this.markerCluster.clearMarkers();
 	},
 	placePositionMarker: function(markerModel, shouldCenterMap){
-
 		var userLocationPrecisionCircleOptions = {
 			strokeColor: markerModel.get("precisionStrokeColor"),
 		  strokeOpacity: markerModel.get("precisionStrokeOpacity"),
@@ -97,11 +107,13 @@ var MapView = Backbone.View.extend({
 		  title: markerModel.get("title"),
 		  position: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude"))
 		});
-		
 		if(shouldCenterMap){
 			this.map.setCenter(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
 	    this.map.setZoom(markerModel.get("initialZoom"));
-	 	}
+	 	}	
+	},
+	getUserLocationMarker: function(){
+		return this.userLocationMarker;
 	},
 	removePositionMarker: function(){
 		if(this.userLocationMarker){

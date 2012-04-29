@@ -1,16 +1,21 @@
 var MapModel = Backbone.Model.extend({
-	initialize: function() {
+	defaults: {
+		centerLatitude: 47.409503,
+		centerLongitude: 13.072815,
+		zoom: 7,
 	},
-	name: "",
+	initialize: function(){
+	},
 });
 
 var MarkerModel = Backbone.Model.extend({
 	defaults:{
 		latitude: 0,
 		longitude: 0,
+		imageUrl: 'assets/img/marker.png',
 		title: "Trinkbrunnen",
 	},
-	initialize: function() {		
+	initialize: function(){		
 	},
 });
 
@@ -37,16 +42,13 @@ var UserLocationModel = Backbone.Model.extend({
 		imageAnchorY: 12,
 	},
 	initialize: function(){
-		//alert('Der Standort um ' + time + ' lautet ' + lat + ', ' + lng + ', Genaugikeit: ' + precision + ', Höhe: ' + altitude + ', Geschwindigkeit: ' + speed + ', Bewegung in: ' + heading);
 	},
 });
-
 UserLocationModel.prototyp = MarkerModel;
 
 var FeedModel = Backbone.Model.extend({
 	title: "RSS Feed",
 	initialize: function() {		
-		console.log("Feed created");
 	},
 });
 
@@ -58,6 +60,5 @@ var FeedItemModel = Backbone.Model.extend({
 		link: ""
 	},
 	initialize: function() {		
-		console.log("FeedItem created");
 	},
 });

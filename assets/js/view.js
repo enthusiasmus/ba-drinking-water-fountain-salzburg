@@ -47,10 +47,16 @@ var MapView = Backbone.View.extend({
 		    disableAutoPan: false
 			});
 
-			
-			
-			google.maps.event.addListener(marker, 'click', function() {
-				console.log("this userloc: " + userLocationMarker);
+			// var f = function(map, marker, infoWindow, userLocationMarker){
+		    // return function(map, marker, infoWindow, userLocationMarker){
+					// console.log("this userloc: " + userLocationMarker + infoWindow);
+					// infoWindow.setContent(marker.content);
+					// infoWindow.open(map, marker);
+		    // }
+			// }
+
+			//google.maps.event.addListener(marker, 'click', f(this.map, marker, infoWindow, this.userLocationMarker));
+
 				//calculating the air distance from the current position to the marker
 				/*if(this.userLocationMarker){
 					console.log("verfügbar");
@@ -63,9 +69,7 @@ var MapView = Backbone.View.extend({
 					currentContent += "Distanz: " + distanceUserLocationToMarker;
 					infoWindow.setContent(currentContent);
 				}*/
-				infoWindow.setContent(marker.content);
-				infoWindow.open(this.map, marker);
-		  });
+
  
 			google.maps.event.addListener(marker, 'dblclick', function() {
 				this.map.setZoom(16);

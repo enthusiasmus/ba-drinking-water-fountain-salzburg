@@ -1,5 +1,7 @@
 describe('VIEWS', function() {
-	describe('Map-View', function() {
+
+	describe('MapView', function() {
+
 	  beforeEach(function() {
 	  	this.mapModel = new MapModel;
 			this.mapView = new MapView({model: this.mapModel});
@@ -9,6 +11,14 @@ describe('VIEWS', function() {
 	    spyOn(this.mapView, 'render');
 	    this.mapView.initialize();
 	    expect(this.mapView.render).toHaveBeenCalled();
-	  });   
+	  }); 
+
+	  it('should call "placeMarkersToMap" method', function() {
+	  	spyOn(this.mapView, 'placeMarkersToMap');
+	  	placeMarkers(data);
+	  	expect(this.mapView.placeMarkersToMap).toHaveBeenCalled();
+	  });
+
 	});
+
 });

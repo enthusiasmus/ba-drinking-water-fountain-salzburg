@@ -39,8 +39,7 @@ function getUserLocation(){
     	mapView.centerMap(userLocationModel);
 		}, 
 		function(error){
-			clearInterval(checkPositionInterval);
-			switch (error.code) {
+			switch(error.code) {
         case error.PERMISSION_DENIED:
         	alert("Zugriff auf Position wurde verweigert!");
         	break;

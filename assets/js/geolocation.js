@@ -2,10 +2,7 @@ function getUserLocation(){
 
   $('#feed').hide();
   $('#map_canvas').show();
-  
   appRouter.navigate('#');
-
-	var shouldCenterMap = true;
 
 	if(navigator.geolocation){
 		//TODO: Important to know that the watchPosition() function is still in development
@@ -38,8 +35,8 @@ function getUserLocation(){
       });
 
 			mapView.removePositionMarker();
-      mapView.placePositionMarker(userLocationModel, shouldCenterMap);
-      shouldCenterMap = false;
+      mapView.placePositionMarker(userLocationModel);
+    	mapView.centerMap(userLocationModel);
 		}, 
 		function(error){
 			clearInterval(checkPositionInterval);

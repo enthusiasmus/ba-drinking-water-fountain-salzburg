@@ -47,18 +47,20 @@ var UserLocationModel = Backbone.Model.extend({
 UserLocationModel.prototyp = MarkerModel;
 
 var FeedModel = Backbone.Model.extend({
-	title: "RSS Feed",
-	initialize: function() {		
+	defaults: {
+		title: 'RSS Feed'
 	},
+	initialize: function() {		
+	}
 });
 
 var FeedItemModel = Backbone.Model.extend({
 	defaults: {
-		title: "",
-		description: "",
-		pubDate: "",
-		link: ""
+		title: '',
+		description: '',
+		pubDate: '',
+		link: ''
 	},
 	initialize: function() {		
-	},
+	}
 });

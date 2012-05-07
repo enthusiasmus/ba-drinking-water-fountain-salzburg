@@ -1,11 +1,14 @@
-describe("VIEWS", function() {
-	describe("Map-View", function() {
+describe('VIEWS', function() {
+	describe('Map-View', function() {
 	  beforeEach(function() {
-	  	this.model = new MapModel({title: "Google Map"});	
-		this.view = new MapView;
+	  	this.mapModel = new MapModel;
+			this.mapView = new MapView({model: this.mapModel});
 	  });
-	  it("should call render-Method when View ist initialized", function() {
-	  	
+	  
+	  it('should call render-Method when View is initialized', function() {
+	    spyOn(this.mapView, 'render');
+	    this.mapView.initialize();
+	    expect(this.mapView.render).toHaveBeenCalled();
 	  });   
 	});
 });

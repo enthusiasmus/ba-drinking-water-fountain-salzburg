@@ -4,13 +4,9 @@ describe("MODELS", function() {
 	  
 	  describe("when it is instantiated", function() {
 		  beforeEach(function() {
-				this.map = new MapModel({name: "my map"});
+				this.map = new MapModel;
 		  });
-	
-		  it("should have a attribute name", function() {
-		    expect(this.map.get("title")).toEqual("my map");
-		  }); 
-		  	 	
+	 	
 		  it("should have a center attribut with value within the country of salzburg", function() {
 		    expect(this.map.get("centerLatitude")).toBeGreaterThan(46.8)
 		    expect(this.map.get("centerLatitude")).toBeLessThan(48.1);
@@ -52,7 +48,7 @@ describe("MODELS", function() {
 		describe('when instantiated', function() {
 
 		  beforeEach(function() {
-				this.feed = new FeedModel();
+				this.feed = new FeedModel;
 		  });
 
 		  it('should exhibit attributes', function() {
@@ -68,7 +64,7 @@ describe("MODELS", function() {
 		describe('when instantiated', function() {
 
 		  beforeEach(function() {
-				this.feedItem = new FeedItemModel();
+				this.feedItem = new FeedItemModel;
 		  });
 
 		  it('should exhibit attributes', function() {

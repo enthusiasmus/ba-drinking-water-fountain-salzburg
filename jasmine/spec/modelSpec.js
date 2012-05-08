@@ -44,9 +44,9 @@ describe("MODELS", function() {
 		  });
 	
 		  it("should have a inherited longitude, latitude and title attributes from markerModel", function() {
-		    // expect(this.userLocation.get("title")).toBeDefined();
-		    // expect(this.userLocation.get("latitude")).toBeDefined();
-		    // expect(this.userLocation.get("longitude")).toBeDefined();
+		    expect(this.userLocation.get("title")).toBeDefined();
+		    expect(this.userLocation.get("latitude")).toBeDefined();
+		    expect(this.userLocation.get("longitude")).toBeDefined();
 		  }); 
 		  	 	
 		  it("should have default attributes", function() {

@@ -13,15 +13,6 @@ describe('VIEWS', function() {
 	    expect(this.mapView.render).toHaveBeenCalled();
 	  }); 
 
-	  it('should call method "placeMarkersToMap"', function() {
-	  	spyOn(this.mapView, 'placeMarkersToMap');
-	  	
-	  	var data = "foobar";
-	  	placeMarkers(data);
-	  	
-	  	expect(this.mapView.placeMarkersToMap).toHaveBeenCalled();
-	  });
-
 	});
 
 });

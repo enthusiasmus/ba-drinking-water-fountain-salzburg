@@ -27,7 +27,7 @@ function getUserLocation(){
       	latitude: lat,
       	longitude: lng,
       	time: time,
-      	precisionRadius: precision,
+      	precision: precision,
       	altitude: altitude,
       	altitudeAcc: altitudeAcc,
       	speed: speed,
@@ -36,7 +36,7 @@ function getUserLocation(){
 
 			mapView.removePositionMarker();
       mapView.placePositionMarker(userLocationModel);
-    	mapView.centerMap(userLocationModel);
+    	mapView.centerUserLocation(userLocationModel);
 		}, 
 		function(error){
 			switch(error.code) {

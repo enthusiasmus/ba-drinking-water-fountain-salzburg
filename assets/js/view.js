@@ -101,8 +101,25 @@ var MapView = Backbone.View.extend({
 		  center: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
 		  radius: markerModel.get("precisionRadius")
 		};
-		this.userLocationPrecisionCircle = new google.maps.Circle(userLocationPrecisionCircleOptions);
-    
+
+		var defaultOpacity = userLocationPrecisionCircleOptions.fillOpacity;
+    var defaultRadius = userLocationPrecisionCircleOptions.radius;
+    userLocationPrecisionCircleOptions.radius = userLocationPrecisionCircleOptions.fillOpacity = 0;
+
+    var animationInterval = setInterval ( function(){  	
+ 	  	if(this.userLocationPrecisionCircle)
+    		this.userLocationPrecisionCircle.setMap(null);
+    		
+    	userLocationPrecisionCircleOptions.radius += 200/defaultRadius * defaultRadius;
+    	userLocationPrecisionCircleOptions.fillOpacity += 200/defaultRadius;
+    	this.userLocationPrecisionCircle = new google.maps.Circle(userLocationPrecisionCircleOptions);
+
+    	if(userLocationPrecisionCircleOptions.radius == defaultRadius)
+    		userLocationPrecisionCircleOptions.radius = 0;
+    	if(userLocationPrecisionCircleOptions.fillOpacity >= 1)
+    		userLocationPrecisionCircleOptions.fillOpacity = 0;
+    }, 10000);
+        
 		var icon = new google.maps.MarkerImage(
 			markerModel.get("imageUrl"),
     	new google.maps.Size(markerModel.get("imageWidth"), markerModel.get("imageHeight")),
@@ -116,9 +133,29 @@ var MapView = Backbone.View.extend({
 			  position: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude"))
 		});
 	},
-	centerMap: function(markerModel){
-		this.map.setCenter(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
-	  this.map.setZoom(markerModel.get("initialZoom"));
+	centerUserLocation: function(userLocationModel){
+		console.log(userLocationModel.get("precision"));
+
+		var latitude = userLocationModel.get("latitude");
+		var longitude = userLocationModel.get("longitude");
+		var centerPoint = new google.maps.LatLng(latitude, longitude);
+		
+		var equatorCircumference = 6371000;
+		var polarCircumference = 6356800;
+		
+		var rad_lat = (latitude * Math.PI / 180); //convert to radians, cosine takes a radian argument and not a degree argument
+		
+		var m_per_deg_lat = 360 / (Math.cos(rad_lat) * equatorCircumference);
+		var m_per_deg_long = 360 / polarCircumference;
+		var deg_diff_long = userLocationModel.get("precision") * m_per_deg_long;  //Number of degrees latitude as you move north/south along the line of longitude
+		var deg_diff_lat = userLocationModel.get("precision") * m_per_deg_lat; //Number of degrees longitude as you move east/west along the line of latitude
+
+		var southWestPoint = new google.maps.LatLng(latitude - deg_diff_lat, longitude + deg_diff_long);
+		var northEastPoint = new google.maps.LatLng(latitude + deg_diff_lat, longitude - deg_diff_long);
+
+		console.log(southWestPoint + " " + northEastPoint);
+		this.map.fitBounds(new google.maps.LatLngBounds(southWestPoint, northEastPoint));
+		//this.map.setCenter(new google.maps.LatLng(userLocationModel.get("latitude"), userLocationModel.get("longitude")));
 	},
 	removePositionMarker: function(){
 		if(this.userLocationMarker){

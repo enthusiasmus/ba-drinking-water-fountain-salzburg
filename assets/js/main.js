@@ -23,8 +23,10 @@ var feedItemCollection = new FeedItemCollection;
 var mapView = new MapView({model: mapModel});
 var navView = new NavigationView;
 var feedView = new FeedView;
+var infoView = new InfoView;
 var adressView = new AdressView;
 adressView.mapView = mapView;
+
 
 function placeMarkers(data){
 	for(idx in data){

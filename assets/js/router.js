@@ -13,6 +13,7 @@ var AppRouter = Backbone.Router.extend({
   showAdressSearch: function(){
   	$('#feed').hide();
   	$('#info').hide();
+  	adressView.switchVisibility();
   },
   showRssFeed: function(){
   	getFeed();

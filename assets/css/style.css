@@ -96,5 +96,18 @@ a:hover {text-decoration: none;}
 	color: #fff;
 }
 .menu-item a:hover {background-color: #333;}
-
 /*** rss feed ***/
+
+#search{
+	width:100%;
+	display:none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	background: #555;
+	text-align:center;
+	vertical-align:middle;
+	line-height:20%;
+	padding: 10px 0 10px 0;
+}

@@ -185,8 +185,8 @@ var NavigationView = Backbone.View.extend({
 	render: function() {
 		var variables = {
 			first: { title: "Position", url: "javascript:void(0)", onclick: "getUserLocation()" },
-			second: { title: "Brunnen", url: "javascript:void(0)", onclick: "mapView.centerMapToNextSpring()" },
-			third: { title: "Suche", url: "#search" },
+			second: { title: "Adresse", url: "javascript:void(0)", onclick: "adressView.switchVisibility()" },
+			third: { title: "Brunnen", url: "javascript:void(0)", onclick: "mapView.centerMapToNextSpring()" },
 			fourth: { title: "News", url: "#feed" },
 			fifth: { title: "Kartentyp", url: "#maptyp" },
 			sixth: { title: "Info", url: "#about" },
@@ -223,7 +223,56 @@ var FeedView = Backbone.View.extend({
     	);
 		});
 	}
-	
+});
+
+var AdressView = Backbone.View.extend({
+	el: $("#search"),
+	initialize: function() {
+		this.render();
+	},
+	render: function() {
+		var template = _.template( $('#searchAdressTemplate').html());
+		$(this.el).html(template);
+	},
+	show: function(){
+		$(this.el).show();
+	},
+	hide: function(){
+		$(this.el).hide();
+	},
+	switchVisibility: function(){
+		$(this.el).toggle();
+	},
+	mapView: "",
+	currentMarker: "",
+	events: {
+		'click input[type=button]': 'searchAdress'
+	},
+	searchAdress: function(){
+		var geocoder = new google.maps.Geocoder();
+    var address = $('input[name=adress]').val();
+		
+		var self = this;
+    geocoder.geocode({ 'address': address}, function(results, status) {
+      if(status == google.maps.GeocoderStatus.OK){
+        self.mapView.map.setCenter(results[0].geometry.location);
+        self.mapView.map.setZoom(9);
+        
+        if(self.currentMarker){
+        	self.currentMarker.setMap(null);
+        	self.currentMarker = null;
+        }
+        	
+        self.currentMarker = new google.maps.Marker({
+            map: self.mapView.map,
+            position: results[0].geometry.location
+        });
+      }
+      else{
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+	}
 });
 
 var InfoView = Backbone.View.extend({

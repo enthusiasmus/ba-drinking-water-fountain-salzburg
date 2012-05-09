@@ -33,7 +33,6 @@ function placeMarkers(data){
 		});
 		markerCollection.push(markerModel, []);
 	}
-	console.log(mapView);
 	mapView.addMarkerCollection(markerCollection);
 	mapView.placeMarkersToMap();
 }

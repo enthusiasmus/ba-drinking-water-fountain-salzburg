@@ -16,7 +16,7 @@ function getFeed() {
 	$('#feed').show();
 
 	$.get('rss.php', {
-	  feed_url:'http://www.seppeisl.at/modules/news/rss.php?page_id=1',
+	  feed_url:'http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7',
 	}, function(xml) {
 		 getFeedItems(xml);
 	});

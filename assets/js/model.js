@@ -40,6 +40,9 @@ var UserLocationModel = Backbone.Model.extend({
 		imageOriginY: 0,
 		imageAnchorX: 12,
 		imageAnchorY: 12,
+		latitude: 0,
+		longitude: 0,
+		title: "Trinkbrunnen",
 	},
 	initialize: function(){
 	},

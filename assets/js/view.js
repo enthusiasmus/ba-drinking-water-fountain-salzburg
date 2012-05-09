@@ -46,6 +46,7 @@ var MapView = Backbone.View.extend({
 				icon: markerModel.get('imageUrl'),
 				title: markerModel.get("title"),
 				content: markerModel.get('title'),
+				zIndex: 1
 			});
 			
 			infoWindow = new google.maps.InfoWindow({
@@ -57,15 +58,8 @@ var MapView = Backbone.View.extend({
 				
 				if(self.userLocationMarker.getMap()){
 					var distanceUserLocationToMarker = google.maps.geometry.spherical.computeDistanceBetween(
-						new google.maps.LatLng(
-							self.userLocationMarker.getPosition().lat(),
-							self.userLocationMarker.getPosition().lng()
-						),
-						new google.maps.LatLng(
-							marker.getPosition().lat(),
-							marker.getPosition().lng()
-						)
-					);
+						self.userLocationMarker.getPosition(),
+						marker.getPosition());
 					var distanceInKm = (distanceUserLocationToMarker/1000).toFixed(1) + " km";
 					infoContent += "<br>Distanz: " + distanceInKm;
 				}
@@ -99,10 +93,11 @@ var MapView = Backbone.View.extend({
 		  fillOpacity: markerModel.get("precisionFillOpacity"),
 		  map: this.map,
 		  center: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
-		  radius: markerModel.get("precisionRadius")
+		  radius: markerModel.get("precision"),
+		  zIndex: 9999
 		};
 		this.userLocationPrecisionCircle = new google.maps.Circle(userLocationPrecisionCircleOptions);
-    
+
 		var icon = new google.maps.MarkerImage(
 			markerModel.get("imageUrl"),
     	new google.maps.Size(markerModel.get("imageWidth"), markerModel.get("imageHeight")),
@@ -113,12 +108,19 @@ var MapView = Backbone.View.extend({
 			 	map: this.map,
 			  icon: icon,
 			  title: markerModel.get("title"),
-			  position: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude"))
+			  position: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
+			  zIndex: 9999
 		});
 	},
-	centerMap: function(markerModel){
-		this.map.setCenter(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
-	  this.map.setZoom(markerModel.get("initialZoom"));
+	centerUserLocation: function(userLocationModel){
+		var latitude = userLocationModel.get("latitude");
+		var longitude = userLocationModel.get("longitude");
+		var centerPoint = new google.maps.LatLng(latitude, longitude);
+		var userLocationCircle = new google.maps.Circle();
+    userLocationCircle.setRadius(userLocationModel.get("precision"));
+    userLocationCircle.setCenter(centerPoint);
+
+		this.map.fitBounds(userLocationCircle.getBounds());
 	},
 	removePositionMarker: function(){
 		if(this.userLocationMarker){
@@ -129,6 +131,49 @@ var MapView = Backbone.View.extend({
 			this.userLocationPrecisionCircle.setMap(null);
 			this.userLocationPrecisionCircle = null;
 		}
+	},
+	centerMapToNextSpring: function(){
+		if(!this.userLocationMarker.getMap()){
+			console.log("Kein Startpunkt steht zur Verfügung!");
+			return;
+		}
+
+		var distanceToNextFontain = tempShortestDistance = 0;
+		var nearestMarker = new google.maps.Marker();
+		
+		var self = this;
+		_.each(this.markerCollection.toArray(), function(markerModel){ 		
+			tempShortestDistance = google.maps.geometry.spherical.computeDistanceBetween(
+				new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
+				self.userLocationMarker.getPosition()
+			);
+
+			if(distanceToNextFontain == 0)
+				distanceToNextFontain = tempShortestDistance;
+			
+			if(distanceToNextFontain > tempShortestDistance){
+				distanceToNextFontain = tempShortestDistance;
+				nearestMarker.setPosition(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
+			}
+		});
+		var directionsDisplay = new google.maps.DirectionsRenderer({
+			draggable: true,
+			suppressMarkers: true			
+		});
+		directionsDisplay.setMap(this.map);
+		var directionsService = new google.maps.DirectionsService();
+		
+	  var request = {
+	    origin: this.userLocationMarker.getPosition(),
+	    destination: nearestMarker.getPosition(),
+	    travelMode: google.maps.TravelMode.WALKING
+	  };
+
+	  directionsService.route(request, function(result, status) {
+	    if (status == google.maps.DirectionsStatus.OK) {
+	      directionsDisplay.setDirections(result);
+	    }
+	  });
 	}
 });
 
@@ -140,7 +185,7 @@ var NavigationView = Backbone.View.extend({
 	render: function() {
 		var variables = {
 			first: { title: "Position", url: "javascript:void(0)", onclick: "getUserLocation()" },
-			second: { title: "Brunnen", url: "#next" },
+			second: { title: "Brunnen", url: "javascript:void(0)", onclick: "mapView.centerMapToNextSpring()" },
 			third: { title: "Suche", url: "#search" },
 			fourth: { title: "News", url: "#feed" },
 			fifth: { title: "Info", url: "#about" },

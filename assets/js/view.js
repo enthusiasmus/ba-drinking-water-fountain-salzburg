@@ -29,6 +29,8 @@ var MapView = Backbone.View.extend({
 	markerCluster: "",
 	userLocationMarker: new google.maps.Marker({map: null}),
 	userLocationPrecisionCircle: "",
+	directionsDisplay: "",
+	directionsService: "",
 	addMarkerCollection: function(markerCollection){
 		this.markerCollection = markerCollection;
 	},
@@ -132,7 +134,7 @@ var MapView = Backbone.View.extend({
 			this.userLocationPrecisionCircle = null;
 		}
 	},
-	centerMapToNextSpring: function(){
+	drawRouteUserLocationToNextSpring: function(){
 		if(!this.userLocationMarker.getMap()){
 			console.log("Kein Startpunkt steht zur Verfügung!");
 			return;
@@ -156,22 +158,27 @@ var MapView = Backbone.View.extend({
 				nearestMarker.setPosition(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
 			}
 		});
-		var directionsDisplay = new google.maps.DirectionsRenderer({
-			draggable: true,
-			suppressMarkers: true			
-		});
-		directionsDisplay.setMap(this.map);
-		var directionsService = new google.maps.DirectionsService();
 		
+		if(self.directionsDisplay)
+			self.directionsDisplay.setMap(null);
+			
+		self.directionsDisplay = new google.maps.DirectionsRenderer({
+			draggable: false,
+			suppressMarkers: true,
+			suppressInfoWindows: true,
+			map: self.map	
+		});
+
 	  var request = {
-	    origin: this.userLocationMarker.getPosition(),
+	    origin: self.userLocationMarker.getPosition(),
 	    destination: nearestMarker.getPosition(),
 	    travelMode: google.maps.TravelMode.WALKING
 	  };
-
-	  directionsService.route(request, function(result, status) {
+	  
+		self.directionsService = new google.maps.DirectionsService();
+	  self.directionsService.route(request, function(result, status) {
 	    if (status == google.maps.DirectionsStatus.OK) {
-	      directionsDisplay.setDirections(result);
+	      self.directionsDisplay.setDirections(result);
 	    }
 	  });
 	}
@@ -186,7 +193,7 @@ var NavigationView = Backbone.View.extend({
 		var variables = {
 			first: { title: "Position", url: "javascript:void(0)", onclick: "getUserLocation()" },
 			second: { title: "Adresse", url: "javascript:void(0)", onclick: "adressView.switchVisibility()" },
-			third: { title: "Brunnen", url: "javascript:void(0)", onclick: "mapView.centerMapToNextSpring()" },
+			third: { title: "Brunnen", url: "javascript:void(0)", onclick: "mapView.drawRouteUserLocationToNextSpring()" },
 			fourth: { title: "News", url: "#feed" },
 			fifth: { title: "Info", url: "#about" },
 		};

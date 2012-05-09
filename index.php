@@ -4,7 +4,7 @@
 
 <nav id="navigation"></nav>
 <div id="search"></div>
-
+ 
 <div id="map_canvas"></div>
 
 <div id="feed">

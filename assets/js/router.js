@@ -7,16 +7,22 @@ var AppRouter = Backbone.Router.extend({
     "*actions": "defaultRoute"
   },
   index: function() {
-  	
+  	$('#feed').hide();
+  	$('#info').hide();
   },
   showAdressSearch: function(){
-  	//alert("Adresseingabe zum Suchen")
+  	$('#feed').hide();
+  	$('#info').hide();
   },
   showRssFeed: function(){
   	getFeed();
+  	$('#map_canvas').hide();
+  	$('#info').hide();
   },
   showAbout: function(){
-  	//alert("Info-Seite");
+  	$('#map_canvas').hide();
+  	$('#feed').hide();  	
+  	$('#info').show();
   },
   defaultRoute: function( action ){
     //alert("Default-Route: " + action); 

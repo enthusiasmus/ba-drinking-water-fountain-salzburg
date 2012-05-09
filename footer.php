@@ -16,7 +16,8 @@
 	<?php include("templates/mapView.html"); ?>
 	<?php include("templates/navigationView.html"); ?>	
 	<?php include("templates/feedView.html"); ?>	
-	
+	<?php include("templates/infoView.html"); ?>
+		
 	<script type="text/javascript" src="assets/js/main.js"></script>
 
 	</body>

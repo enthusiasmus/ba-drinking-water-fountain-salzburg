@@ -12,7 +12,6 @@ describe('VIEWS', function() {
 	    this.mapView.initialize();
 	    expect(this.mapView.render).toHaveBeenCalled();
 	  }); 
-
 	});
 
 });

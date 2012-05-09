@@ -6,7 +6,7 @@ var AppRouter = Backbone.Router.extend({
     "*actions": "defaultRoute"
   },
   showAdressSearch: function(){
-  	//alert("Adresseingabe zum Suchen")
+  	adressView.switchVisibility();
   },
   showRssFeed: function(){
   	getFeed();

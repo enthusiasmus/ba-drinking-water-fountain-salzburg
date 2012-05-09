@@ -23,6 +23,8 @@ var feedItemCollection = new FeedItemCollection;
 var mapView = new MapView({model: mapModel});
 var navView = new NavigationView;
 var feedView = new FeedView;
+var adressView = new AdressView;
+adressView.mapView = mapView;
 
 function placeMarkers(data){
 	for(idx in data){
@@ -48,4 +50,24 @@ function getFeedItems(xml) {
 		feedItemCollection.push(feedItemModel, []);
   });
 	feedView.addFeedItemCollection(feedItemCollection);
+}
+
+function showAdressSearchField(){
+	geocoder = new google.maps.Geocoder();
+	
+	
+	
+  var address = document.getElementById("address").value;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+    } else {
+      alert("Geocode was not successful for the following reason: " + status);
+    }
+  });
+
 }

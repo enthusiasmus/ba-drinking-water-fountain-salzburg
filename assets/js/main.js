@@ -24,6 +24,7 @@ var mapView = new MapView({model: mapModel});
 var navView = new NavigationView;
 var feedView = new FeedView;
 var infoView = new InfoView;
+var maptypView = new MaptypView;
 var adressView = new AdressView;
 adressView.mapView = mapView;
 
@@ -59,4 +60,4 @@ var supportsOrientationChange = "onorientationchange" in window,
 window.addEventListener(orientationEvent, function() {
     google.maps.event.trigger(mapView.map, 'resize');
     console.log("changed");
-}, false );
+}, false);

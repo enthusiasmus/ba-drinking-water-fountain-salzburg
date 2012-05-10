@@ -18,6 +18,7 @@
 	<?php include("templates/feedView.html"); ?>	
 	<?php include("templates/infoView.html"); ?>
 	<?php include("templates/adressView.html"); ?>	
+	<?php include("templates/maptypView.html"); ?>	
 	
 	<script type="text/javascript" src="assets/js/main.js"></script>
 

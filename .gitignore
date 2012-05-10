@@ -1,3 +1,5 @@
 bash.lnk
 config.php
 .project
+*.sublime-project
+*.sublime-workspace

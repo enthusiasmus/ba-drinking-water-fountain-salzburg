@@ -59,4 +59,4 @@ var supportsOrientationChange = "onorientationchange" in window,
 window.addEventListener(orientationEvent, function() {
     google.maps.event.trigger(mapView.map, 'resize');
     console.log("changed");
-}, false);
+}, false );

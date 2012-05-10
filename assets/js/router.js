@@ -3,6 +3,7 @@ var AppRouter = Backbone.Router.extend({
   	"": "index",
   	"adress": "showAdressSearch",
     "feed": "showRssFeed",
+    "maptyp/:id": "setMaptyp",
     "about": "showAbout",
     "*actions": "defaultRoute"
   },
@@ -16,6 +17,9 @@ var AppRouter = Backbone.Router.extend({
   showRssFeed: function(){
   	getFeed();
  		this.displayOnly("feed");	
+  },
+  setMaptyp: function(typ) {
+    
   },
   showAbout: function(){
 		this.displayOnly("info");

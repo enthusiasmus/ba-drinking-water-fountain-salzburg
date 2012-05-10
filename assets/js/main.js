@@ -24,6 +24,7 @@ var mapView = new MapView({model: mapModel});
 var navView = new NavigationView;
 var feedView = new FeedView;
 var infoView = new InfoView;
+var maptypView = new MaptypView;
 var adressView = new AdressView;
 adressView.mapView = mapView;
 

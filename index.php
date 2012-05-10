@@ -4,7 +4,7 @@
 
 <nav id="navigation"></nav>
 <div id="adress"></div>
- 
+<div id="maptyp"></div>
 <div id="map_canvas"></div>
 
 <div id="feed">

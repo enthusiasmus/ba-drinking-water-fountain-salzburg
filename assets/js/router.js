@@ -1,22 +1,33 @@
 var AppRouter = Backbone.Router.extend({
   routes: {
+  	"": "index",
   	"adress": "showAdressSearch",
-    "next": "showRouteNextSpring",
     "feed": "showRssFeed",
     "about": "showAbout",
     "*actions": "defaultRoute"
   },
-  showAdressSearch: function(){
-  	//alert("Adresseingabe zum Suchen")
+  index: function() {
+  	$('#feed').hide();
+  	$('#info').hide();
+  	$('#search').hide();
   },
-  showRouteNextSpring: function(){
-  	//alert("Route zum nächsten Trinkbrunnen")
+  showAdressSearch: function(){
+  	$('#feed').hide();
+  	$('#info').hide();
+  	$('#map_canvas').show();  	
+  	adressView.switchVisibility();
   },
   showRssFeed: function(){
   	getFeed();
+  	$('#map_canvas').hide();
+  	$('#info').hide();
+  	$('#search').hide();  	
   },
   showAbout: function(){
-  	//alert("Info-Seite");
+  	$('#map_canvas').hide();
+  	$('#feed').hide();  	
+  	$('#search').hide();  	
+  	$('#info').show();
   },
   defaultRoute: function( action ){
     //alert("Default-Route: " + action); 

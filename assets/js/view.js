@@ -195,7 +195,7 @@ var NavigationView = Backbone.View.extend({
 			second: { title: "Adresse", url: "javascript:void(0)", onclick: "adressView.switchVisibility()" },
 			third: { title: "Brunnen", url: "javascript:void(0)", onclick: "mapView.drawRouteUserLocationToNextSpring()" },
 			fourth: { title: "News", url: "#feed" },
-			fifth: { title: "Kartentyp", url: "#maptyp" },
+			fifth: { title: "Kartentyp", url: "javascript:void(0)", onclick: "maptypView.setVisible()"},
 			sixth: { title: "Info", url: "#about" },
 		};
 		
@@ -287,12 +287,25 @@ var InfoView = Backbone.View.extend({
 	initialize: function() {
 		this.render();
 	},
-	addFeedItemCollection: function(feedItemCollection) {
-		this.feedItemCollection = feedItemCollection;
-		this.render();
-	},
 	render: function() {
 		var template = _.template( $('#info_template').html());
 		$(this.el).html(template);
 	}	
+});
+
+var MaptypView = Backbone.View.extend({
+	el: $('#maptyp'),
+	initialize: function() {
+		this.render();
+	},
+	render: function() {
+		var template = _.template( $('#maptyp_template').html());
+		$(this.el).html(template);
+	},
+	setVisible: function() {
+		$(this.el).show();
+	},
+	setInvisible: function() {
+		$(this.el).hide();
+	}
 });

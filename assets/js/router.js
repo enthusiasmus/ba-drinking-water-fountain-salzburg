@@ -7,29 +7,29 @@ var AppRouter = Backbone.Router.extend({
     "*actions": "defaultRoute"
   },
   index: function() {
-  	$('#feed').hide();
-  	$('#info').hide();
-  	$('#search').hide();
+		this.displayOnly("map_canvas");	
   },
   showAdressSearch: function(){
-  	$('#feed').hide();
-  	$('#info').hide();
-  	$('#map_canvas').show();  	
   	adressView.switchVisibility();
+		this.displayOnly("map_canvas");	
   },
   showRssFeed: function(){
   	getFeed();
-  	$('#map_canvas').hide();
-  	$('#info').hide();
-  	$('#search').hide();  	
+ 		this.displayOnly("feed");	
   },
   showAbout: function(){
-  	$('#map_canvas').hide();
-  	$('#feed').hide();  	
-  	$('#search').hide();  	
-  	$('#info').show();
+		this.displayOnly("info");
   },
   defaultRoute: function( action ){
-    //alert("Default-Route: " + action); 
+		this.displayOnly("map_canvas");
+  },
+  mainElements: new Array("adress", "map_canvas", "feed", "info"),
+  displayOnly: function(elementToShow){
+		for(idx in this.mainElements) {
+		  if(elementToShow != this.mainElements[idx])
+		  	$('#'+this.mainElements[idx]).hide();
+		  else
+		  	$('#'+this.mainElements[idx]).show();
+		}
   }
 });

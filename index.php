@@ -3,7 +3,7 @@
 ?>
 
 <nav id="navigation"></nav>
-<div id="search"></div>
+<div id="adress"></div>
  
 <div id="map_canvas"></div>
 

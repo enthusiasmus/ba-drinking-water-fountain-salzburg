@@ -27,7 +27,6 @@ var infoView = new InfoView;
 var adressView = new AdressView;
 adressView.mapView = mapView;
 
-
 function placeMarkers(data){
 	for(idx in data){
 		var markerModel = new MarkerModel({
@@ -53,3 +52,11 @@ function getFeedItems(xml) {
   });
 	feedView.addFeedItemCollection(feedItemCollection);
 }
+
+//look wether evice support onorientationchange or resize and listen for this event
+var supportsOrientationChange = "onorientationchange" in window,
+    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+window.addEventListener(orientationEvent, function() {
+    google.maps.event.trigger(mapView.map, 'resize');
+    console.log("changed");
+}, false);

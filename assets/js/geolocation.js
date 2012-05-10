@@ -1,5 +1,4 @@
 function getUserLocation(){
-
   $('#feed').hide();
   $('#map_canvas').show();
   appRouter.navigate('#');

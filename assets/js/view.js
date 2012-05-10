@@ -233,7 +233,7 @@ var FeedView = Backbone.View.extend({
 });
 
 var AdressView = Backbone.View.extend({
-	el: $("#search"),
+	el: $("#adress"),
 	initialize: function() {
 		this.render();
 	},

@@ -10,6 +10,7 @@ var AppRouter = Backbone.Router.extend({
     "*actions": "defaultRoute"
   },
   index: function(){
+  	this.displayOnly("map_canvas");
   	$.ajax({
 			async: true,
 			dataType: "json",
@@ -31,7 +32,6 @@ var AppRouter = Backbone.Router.extend({
 				alert("Die Trinkbrunnen konnten nicht geladen werden!");
 			}
 		});
-		this.displayOnly("map_canvas");
   },
   nextFountain: function(){
 		this.displayOnly("map_canvas");	
@@ -41,6 +41,7 @@ var AppRouter = Backbone.Router.extend({
 		this.displayOnly("map_canvas adress");	
   },
   showRssFeed: function(){	
+  	this.displayOnly("feed");	
 		$.get('rss.php',{
 		  feed_url:'http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7',
 		}, function(xml){
@@ -55,12 +56,12 @@ var AppRouter = Backbone.Router.extend({
 		  });
 			feedView.addFeedItemCollection(feedItemCollection);
 		});
- 		this.displayOnly("feed");	
   },
   setMaptyp: function(typ){
   	this.displayOnly("map_canvas");
   },
   showUserLocation: function(){
+		this.displayOnly("map_canvas");
 		if(navigator.geolocation){			
 			navigator.geolocation.getCurrentPosition(function(position){
 				var lat = position.coords.latitude;
@@ -112,13 +113,11 @@ var AppRouter = Backbone.Router.extend({
 		else{
 			console.log("Ihr Browser unterstützt keine Positionsbestimmung!");
 		}
-		this.displayOnly("map_canvas");
   },
   showAbout: function(){
 		this.displayOnly("info");
   },
   defaultRoute: function(){
-  	
   },
   mainElements: new Array("adress", "map_canvas", "feed", "info", "maptyp"),
   displayOnly: function(elementsToShow){

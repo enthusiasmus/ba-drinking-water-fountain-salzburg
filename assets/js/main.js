@@ -11,7 +11,16 @@ $(document).ready(function(){
 	}
 	
 	window.scrollTo(0, 1);
+	$('#map_canvas').height(window.innerHeight - 40);
 });
+
+var supportsOrientationChange = "onorientationchange" in window,
+    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+    
+window.addEventListener(orientationEvent, function() {
+	$('#map_canvas').height(window.innerHeight - 40);
+  google.maps.event.trigger(mapView.map, 'resize');
+}, false);
 
 var appRouter = new AppRouter();
 

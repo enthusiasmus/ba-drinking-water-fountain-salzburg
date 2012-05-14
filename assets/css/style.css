@@ -59,7 +59,7 @@ a:hover {text-decoration: none;}
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 80%;
+	height: 100%;
 	z-index: 5;
 	background: #444;
 }
@@ -70,7 +70,7 @@ a:hover {text-decoration: none;}
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 20%;
+	height: 100px;
 	border-top: 1px solid #000;
 	background-color: #000;
 	background-image: linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
@@ -79,7 +79,7 @@ a:hover {text-decoration: none;}
 	background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
 	background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
 	background-image: -webkit-gradient(linear, left bottom,	left top,	color-stop(0.01, rgb(0,0,0)),	color-stop(0.72, rgb(84,84,84)), color-stop(0.86, rgb(105,102,105)));
-	z-index: 10;
+	z-index: 6;
 }
 #navigation ul {margin-top: 20px;}
 .menu-item {
@@ -120,7 +120,7 @@ a:hover {text-decoration: none;}
 @media screen and (max-width: 320px){
 	#map_canvas{
 		width:320px;
-		height:316px;
+		height:100%;
 	}
 	#navigation{
 		width: 320px;
@@ -141,7 +141,7 @@ a:hover {text-decoration: none;}
 @media screen and (min-width: 321px) and (max-width: 480px){
 	#map_canvas{
 		width:480px;
-		height:168px;
+		height:100%;
 	}
 	#navigation{
 		width: 480px;

@@ -142,7 +142,6 @@ var MapView = Backbone.View.extend({
 
 		var distanceToNextFontain = tempShortestDistance = 0;
 		var nearestMarker = new google.maps.Marker();
-		
 		var self = this;
 		_.each(this.markerCollection.toArray(), function(markerModel){ 		
 			tempShortestDistance = google.maps.geometry.spherical.computeDistanceBetween(
@@ -191,11 +190,11 @@ var NavigationView = Backbone.View.extend({
 	},
 	render: function() {
 		var variables = {
-			first: { title: "Position", url: "javascript:void(0)", onclick: "getUserLocation()" },
-			second: { title: "Adresse", url: "javascript:void(0)", onclick: "adressView.switchVisibility()" },
-			third: { title: "Brunnen", url: "javascript:void(0)", onclick: "mapView.drawRouteUserLocationToNextSpring()" },
+			first: { title: "Position", url: "#position", onclick: "" },
+			second: { title: "Adresse", url: "#adress", onclick: "" },
+			third: { title: "Brunnen", url: "#next", onclick: "" },
 			fourth: { title: "News", url: "#feed" },
-			fifth: { title: "Kartentyp", url: "javascript:void(0)", onclick: ''},
+			fifth: { title: "Kartentyp", url: "#maptype", onclick: ''},
 			sixth: { title: "Info", url: "#about" },
 		};
 		

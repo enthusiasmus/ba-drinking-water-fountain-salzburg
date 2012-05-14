@@ -9,6 +9,8 @@ $(document).ready(function(){
 	}
 	finally{
 	}
+	
+	window.scrollTo(0, 1);
 });
 
 var appRouter = new AppRouter();
@@ -32,7 +34,7 @@ function placeMarkers(data){
 	for(idx in data){
 		var markerModel = new MarkerModel({
 			latitude: data[idx].latitude, 
-			longitude: data[idx].longitude, 
+			longitude: data[idx].longitude,
 			title: data[idx].f_key + ": " + data[idx].water_distributor + " - " + data[idx].fontain_name
 		});
 		markerCollection.push(markerModel, []);
@@ -55,9 +57,13 @@ function getFeedItems(xml) {
 }
 
 //look wether evice support onorientationchange or resize and listen for this event
-var supportsOrientationChange = "onorientationchange" in window,
-    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
-window.addEventListener(orientationEvent, function() {
-    google.maps.event.trigger(mapView.map, 'resize');
-    console.log("changed");
-}, false);
+// var supportsOrientationChange = "onorientationchange" in window,
+    // orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+// window.addEventListener(orientationEvent, function() {   
+	// $('#map_canvas').width(400).height(100);    
+  // google.maps.event.trigger(mapView.map, 'resize');   
+  // console.log($('#map_canvas').height() + " " + $('#map_canvas').width());
+// }, false);
+// google.maps.event.addDomListener(window, 'resize', function() {
+  // console.log("window resized");
+// });

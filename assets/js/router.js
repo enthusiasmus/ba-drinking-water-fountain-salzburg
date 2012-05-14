@@ -19,7 +19,6 @@ var AppRouter = Backbone.Router.extend({
  		this.displayOnly("feed");	
   },
   setMaptyp: function(typ) {
-    
   },
   showAbout: function(){
 		this.displayOnly("info");

@@ -195,7 +195,7 @@ var NavigationView = Backbone.View.extend({
 			second: { title: "Adresse", url: "javascript:void(0)", onclick: "adressView.switchVisibility()" },
 			third: { title: "Brunnen", url: "javascript:void(0)", onclick: "mapView.drawRouteUserLocationToNextSpring()" },
 			fourth: { title: "News", url: "#feed" },
-			fifth: { title: "Kartentyp", url: "javascript:void(0)", onclick: "maptypView.setVisible()"},
+			fifth: { title: "Kartentyp", url: "javascript:void(0)", onclick: ''},
 			sixth: { title: "Info", url: "#about" },
 		};
 		

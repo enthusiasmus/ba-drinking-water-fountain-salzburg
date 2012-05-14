@@ -207,7 +207,6 @@ var FeedView = Backbone.View.extend({
 	el: $("#feed"),
 	feedItemCollection: "",
 	initialize: function() {
-		
 	},
 	addFeedItemCollection: function(feedItemCollection) {
 		this.feedItemCollection = feedItemCollection;
@@ -228,6 +227,15 @@ var FeedView = Backbone.View.extend({
 	    	'</article>'
     	);
 		});
+		
+		// var allFeedImages = document.getElementsByTagName('img')
+		// for(idx in allFeedImages){
+    	// if(allFeedImages[idx].width > 100){
+    		// var scaleValue = 100/allFeedImages[idx].width;
+    		// allFeedImages[idx].width = 100;
+    		// allFeedImages[idx].height = allFeedImages[idx].height*scaleValue;
+    	// }
+		// }
 	}
 });
 

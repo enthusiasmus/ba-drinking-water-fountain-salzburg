@@ -111,6 +111,10 @@ a:hover {text-decoration: none;}
 	padding: 10px 0 10px 0;
 }
 
+#maptype{
+	display:none;
+}
+
 /*** mobile commands ***/
 /* portrait */
 @media screen and (max-width: 320px){

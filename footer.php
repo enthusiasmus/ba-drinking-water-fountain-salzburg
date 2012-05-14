@@ -10,13 +10,8 @@
 	<script type="text/javascript" src="assets/js/router.js"></script>
 	<script type="text/javascript" src="assets/js/collection.js"></script>
 	
-	<?php include("templates/mapView.html"); ?>
-	<?php include("templates/navigationView.html"); ?>	
-	<?php include("templates/feedView.html"); ?>	
-	<?php include("templates/infoView.html"); ?>
-	<?php include("templates/adressView.html"); ?>	
-	<?php include("templates/maptypView.html"); ?>	
-	
+	<?php include("assets/templates/main.html"); ?>
+
 	<script type="text/javascript" src="assets/js/main.js"></script>
 
 	</body>

@@ -97,7 +97,7 @@ a:hover {text-decoration: none;}
 .menu-item a:hover {background-color: #333;}
 /*** rss feed ***/
 
-#adress{
+#adress, #maptype {
 	width:100%;
 	display:none;
 	position: fixed;
@@ -109,10 +109,6 @@ a:hover {text-decoration: none;}
 	vertical-align:middle;
 	line-height:20%;
 	padding: 10px 0 10px 0;
-}
-
-#maptype{
-	display:none;
 }
 
 /*** mobile commands ***/

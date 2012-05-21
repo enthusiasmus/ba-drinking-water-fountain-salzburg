@@ -194,7 +194,7 @@ var NavigationView = Backbone.View.extend({
 			second: { title: "Adresse", url: "#adress", onclick: "" },
 			third: { title: "Brunnen", url: "#next", onclick: "" },
 			fourth: { title: "News", url: "#feed" },
-			fifth: { title: "Kartentyp", url: "#maptype", onclick: ''},
+			fifth: { title: "Kartentyp", url: "#maptype", onclick: "" },
 			sixth: { title: "Info", url: "#about" },
 		};
 		
@@ -289,6 +289,43 @@ var AdressView = Backbone.View.extend({
 	}
 });
 
+var MaptypeView = Backbone.View.extend({
+	el: $("#maptype"),
+	initialize: function() {
+		this.render();
+	},
+	render: function() {
+		var template = _.template( $('#maptype_template').html());
+		$(this.el).html(template);
+	},
+	mapView: "",
+	changeTyp: function(id) {
+
+		//attention: id isn't a number yet
+		id *= 1;
+
+		switch(id)
+		{
+			case 1:
+				self.mapView.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+			break;
+
+			case 2:
+				self.mapView.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+			break;
+
+			case 3:
+				self.mapView.map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+			break;
+
+			case 4:
+				self.mapView.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+			break;
+		}
+
+	}
+});
+
 var InfoView = Backbone.View.extend({
 	el: $('#info'),
 	initialize: function() {
@@ -298,21 +335,4 @@ var InfoView = Backbone.View.extend({
 		var template = _.template( $('#info_template').html());
 		$(this.el).html(template);
 	}	
-});
-
-var MaptypView = Backbone.View.extend({
-	el: $('#maptyp'),
-	initialize: function() {
-		this.render();
-	},
-	render: function() {
-		var template = _.template( $('#maptyp_template').html());
-		$(this.el).html(template);
-	},
-	setVisible: function() {
-		$(this.el).show();
-	},
-	setInvisible: function() {
-		$(this.el).hide();
-	}
 });

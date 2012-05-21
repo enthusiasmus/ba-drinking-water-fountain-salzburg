@@ -5,7 +5,8 @@ var AppRouter = Backbone.Router.extend({
   	"adress": "showAdressSearch",
     "feed": "showRssFeed",
     "next": "nextFountain",
-    "maptype/:id": "setMaptype",
+    "maptype": "showMaptype",
+    "maptype/:id": "changeMaptype",
     "about": "showAbout",
     "*actions": "defaultRoute"
   },
@@ -40,6 +41,19 @@ var AppRouter = Backbone.Router.extend({
   showAdressSearch: function(){
 		this.displayOnly("map_canvas adress");	
   },
+  showMaptype: function(){
+		this.displayOnly("map_canvas maptype");	
+
+		if(id)
+		{
+			maptypeView.changeTyp(id);
+		}
+  },
+  changeMaptype: function(id){
+		this.displayOnly("map_canvas maptype");	
+
+			maptypeView.changeTyp(id);
+  },
   showRssFeed: function(){	
   	this.displayOnly("feed");	
 		$.get('rss.php',{
@@ -56,9 +70,6 @@ var AppRouter = Backbone.Router.extend({
 		  });
 			feedView.addFeedItemCollection(feedItemCollection);
 		});
-  },
-  setMaptyp: function(typ){
-  	this.displayOnly("map_canvas");
   },
   showUserLocation: function(){
 		this.displayOnly("map_canvas");
@@ -118,8 +129,9 @@ var AppRouter = Backbone.Router.extend({
 		this.displayOnly("info");
   },
   defaultRoute: function(){
+  	console.log("no route for this URI!");
   },
-  mainElements: new Array("adress", "map_canvas", "feed", "info", "maptyp"),
+  mainElements: new Array("adress", "map_canvas", "feed", "info", "maptype"),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");
   	var shouldShow;

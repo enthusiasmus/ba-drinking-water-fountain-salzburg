@@ -25,16 +25,6 @@ describe('VIEWS', function() {
 	    expect(google.maps.Map).toHaveBeenCalled();
 	  });
 	  
-	  // it('should take template and set it to the el element when calling render', function(){
-			// var template = _.template( $('#map_template').html() );
-			// var el = $("#map_canvas");
-			// this.mapView.el = el;
-			// spyOn(this.mapView.el, 'html');
-	    // this.mapView.render();
-	    // expect(this.mapView.el.html).toHaveBeenCalled();
-	    // expect(this.mapView.el.html).toHaveBeenCalledWith(template);
-	  // });
-	  
 	  it('should trigger resize event when calling resizeMap', function(){
 	    spyOn(google.maps.event, 'trigger');
 	    this.mapView.resizeMap();
@@ -75,8 +65,13 @@ describe('VIEWS', function() {
 		});
 		
 	  it('should calculate the correct distance between to points', function(){
-			
+	  	var firstPoint = new google.maps.LatLng(47,13);
+	  	var secondPoint = new google.maps.LatLng(48,14);
+	  	
+	    spyOn(google.maps.geometry.spherical, 'computeDistanceBetween');
+	    this.mapView.distanceNextFountain(firstPoint, secondPoint);
+	    expect(google.maps.geometry.spherical.computeDistanceBetween).toHaveBeenCalled();
+			expect(google.maps.geometry.spherical.computeDistanceBetween).toHaveBeenWith(firstPoint, secondPoint);
 	  });
-	  
 	});
 });

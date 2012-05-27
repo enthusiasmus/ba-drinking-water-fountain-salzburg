@@ -36,7 +36,7 @@ var AppRouter = Backbone.Router.extend({
   },
   nextFountain: function(){
 		this.displayOnly("map_canvas");	
-  	mapView.drawRouteUserLocationToNextSpring()
+  	mapView.drawRouteUserLocationToNextFountain()
   },
   showAdressSearch: function(){
 		this.displayOnly("map_canvas adress");	
@@ -95,8 +95,8 @@ var AppRouter = Backbone.Router.extend({
 	      	heading: heading
 	      });
 	
-				mapView.removePositionMarker();
-	      mapView.placePositionMarker(userLocationModel);
+				mapView.removeUserLocation();
+	      mapView.placeUserLocation(userLocationModel);
 	    	mapView.centerUserLocation(userLocationModel);
 			}, 
 			function(error){

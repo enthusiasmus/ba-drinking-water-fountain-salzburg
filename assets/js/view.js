@@ -26,8 +26,7 @@ var MapView = Backbone.View.extend({
 	markerCollection: undefined,
 	map: undefined,
 	markerCluster: undefined,
-	userLocation: undefined,
-	userLocationMarker: new google.maps.Marker({map: null}),
+	userLocationMarker: undefined,
 	userLocationPrecisionCircle: undefined,
 	directionsDisplay: undefined,
 	directionsService: undefined,
@@ -59,7 +58,7 @@ var MapView = Backbone.View.extend({
 			
 			google.maps.event.addListener(marker, 'click', function(){				
 				var infoContent = marker.content;
-				var distanceInformation = self.distanceNextFountain(self.userLocationMarker.getPosition(), marker.getPosition());
+				var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
 				if(distanceInformation)
 					infoContent += "<br>Distanz: " + distanceInformation;			
 				infoWindow.setContent(infoContent);
@@ -79,7 +78,7 @@ var MapView = Backbone.View.extend({
 			infoWindow.close();
 	  });
 	},
-	distanceNextFountain: function(userPosition, markerPosition){
+	distanceCalculator: function(userPosition, markerPosition){
 		if(userPosition && markerPosition){
 			var distanceUserLocationToMarker = google.maps.geometry.spherical.computeDistanceBetween(
 				userPosition,
@@ -92,7 +91,7 @@ var MapView = Backbone.View.extend({
 	removeMarkersFromMap: function(){
 		this.markerCluster.clearMarkers();
 	},
-	placePositionMarker: function(markerModel){
+	placeUserLocation: function(markerModel){
 		var userLocationPrecisionCircleOptions = {
 			strokeColor: markerModel.get("precisionStrokeColor"),
 		  strokeOpacity: markerModel.get("precisionStrokeOpacity"),
@@ -130,7 +129,7 @@ var MapView = Backbone.View.extend({
 
 		this.map.fitBounds(userLocationCircle.getBounds());
 	},
-	removePositionMarker: function(){
+	removeUserLocation: function(){
 		if(this.userLocationMarker){
 			this.userLocationMarker.setMap(null);
 			this.userLocationMarker = null;
@@ -140,15 +139,41 @@ var MapView = Backbone.View.extend({
 			this.userLocationPrecisionCircle = null;
 		}
 	},
-	drawRouteUserLocationToNextSpring: function(){
-		if(!this.userLocationMarker.getMap()){
+	drawRouteUserLocationToNextFountain: function(){
+		if(!this.userLocationMarker){
 			console.log("Kein Startpunkt steht zur Verfügung!");
-			return;
+			return false;
 		}
 
-		var distanceToNextFontain = tempShortestDistance = 0;
-		var nearestMarker = new google.maps.Marker();
+		if(this.directionsDisplay)
+			this.directionsDisplay.setMap(null);
+
 		var self = this;
+		self.directionsDisplay = new google.maps.DirectionsRenderer({
+			draggable: false,
+			suppressMarkers: true,
+			suppressInfoWindows: true,
+			map: self.map	
+		});
+
+	  var request = {
+	    origin: this.userLocationMarker.getPosition(),
+	    destination: this.nearestFountain(),
+	    travelMode: google.maps.TravelMode.WALKING
+	  };
+
+		this.directionsService = new google.maps.DirectionsService();
+	  this.directionsService.route(request, function(result, status) {
+	    if (status == google.maps.DirectionsStatus.OK) {
+	      self.directionsDisplay.setDirections(result);
+	    }
+	  });
+	},
+	nearestFountain: function(){
+		var distanceToNextFontain = tempShortestDistance = 0;
+		var nearestFountain = new google.maps.Marker();
+		var self = this;
+		
 		_.each(this.markerCollection.toArray(), function(markerModel){ 		
 			tempShortestDistance = google.maps.geometry.spherical.computeDistanceBetween(
 				new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
@@ -160,32 +185,11 @@ var MapView = Backbone.View.extend({
 			
 			if(distanceToNextFontain > tempShortestDistance){
 				distanceToNextFontain = tempShortestDistance;
-				nearestMarker.setPosition(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
+				nearestFountain.setPosition(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
 			}
 		});
 		
-		if(self.directionsDisplay)
-			self.directionsDisplay.setMap(null);
-			
-		self.directionsDisplay = new google.maps.DirectionsRenderer({
-			draggable: false,
-			suppressMarkers: true,
-			suppressInfoWindows: true,
-			map: self.map	
-		});
-
-	  var request = {
-	    origin: self.userLocationMarker.getPosition(),
-	    destination: nearestMarker.getPosition(),
-	    travelMode: google.maps.TravelMode.WALKING
-	  };
-	  
-		self.directionsService = new google.maps.DirectionsService();
-	  self.directionsService.route(request, function(result, status) {
-	    if (status == google.maps.DirectionsStatus.OK) {
-	      self.directionsDisplay.setDirections(result);
-	    }
-	  });
+		return nearestFountain.getPosition();
 	}
 });
 

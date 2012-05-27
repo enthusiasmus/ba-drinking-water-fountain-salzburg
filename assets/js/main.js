@@ -36,6 +36,7 @@ var feedView = new FeedView;
 var infoView = new InfoView;
 var maptypeView = new MaptypeView;
 var adressView = new AdressView;
+var loadingView = new LoadingView;
 
 adressView.mapView = mapView;
 maptypeView.mapView = mapView;

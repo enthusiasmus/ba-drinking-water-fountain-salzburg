@@ -55,7 +55,8 @@ var AppRouter = Backbone.Router.extend({
 			maptypeView.changeTyp(id);
   },
   showRssFeed: function(){	
-  	this.displayOnly("feed");	
+  	this.displayOnly("feed");
+  	loadingView.show();
 		$.get('rss.php',{
 		  feed_url:'http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7',
 		}, function(xml){

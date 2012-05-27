@@ -22,18 +22,17 @@ var MapView = Backbone.View.extend({
 		$(this.el).html(template);
 	},
 	events: {
-		'resize': 'resizeMap',
 	},
-	markerCollection: "",
-	map: "",
-	markerCluster: "",
-	userLocation: "",
+	markerCollection: undefined,
+	map: undefined,
+	markerCluster: undefined,
+	userLocation: undefined,
 	userLocationMarker: new google.maps.Marker({map: null}),
-	userLocationPrecisionCircle: "",
-	directionsDisplay: "",
-	directionsService: "",
+	userLocationPrecisionCircle: undefined,
+	directionsDisplay: undefined,
+	directionsService: undefined,
 	resizeMap: function(){
-
+		google.maps.event.trigger(this.map, 'resize');
 	},
 	addMarkerCollection: function(markerCollection){
 		this.markerCollection = markerCollection;
@@ -56,20 +55,13 @@ var MapView = Backbone.View.extend({
 			});
 			
 			infoWindow = new google.maps.InfoWindow({
-		    disableAutoPan: false
 			});
 			
 			google.maps.event.addListener(marker, 'click', function(){				
 				var infoContent = marker.content;
-				
-				if(self.userLocationMarker.getMap()){
-					var distanceUserLocationToMarker = google.maps.geometry.spherical.computeDistanceBetween(
-						self.userLocationMarker.getPosition(),
-						marker.getPosition());
-					var distanceInKm = (distanceUserLocationToMarker/1000).toFixed(1) + " km";
-					infoContent += "<br>Distanz: " + distanceInKm;
-				}
-				
+				var distanceInformation = self.distanceNextFountain(self.userLocationMarker.getPosition(), marker.getPosition());
+				if(distanceInformation)
+					infoContent += "<br>Distanz: " + distanceInformation;			
 				infoWindow.setContent(infoContent);
 				infoWindow.open(self.map, marker);
 			});
@@ -86,6 +78,16 @@ var MapView = Backbone.View.extend({
 		google.maps.event.addListener(this.map, 'click', function() {
 			infoWindow.close();
 	  });
+	},
+	distanceNextFountain: function(userPosition, markerPosition){
+		if(userPosition && markerPosition){
+			var distanceUserLocationToMarker = google.maps.geometry.spherical.computeDistanceBetween(
+				userPosition,
+				markerPosition);
+			var distanceInKm = (distanceUserLocationToMarker/1000).toFixed(3) + " km";
+			return distanceInKm;
+		}
+		return false;
 	},
 	removeMarkersFromMap: function(){
 		this.markerCluster.clearMarkers();

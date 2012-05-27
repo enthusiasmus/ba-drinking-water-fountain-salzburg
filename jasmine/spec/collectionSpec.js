@@ -1,10 +1,13 @@
 describe("COLLECTIONS", function() {
 	
 	describe("Marker Collection", function() {
-		
 	  beforeEach(function() {
-		this.markercollection = new MarkerCollection;
-		this.marker = new MarkerModel;
+			this.markercollection = new MarkerCollection;
+			this.marker = new MarkerModel;
+	  });
+	  afterEach(function(){
+	  	this.markercollection = null;
+	  	this.marker = null;
 	  });
 		  
 	  it("should push a marker", function() {
@@ -14,11 +17,14 @@ describe("COLLECTIONS", function() {
 	});
 
 	describe('Feed Item Collection', function() {
-		
 		beforeEach(function() {
 			this.feedItemCollection = new FeedItemCollection();
 			this.feedItem = new FeedItemModel();
 		});
+	  afterEach(function(){
+	  	this.feedItemCollection = null;
+	  	this.feedItem = null;
+	  });
 
 		it('should push a feed item', function() {
 			this.feedItemCollection.push([this.feedItem]);

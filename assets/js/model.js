@@ -6,6 +6,8 @@ var MapModel = Backbone.Model.extend({
 	},
 	initialize: function(){
 	},
+	validate: function(attrs){
+	},
 });
 
 var MarkerModel = Backbone.Model.extend({
@@ -21,6 +23,9 @@ var MarkerModel = Backbone.Model.extend({
 
 var UserLocationModel = Backbone.Model.extend({
 	defaults:{
+		title: "Eigene Position",
+		latitude: 47.80912,
+		longitude: 13.055162,
 		initialZoom: 14,
 		time: 0,
 		precision: 0,
@@ -40,14 +45,10 @@ var UserLocationModel = Backbone.Model.extend({
 		imageOriginY: 0,
 		imageAnchorX: 12,
 		imageAnchorY: 12,
-		latitude: 0,
-		longitude: 0,
-		title: "Trinkbrunnen",
 	},
 	initialize: function(){
 	},
 });
-UserLocationModel.prototyp = MarkerModel;
 
 var FeedModel = Backbone.Model.extend({
 	defaults: {

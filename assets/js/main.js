@@ -19,7 +19,7 @@ var supportsOrientationChange = "onorientationchange" in window,
     
 window.addEventListener(orientationEvent, function() {
 	$('#map_canvas').height(window.innerHeight - 40);
-  google.maps.event.trigger(mapView.map, 'resize');
+  mapView.resizeMap();
 }, false);
 
 var appRouter = new AppRouter();
@@ -27,7 +27,6 @@ var appRouter = new AppRouter();
 var mapModel = new MapModel;		
 var feedModel = new FeedModel;
 var userLocationModel = new UserLocationModel;
-
 var markerCollection = new MarkerCollection;
 var feedItemCollection = new FeedItemCollection;
 
@@ -37,5 +36,6 @@ var feedView = new FeedView;
 var infoView = new InfoView;
 var maptypeView = new MaptypeView;
 var adressView = new AdressView;
+
 adressView.mapView = mapView;
 maptypeView.mapView = mapView;

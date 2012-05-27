@@ -2,7 +2,7 @@ var MapView = Backbone.View.extend({
 	el: $("#map_canvas"),
 	initialize: function() {
 		this.render();
-	},	
+	},
 	render: function(){
 		var myOptions = {
       center: new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude')),
@@ -22,15 +22,19 @@ var MapView = Backbone.View.extend({
 		$(this.el).html(template);
 	},
 	events: {
-
+		'resize': 'resizeMap',
 	},
 	markerCollection: "",
 	map: "",
 	markerCluster: "",
+	userLocation: "",
 	userLocationMarker: new google.maps.Marker({map: null}),
 	userLocationPrecisionCircle: "",
 	directionsDisplay: "",
 	directionsService: "",
+	resizeMap: function(){
+
+	},
 	addMarkerCollection: function(markerCollection){
 		this.markerCollection = markerCollection;
 	},

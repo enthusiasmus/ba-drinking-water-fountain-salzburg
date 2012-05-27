@@ -5,6 +5,9 @@ describe("MODELS", function() {
 		  beforeEach(function() {
 				this.map = new MapModel;
 		  });
+		  afterEach(function() {
+		  	this.map = null;
+		  });
 
 		  it("should have a center attribut with value within the country of salzburg", function() {
 		    expect(this.map.get("centerLatitude")).toBeGreaterThan(46.8)
@@ -16,6 +19,13 @@ describe("MODELS", function() {
 		  it("should have a attribute zoom with default 7", function() {
 		    expect(this.map.get("zoom")).toEqual(7);
 		  });  	
+		  
+		  it("saving properties at the model should work", function(){
+		  	this.map.set({centerLatitude: 47, centerLongitude: 13, zoom: 10});
+		  	expect(this.map.get('centerLatitude')).toEqual(47);
+		  	expect(this.map.get('centerLongitude')).toEqual(13);
+		  	expect(this.map.get('zoom')).toEqual(10);
+		  });
 	  });
 	});
 	
@@ -24,7 +34,10 @@ describe("MODELS", function() {
 		  beforeEach(function() {
 				this.marker = new MarkerModel;
 		  });
-	
+		  afterEach(function() {
+		  	this.marker = null;
+		  });
+		  
 		  it("should have a attribute title and a default image url", function() {
 		    expect(this.marker.get("title")).toBeDefined();
 		    expect(this.marker.get("imageUrl")).toBeDefined();
@@ -42,14 +55,16 @@ describe("MODELS", function() {
 		  beforeEach(function() {
 				this.userLocation = new UserLocationModel;
 		  });
-	
-		  it("should have a inherited longitude, latitude and title attributes from markerModel", function() {
-		    expect(this.userLocation.get("title")).toBeDefined();
-		    expect(this.userLocation.get("latitude")).toBeDefined();
-		    expect(this.userLocation.get("longitude")).toBeDefined();
-		  }); 
+		  afterEach(function() {
+		  	this.userLocation = null;
+		  });
 		  	 	
 		  it("should have default attributes", function() {
+		    expect(this.userLocation.get("title")).toBeDefined();
+		    expect(this.userLocation.get("latitude")).toBeGreaterThan(46);
+		    expect(this.userLocation.get("latitude")).toBeLessThan(48);
+		    expect(this.userLocation.get("longitude")).toBeGreaterThan(12);
+		    expect(this.userLocation.get("longitude")).toBeLessThan(14);
 		    expect(this.userLocation.get("initialZoom")).toBeDefined();
 		    expect(this.userLocation.get("time")).toBeDefined();
 		    expect(this.userLocation.get("precision")).toBeDefined();

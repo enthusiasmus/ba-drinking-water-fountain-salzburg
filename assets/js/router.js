@@ -30,7 +30,7 @@ var AppRouter = Backbone.Router.extend({
 				mapView.placeMarkersToMap();
 			},
 			error: function(data){
-				alert("Die Trinkbrunnen konnten nicht geladen werden!");
+				//alert("Die Trinkbrunnen konnten nicht geladen werden!");
 			}
 		});
   },
@@ -75,8 +75,6 @@ var AppRouter = Backbone.Router.extend({
 		this.displayOnly("map_canvas");
 		if(navigator.geolocation){			
 			navigator.geolocation.getCurrentPosition(function(position){
-				var lat = position.coords.latitude;
-				var lng = position.coords.longitude;
 				var time = position.timestamp;
 	      var lat = position.coords.latitude; //dezimal Grad
 	      var lng = position.coords.longitude; //dezimal Grad

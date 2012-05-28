@@ -1,7 +1,7 @@
 var AppRouter = Backbone.Router.extend({
   routes: {
   	"": "index",
-  	"position": "showUserLocation",
+  	"position": "getUserLocation",
   	"adress": "showAdressSearch",
     "feed": "showRssFeed",
     "next": "nextFountain",
@@ -36,44 +36,44 @@ var AppRouter = Backbone.Router.extend({
   },
   nextFountain: function(){
 		this.displayOnly("map_canvas");	
-  	mapView.drawRouteUserLocationToNextFountain()
+  	mapView.drawRouteUserLocationToNextFountain();
   },
   showAdressSearch: function(){
-		this.displayOnly("map_canvas adress");	
+		this.displayOnly("map_canvas adress");
+		$('input[type=button]').click(this.getLoadingView);
   },
   showMaptype: function(){
 		this.displayOnly("map_canvas maptype");	
-
-		if(id)
-		{
-			maptypeView.changeTyp(id);
-		}
   },
   changeMaptype: function(id){
 		this.displayOnly("map_canvas maptype");	
-
-			maptypeView.changeTyp(id);
+		maptypeView.changeTyp(id);
   },
   showRssFeed: function(){	
   	this.displayOnly("feed");
-		this.getLoadingView();
-		$.get('rss.php',{
-		  feed_url:'http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7',
-		}, function(xml){
-			$(xml).find('item').each(function(){
-				var feedItemModel = new FeedItemModel({
-					title: $(this).find('title').text(), 
-					link: $(this).find('link').text(),
-					pubDate: $.format.date($(this).find('pubDate').text(), 'dd. MMMM yyyy HH:mm:ss'),
-					description: $(this).find('description').text()
-				});
-				feedItemCollection.push(feedItemModel, []);
-		  });
-			feedView.addFeedItemCollection(feedItemCollection);
-		});
+		
+		if(feedView.timestamp < new Date().getTime() - 60*60*12){
+			this.getLoadingView();
+			$.get('rss.php',{
+			  feed_url:'http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7',
+			}, function(xml){
+				$(xml).find('item').each(function(){
+					var feedItemModel = new FeedItemModel({
+						title: $(this).find('title').text(), 
+						link: $(this).find('link').text(),
+						pubDate: $.format.date($(this).find('pubDate').text(), 'dd. MMMM yyyy HH:mm:ss'),
+						description: $(this).find('description').text()
+					});
+					feedItemCollection.push(feedItemModel, []);
+			  });
+				feedView.addFeedItemCollection(feedItemCollection);
+				feedView.timestamp = new Date().getTime();
+			});
+		}
   },
-  showUserLocation: function(){
+  getUserLocation: function(){
 		this.displayOnly("map_canvas");
+		this.getLoadingView();
 		if(navigator.geolocation){			
 			navigator.geolocation.getCurrentPosition(function(position){
 				var time = position.timestamp;

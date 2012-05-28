@@ -25,6 +25,18 @@ describe('VIEWS', function() {
 	    expect(google.maps.Map).toHaveBeenCalled();
 	  });
 	  
+	  it('should add eventlistener for tiles loaded event when calling render', function(){
+			spyOn(google.maps.event, 'addListener');
+	    this.mapView.render();
+	    expect(google.maps.event.addListener).toHaveBeenCalled();
+	  });
+	  
+	  it('should fire an event loadindFinished when calling dispatchLoadingFinished', function(){
+			spyOn(document, 'dispatchEvent');
+	    this.mapView.dispatchLoadingFinished();
+	    expect(document.dispatchEvent).toHaveBeenCalled();
+	  });
+	  
 	  describe('when working only with markers', function(){
 	  	beforeEach(function(){
 				this.marker1 = new MarkerModel({title: "marker1"});
@@ -55,7 +67,7 @@ describe('VIEWS', function() {
 		    this.mapView.placeMarkersToMap();
 		    expect(google.maps.event.addListener).toHaveBeenCalled();
 			});
-			
+
 	  	it('should remove markercluster from map when calling removeMarkersFromMap', function(){
 	  		this.mapView.placeMarkersToMap();
 	  		expect(this.mapView.markerCluster.getMarkers()).toBeTruthy();

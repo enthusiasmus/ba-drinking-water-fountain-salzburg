@@ -2,9 +2,7 @@
   include("header.php");
 ?>
 
-<div id="loading">
-	<div id="background"></div>
-</div>
+<div id="loading"></div>
 <nav id="navigation"></nav>
 <div id="map_canvas"></div>
 <div id="maptype"></div>

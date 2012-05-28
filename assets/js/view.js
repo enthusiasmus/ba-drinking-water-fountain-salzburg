@@ -18,10 +18,20 @@ var MapView = Backbone.View.extend({
 
 		this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 		
+		var self = this;
+		google.maps.event.addListener(this.map, 'tilesloaded', function(){
+			self.dispatchLoadingFinished();
+		}); 
+		
 		var template = _.template( $('#map_template').html() );
 		$(this.el).html(template);
 	},
 	events: {
+	},
+	dispatchLoadingFinished: function(){
+	  var event = document.createEvent('Event');
+		event.initEvent('loadingFinish', true, true)
+		document.dispatchEvent(event);
 	},
 	markerCollection: undefined,
 	map: undefined,
@@ -58,9 +68,11 @@ var MapView = Backbone.View.extend({
 			
 			google.maps.event.addListener(marker, 'click', function(){				
 				var infoContent = marker.content;
-				var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
-				if(distanceInformation)
-					infoContent += "<br>Distanz: " + distanceInformation;			
+				if(self.userLocationMarker){
+					var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
+					if(distanceInformation)
+						infoContent += "<br>Distanz: " + distanceInformation;
+				}
 				infoWindow.setContent(infoContent);
 				infoWindow.open(self.map, marker);
 			});
@@ -167,6 +179,7 @@ var MapView = Backbone.View.extend({
 	    if (status == google.maps.DirectionsStatus.OK) {
 	      self.directionsDisplay.setDirections(result);
 	    }
+			self.dispatchLoadingFinished();
 	  });
 	},
 	nearestFountain: function(){
@@ -218,6 +231,7 @@ var FeedView = Backbone.View.extend({
 	feedItemCollection: "",
 	initialize: function() {
 	},
+	timestamp: '',
 	addFeedItemCollection: function(feedItemCollection) {
 		this.feedItemCollection = feedItemCollection;
 		this.render();
@@ -245,10 +259,13 @@ var FeedView = Backbone.View.extend({
     	}
 		}
 		
-		var event = document.createEvent('Event');
+		this.dispatchLoadingFinished();
+	},
+	dispatchLoadingFinished: function(){
+    var event = document.createEvent('Event');
 		event.initEvent('loadingFinish', true, true)
 		document.dispatchEvent(event);
-	}
+	},
 });
 
 var AdressView = Backbone.View.extend({
@@ -274,6 +291,11 @@ var AdressView = Backbone.View.extend({
 	events: {
 		'click input[type=button]': 'searchAdress'
 	},
+	dispatchLoadingFinished: function(){
+    var event = document.createEvent('Event');
+		event.initEvent('loadingFinish', true, true)
+		document.dispatchEvent(event);
+	},
 	searchAdress: function(){
 		var geocoder = new google.maps.Geocoder();
     var address = $('input[name=adress]').val();
@@ -282,6 +304,8 @@ var AdressView = Backbone.View.extend({
     geocoder.geocode({ 'address': address}, function(results, status) {
       if(status == google.maps.GeocoderStatus.OK){
         self.mapView.map.setCenter(results[0].geometry.location);
+        if(self.mapView.map.getZoom() == 9)
+        	self.dispatchLoadingFinished();
         self.mapView.map.setZoom(9);
         
         if(self.currentMarker){
@@ -296,6 +320,7 @@ var AdressView = Backbone.View.extend({
       }
       else{
         alert("Geocode was not successful for the following reason: " + status);
+        self.dispatchLoadingFinished();
       }
     });
 	}
@@ -334,7 +359,6 @@ var MaptypeView = Backbone.View.extend({
 				self.mapView.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
 			break;
 		}
-
 	}
 });
 
@@ -374,6 +398,9 @@ var LoadingView = Backbone.View.extend({
 		};
 		var target = document.getElementById('loading');
 		this.spinner = new Spinner(opts).spin(target);
+		
+		var template = _.template( $('#loading_template').html());
+		$(this.el).html(template);
 	},
 	show: function(){
 		$(this.el).show();

@@ -127,6 +127,13 @@ describe('VIEWS', function() {
 		    expect(this.mapView.map.fitBounds).toHaveBeenCalled();
 		  });
 		  
+		  it('should fit bounds of user location when calling centerUserLocation', function(){
+		  	var userLocationModel = new UserLocationModel;
+		    var spy = sinon.spy(this.mapView.map, 'fitBounds');
+		    this.mapView.centerUserLocation(userLocationModel);	  
+				expect(spy.calledOnce).toBeTruthy();
+		  });
+		  
 		  it('should remove user location marker and circle when calling removeUserLocation', function(){
 		  	var userLocationModel = new UserLocationModel;
 		  	this.mapView.placeUserLocation(userLocationModel);

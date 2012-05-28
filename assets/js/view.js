@@ -245,7 +245,9 @@ var FeedView = Backbone.View.extend({
     	}
 		}
 		
-		loadingView.hide();
+		var event = document.createEvent('Event');
+		event.initEvent('loadingFinish', true, true)
+		document.dispatchEvent(event);
 	}
 });
 

@@ -56,7 +56,7 @@ var AppRouter = Backbone.Router.extend({
   },
   showRssFeed: function(){	
   	this.displayOnly("feed");
-  	loadingView.show();
+		this.getLoadingView();
 		$.get('rss.php',{
 		  feed_url:'http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7',
 		}, function(xml){
@@ -129,6 +129,12 @@ var AppRouter = Backbone.Router.extend({
   },
   defaultRoute: function(){
   	console.log("no route for this URI!");
+  },
+  getLoadingView: function(){
+  	loadingView.show();
+		document.addEventListener('loadingFinish', function(e){  
+			loadingView.hide();
+		}, false);  
   },
   mainElements: new Array("adress", "map_canvas", "feed", "info", "maptype"),
   displayOnly: function(elementsToShow){

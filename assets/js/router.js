@@ -6,7 +6,7 @@ var AppRouter = Backbone.Router.extend({
     "feed": "showRssFeed",
     "next": "nextFountain",
     "maptype": "showMaptype",
-    "maptype/:id": "changeMaptype",
+    "maptype/:type": "changeMaptype",
     "about": "showAbout",
     "*actions": "defaultRoute"
   },
@@ -45,9 +45,9 @@ var AppRouter = Backbone.Router.extend({
   showMaptype: function(){
 		this.displayOnly("map_canvas maptype");	
   },
-  changeMaptype: function(id){
+  changeMaptype: function(type){
 		this.displayOnly("map_canvas maptype");	
-		maptypeView.changeTyp(id);
+		maptypeView.changeTyp(type);
   },
   showRssFeed: function(){	
   	this.displayOnly("feed");

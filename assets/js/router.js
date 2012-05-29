@@ -35,9 +35,9 @@ var AppRouter = Backbone.Router.extend({
 		});
   },
   nextFountain: function(){
-		this.displayOnly("map_canvas");	
-  	mapView.drawRouteUserLocationToNextFountain();
-  },
+	this.displayOnly("map_canvas");	
+	mapView.drawRouteUserLocationToNextFountain();
+  },	
   showAdressSearch: function(){
 		this.displayOnly("map_canvas adress");
 		$('input[type=button]').click(this.getLoadingView);

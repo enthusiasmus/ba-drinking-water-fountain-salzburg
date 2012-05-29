@@ -19,24 +19,8 @@ var supportsOrientationChange = "onorientationchange" in window,
     
 window.addEventListener(orientationEvent, function() {
 	$('#map_canvas').height(window.innerHeight - $('#navigation').height());
-  mapView.resizeMap();
+  appRouter.mapView.resizeMap();
 }, false);
 
 var appRouter = new AppRouter();
 
-var mapModel = new MapModel;		
-var feedModel = new FeedModel;
-var userLocationModel = new UserLocationModel;
-var markerCollection = new MarkerCollection;
-var feedItemCollection = new FeedItemCollection;
-
-var mapView = new MapView({model: mapModel});
-var navView = new NavigationView;
-var feedView = new FeedView;
-var infoView = new InfoView;
-var maptypeView = new MaptypeView;
-var adressView = new AdressView;
-var loadingView = new LoadingView;
-
-adressView.mapView = mapView;
-maptypeView.mapView = mapView;

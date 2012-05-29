@@ -1,9 +1,8 @@
 describe('VIEWS', function() {
 	describe('MapView', function() {
 	  beforeEach(function() {
-	  	var mapModel = new MapModel;
-			this.mapView = new MapView({model: mapModel});
-			alert(this.mapView);
+	  	this.mapModel = new MapModel;
+			this.mapView = new MapView({model: this.mapModel});
 	  });
   	afterEach(function() {
 	  	this.mapView = null;
@@ -123,13 +122,6 @@ describe('VIEWS', function() {
 		  
 		  it('should fit bounds of user location when calling centerUserLocation', function(){
 		  	var userLocationModel = new UserLocationModel;
-				spyOn(this.mapView.map, 'fitBounds');
-		    this.mapView.centerUserLocation(userLocationModel);	    
-		    expect(this.mapView.map.fitBounds).toHaveBeenCalled();
-		  });
-		  
-		  it('should fit bounds of user location when calling centerUserLocation', function(){
-		  	var userLocationModel = new UserLocationModel;
 		    var spy = sinon.spy(this.mapView.map, 'fitBounds');
 		    this.mapView.centerUserLocation(userLocationModel);	  
 				expect(spy.calledOnce).toBeTruthy();
@@ -218,9 +210,9 @@ describe('VIEWS', function() {
 				this.feedItemCollection = null;
 		  });
 
-		  // it('should be able to be added to collection', function(){				
-				// expect(this.feedView.feedItemCollection).toEqual(this.newsCollection);
-		  // });
+		  it('should be able to be added to collection', function(){				
+				expect(this.feedView.feedItemCollection).toEqual(this.newsCollection);
+		  });
 
 		});
 

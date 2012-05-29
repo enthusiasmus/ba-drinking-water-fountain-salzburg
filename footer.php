@@ -2,7 +2,7 @@
 	<script type="text/javascript" src="assets/js/markerclusterer.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.dateFormat.js"></script>
-	<script type="text/javascript" src="assets/js/spin.min.js"></script>
+	<script type="text/javascript" src="assets/js/spin.js"></script>
 	<script type="text/javascript" src="assets/js/underscore.js"></script>
 	<script type="text/javascript" src="assets/js/backbone.js"></script>
 

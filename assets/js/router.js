@@ -10,8 +10,27 @@ var AppRouter = Backbone.Router.extend({
     "about": "showAbout",
     "*actions": "defaultRoute"
   },
+  initialize: function(){
+  	this.loadingView = new LoadingView;
+		this.mapModel = new MapModel;		
+		this.feedModel = new FeedModel;
+		this.userLocationModel = new UserLocationModel;
+		this.markerCollection = new MarkerCollection;
+		this.feedItemCollection = new FeedItemCollection;
+		
+		this.mapView = new MapView({model: this.mapModel});
+		this.navView = new NavigationView;
+		this.feedView = new FeedView;
+		this.infoView = new InfoView;
+		this.maptypeView = new MaptypeView;
+		this.adressView = new AdressView;
+		
+		this.adressView.mapView = this.mapView;
+		this.maptypeView.mapView = this.mapView;
+  },
   index: function(){
   	this.displayOnly("map_canvas");
+  	var self = this;
   	$.ajax({
 			async: true,
 			dataType: "json",
@@ -24,10 +43,10 @@ var AppRouter = Backbone.Router.extend({
 						longitude: data[idx].longitude,
 						title: data[idx].f_key + ": " + data[idx].water_distributor + " - " + data[idx].fontain_name
 					});
-					markerCollection.push(markerModel, []);
+					self.markerCollection.push(markerModel, []);
 				}
-				mapView.addMarkerCollection(markerCollection);
-				mapView.placeMarkersToMap();
+				self.mapView.addMarkerCollection(self.markerCollection);
+				self.mapView.placeMarkersToMap();
 			},
 			error: function(data){
 				//alert("Die Trinkbrunnen konnten nicht geladen werden!");
@@ -36,7 +55,7 @@ var AppRouter = Backbone.Router.extend({
   },
   nextFountain: function(){
 		this.displayOnly("map_canvas");	
-  	mapView.drawRouteUserLocationToNextFountain();
+  	this.mapView.drawRouteUserLocationToNextFountain();
   },
   showAdressSearch: function(){
 		this.displayOnly("map_canvas adress");
@@ -47,12 +66,13 @@ var AppRouter = Backbone.Router.extend({
   },
   changeMaptype: function(id){
 		this.displayOnly("map_canvas maptype");	
-		maptypeView.changeTyp(id);
+		this.maptypeView.changeTyp(id);
   },
   showRssFeed: function(){	
   	this.displayOnly("feed");
+		var self = this;
 		
-		if(feedView.timestamp < new Date().getTime() - 60*60*12){
+		if(this.feedView.timestamp < new Date().getTime() - 60*60*12){
 			this.getLoadingView();
 			$.get('rss.php',{
 			  feed_url:'http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7',
@@ -64,15 +84,16 @@ var AppRouter = Backbone.Router.extend({
 						pubDate: $.format.date($(this).find('pubDate').text(), 'dd. MMMM yyyy HH:mm:ss'),
 						description: $(this).find('description').text()
 					});
-					feedItemCollection.push(feedItemModel, []);
+					self.feedItemCollection.push(feedItemModel, []);
 			  });
-				feedView.addFeedItemCollection(feedItemCollection);
-				feedView.timestamp = new Date().getTime();
+				self.feedView.addFeedItemCollection(self.feedItemCollection);
+				self.feedView.timestamp = new Date().getTime();
 			});
 		}
   },
   getUserLocation: function(){
 		this.displayOnly("map_canvas");
+  	var self = this;
 		this.getLoadingView();
 		if(navigator.geolocation){			
 			navigator.geolocation.getCurrentPosition(function(position){
@@ -85,7 +106,7 @@ var AppRouter = Backbone.Router.extend({
 	      var speed = position.coords.speed; //Meter pro Sek.
 	      var heading = position.coords.heading; //Grad von wahrem Norden
 				
-	      userLocationModel.set({
+	      self.userLocationModel.set({
 	      	latitude: lat,
 	      	longitude: lng,
 	      	time: time,
@@ -96,9 +117,9 @@ var AppRouter = Backbone.Router.extend({
 	      	heading: heading
 	      });
 	
-				mapView.removeUserLocation();
-	      mapView.placeUserLocation(userLocationModel);
-	    	mapView.centerUserLocation(userLocationModel);
+				self.mapView.removeUserLocation();
+	      self.mapView.placeUserLocation(self.userLocationModel);
+	    	self.mapView.centerUserLocation(self.userLocationModel);
 			}, 
 			function(error){
 				switch(error.code) {
@@ -131,11 +152,12 @@ var AppRouter = Backbone.Router.extend({
   	console.log("no route for this URI!");
   },
   getLoadingView: function(){
-  	loadingView.show();
-		document.addEventListener('loadingFinish', function(e){  
-			loadingView.hide();
-		}, false);  
-	},
+  	this.loadingView.show();
+  	var self = this;
+		document.addEventListener('loadingFinish', function(){
+			self.loadingView.hide();
+		}, false);
+  },
   mainElements: new Array("adress", "map_canvas", "feed", "info", "maptype"),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");

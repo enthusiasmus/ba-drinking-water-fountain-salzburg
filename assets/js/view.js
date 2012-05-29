@@ -336,26 +336,23 @@ var MaptypeView = Backbone.View.extend({
 		$(this.el).html(template);
 	},
 	mapView: "",
-	changeTyp: function(id) {
+	changeTyp: function(type) {
 
-		//attention: id isn't a number yet
-		id *= 1;
-
-		switch(id)
+		switch(type)
 		{
-			case 1:
+			case "street":
 				self.mapView.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
 			break;
 
-			case 2:
+			case "satellite":
 				self.mapView.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
 			break;
 
-			case 3:
+			case "hybrid":
 				self.mapView.map.setMapTypeId(google.maps.MapTypeId.HYBRID);
 			break;
 
-			case 4:
+			case "terrain":
 				self.mapView.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
 			break;
 		}

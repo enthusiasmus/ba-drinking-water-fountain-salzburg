@@ -18,7 +18,7 @@
 	<script type="text/javascript" src="../assets/js/underscore.js"></script>
 	<script type="text/javascript" src="../assets/js/backbone.js"></script>
 	<script type="text/javascript" src="../assets/js/spin.js"></script>
-
+	
   <!-- include source files here... -->
   <script type="text/javascript" src="../assets/js/model.js"></script>
   <script type="text/javascript" src="../assets/js/collection.js"></script>
@@ -63,7 +63,6 @@
 </head>
 
 <body>
-	<div id="map_canvas" style=""></div>	
 	<script type="text/template" id="loading_template"></script>
 	<script type="text/template" id="feed_template"></script>
 	<script type="text/template" id="info_template"></script>
@@ -71,5 +70,39 @@
 	<script type='text/template' id='navigation_template'></script>
 	<script type='text/template' id='searchAdressTemplate'></script>
 	<script type='text/template' id='maptype_template'></script>
-</body>
-</html>
+
+	<div id="map_canvas"></div>	
+	<div id="loading" style="display:none;"></div>
+	<nav id="navigation"></nav>
+	<div id="maptype"></div>
+	<div id="adress"></div>
+	<div id="info"></div>
+	<div id="feed"></div>
+	
+	<script type='text/template' id='navigation_template'>
+		<ul>
+			<li class='menu-item'><a href='<%= first.url %>' onclick='<%= first.onclick %>'><%= first.title %></a></li>
+			<li class='menu-item'><a href='<%= second.url %>' onclick='<%= second.onclick %>'><%= second.title %></a></li>
+			<li class='menu-item'><a href='<%= third.url %>' onclick='<%= third.onclick %>'><%= third.title %></a></li>
+			<li class='menu-item'><a href='<%= fourth.url %>' onclick='<%= fourth.onclick %>'><%= fourth.title %></a></li>
+			<li class='menu-item'><a href='<%= fifth.url %>' onclick='<%= fifth.onclick %>'><%= fifth.title %></a></li>
+			<li class='menu-item'><a href='<%= sixth.url %>' onclick='<%= sixth.onclick %>'><%= sixth.title %></a></li>
+		</ul>
+	</script>
+
+	<script type='text/template' id='searchAdressTemplate'>
+		<div>
+			<input type='text' name='adress'/> <input type='button' value='Adresssuche' />
+		</div>
+	</script>
+
+	<script type='text/template' id='maptype_template'>
+		<div>
+		<ul>
+		  <li class='menu-item'><a href='#maptype/street'>Stra�e</a></li>
+		  <li class='menu-item'><a href='#maptype/satellite'>Satellit</a></li>
+		  <li class='menu-item'><a href='#maptype/hybrid'>Hybrid</a></li>
+		  <li class='menu-item'><a href='#maptype/terrain'>Terrain</a></li>
+		</ul>
+		</div>
+	</script>

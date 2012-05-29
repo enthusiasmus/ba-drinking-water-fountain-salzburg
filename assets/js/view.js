@@ -341,19 +341,19 @@ var MaptypeView = Backbone.View.extend({
 		switch(type)
 		{
 			case "street":
-				self.mapView.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+				this.mapView.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
 			break;
 
 			case "satellite":
-				self.mapView.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+				this.mapView.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
 			break;
 
 			case "hybrid":
-				self.mapView.map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+				this.mapView.map.setMapTypeId(google.maps.MapTypeId.HYBRID);
 			break;
 
 			case "terrain":
-				self.mapView.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+				this.mapView.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
 			break;
 		}
 	}

@@ -135,7 +135,7 @@ var AppRouter = Backbone.Router.extend({
 		document.addEventListener('loadingFinish', function(e){  
 			loadingView.hide();
 		}, false);  
-  },
+	},
   mainElements: new Array("adress", "map_canvas", "feed", "info", "maptype"),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");

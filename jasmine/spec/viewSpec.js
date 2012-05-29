@@ -1,8 +1,9 @@
 describe('VIEWS', function() {
 	describe('MapView', function() {
 	  beforeEach(function() {
-	  	this.mapModel = new MapModel;
-			this.mapView = new MapView({model: this.mapModel});
+	  	var mapModel = new MapModel;
+			this.mapView = new MapView({model: mapModel});
+			alert(this.mapView);
 	  });
   	afterEach(function() {
 	  	this.mapView = null;
@@ -201,27 +202,27 @@ describe('VIEWS', function() {
 	    expect(document.dispatchEvent).toHaveBeenCalled();
 	  });
 
-	  /* describe('FeedItems', function(){
+	  describe('FeedItems', function(){
 
 	  	beforeEach(function(){
 				this.news1 = new FeedItemModel({title: 'News 1', description: 'Kurztext', pubDate: '2012-05-28', link: 'www.seppeisl.at/'});
 				this.news2 = new FeedItemModel({title: 'News 2', description: 'Kurztext', pubDate: '2012-05-10', link: 'www.seppeisl.at/'});
 				this.newsCollection = new FeedItemCollection;
-				this.newsCollection.add([this.news1, this.news2]);
+				this.newsCollection.add([this.news1, this.news2], []);
 				this.feedView.addFeedItemCollection(this.newsCollection);
 	  	});
 
-	  	afterEach(function() {
+	  	afterEach(function(){
 				this.news1 = null;
 				this.news2 = null;
-				this.newsCollection = null;
+				this.feedItemCollection = null;
 		  });
 
-		  it('should be able to be added to collection', function(){				
-				expect(this.feedView.newsCollection).toEqual(this.newsCollection);
-		  });
+		  // it('should be able to be added to collection', function(){				
+				// expect(this.feedView.feedItemCollection).toEqual(this.newsCollection);
+		  // });
 
-		}); */
+		});
 
 	});
 

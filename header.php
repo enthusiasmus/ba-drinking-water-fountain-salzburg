@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html manifest="trinkbrunnen.manifest">
 	<head>
 		<meta content="text/html;charset=UTF-8" http-equiv="content-type">		
 		

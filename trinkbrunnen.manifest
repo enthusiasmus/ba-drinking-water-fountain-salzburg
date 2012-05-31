@@ -1,0 +1,17 @@
+CACHE MANIFEST
+# 2012-05-29:V0.1
+
+# Explicitly cached entries
+index.php
+footer.php
+header.php
+assets/*
+
+# Explicitly cached 'master entries'.
+CACHE:
+
+# All other resources (e.g. sites) require the user to be online. 
+NETWORK:	
+
+# offline.html will be displayed if the user is offline
+FALLBACK:

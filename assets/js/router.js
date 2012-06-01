@@ -66,7 +66,7 @@ var AppRouter = Backbone.Router.extend({
   },
   changeMaptype: function(type){
 		this.displayOnly("map_canvas maptype");	
-		this.maptypeView.changeTyp(type);
+		this.maptypeView.changeType(type);
   },
   showRssFeed: function(){	
   	this.displayOnly("feed");

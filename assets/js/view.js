@@ -336,26 +336,9 @@ var MaptypeView = Backbone.View.extend({
 		$(this.el).html(template);
 	},
 	mapView: "",
-	changeTyp: function(type) {
-
-		switch(type)
-		{
-			case "street":
-				this.mapView.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-			break;
-
-			case "satellite":
-				this.mapView.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-			break;
-
-			case "hybrid":
-				this.mapView.map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-			break;
-
-			case "terrain":
-				this.mapView.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-			break;
-		}
+	changeType: function(type) {
+		if(type != 'roadmap' && type != 'satellite' && type != 'hybrid' && type != 'terrain') { return false; }
+		this.mapView.map.setMapTypeId(type);
 	}
 });
 

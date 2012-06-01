@@ -9,7 +9,8 @@ var MarkerCollection = Backbone.Collection.extend({
 				longitude: data[idx].longitude,
 				title: data[idx].f_key + ": " + data[idx].water_distributor + " - " + data[idx].fontain_name
 			});
-			this.add(markerModel);
+			//this.add(markerModel);
+			console.log(idx);
 		}
 	}
 });

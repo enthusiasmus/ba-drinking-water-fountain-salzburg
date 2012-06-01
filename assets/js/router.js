@@ -28,7 +28,9 @@ var AppRouter = Backbone.Router.extend({
 		
 		this.adressView.mapView = this.mapView;
 		this.maptypeView.mapView = this.mapView;
-		
+  },
+  index: function(){
+  	this.displayOnly("map_canvas");
 		var self = this;
 		this.markerCollection.fetch({
 			success: function(){
@@ -40,9 +42,6 @@ var AppRouter = Backbone.Router.extend({
 			},
 			add: true
 		});
-  },
-  index: function(){
-  	this.displayOnly("map_canvas");
   },
   nextFountain: function(){
 		this.displayOnly("map_canvas");	

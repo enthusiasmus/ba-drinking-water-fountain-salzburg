@@ -34,8 +34,10 @@ var AppRouter = Backbone.Router.extend({
 		var self = this;
 		this.markerCollection.fetch({
 			success: function(){
+				console.log("Länge vor hinzufügen: " + self.markerCollection.length);
 				self.mapView.addMarkerCollection(self.markerCollection);
 				self.mapView.placeMarkersToMap();
+				console.log("Länge: " + self.markerCollection.length);
 			},
 			error: function(){
 				alert("Trinkbrunnen konnten nicht geladen werden!");

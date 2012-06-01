@@ -2,9 +2,9 @@ describe("ROUTERS", function() {
 	describe('when making ajax call', function(){
 	  beforeEach(function() { 	
 	  	this.router = new AppRouter;
-	  	this.router.markerCollection.url = '../../db/elements.php';
+	  	this.router.markerCollection.url = '../db/elements.php';
 			this.server = sinon.fakeServer.create();
-	    this.server.respondWith("GET", "../../db/elements.php", [200, { "Content-Type": "application/json" }, '[{"title":"Salzburg Innenstadt"}]']);
+	    this.server.respondWith("GET", "../db/elements.php", [200, { "Content-Type": "application/json" }, '[{"fontain_name":"Salzburg Innenstadt"}]']);
 	  });
 	
 	  afterEach(function(){
@@ -15,14 +15,15 @@ describe("ROUTERS", function() {
 	  	this.router.index();
 			expect(this.server.requests.length).toEqual(1);
 			expect(this.server.requests[0].method).toEqual("GET");
-			expect(this.server.requests[0].url).toEqual("../../db/elements.php");
+			expect(this.server.requests[0].url).toEqual("../db/elements.php");
 	  });
 	  
-		it('should parse fountain from response when index calling', function() {
+		it('should parse fountain from response when index calling', function() {	  
 		  this.router.index();
 		  this.server.respond();
-		  expect(this.router.mapView.markerCollection.length).toEqual(1);
-		  console.log(this.router.markerCollection.at(0).get("title"));
+		  //expect 2 because the collection adds automatically an default marker
+		  expect(this.router.markerCollection.length).toEqual(2);
+		  console.log(this.router.markerCollection.at(0));
 		  console.log(this.router.markerCollection.at(1));
 		});
 	});

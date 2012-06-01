@@ -4,7 +4,7 @@ describe("ROUTERS", function() {
 	  	this.router = new AppRouter;
 	  	this.router.markerCollection.url = '../db/elements.php';
 			this.server = sinon.fakeServer.create();
-	    this.server.respondWith("GET", "../db/elements.php", [200, { "Content-Type": "application/json" }, '[{"title":"Salzburg Innenstadt"}]']);
+	    this.server.respondWith("GET", "../db/elements.php", [200, { "Content-Type": "application/json" }, '[{"fontain_name":"Salzburg Innenstadt"}]']);
 	  });
 	
 	  afterEach(function(){
@@ -17,7 +17,7 @@ describe("ROUTERS", function() {
 			expect(this.server.requests[0].method).toEqual("GET");
 			expect(this.server.requests[0].url).toEqual("../db/elements.php");
 	  });
-	  
+
 		it('should parse fountain from response when index calling', function() {
 		  this.router.index();
 		  this.server.respond();

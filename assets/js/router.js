@@ -16,6 +16,7 @@ var AppRouter = Backbone.Router.extend({
 		this.feedModel = new FeedModel;
 		this.userLocationModel = new UserLocationModel;
 		this.markerCollection = new MarkerCollection;
+		this.markerCollection.url = 'db/elements.php';
 		this.feedItemCollection = new FeedItemCollection;
 		
 		this.mapView = new MapView({model: this.mapModel});
@@ -30,27 +31,16 @@ var AppRouter = Backbone.Router.extend({
   },
   index: function(){
   	this.displayOnly("map_canvas");
-  	var self = this;
-  	$.ajax({
-			async: true,
-			dataType: "json",
-			timeoutNumber: 5000,
-			url: "db/elements.php",
-			success: function(data){
-		  	for(idx in data){
-					var markerModel = new MarkerModel({
-						latitude: data[idx].latitude, 
-						longitude: data[idx].longitude,
-						title: data[idx].f_key + ": " + data[idx].water_distributor + " - " + data[idx].fontain_name
-					});
-					self.markerCollection.push(markerModel, []);
-				}
+		var self = this;
+		this.markerCollection.fetch({
+			success: function(){
 				self.mapView.addMarkerCollection(self.markerCollection);
 				self.mapView.placeMarkersToMap();
 			},
-			error: function(data){
-				//alert("Die Trinkbrunnen konnten nicht geladen werden!");
-			}
+			error: function(){
+				alert("Trinkbrunnen konnten nicht geladen werden!");
+			},
+			add: true
 		});
   },
   nextFountain: function(){

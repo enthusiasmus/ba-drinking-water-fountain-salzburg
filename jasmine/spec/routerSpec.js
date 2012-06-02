@@ -70,17 +70,17 @@ describe("ROUTERS", function() {
 			});	
 		});
 	
-		describe("Adress-Path", function() {
+		describe("address-Path", function() {
 		
 			beforeEach(function() {
-				this.adressView = new AdressView;
+				this.addressView = new AddressView;
 			});
 			
-			it("should display the adress site", function() {
-				this.adressDiv = $('#adress');
-				this.router.showAdressSearch();
-				expect(this.adressDiv.is(':visible')).toBeTruthy();
-				expect(this.adressView).toBeTruthy();
+			it("should display the address site", function() {
+				this.addressDiv = $('#address');
+				this.router.showaddressSearch();
+				expect(this.addressDiv.is(':visible')).toBeTruthy();
+				expect(this.addressView).toBeTruthy();
 			});
 		});
 	
@@ -132,10 +132,10 @@ describe("ROUTERS", function() {
 			});*/
 		});
 	
-		describe("Maptype-Path", function(){
+		describe("MapType-Path", function(){
 		
 			beforeEach(function() {
-				this.maptypeView = new MaptypeView;
+				this.mapTypeView = new MapTypeView;
 				this.router.showMaptype();
 			});
 			
@@ -150,7 +150,7 @@ describe("ROUTERS", function() {
 				this.maptypeDiv = $('#maptype');
 				
 				expect(this.maptypeDiv.is(':visible')).toBeTruthy();
-				expect(this.maptypeView).toBeTruthy();
+				expect(this.mapTypeView).toBeTruthy();
 			});
 		});
 		

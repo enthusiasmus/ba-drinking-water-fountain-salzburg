@@ -2,7 +2,7 @@ var AppRouter = Backbone.Router.extend({
   routes: {
   	"": "index",
   	"position": "getUserLocation",
-  	"adress": "showAdressSearch",
+  	"address": "showaddressSearch",
     "feed": "showRssFeed",
     "next": "nextFountain",
     "maptype": "showMaptype",
@@ -23,11 +23,11 @@ var AppRouter = Backbone.Router.extend({
 		this.navView = new NavigationView;
 		this.feedView = new FeedView;
 		this.infoView = new InfoView;
-		this.maptypeView = new MaptypeView;
-		this.adressView = new AdressView;
+		this.mapTypeView = new MapTypeView;
+		this.addressView = new AddressView;
 		
-		this.adressView.mapView = this.mapView;
-		this.maptypeView.mapView = this.mapView;
+		this.addressView.mapView = this.mapView;
+		this.mapTypeView.mapView = this.mapView;
   },
   index: function(){
   	this.displayOnly("map_canvas");
@@ -49,8 +49,8 @@ var AppRouter = Backbone.Router.extend({
 		this.displayOnly("map_canvas");	
   	this.mapView.drawRouteUserLocationToNextFountain();
   },
-  showAdressSearch: function(){
-		this.displayOnly("map_canvas adress");
+  showaddressSearch: function(){
+		this.displayOnly("map_canvas address");
 		$('input[type=button]').click(this.getLoadingView);
   },
   showMaptype: function(){
@@ -58,7 +58,7 @@ var AppRouter = Backbone.Router.extend({
   },
   changeMaptype: function(type){
 		this.displayOnly("map_canvas maptype");	
-		this.maptypeView.changeType(type);
+		this.mapTypeView.changeType(type);
   },
   showRssFeed: function(){	
   	this.displayOnly("feed");
@@ -150,7 +150,7 @@ var AppRouter = Backbone.Router.extend({
 			self.loadingView.hide();
 		}, false);
   },
-  mainElements: new Array("adress", "map_canvas", "feed", "info", "maptype"),
+  mainElements: new Array("address", "map_canvas", "feed", "info", "maptype"),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");
   	var shouldShow;

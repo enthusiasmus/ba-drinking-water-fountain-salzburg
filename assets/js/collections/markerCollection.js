@@ -15,9 +15,3 @@ var MarkerCollection = Backbone.Collection.extend({
 		return markers;
 	}
 });
-
-var FeedItemCollection = Backbone.Collection.extend({
-  initialize: function() {
-  },
-  model: FeedItemModel
-});

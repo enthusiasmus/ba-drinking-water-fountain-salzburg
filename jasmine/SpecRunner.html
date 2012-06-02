@@ -20,9 +20,23 @@
 	<script type="text/javascript" src="../assets/js/spin.js"></script>
 	
   <!-- include source files here... -->
-  <script type="text/javascript" src="../assets/js/model.js"></script>
-  <script type="text/javascript" src="../assets/js/collection.js"></script>
-  <script type="text/javascript" src="../assets/js/view.js"></script>
+  <script type="text/javascript" src="../assets/js/models/feedItemModel.js"></script>
+  <script type="text/javascript" src="../assets/js/models/feedModel.js"></script>
+  <script type="text/javascript" src="../assets/js/models/mapModel.js"></script>
+  <script type="text/javascript" src="../assets/js/models/markerModel.js"></script>
+  <script type="text/javascript" src="../assets/js/models/userLocationModel.js"></script>
+
+  <script type="text/javascript" src="../assets/js/collections/feedItemCollection.js"></script>
+  <script type="text/javascript" src="../assets/js/collections/markerCollection.js"></script>
+
+  <script type="text/javascript" src="../assets/js/views/addressView.js"></script>
+  <script type="text/javascript" src="../assets/js/views/feedView.js"></script>
+  <script type="text/javascript" src="../assets/js/views/infoView.js"></script>
+  <script type="text/javascript" src="../assets/js/views/loadingView.js"></script>
+  <script type="text/javascript" src="../assets/js/views/mapTypeView.js"></script>
+  <script type="text/javascript" src="../assets/js/views/mapView.js"></script>
+  <script type="text/javascript" src="../assets/js/views/navigationView.js"></script>
+
   <script type="text/javascript" src="../assets/js/router.js"></script>
 
   <!-- include spec files here... -->
@@ -68,14 +82,14 @@
 	<script type="text/template" id="info_template"></script>
 	<script type="text/template" id="map_template"></script>
 	<script type='text/template' id='navigation_template'></script>
-	<script type='text/template' id='searchAdressTemplate'></script>
+	<script type='text/template' id='searchaddressTemplate'></script>
 	<script type='text/template' id='maptype_template'></script>
 
 	<div id="map_canvas"></div>	
 	<div id="loading" style="display:none;"></div>
 	<nav id="navigation"></nav>
 	<div id="maptype"></div>
-	<div id="adress"></div>
+	<div id="address"></div>
 	<div id="info"></div>
 	<div id="feed"></div>
 	
@@ -90,9 +104,9 @@
 		</ul>
 	</script>
 
-	<script type='text/template' id='searchAdressTemplate'>
+	<script type='text/template' id='searchaddressTemplate'>
 		<div>
-			<input type='text' name='adress'/> <input type='button' value='Adresssuche' />
+			<input type='text' name='address'/> <input type='button' value='addresssuche' />
 		</div>
 	</script>
 

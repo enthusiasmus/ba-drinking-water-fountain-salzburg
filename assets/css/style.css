@@ -107,7 +107,7 @@ a:hover {text-decoration: none;}
 	min-height:320px;
 }
 
-#adress, #maptype {
+#address, #maptype {
 	width:100%;
 	display:none;
 	position: fixed;

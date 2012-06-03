@@ -197,8 +197,8 @@ describe('VIEWS', function() {
 	  describe('FeedItems', function(){
 
 	  	beforeEach(function(){
-				this.news1 = new FeedItemModel({title: 'News 1', description: 'Kurztext', pubDate: '2012-05-28', link: 'www.seppeisl.at/'});
-				this.news2 = new FeedItemModel({title: 'News 2', description: 'Kurztext', pubDate: '2012-05-10', link: 'www.seppeisl.at/'});
+				this.news1 = new FeedItemModel({title: 'News 1', description: 'Kurztext', pubDate: '2012-05-28', link: 'http://www.seppeisl.at'});
+				this.news2 = new FeedItemModel({title: 'News 2', description: 'Kurztext', pubDate: '2012-05-10', link: 'http://www.seppeisl.at'});
 				this.newsCollection = new FeedItemCollection;
 				this.newsCollection.add([this.news1, this.news2], []);
 				this.feedView.addFeedItemCollection(this.newsCollection);
@@ -213,7 +213,7 @@ describe('VIEWS', function() {
 		  it('should be able to be added to collection', function(){				
 				expect(this.feedView.feedItemCollection).toEqual(this.newsCollection);
 		  });
-
+		  
 		});
 
 	});

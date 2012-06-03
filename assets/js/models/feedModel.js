@@ -1,7 +1,5 @@
 var FeedModel = Backbone.Model.extend({
   defaults: {
-    title: 'RSS Feed'
+    title: 'RSS-Feed - Landesrat Sepp Eisl'
   },
-  initialize: function() {    
-  }
 });

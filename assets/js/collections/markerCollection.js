@@ -1,8 +1,6 @@
 var MarkerCollection = Backbone.Collection.extend({
-	initialize: function(){
-	},
 	model: MarkerModel,
-	parse: function(data) {
+	parse: function(data){
 		var markers = new Array();
 		for(idx in data){
 			var markerModel = new MarkerModel({

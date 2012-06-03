@@ -96,8 +96,8 @@ describe("MODELS", function() {
 				this.feed = new FeedModel;
 		  });
 
-		  it('should exhibit attributes', function() {
-		  	expect(this.feed.get('title')).toEqual('RSS Feed');
+		  it('should exist and have default title', function() {
+		  	expect(this.feed.get('title')).toEqual('RSS-Feed - Landesrat Sepp Eisl');
 		  });
 
 	  });
@@ -112,11 +112,11 @@ describe("MODELS", function() {
 				this.feedItem = new FeedItemModel;
 		  });
 
-		  it('should exhibit attributes', function() {
-		  	expect(this.feedItem.get('title')).toEqual('');
-		  	expect(this.feedItem.get('description')).toEqual('');
-		  	expect(this.feedItem.get('pubDate')).toEqual('');
-		  	expect(this.feedItem.get('link')).toEqual('');
+		  it('should exist and have default attributes', function() {
+		  	expect(this.feedItem.get('title')).toEqual('Wasser für das Salzburger Land');
+		  	expect(this.feedItem.get('description')).toEqual('-');
+		  	expect(this.feedItem.get('pubDate')).toEqual(new Date().getDate());
+		  	expect(this.feedItem.get('link')).toEqual('http://www.seppeisl.at');
 		  });
 
 	  });

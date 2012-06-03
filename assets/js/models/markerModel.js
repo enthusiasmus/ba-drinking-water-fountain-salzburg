@@ -5,6 +5,4 @@ var MarkerModel = Backbone.Model.extend({
     imageUrl: 'assets/img/marker.png',
     title: "Trinkbrunnen",
   },
-  initialize: function(){ 
-  },
 });

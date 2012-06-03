@@ -2,16 +2,45 @@ CACHE MANIFEST
 # 2012-05-29:V0.1
 
 # Explicitly cached entries
-index.php
-footer.php
-header.php
-assets/*
+assets/css/style.css
+
+assets/js/backbone.js
+assets/js/collection.js
+assets/js/view.js
+assets/js/router.js
+assets/js/model.js
+assets/js/spin.js
+assets/js/underscore.js
+assets/js/main.js
+assets/js/markerclusterer.js
+assets/js/jquery.js
+assets/js/jquery.js
+assets/js/jquery.dateFormat.js
+
+assets/image/apple-icon.png
+assets/image/apple-startup.png
+assets/image/loading.gif
+assets/image/marker.png
+assets/image/userlocation.png
 
 # Explicitly cached 'master entries'.
 CACHE:
 
 # All other resources (e.g. sites) require the user to be online. 
-NETWORK:	
+NETWORK:
+http://maps.gstatic.com/
+http://maps.google.com/
+http://maps.googleapis.com/
+http://mt0.googleapis.com/
+http://mt1.googleapis.com/
+http://mt2.googleapis.com/
+http://mt3.googleapis.com/
+http://khm0.googleapis.com/
+http://khm1.googleapis.com/
+http://cbk0.googleapis.com/
+http://cbk1.googleapis.com/
+http://www.google-analytics.com/
+http://gg.google.com/	
 
 # offline.html will be displayed if the user is offline
 FALLBACK:

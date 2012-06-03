@@ -1,10 +1,8 @@
 var FeedItemModel = Backbone.Model.extend({
 	defaults: {
-		title: '',
-		description: '',
-		pubDate: '',
-		link: ''
+		title: 'Wasser für das Salzburger Land',
+		description: '-',
+		pubDate: new Date().getDate(),
+		link: 'http://www.seppeisl.at'
 	},
-	initialize: function() {		
-	}
 });

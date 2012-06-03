@@ -8,6 +8,8 @@ describe("ROUTERS", function() {
 	  });
 	
 	  afterEach(function(){
+	    this.router.markerCollection = null;
+	  	this.router = null;
 	  	this.server.restore();
 	  });
 	  
@@ -21,9 +23,7 @@ describe("ROUTERS", function() {
 		it('should parse fountain from response when index calling', function() {
 		  this.router.index();
 		  this.server.respond();
-		  expect(this.router.mapView.markerCollection.length).toEqual(1);
-		  console.log(this.router.markerCollection.at(0).get("title"));
-		  console.log(this.router.markerCollection.at(1));
+		  expect(this.router.markerCollection.length).toEqual(1);
 		});
 	});
 
@@ -40,7 +40,7 @@ describe("ROUTERS", function() {
 			} catch(e) {}
 		});
 		  
-	  	afterEach(function() {
+	  afterEach(function() {
 		  	this.mapView = null;
 		  	this.mapModel = null;
 		});

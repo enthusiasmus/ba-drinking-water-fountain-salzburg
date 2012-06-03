@@ -8,25 +8,25 @@
 	<script type="text/javascript" src="assets/js/libs/underscore.js"></script>
 	<script type="text/javascript" src="assets/js/libs/backbone.js"></script>
 
-	<!-- models -->
-	<script type="text/javascript" src="assets/js/models/feedItemModel.js"></script>
-  <script type="text/javascript" src="assets/js/models/feedModel.js"></script>
-  <script type="text/javascript" src="assets/js/models/mapModel.js"></script>
-  <script type="text/javascript" src="assets/js/models/markerModel.js"></script>
-  <script type="text/javascript" src="assets/js/models/userLocationModel.js"></script>
+	<!--models -->
+	<script type="text/javascript" src="assets/js/models/feedItem.js"></script>
+  <script type="text/javascript" src="assets/js/models/feed.js"></script>
+  <script type="text/javascript" src="assets/js/models/map.js"></script>
+  <script type="text/javascript" src="assets/js/models/marker.js"></script>
+  <script type="text/javascript" src="assets/js/models/userLocation.js"></script>
 
 	<!-- views -->
-	<script type="text/javascript" src="assets/js/views/addressView.js"></script>
-	<script type="text/javascript" src="assets/js/views/feedView.js"></script>
-	<script type="text/javascript" src="assets/js/views/infoView.js"></script>
-	<script type="text/javascript" src="assets/js/views/loadingView.js"></script>
-	<script type="text/javascript" src="assets/js/views/mapTypeView.js"></script>
-	<script type="text/javascript" src="assets/js/views/mapView.js"></script>
-	<script type="text/javascript" src="assets/js/views/navigationView.js"></script>
+	<script type="text/javascript" src="assets/js/views/address.js"></script>
+	<script type="text/javascript" src="assets/js/views/feed.js"></script>
+	<script type="text/javascript" src="assets/js/views/info.js"></script>
+	<script type="text/javascript" src="assets/js/views/loading.js"></script>
+	<script type="text/javascript" src="assets/js/views/mapType.js"></script>
+	<script type="text/javascript" src="assets/js/views/map.js"></script>
+	<script type="text/javascript" src="assets/js/views/navigation.js"></script>
 
 	<!-- collections -->
-	<script type="text/javascript" src="assets/js/collections/markerCollection.js"></script>
-	<script type="text/javascript" src="assets/js/collections/feedItemCollection.js"></script>
+	<script type="text/javascript" src="assets/js/collections/marker.js"></script>
+	<script type="text/javascript" src="assets/js/collections/feedItem.js"></script>
 
 	<!-- router -->
 	<script type="text/javascript" src="assets/js/router.js"></script>

@@ -18,6 +18,7 @@ var AppRouter = Backbone.Router.extend({
 		this.markerCollection = new MarkerCollection;
 		this.markerCollection.url = 'db/elements.php';
 		this.feedItemCollection = new FeedItemCollection;
+    this.feedItemCollection.url = 'rss.php';
 		
 		this.mapView = new MapView({model: this.mapModel});
 		this.navView = new NavigationView;
@@ -61,25 +62,20 @@ var AppRouter = Backbone.Router.extend({
   showRssFeed: function(){	
   	this.displayOnly("feed");
 		var self = this;
-		
-		if(this.feedView.timestamp < new Date().getTime() - 60*60*12){
-			this.getLoadingView();
-			$.get('rss.php',{
-			  feed_url:'http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7',
-			}, function(xml){
-				$(xml).find('item').each(function(){
-					var feedItemModel = new FeedItemModel({
-						title: $(this).find('title').text(), 
-						link: $(this).find('link').text(),
-						pubDate: $.format.date($(this).find('pubDate').text(), 'dd. MMMM yyyy HH:mm:ss'),
-						description: $(this).find('description').text()
-					});
-					self.feedItemCollection.push(feedItemModel, []);
-			  });
-				self.feedView.addFeedItemCollection(self.feedItemCollection);
-				self.feedView.timestamp = new Date().getTime();
-			});
-		}
+
+    if(this.feedView.timestamp < new Date().getTime() - 60*60*12){
+      this.getLoadingView();
+      this.feedItemCollection.fetch({
+        success: function(){
+          self.feedView.addFeedItemCollection(self.feedItemCollection);
+          self.feedView.timestamp = new Date().getTime();
+        },
+        error: function(){
+          alert("Feed konnte nicht geladen werden!");
+        },
+        add: true
+      });
+    }
   },
   getUserLocation: function(){
 		this.displayOnly("map_canvas");

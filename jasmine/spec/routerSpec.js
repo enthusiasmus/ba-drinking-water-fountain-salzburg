@@ -94,11 +94,11 @@ describe("ROUTERS", function() {
 				//this.router.showRssFeed();
 			});
 			
-			/*it("should hide the google map", function() {
+			it("should hide the google map", function() {
 				this.mapDiv = $('#map_canvas');
-				
+				this.router.showRssFeed();
 				expect(this.mapDiv.is(':visible')).toBeFalsy();
-			});*/
+			});
 			
 			it("should display the feed site", function() {
 				this.feedDiv = $('#feed');
@@ -107,10 +107,11 @@ describe("ROUTERS", function() {
 				expect(this.feedView).toBeTruthy();
 			});
 			
-			/*it("should call function getLoadingView", function() {
+			it("should call function getLoadingView", function() {
 				spyOn(this.router, 'getLoadingView');
+				this.router.getUserLocation();
 				expect(this.router.getLoadingView).toHaveBeenCalled();			
-			});*/	
+			});
 		});
 	
 		describe("Next-Fontain-Path", function(){

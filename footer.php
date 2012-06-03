@@ -1,12 +1,14 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-	<script type="text/javascript" src="assets/js/markerclusterer.js"></script>
-	<script type="text/javascript" src="assets/js/jquery.js"></script>
-	<script type="text/javascript" src="assets/js/jquery.dateFormat.js"></script>
-	<script type="text/javascript" src="assets/js/spin.js"></script>
-	<script type="text/javascript" src="assets/js/underscore.js"></script>
-	<script type="text/javascript" src="assets/js/backbone.js"></script>
+	
+	<!-- libs -->
+	<script type="text/javascript" src="assets/js/libs/markerclusterer.js"></script>
+	<script type="text/javascript" src="assets/js/libs/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/libs/jquery.dateFormat.js"></script>
+	<script type="text/javascript" src="assets/js/libs/spin.js"></script>
+	<script type="text/javascript" src="assets/js/libs/underscore.js"></script>
+	<script type="text/javascript" src="assets/js/libs/backbone.js"></script>
 
-	<!--models -->
+	<!-- models -->
 	<script type="text/javascript" src="assets/js/models/feedItemModel.js"></script>
   <script type="text/javascript" src="assets/js/models/feedModel.js"></script>
   <script type="text/javascript" src="assets/js/models/mapModel.js"></script>

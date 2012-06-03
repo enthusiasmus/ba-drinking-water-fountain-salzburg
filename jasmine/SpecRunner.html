@@ -12,12 +12,12 @@
 
 	<!-- include dependencies -->
 	<script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
-	<script type="text/javascript" src="../assets/js/markerclusterer.js"></script>
-	<script type="text/javascript" src="../assets/js/jquery.js"></script>
-	<script type="text/javascript" src="../assets/js/jquery.dateFormat.js"></script>
-	<script type="text/javascript" src="../assets/js/underscore.js"></script>
-	<script type="text/javascript" src="../assets/js/backbone.js"></script>
-	<script type="text/javascript" src="../assets/js/spin.js"></script>
+	<script type="text/javascript" src="../assets/js/libs/markerclusterer.js"></script>
+	<script type="text/javascript" src="../assets/js/libs/jquery.js"></script>
+	<script type="text/javascript" src="../assets/js/libs/jquery.dateFormat.js"></script>
+	<script type="text/javascript" src="../assets/js/libs/underscore.js"></script>
+	<script type="text/javascript" src="../assets/js/libs/backbone.js"></script>
+	<script type="text/javascript" src="../assets/js/libs/spin.js"></script>
 	
   <!-- include source files here... -->
   <script type="text/javascript" src="../assets/js/models/feedItemModel.js"></script>
@@ -40,10 +40,16 @@
   <script type="text/javascript" src="../assets/js/router.js"></script>
 
   <!-- include spec files here... -->
-  <script type="text/javascript" src="spec/modelSpec.js"></script>
-  <script type="text/javascript" src="spec/collectionSpec.js"></script>
-  <script type="text/javascript" src="spec/viewSpec.js"></script>
-  <script type="text/javascript" src="spec/routerSpec.js"></script>
+  <script type="text/javascript" src="spec/models/feed.js"></script>
+  <script type="text/javascript" src="spec/models/feeditem.js"></script>
+  <script type="text/javascript" src="spec/models/map.js"></script>
+  <script type="text/javascript" src="spec/models/marker.js"></script>
+  <script type="text/javascript" src="spec/models/userlocation.js"></script>
+  <script type="text/javascript" src="spec/collections/feeditems.js"></script>
+  <script type="text/javascript" src="spec/collections/markers.js"></script>
+  <script type="text/javascript" src="spec/views/feed.js"></script>
+  <script type="text/javascript" src="spec/views/map.js"></script>
+  <script type="text/javascript" src="spec/router.js"></script>
 
   <script type="text/javascript">
     (function() {

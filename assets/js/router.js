@@ -10,39 +10,48 @@ var AppRouter = Backbone.Router.extend({
     "about": "showAbout",
     "*actions": "defaultRoute"
   },
-  initialize: function(){
-  	this.loadingView = new LoadingView;
-		this.mapModel = new MapModel;		
-		this.feedModel = new FeedModel;
-		this.userLocationModel = new UserLocationModel;
-		this.markerCollection = new MarkerCollection;
-		this.markerCollection.url = 'db/elements.php';
-		this.feedItemCollection = new FeedItemCollection;
+  initialize: function(){   
+    this.loadingView = new LoadingView;
+    this.mapModel = new MapModel;   
+    this.feedModel = new FeedModel;
+    this.userLocationModel = new UserLocationModel;
+    this.markerCollection = new MarkerCollection;
+    this.markerCollection.url = 'db/elements.php';
+    this.feedItemCollection = new FeedItemCollection;
     this.feedItemCollection.url = 'rss.php';
-		
-		this.mapView = new MapView({model: this.mapModel});
-		this.navView = new NavigationView;
-		this.feedView = new FeedView;
-		this.infoView = new InfoView;
-		this.mapTypeView = new MapTypeView;
-		this.addressView = new AddressView;
-		
-		this.addressView.mapView = this.mapView;
-		this.mapTypeView.mapView = this.mapView;
+    
+    this.mapView = new MapView({model: this.mapModel});
+    this.navView = new NavigationView;
+    this.feedView = new FeedView;
+    this.infoView = new InfoView;
+    this.mapTypeView = new MapTypeView;
+    this.addressView = new AddressView;
+    
+    this.addressView.mapView = this.mapView;
+    this.mapTypeView.mapView = this.mapView;
+  },
+  init: function(){
+    try{
+      if(!(Backbone.history.start()))
+        throw "Couldn't start backbone history!";
+    }
+    catch(e){
+      console.log(e);
+    }
   },
   index: function(){
   	this.displayOnly("map_canvas");
-		var self = this;
-		this.markerCollection.fetch({
-			success: function(){
-				self.mapView.addMarkerCollection(self.markerCollection);
-				self.mapView.placeMarkersToMap();
-			},
-			error: function(){
-				alert("Trinkbrunnen konnten nicht geladen werden!");
-			},
-			add: true
-		});
+  	var self = this;
+    this.markerCollection.fetch({
+      success: function(){
+        self.mapView.addMarkerCollection(self.markerCollection);
+        self.mapView.placeMarkersToMap();
+      },
+      error: function(){
+        alert("Trinkbrunnen konnten nicht geladen werden!");
+      },
+      add: true
+    });
   },
   nextFountain: function(){
 		this.displayOnly("map_canvas");	
@@ -50,7 +59,9 @@ var AppRouter = Backbone.Router.extend({
   },
   showaddressSearch: function(){
 		this.displayOnly("map_canvas address");
-		$('input[type=button]').click(this.getLoadingView);
+		$('input[type=button]').click(function(){
+		  dispatcher.trigger()
+		});
   },
   showMaptype: function(){
 		this.displayOnly("map_canvas maptype");	

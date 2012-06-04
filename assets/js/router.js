@@ -5,6 +5,7 @@ var AppRouter = Backbone.Router.extend({
   	"address": "showaddressSearch",
     "feed": "showRssFeed",
     "next": "nextFountain",
+    "route/:id": "routeToFountain",
     "maptype": "showMaptype",
     "maptype/:type": "changeMaptype",
     "about": "showAbout",
@@ -56,6 +57,9 @@ var AppRouter = Backbone.Router.extend({
   nextFountain: function(){
 		this.displayOnly("map_canvas");	
   	this.mapView.drawRouteUserLocationToNextFountain();
+  },
+  routeToFountain: function(id){
+    console.log("Route to Fontain will be calculated");
   },
   showaddressSearch: function(){
 		this.displayOnly("map_canvas address");

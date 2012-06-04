@@ -53,6 +53,7 @@ var MapView = Backbone.View.extend({
     
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
+
     _.each(this.markerCollection.toArray(), function(markerModel){ 
 
       var marker = new google.maps.Marker({
@@ -75,7 +76,7 @@ var MapView = Backbone.View.extend({
             infoContent += "<br>Distanz: " + distanceInformation;
         }
 
-        infoContent += '<br/><br/><a href="#" class="detail_route_link">Route berechnen</a>';
+        infoContent += '<br/><br/><a href="#route/' + markerModel.get("id") + '">Route berechnen</a>';
 
         infoWindow.setContent(infoContent);
         infoWindow.open(self.map, marker);

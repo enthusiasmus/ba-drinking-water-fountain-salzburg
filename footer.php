@@ -1,5 +1,5 @@
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-	
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
+
 	<!-- libs -->
 	<script type="text/javascript" src="assets/js/libs/markerclusterer.js"></script>
 	<script type="text/javascript" src="assets/js/libs/jquery.js"></script>

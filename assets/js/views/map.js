@@ -66,13 +66,17 @@ var MapView = Backbone.View.extend({
       infoWindow = new google.maps.InfoWindow({
       });
       
-      google.maps.event.addListener(marker, 'click', function(){        
+      google.maps.event.addListener(marker, 'click', function(){     
         var infoContent = marker.content;
+        
         if(self.userLocationMarker){
           var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
           if(distanceInformation)
             infoContent += "<br>Distanz: " + distanceInformation;
         }
+
+        infoContent += '<br/><br/><a href="#" class="detail_route_link">Route berechnen</a>';
+
         infoWindow.setContent(infoContent);
         infoWindow.open(self.map, marker);
       });

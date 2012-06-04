@@ -121,6 +121,11 @@ a:hover {text-decoration: none;}
 	padding: 10px 0 10px 0;
 }
 
+.detail_route_link {
+	text-align: right;
+	color: red;
+}
+
 /*** mobile commands ***/
 /* portrait */
 @media screen and (max-width: 320px){

@@ -1,3 +1,12 @@
+<?php
+  $isIphone = strstr($_SERVER['HTTP_USER_AGENT'],'iPhone');
+  $iPod = strstr($_SERVER['HTTP_USER_AGENT'],'iPod');
+  $iPad = strstr($_SERVER['HTTP_USER_AGENT'],'iPad');
+  $android = strstr($_SERVER['HTTP_USER_AGENT'],'Android');
+  
+  //include different stylesheets when if($iPad == 'iPad') etc.
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>

@@ -57,7 +57,7 @@ var AppRouter = Backbone.Router.extend({
     this.mapView.map.setCenter(currentCenter);
   },
   nextFountain: function(){
-    this.navigate("");
+    this.navigate("", {trigger: true});
     this.displayOnly('map_canvas'); 
     if(this.mapView.directionsDisplay){
       this.mapView.hideRoute();
@@ -76,7 +76,7 @@ var AppRouter = Backbone.Router.extend({
     console.log('Route to Fontain will be calculated');
   },
   showAddressSearch: function(){
-    this.navigate("");
+    this.navigate("", {trigger: true});
     
     var isVisible = $('#address').is(':visible');
     this.displayOnly('map_canvas');
@@ -89,7 +89,7 @@ var AppRouter = Backbone.Router.extend({
 		});
   },
   showMaptype: function(){
-    this.navigate("");
+    this.navigate("", {trigger: true});
     
     var isVisible = $('#maptype').is(':visible');
     this.displayOnly('map_canvas');
@@ -121,8 +121,7 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   getUserLocation: function(){
-    this.navigate("");
-    
+    this.navigate("", {trigger: true});
 		this.displayOnly('map_canvas');
     this.calculateGeoLocation();
   },

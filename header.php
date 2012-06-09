@@ -19,7 +19,7 @@
 		<link rel="apple-touch-icon" href="assets/img/apple-icon.png"/>										<!-- default icon image for the homescreen -->
 		<link rel="apple-touch-startup-image" href="assets/img/apple-startup.png" />  		<!-- quick startup screen -->
 		
-		<title>Trinkbrunnen - Salzburger Land</title>
+		<title>TrinkWasser!</title>
 		<link rel="stylesheet" href="assets/css/style.css" />
 	</head>
 	<body>

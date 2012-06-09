@@ -21,11 +21,6 @@ var AddressView = Backbone.View.extend({
   events: {
     'click input[type=button]': 'searchaddress'
   },
-  dispatchLoadingFinished: function(){
-    var event = document.createEvent('Event');
-    event.initEvent('loadingFinish', true, true)
-    document.dispatchEvent(event);
-  },
   searchaddress: function(){
     var geocoder = new google.maps.Geocoder();
     var address = $('input[name=address]').val();
@@ -49,8 +44,7 @@ var AddressView = Backbone.View.extend({
         });
       }
       else{
-        alert("Geocode was not successful for the following reason: " + status);
-        self.dispatchLoadingFinished();
+        console.log("Geocode was not successful for the following reason: " + status);
       }
     });
   }

@@ -2,7 +2,6 @@ var AppRouter = Backbone.Router.extend({
   routes: {
   	"": "index",
     "feed": "showRssFeed",
-    "next": "nextFountain",
     "route/:id": "routeToFountain",
     "maptype/:type": "changeMaptype",
     "about": "showAbout",
@@ -27,7 +26,6 @@ var AppRouter = Backbone.Router.extend({
     this.addressView.mapView = this.mapView;
     this.mapTypeView.mapView = this.mapView;
 
-    //create an event-dispatcher
     this.eventDispatcher = {};
     _.extend(this.eventDispatcher, Backbone.Events);
 
@@ -54,11 +52,18 @@ var AppRouter = Backbone.Router.extend({
     });
   },
   index: function(){
+    var currentCenter = this.mapView.map.getCenter();
   	this.displayOnly('map_canvas');
+    this.mapView.map.setCenter(currentCenter);
   },
   nextFountain: function(){
     this.navigate("");
     this.displayOnly('map_canvas'); 
+    if(this.mapView.directionsDisplay){
+      this.mapView.hideRoute();
+      return;
+    }
+    
     this.calculateGeoLocation('route');
     
     var self = this;
@@ -186,13 +191,7 @@ var AppRouter = Backbone.Router.extend({
   	console.log('no route for this URI!');
   },
   getLoadingView: function(){
-  	this.loadingView.show();
-  	var self = this;
-
-    this.eventDispatcher.on('hideLoadingView', function() {
-      self.loadingView.hide();
-      self.eventDispatcher.off('hideLoadingView');  
-    });
+    //removed for iphone presentation
   },
   mainElements: new Array('address', 'map_canvas', 'feed', 'info', 'maptype'),
   displayOnly: function(elementsToShow){

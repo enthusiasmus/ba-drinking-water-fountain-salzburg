@@ -22,7 +22,6 @@
 	<script type="text/javascript" src="assets/js/views/loading.js"></script>
 	<script type="text/javascript" src="assets/js/views/mapType.js"></script>
 	<script type="text/javascript" src="assets/js/views/map.js"></script>
-	<script type="text/javascript" src="assets/js/views/navigation.js"></script>
 
 	<!-- collections -->
 	<script type="text/javascript" src="assets/js/collections/marker.js"></script>

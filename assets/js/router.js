@@ -1,12 +1,9 @@
 var AppRouter = Backbone.Router.extend({
   routes: {
   	"": "index",
-  	"position": "getUserLocation",
-  	"address": "showaddressSearch",
     "feed": "showRssFeed",
     "next": "nextFountain",
     "route/:id": "routeToFountain",
-    "maptype": "showMaptype",
     "maptype/:type": "changeMaptype",
     "about": "showAbout",
     "*actions": "defaultRoute"
@@ -22,7 +19,6 @@ var AppRouter = Backbone.Router.extend({
     this.feedItemCollection.url = 'rss.php';
     
     this.mapView = new MapView({model: this.mapModel});
-    this.navView = new NavigationView;
     this.feedView = new FeedView;
     this.infoView = new InfoView;
     this.mapTypeView = new MapTypeView;
@@ -44,10 +40,8 @@ var AppRouter = Backbone.Router.extend({
     catch(e){
       console.log(e);
     }
-  },
-  index: function(){
-  	this.displayOnly('map_canvas');
-  	var self = this;
+    
+    var self = this;
     this.markerCollection.fetch({
       success: function(){
         self.mapView.addMarkerCollection(self.markerCollection);
@@ -59,35 +53,47 @@ var AppRouter = Backbone.Router.extend({
       add: true
     });
   },
+  index: function(){
+  	this.displayOnly('map_canvas');
+  },
   nextFountain: function(){
+    this.navigate("");
     this.displayOnly('map_canvas'); 
-
-    var self = this;
-    
-    this.getLoadingView();
     this.calculateGeoLocation('route');
-
+    
+    var self = this;
     this.eventDispatcher.on('drawRoute', function() {
       self.mapView.drawRouteUserLocationToNextFountain(); 
       self.eventDispatcher.off('drawRoute');  
-      self.eventDispatcher.trigger('hideLoadingView');
     });
-   
   },
   routeToFountain: function(id){
     console.log('Route to Fontain will be calculated');
   },
-  showaddressSearch: function(){
-		this.displayOnly('map_canvas address');
+  showAddressSearch: function(){
+    this.navigate("");
+    
+    var isVisible = $('#address').is(':visible');
+    this.displayOnly('map_canvas');
+    if(!isVisible){
+      $('#address').show();
+    }
+
 		$('input[type=button]').click(function(){
 		  dispatcher.trigger()
 		});
   },
   showMaptype: function(){
-		this.displayOnly('map_canvas maptype');	
+    this.navigate("");
+    
+    var isVisible = $('#maptype').is(':visible');
+    this.displayOnly('map_canvas');
+    if(!isVisible){
+      $('#maptype').show();
+    }
   },
   changeMaptype: function(type){
-		this.displayOnly('map_canvas maptype');	
+		this.displayOnly('map_canvas');	
 		this.mapTypeView.changeType(type);
   },
   showRssFeed: function(){	
@@ -110,11 +116,10 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   getUserLocation: function(){
+    this.navigate("");
+    
 		this.displayOnly('map_canvas');
-		this.getLoadingView();
     this.calculateGeoLocation();
-
-    this.eventDispatcher.trigger('hideLoadingView');
   },
   calculateGeoLocation: function(eventtype){
     var self = this;
@@ -208,5 +213,8 @@ var AppRouter = Backbone.Router.extend({
   		else
   			$('#'+this.mainElements[idx]).hide();
   	}
+  	
+  	if($('#map_canvas').is(':visible'))
+      google.maps.event.trigger(this.mapView.map, "resize");
   }
 });

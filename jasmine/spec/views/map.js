@@ -30,11 +30,11 @@ describe('View - Map', function() {
 	expect(google.maps.event.addListener).toHaveBeenCalled();
   });
   
-  it('should fire an event loadindFinished when calling dispatchLoadingFinished', function(){
+  /*it('should fire an event loadindFinished when calling dispatchLoadingFinished', function(){
 		spyOn(document, 'dispatchEvent');
 	this.mapView.dispatchLoadingFinished();
 	expect(document.dispatchEvent).toHaveBeenCalled();
-  });
+  });*/
   
   describe('when working only with markers', function(){
 	beforeEach(function(){
@@ -76,32 +76,32 @@ describe('View - Map', function() {
 	});
 	
   it('should calculate the correct distance between to points', function(){
-	var firstPoint = new google.maps.LatLng(47,13);
-	var secondPoint = new google.maps.LatLng(48,14);
-	
-	spyOn(google.maps.geometry.spherical, 'computeDistanceBetween');
-	this.mapView.distanceCalculator(firstPoint, secondPoint);
-	expect(google.maps.geometry.spherical.computeDistanceBetween).toHaveBeenCalled();
-		expect(google.maps.geometry.spherical.computeDistanceBetween).toHaveBeenCalledWith(firstPoint, secondPoint);
-	
-	var distance = this.mapView.distanceCalculator();
-	expect(distance).toBeFalsy();
-	
-	distance = this.mapView.distanceCalculator(firstPoint);
-	expect(distance).toBeFalsy();
-	
-	distance = this.mapView.distanceCalculator(secondPoint);
-	expect(distance).toBeFalsy();
-	
-	distance = this.mapView.distanceCalculator(firstPoint, secondPoint);
-	expect(distance).toBeTruthy();
+		var firstPoint = new google.maps.LatLng(47,13);
+		var secondPoint = new google.maps.LatLng(48,14);
+		
+		spyOn(google.maps.geometry.spherical, 'computeDistanceBetween');
+		this.mapView.distanceCalculator(firstPoint, secondPoint);
+		expect(google.maps.geometry.spherical.computeDistanceBetween).toHaveBeenCalled();
+			expect(google.maps.geometry.spherical.computeDistanceBetween).toHaveBeenCalledWith(firstPoint, secondPoint);
+		
+		var distance = this.mapView.distanceCalculator();
+		expect(distance).toBeFalsy();
+		
+		distance = this.mapView.distanceCalculator(firstPoint);
+		expect(distance).toBeFalsy();
+		
+		distance = this.mapView.distanceCalculator(secondPoint);
+		expect(distance).toBeFalsy();
+		
+		distance = this.mapView.distanceCalculator(firstPoint, secondPoint);
+		expect(distance).toBeTruthy();
   });
   
   it('should trigger resize event when calling resizeMap', function(){
-	spyOn(google.maps.event, 'trigger');
-	this.mapView.resizeMap();
-	expect(google.maps.event.trigger).toHaveBeenCalled();
-	expect(google.maps.event.trigger).toHaveBeenCalledWith(this.mapView.map, 'resize');
+		spyOn(google.maps.event, 'trigger');
+		this.mapView.resizeMap();
+		expect(google.maps.event.trigger).toHaveBeenCalled();
+		expect(google.maps.event.trigger).toHaveBeenCalledWith(this.mapView.map, 'resize');
   });
   
   describe('when working with userlocation', function(){
@@ -152,8 +152,8 @@ describe('View - Map', function() {
 			});
 			
 		  it('should calculate return the position of the nearest fountain when calling nearestFountain', function(){
-				expect(this.mapView.nearestFountain().lat()).toEqual(48);
-				expect(this.mapView.nearestFountain().lng()).toEqual(13);
+					expect(this.mapView.nearestFountain().lat()).toEqual(48);
+					expect(this.mapView.nearestFountain().lng()).toEqual(13);
 		  });
 		  
 		  it('should draw the route to the nearest fountain when calling drawRouteUserLocationToNextFountain', function(){		  	

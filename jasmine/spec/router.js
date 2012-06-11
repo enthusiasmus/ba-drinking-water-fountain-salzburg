@@ -21,7 +21,7 @@ describe("ROUTERS", function() {
 	  });
 
 		it('should parse fountain from response when index calling', function() {
-		  this.router.index();
+		  this.router.navigate("");
 		  this.server.respond();
 		  expect(this.router.markerCollection.length).toEqual(1);
 		});
@@ -79,7 +79,7 @@ describe("ROUTERS", function() {
 			
 			it("should display the address site", function() {
 				this.addressDiv = $('#address');
-				this.router.showaddressSearch();
+				this.router.showAddressSearch();
 				expect(this.addressDiv.is(':visible')).toBeTruthy();
 				expect(this.addressView).toBeTruthy();
 			});

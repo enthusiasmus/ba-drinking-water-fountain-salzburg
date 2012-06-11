@@ -15,9 +15,9 @@ describe('Collection - Feeditems ', function() {
 
   describe('when working with "real" items', function(){
     beforeEach(function() {
-      this.feedItemCollection.url = '../../rss.php';
+      this.feedItemCollection.url = '../rss.php';
       this.server = sinon.fakeServer.create();
-      this.server.respondWith("GET", "../../rss.php", [200, { "Content-Type": "application/json" }, '[{"title":"Wasser-News","description":"Dies ist ein höchst spannender Beitrag zum Thema Wasser.","pubDate":"WG","link":"http://www.seppeisl.at"}]']);
+      this.server.respondWith("GET", "../rss.php", [200, { "Content-Type": "application/json" }, '[{"title":"Wasser-News","description":"Dies ist ein höchst spannender Beitrag zum Thema Wasser.","pubDate":"WG","link":"http://www.seppeisl.at"}]']);
     });
     
     afterEach(function(){
@@ -28,7 +28,7 @@ describe('Collection - Feeditems ', function() {
       this.feedItemCollection.fetch();
       expect(this.server.requests.length).toEqual(1);
       expect(this.server.requests[0].method).toEqual("GET");
-      expect(this.server.requests[0].url).toEqual("../../rss.php");
+      expect(this.server.requests[0].url).toEqual("../rss.php");
     });
       
     it("response should be parsed correctly", function() {

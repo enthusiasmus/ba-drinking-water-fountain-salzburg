@@ -64,7 +64,7 @@ var AppRouter = Backbone.Router.extend({
       return;
     }
     
-    this.calculateGeoLocation('route');
+    this.calculateGeoLocation('drawRoute');
     
     var self = this;
     this.eventDispatcher.on('drawRoute', function() {
@@ -73,7 +73,15 @@ var AppRouter = Backbone.Router.extend({
     });
   },
   routeToFountain: function(id){
-    console.log('Route to Fontain will be calculated');
+    console.log('router: Route to Fontain will be calculated');
+
+    this.calculateGeoLocation('drawRouteTo');
+
+    var self = this;
+    this.eventDispatcher.on('drawRouteTo', function(){
+      self.mapView.drawRouteUserLocationToFountain(id);
+      self.eventDispatcher.off('drawRouteTo');
+    });
   },
   showAddressSearch: function(){
     this.navigate("", {trigger: true});
@@ -153,8 +161,8 @@ var AppRouter = Backbone.Router.extend({
         self.mapView.placeUserLocation(self.userLocationModel);
         self.mapView.centerUserLocation(self.userLocationModel);
 
-        if(eventtype == 'route')
-          self.eventDispatcher.trigger('drawRoute');
+        if(eventtype)
+          self.eventDispatcher.trigger(eventtype);
         else
           self.eventDispatcher.trigger('hideLoadingView');
         

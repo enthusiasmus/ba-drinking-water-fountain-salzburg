@@ -215,5 +215,32 @@ var MapView = Backbone.View.extend({
     });
     
     return this.markerCollection.at(id);
+  },
+  drawRouteUserLocationToFountain: function(id){
+    this.hideRoute();
+
+
+    var fontain = this.markerCollection.at(id);
+    var self = this;
+
+    this.directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: false,
+      suppressMarkers: true,
+      suppressInfoWindows: true,
+      map: self.map 
+    });
+
+    var request = {
+          origin: this.userLocationMarker.getPosition(),
+          destination: new google.maps.LatLng(fontain.get('latitude'), fontain.get('longitude')),
+          travelMode: google.maps.TravelMode.WALKING
+        };
+
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsService.route(request, function(result, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        self.directionsDisplay.setDirections(result);
+      }
+    });    
   }
 });

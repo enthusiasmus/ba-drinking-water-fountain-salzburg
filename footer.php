@@ -2,6 +2,7 @@
 
 	<!-- libs -->
 	<script type="text/javascript" src="assets/js/libs/markerclusterer.js"></script>
+	<script type="text/javascript" src="assets/js/libs/infobox.js"></script>
 	<script type="text/javascript" src="assets/js/libs/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/libs/jquery.dateFormat.js"></script>
 	<script type="text/javascript" src="assets/js/libs/spin.js"></script>

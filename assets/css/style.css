@@ -121,9 +121,27 @@ a:hover {text-decoration: none;}
 	padding: 10px 0 10px 0;
 }
 
-.detail_route_link {
-	text-align: right;
-	color: red;
+
+.p_infobox_head {
+	border-bottom: 1px dotted white;
+	padding-bottom: 2px;
+	font-weight: bold;
+	line-height: 15px;
+	color: #fff;
+}
+
+.p_infobox_content {
+	margin-top: 5px;
+	color: #fff;
+}
+
+.p_infobox_content a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.p_infobox_content a:hover {
+	text-decoration: none;
 }
 
 /*** mobile commands ***/

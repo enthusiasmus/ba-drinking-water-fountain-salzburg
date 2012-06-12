@@ -44,7 +44,9 @@ var MapView = Backbone.View.extend({
   placeMarkersToMap: function(){
     var markerArray = [];
     var self = this;
-    var infoWindow = new Object();
+    var ib;
+    var isVisible = false;
+    //var infoWindow = new Object();
     
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
@@ -59,22 +61,53 @@ var MapView = Backbone.View.extend({
         zIndex: 1
       });
       
-      infoWindow = new google.maps.InfoWindow({
-      });
+      /*infoWindow = new google.maps.InfoWindow({
+      });*/
       
-      google.maps.event.addListener(marker, 'click', function(){     
-        var infoContent = marker.content;
-         
-        if(self.userLocationMarker){
-          var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
-          if(distanceInformation)
-            infoContent += "<br>Distanz: " + distanceInformation;
+      google.maps.event.addListener(marker, 'click', function(){    
+
+        if(!isVisible)
+        {
+          var infoContent = '<p class="p_infobox_head">'+ marker.content + '</p><p class="p_infobox_content">';
+           
+          if(self.userLocationMarker){
+            var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
+            if(distanceInformation)
+              infoContent += "Distanz: " + distanceInformation + "<br/>";
+          }
+
+          infoContent += '<br/><a href="#route/' + markerModel.get("id") + '">Route berechnen</a></p>';
+                  
+          var myOptions = {
+                   content: infoContent
+                  ,disableAutoPan: false
+                  ,maxWidth: 0
+                  ,pixelOffset: new google.maps.Size(-140, -100)
+                  ,zIndex: null
+                  ,boxClass: "mapInfoBox"
+                  ,closeBoxMargin: "0"
+                  ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+                  ,infoBoxClearance: new google.maps.Size(1, 1)
+                  ,isHidden: false
+                  ,pane: "floatPane"
+                  ,enableEventPropagation: false
+                  ,boxStyle: { 
+                    background: "#174b8a"
+                    ,opacity: 0.75
+                    ,width: "300px"
+                    ,padding: "10px"
+                    ,borderRadius: "10px"
+                   }
+          };
+
+          ib = new InfoBox(myOptions);
+          ib.open(self.map, marker);
+          isVisible = true;
+
         }
-
-        infoContent += '<br/><br/><a href="#route/' + markerModel.get("id") + '">Route berechnen</a>';
-
-        infoWindow.setContent(infoContent);
-        infoWindow.open(self.map, marker);
+        
+        /*infoWindow.setContent(infoContent);
+        infoWindow.open(self.map, marker);*/
       });
 
       google.maps.event.addListener(marker, 'dblclick', function() {
@@ -87,7 +120,9 @@ var MapView = Backbone.View.extend({
 
     this.markerCluster = new MarkerClusterer(this.map, markerArray);
     google.maps.event.addListener(this.map, 'click', function() {
-      infoWindow.close();
+      ib.close();
+      isVisible = false;
+      //infoWindow.close();
     });
   },
   distanceCalculator: function(userPosition, markerPosition){

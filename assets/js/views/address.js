@@ -29,8 +29,7 @@ var AddressView = Backbone.View.extend({
     geocoder.geocode({ 'address': address}, function(results, status) {
       if(status == google.maps.GeocoderStatus.OK){
         self.mapView.map.setCenter(results[0].geometry.location);
-        if(self.mapView.map.getZoom() == 9)
-          self.dispatchLoadingFinished();
+        
         self.mapView.map.setZoom(9);
         
         if(self.currentMarker){

@@ -89,10 +89,6 @@ var AppRouter = Backbone.Router.extend({
     if(!isVisible){
       $('#address').show();
     }
-
-		$('input[type=button]').click(function(){
-		  dispatcher.trigger()
-		});
   },
   showMaptype: function(){
     this.navigate("", {trigger: true});

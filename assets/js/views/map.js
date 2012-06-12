@@ -173,14 +173,6 @@ var MapView = Backbone.View.extend({
     });
     
     var nearestMarker = this.nearestFountain();
-    // this.destinationFountain = new google.maps.Marker({
-      // position: new google.maps.LatLng(nearestMarker.get("latitude"), nearestMarker.get("longitude")),
-      // icon: nearestMarker.get('imageUrl'),
-      // title: nearestMarker.get("title"),
-      // content: nearestMarker.get('title'),
-      // map: self.map,
-      // zIndex: 1
-    // });
 
     var request = {
       origin: this.userLocationMarker.getPosition(),

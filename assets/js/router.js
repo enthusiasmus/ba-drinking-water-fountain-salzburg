@@ -73,9 +73,7 @@ var AppRouter = Backbone.Router.extend({
     });
   },
   routeToFountain: function(id){
-    console.log('router: Route to Fontain will be calculated');
-
-    this.calculateGeoLocation('drawRouteTo');
+     this.calculateGeoLocation('drawRouteTo');
 
     var self = this;
     this.eventDispatcher.on('drawRouteTo', function(){

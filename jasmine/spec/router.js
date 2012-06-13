@@ -13,14 +13,15 @@ describe("ROUTERS", function() {
 	  	this.server.restore();
 	  });
 	  
-	  it('should make the right ajax call when calling index', function(){
-	  	this.router.index();
+	  it('should make the right ajax call when calling init', function(){
+	  	this.router.init();
 			expect(this.server.requests.length).toEqual(1);
 			expect(this.server.requests[0].method).toEqual("GET");
 			expect(this.server.requests[0].url).toEqual("../db/elements.php");
 	  });
 
-		it('should parse fountain from response when index calling', function() {
+		it('should parse fountain from response when init calling', function() {
+		  this.router.init();
 		  this.router.navigate("");
 		  this.server.respond();
 		  expect(this.router.markerCollection.length).toEqual(1);
@@ -30,7 +31,7 @@ describe("ROUTERS", function() {
 	describe('when click on spezific path ->', function(){
 		beforeEach(function() {
 			this.router = new AppRouter;
-			this.router.markerCollection.url = '../../db/elements.php';
+			this.router.markerCollection.url = '../db/elements.php';
 			this.router.feedItemCollection.url = '../rss.php';
 		  	
 			this.mapModel = new MapModel;
@@ -137,8 +138,12 @@ describe("ROUTERS", function() {
 		describe("MapType-Path", function(){
 		
 			beforeEach(function() {
-				this.mapTypeView = new MapTypeView;
+        this.mapTypeView = new MapTypeView;
 				this.router.showMaptype();
+			});
+			
+			afterEach(function(){
+        $('#maptype').hide();
 			});
 			
 			it("should display the google map", function() {
@@ -149,9 +154,9 @@ describe("ROUTERS", function() {
 			});
 			
 			it("should display the Maptype-View", function() {
-				this.maptypeDiv = $('#maptype');
+				this.mapTypeDiv = $('#maptype');
 				
-				expect(this.maptypeDiv.is(':visible')).toBeTruthy();
+				expect(this.mapTypeDiv.is(':visible')).toBeTruthy();
 				expect(this.mapTypeView).toBeTruthy();
 			});
 		});

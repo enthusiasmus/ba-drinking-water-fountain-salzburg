@@ -44,8 +44,8 @@ var MapView = Backbone.View.extend({
   placeMarkersToMap: function(){
     var markerArray = [];
     var self = this;
-    var ib;
     var isVisible = false;
+    var ib = new Object();
     //var infoWindow = new Object();
     
     userLocationMarker = this.userLocationMarker;
@@ -60,10 +60,33 @@ var MapView = Backbone.View.extend({
         content: markerModel.get('title'),
         zIndex: 1
       });
-      
-      /*infoWindow = new google.maps.InfoWindow({
-      });*/
-      
+        
+      var myOptions = {
+        disableAutoPan: false
+        ,maxWidth: 0
+        ,pixelOffset: new google.maps.Size(-75, -155)
+        ,zIndex: null
+        ,boxClass: "mapInfoBox"
+        ,closeBoxMargin: "0"
+        ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+        ,infoBoxClearance: new google.maps.Size(1, 1)
+        ,isHidden: false
+        ,pane: "floatPane"
+        ,enableEventPropagation: false
+        ,boxStyle: { 
+            background: "#0078b7"
+            ,opacity: '0.9'
+            ,width: "280px"
+            ,padding: "10px"
+            ,borderRadius: "10px 10px 10px 10px"
+         }
+      };
+
+      ib = new InfoBox(myOptions);
+
+        /*infoWindow = new google.maps.InfoWindow({
+        });*/
+        
       google.maps.event.addListener(marker, 'click', function(){    
 
         if(!isVisible)
@@ -79,29 +102,8 @@ var MapView = Backbone.View.extend({
           infoContent += '<br/><a href="#route/' + markerModel.get("id") + '">Route berechnen</a></p>';
           infoContent += '<div class="pointer"></div>'
                   
-          var myOptions = {
-                   content: infoContent
-                  ,disableAutoPan: false
-                  ,maxWidth: 0
-                  ,pixelOffset: new google.maps.Size(-100, -155)
-                  ,zIndex: null
-                  ,boxClass: "mapInfoBox"
-                  ,closeBoxMargin: "0"
-                  ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
-                  ,infoBoxClearance: new google.maps.Size(1, 1)
-                  ,isHidden: false
-                  ,pane: "floatPane"
-                  ,enableEventPropagation: false
-                  ,boxStyle: { 
-                    background: "#0078b7"
-                    ,opacity: '0.9'
-                    ,width: "280px"
-                    ,padding: "10px"
-                    ,borderRadius: "10px 10px 10px 10px"
-                   }
-          };
 
-          ib = new InfoBox(myOptions);
+          ib.setContent(infoContent);
           ib.open(self.map, marker);
           isVisible = true;
 
@@ -115,8 +117,8 @@ var MapView = Backbone.View.extend({
         self.map.setZoom(16);
         self.map.setCenter(marker.getPosition());
       });
-      
-      markerArray.push(marker); 
+        
+        markerArray.push(marker); 
     });
 
     this.markerCluster = new MarkerClusterer(this.map, markerArray);

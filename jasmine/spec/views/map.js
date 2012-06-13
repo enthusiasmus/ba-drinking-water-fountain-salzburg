@@ -141,8 +141,8 @@ describe('View - Map', function() {
 	  
 		describe('and markers', function(){
 			beforeEach(function(){
-				this.marker1 = new MarkerModel({title: "marker1"});
-				this.marker2 = new MarkerModel({title: "marker2", latitude: 48, longitude: 13});
+				this.marker1 = new MarkerModel({title: "marker1", id: 0});
+				this.marker2 = new MarkerModel({title: "marker2", latitude: 48, longitude: 13, id: 1});
 				this.markerCollection = new MarkerCollection;
 				this.markerCollection.add([this.marker1, this.marker2], []);
 				this.mapView.addMarkerCollection(this.markerCollection);
@@ -151,16 +151,17 @@ describe('View - Map', function() {
 				this.mapView.placeUserLocation(userLocationModel);
 			});
 			
-		  // it('should calculate return the position of the nearest fountain when calling nearestFountain', function(){
-					// expect(this.mapView.nearestFountain().lat()).toEqual(48);
-					// expect(this.mapView.nearestFountain().lng()).toEqual(13);
-		  // });
-// 		  
-		  // it('should draw the route to the nearest fountain when calling drawRouteUserLocationToNextFountain', function(){		  	
-				// this.mapView.drawRouteUserLocationToNextFountain();
-				// expect(this.mapView.directionsDisplay).toBeDefined();
-				// expect(this.mapView.directionsService).toBeDefined();
-		  // });
+		  it('should calculate return the position of the nearest fountain when calling nearestFountain', function(){
+
+					expect(this.mapView.nearestFountain().get("latitude")).toEqual(48);
+					expect(this.mapView.nearestFountain().get("longitude")).toEqual(13);
+		  });
+		  
+		  it('should draw the route to the nearest fountain when calling drawRouteUserLocationToNextFountain', function(){		  	
+				this.mapView.drawRouteUserLocationToNextFountain();
+				expect(this.mapView.directionsDisplay).toBeDefined();
+				expect(this.mapView.directionsService).toBeDefined();
+		  });
 	  });
 	});
 });

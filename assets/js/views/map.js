@@ -211,7 +211,6 @@ var MapView = Backbone.View.extend({
     });
     
     var nearestMarker = this.nearestFountain();
-
     var request = {
       origin: this.userLocationMarker.getPosition(),
       destination: new google.maps.LatLng(nearestMarker.get('latitude'), nearestMarker.get('longitude')),
@@ -235,20 +234,21 @@ var MapView = Backbone.View.extend({
         self.userLocationMarker.getPosition()
       );
 
-      if(distanceToNextFontain == 0)
+      if(distanceToNextFontain == 0){
         distanceToNextFontain = tempShortestDistance;
+        id = markerModel.id;
+      }
       
       if(distanceToNextFontain > tempShortestDistance){
         distanceToNextFontain = tempShortestDistance;
         id = markerModel.id;
       }
     });
-    
+
     return this.markerCollection.at(id);
   },
   drawRouteUserLocationToFountain: function(id){
     this.hideRoute();
-
 
     var fontain = this.markerCollection.at(id);
     var self = this;

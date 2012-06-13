@@ -144,6 +144,16 @@ a:hover {text-decoration: none;}
 	text-decoration: none;
 }
 
+.pointer {
+	position: absolute;
+	left: 100px;
+	bottom: -40px;
+	width: 70px;
+	height: 40px;
+	background-image: url('../img/pointer.png');
+	background-repeat: no-repeat;
+}
+
 /*** mobile commands ***/
 /* portrait */
 @media screen and (max-width: 320px){

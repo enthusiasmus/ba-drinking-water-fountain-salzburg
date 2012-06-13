@@ -77,12 +77,13 @@ var MapView = Backbone.View.extend({
           }
 
           infoContent += '<br/><a href="#route/' + markerModel.get("id") + '">Route berechnen</a></p>';
+          infoContent += '<div class="pointer"></div>'
                   
           var myOptions = {
                    content: infoContent
                   ,disableAutoPan: false
                   ,maxWidth: 0
-                  ,pixelOffset: new google.maps.Size(-120, -135)
+                  ,pixelOffset: new google.maps.Size(-100, -155)
                   ,zIndex: null
                   ,boxClass: "mapInfoBox"
                   ,closeBoxMargin: "0"
@@ -92,14 +93,11 @@ var MapView = Backbone.View.extend({
                   ,pane: "floatPane"
                   ,enableEventPropagation: false
                   ,boxStyle: { 
-                    //background: "#174b8a"
-                    backgroundImage: 'url(assets/img/infobox.png)'
-                    ,backgroundRepeat: 'no-repeat'
+                    background: "#0078b7"
                     ,opacity: '0.9'
                     ,width: "280px"
-                    ,height: "140px"
                     ,padding: "10px"
-                    ,borderRadius: "10px"
+                    ,borderRadius: "10px 10px 10px 10px"
                    }
           };
 

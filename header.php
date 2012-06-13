@@ -1,8 +1,8 @@
 <?php
   $isIphone = strstr($_SERVER['HTTP_USER_AGENT'],'iPhone');
-  $iPod = strstr($_SERVER['HTTP_USER_AGENT'],'iPod');
-  $iPad = strstr($_SERVER['HTTP_USER_AGENT'],'iPad');
-  $android = strstr($_SERVER['HTTP_USER_AGENT'],'Android');
+  $isIpod = strstr($_SERVER['HTTP_USER_AGENT'],'iPod');
+  $isIpad = strstr($_SERVER['HTTP_USER_AGENT'],'iPad');
+  $isAndroid = strstr($_SERVER['HTTP_USER_AGENT'],'Android');
   
   //include different stylesheets when if($iPad == 'iPad') etc.
 ?>
@@ -19,7 +19,13 @@
 		<link rel="apple-touch-icon" href="assets/img/apple-icon.png"/>										<!-- default icon image for the homescreen -->
 		<link rel="apple-touch-startup-image" href="assets/img/apple-startup.png" />  		<!-- quick startup screen -->
 		
-		<title>TrinkWasser!</title>
+	  <?php
+      if($isAndroid || $isIpad || $isIphone || $isIpod)
+        echo "<title>TrinkWasser!</title>";
+      else
+        echo "<title>TrinkWasser! - Land Salzburg</title>";
+    ?>
+		
 		<link rel="stylesheet" href="assets/css/style.css" />
 	</head>
 	<body>

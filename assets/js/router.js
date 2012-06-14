@@ -56,7 +56,10 @@ var AppRouter = Backbone.Router.extend({
   	this.displayOnly('map_canvas');
     this.mapView.map.setCenter(currentCenter);
   },
-  nextFountain: function(){
+  nextFountain: function() {
+    if ( this.isMobile() )
+      $('#header-navigation').show();
+
     this.navigate("", {trigger: true});
     this.displayOnly('map_canvas'); 
     if(this.mapView.directionsDisplay){
@@ -72,8 +75,8 @@ var AppRouter = Backbone.Router.extend({
       self.eventDispatcher.off('drawRoute');  
     });
   },
-  routeToFountain: function(id){
-     this.calculateGeoLocation('drawRouteTo');
+  routeToFountain: function(id) {
+    this.calculateGeoLocation('drawRouteTo');
 
     var self = this;
     this.eventDispatcher.on('drawRouteTo', function(){
@@ -81,7 +84,10 @@ var AppRouter = Backbone.Router.extend({
       self.eventDispatcher.off('drawRouteTo');
     });
   },
-  showAddressSearch: function(){
+  showAddressSearch: function() {
+    if ( this.isMobile() )
+      $('#header-navigation').show();
+
     this.navigate("", {trigger: true});
     
     var isVisible = $('#address').is(':visible');
@@ -91,6 +97,9 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showMaptype: function(){
+    if ( this.isMobile() )
+      $('#header-navigation').show();
+
     this.navigate("", {trigger: true});
     
     var isVisible = $('#maptype').is(':visible');
@@ -103,7 +112,10 @@ var AppRouter = Backbone.Router.extend({
 		this.displayOnly('map_canvas');	
 		this.mapTypeView.changeType(type);
   },
-  showRssFeed: function(){	
+  showRssFeed: function() {	
+    if ( this.isMobile() )
+      $('#header-navigation').hide();
+
   	this.displayOnly('feed');
 		var self = this;
 
@@ -122,7 +134,10 @@ var AppRouter = Backbone.Router.extend({
       });
     }
   },
-  getUserLocation: function(){
+  getUserLocation: function() {
+    if ( this.isMobile() )
+      $('#header-navigation').show();
+    
     this.navigate("", {trigger: true});
 		this.displayOnly('map_canvas');
     this.calculateGeoLocation();
@@ -186,13 +201,22 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showAbout: function(){
+    if ( this.isMobile() )
+      $('#header-navigation').hide();
+
 		this.displayOnly('info');
   },
   defaultRoute: function(){
   	console.log('no route for this URI!');
   },
   getLoadingView: function(){
-    //removed for iphone presentation
+    this.loadingView.show();
+    var self = this;
+
+    this.eventDispatcher.on('hideLoadingView', function() {
+      self.loadingView.hide();
+      self.eventDispatcher.off('hideLoadingView');  
+    });
   },
   mainElements: new Array('address', 'map_canvas', 'feed', 'info', 'maptype'),
   displayOnly: function(elementsToShow){
@@ -216,5 +240,9 @@ var AppRouter = Backbone.Router.extend({
   	
   	if($('#map_canvas').is(':visible'))
       google.maps.event.trigger(this.mapView.map, "resize");
+  },
+  isMobile: function() {
+    var index = navigator.appVersion.indexOf("Mobile");
+    return (index > -1);
   }
 });

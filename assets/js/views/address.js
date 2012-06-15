@@ -29,18 +29,10 @@ var AddressView = Backbone.View.extend({
     geocoder.geocode({ 'address': address}, function(results, status) {
       if(status == google.maps.GeocoderStatus.OK){
         self.mapView.map.setCenter(results[0].geometry.location);
+		self.mapView.map.fitBounds(results[0].geometry.viewport);
         
-        self.mapView.map.setZoom(9);
-        
-        if(self.currentMarker){
-          self.currentMarker.setMap(null);
-          self.currentMarker = null;
-        }
-          
-        self.currentMarker = new google.maps.Marker({
-            map: self.mapView.map,
-            position: results[0].geometry.location
-        });
+		//hide the search-box
+		$(self.el).hide();
       }
       else{
         console.log("Geocode was not successful for the following reason: " + status);

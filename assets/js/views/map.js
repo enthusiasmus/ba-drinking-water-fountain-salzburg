@@ -46,27 +46,8 @@ var MapView = Backbone.View.extend({
     var self = this;
     var isVisible = false;
     var ib = new Object();
-	
-	var myOptions = {
-	  disableAutoPan: false
-	  ,maxWidth: 0
-	  ,pixelOffset: new google.maps.Size(-75, -155)
-	  ,zIndex: null
-	  ,boxClass: "mapInfoBox"
-	  ,closeBoxMargin: "0"
-	  ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
-	  ,infoBoxClearance: new google.maps.Size(1, 1)
-	  ,isHidden: false
-	  ,pane: "floatPane"
-	  ,enableEventPropagation: false
-	  ,boxStyle: { 
-		background: "#0078b7"
-		,opacity: '0.9'
-		,width: "280px"
-		,padding: "10px"
-		,borderRadius: "10px 10px 10px 10px"
-	   }
-	};
+	var myOptions = new Object();
+
     
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
@@ -81,6 +62,27 @@ var MapView = Backbone.View.extend({
         zIndex: 1
       });
 
+	  myOptions = {
+	    disableAutoPan: false
+	    ,maxWidth: 0
+	    ,pixelOffset: new google.maps.Size(-75, -155)
+	    ,zIndex: null
+	    ,boxClass: "mapInfoBox"
+	    ,closeBoxMargin: "0"
+	    ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+	    ,infoBoxClearance: new google.maps.Size(1, 1)
+	    ,isHidden: false
+	    ,pane: "floatPane"
+	    ,enableEventPropagation: false
+	    ,boxStyle: { 
+		  background: "#0078b7"
+		  ,opacity: '0.9'
+		  ,width: "280px"
+		  ,padding: "10px"
+		  ,borderRadius: "10px 10px 10px 10px"
+	    }
+	};	  
+	  
       ib = new InfoBox(myOptions);
       
       google.maps.event.addListener(marker, 'click', function(){    

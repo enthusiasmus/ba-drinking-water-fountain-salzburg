@@ -1,165 +1,256 @@
-/*** reset default browser CSS (Eric Meyer: http://meyerweb.com/eric/tools/css/reset/index.html) ***/
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, figure, figcaption {
-	border: 0;
-	font-family: inherit;
-	font-size: 100%;
-	font-style: inherit;
-	font-weight: inherit;
-	margin: 0;
-	outline: 0;
-	padding: 0;
-	vertical-align: baseline;
-}
-:focus {outline: 0;}
-body {
-	background: #fff;
-	line-height: 1;
-}
-ol, ul {list-style: none;}
-table {
-	border-collapse: separate;
-	border-spacing: 0;
-}
-caption, th, td {
-	font-weight: normal;
-	text-align: left;
-}
-blockquote:before, blockquote:after, q:before, q:after {content: "";}
-blockquote, q {quotes: "" "";}
-a img {border: 0;}
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
-
 /*** default settings ***/
-body {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+body, input {
+	font-family: Arial, Helvetica, Verdana, sans-serif;
 	font-size: 11px;
 }
 a {
-	color: #333;
+	color: #666;
 	text-decoration: underline;
 }
 a:hover {text-decoration: none;}
 
 /*** text indents ***/
+#header-navigation .menu-item a,
+#address .searchsubmit {
+	display: block;
+	text-indent: -19999px;
+	overflow: hidden;
+}
 
-/*** css classes ***/
+/*** loading view ***/
 #loading {
-	width:100%;
-	height:100%;
-	min-height:100px;
+	width: 100%;
+	height: 100%;
+	min-height: 100px;
 	opacity: 1;
 	position: fixed;
 	z-index: 1000;
 	display: none;
 }
-
 #loading #background{
-	width:100%;
-	height:100%;
+	width: 100%;
+	height: 100%;
 	background: #999;
 	opacity: 0.4;
 }
 
-/*** map ***/
+/*** info boxes ***/
+.p_infobox_head {
+	border-bottom: 1px dotted white;
+	padding-bottom: 2px;
+	font-weight: bold;
+	line-height: 15px;
+	color: #fff;
+}
+.p_infobox_content {
+	margin-top: 5px;
+	color: #fff;
+}
+.p_infobox_content a {
+	color: #fff;
+	text-decoration: underline;
+}
+.p_infobox_content a:hover {
+	text-decoration: none;
+}
+.pointer {
+	position: absolute;
+	left: 70px;
+	bottom: -40px;
+	width: 70px;
+	height: 40px;
+	background-image: url('../img/pointer.png');
+	background-repeat: no-repeat;
+}
+
+/*** mobile devices ***/
+
+/** map **/
+#map-wrap {
+	position:absolute;
+	top: 0;
+	left: 0;
+	bottom: 45px;
+	width: 100%; 
+	z-index: 20; 
+}
 #map_canvas {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
-	bottom: 100px;
-	z-index: 5;
-	background: #444;
+	bottom: 0;
+	background: #ddd;
+	z-index: 4;
 }
 
-/*** navigation ***/
+/** navigation **/
+#header-navigation {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	z-index: 25;
+}
+#header-navigation .menu-item {
+	float: left;
+	margin-left: 10px;
+}
+#header-navigation .menu-item a {
+	width: 40px;
+	height: 40px;
+	background-image: url('../img/icons.png');
+	background-repeat: no-repeat;
+}
+#header-navigation .feed a {background-position: -280px 0;}
+#header-navigation .about a {background-position: -240px 0;}
 #navigation {
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 100px;
-	border-top: 1px solid #000;
-	background-color: #000;
-	background-image: linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
-	background-image: -o-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
-	background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
-	background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
-	background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 1%, rgb(84,84,84) 72%, rgb(105,102,105) 86%);
-	background-image: -webkit-gradient(linear, left bottom,	left top,	color-stop(0.01, rgb(0,0,0)),	color-stop(0.72, rgb(84,84,84)), color-stop(0.86, rgb(105,102,105)));
-	z-index: 6;
+	height: 45px;
+	background-color: #000; 
+	background-image: url('../img/navigation-gradient.png'); 
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000), to(#000));
+	background-image: -webkit-linear-gradient(top, #4c4c4c, #000); 
+	background-image:    -moz-linear-gradient(top, #4c4c4c, #000);
+	background-image:     -ms-linear-gradient(top, #4c4c4c, #000);
+	background-image:      -o-linear-gradient(top, #4c4c4c, #000);
+	z-index: 15;
 }
-#navigation ul {margin-top: 20px;}
-.menu-item {
-	float:left;
-	margin-right: 10px;
+#navigation .menu-item {
+	position: relative;
+	float: left;
+	width: 25%;
+	font-size: 15px;
 }
-.menu-item a {
+#navigation .menu-item a {
+	display: block;
+	width: 64px;
+	margin: 0 auto;
+	color: #fff;
 	text-decoration: none;
-	background-color: #666;
-	padding: 8px 12px;
+	text-align: center;
+}
+#navigation .menu-item span {
+	display: block;
+	width: 60px;
+	height: 60px;
+	background-image: url('../img/icons.png');
+	background-repeat: no-repeat;
+	margin: -50px auto 10px auto;
+}
+#navigation .position span {background-position: 0 0;}
+#navigation .address span {background-position: -60px 0;}
+#navigation .fontain span {background-position: -120px 0;}
+#navigation .maptype span {background-position: -180px 0;}
+#navigation .menu-item a:hover > span, #navigation .menu-item a:focus > span, #navigation .menu-item a:active > span {
+	border-left: 2px solid #0079b7;
+	border-right: 2px solid #0079b7;
+}
+
+/** address search **/
+#address, #maptype {
+	display:none;
+	position: absolute;
+	bottom: 80px;
+	left: 0;
+	width: 100%;
+	z-index: 30;
+}
+#address div, #maptype div {
+	width: 80%;
+	background-color: #fff;
+	margin: 0 auto;
+	padding: 15px;
+}
+#address .addressinput {
+	width: 87%;
+	color: #666;
+	font-size: 12px;
+	padding: 5px;
+	border: 1px solid #999;
+}
+#address .searchsubmit {
+	background: url('../img/icons.png') -320px 0 no-repeat;
+	border: 0;
+	width: 20px;
+	height: 18px;
+	margin-top: 4px;
+	float: right;
+	cursor: pointer;
+}
+#maptype ul {padding: 10px 0 25px 0;}
+#maptype .menu-item {
+	font-size: 15px;
+	float: left;
+	width: 25%;
+	text-align: center;
+}
+#maptype a {text-decoration: none;}
+#maptype a:hover, #maptype a:focus, #maptype a:active {color: #0079b7;}
+
+/** feed & info **/
+#rss, #info {
+	background-color: #527dbb;
+	padding: 5px 0 100px 0;
+}
+#rss article, #info div {
+	position: relative; 
+	display: block; 
+	width: 93%; 
+	margin: 0 auto 5px auto;
+	background-color: #fff; 
+	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+	padding: 10px 10px 15px 10px;
+	overflow: hidden;
+}
+#info div {padding: 20px 10px 5px 10px;}
+#info, .feed-title, .feed-content {line-height: 1.3em;}
+#info h2, .feed-title {
+	color:#527dbb;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+#info h2 {margin-bottom: 20px;}
+.feed-title a {
+	color:#527dbb;
+	text-decoration: none;
+}
+.feed-date {
+	position: absolute;
+	bottom: 15px;
+	right: 10px;
+}
+.feed-content {
+	font-size: 12px;
+}
+.feed-content img {
+	float: left;
+	margin-right: 10px;
+}
+.feed-more {
+	position: absolute;
+	bottom: 15px;
+	left: 10px;
+	display: block;
+	background-color: #527dbb;
 	color: #fff;
+	width: 40px; 
+	padding: 9px;
+	text-align: center;
+	text-decoration: none;
 }
-.menu-item a:hover {background-color: #333;}
-/*** rss feed ***/
-#feed{
-	min-height:320px;
+.feed-more:hover, .feed-more:focus, .feed-more:active {
+	background-color: #fff;
+	color: #527dbb;
 }
-
-#address, #maptype {
-	width:100%;
-	display:none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 10;
-	background: #555;
-	text-align:center;
-	vertical-align:middle;
-	line-height:20%;
-	padding: 10px 0 10px 0;
+#info h4 {
+	font-weight: bold;
+	margin: 20px 0 6px 0;
 }
-
-/*** mobile commands ***/
-/* portrait */
-@media screen and (max-width: 320px){
-	#map_canvas{
-		width:320px;
-		height:100%;
-	}
-	#navigation{
-		width: 320px;
-		height: 40px;
-	}
-	#navigation ul{
-		margin-top: 10px;
-	}
-	.menu-item{
-		margin-right: 5px;
-	}
-	.menu-item a{
-		padding: 6px 3px;
-	}
-}
-
-/* landscape */
-@media screen and (min-width: 321px) and (max-width: 480px){
-	#map_canvas{
-		width:480px;
-		height:100%;
-	}
-	#navigation{
-		width: 480px;
-		height: 40px;
-	}
-	#navigation ul{
-		margin-top: 5px;
-	}
-	.menu-item{
-		margin-right: 5px;
-	}
-	.menu-item a{
-		padding: 3px 3px;
-	}
+#info p {
+	margin-bottom: 10px;
 }

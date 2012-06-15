@@ -13,15 +13,16 @@ describe("ROUTERS", function() {
 	  	this.server.restore();
 	  });
 	  
-	  it('should make the right ajax call when calling index', function(){
-	  	this.router.index();
+	  it('should make the right ajax call when calling init', function(){
+	  	this.router.init();
 			expect(this.server.requests.length).toEqual(1);
 			expect(this.server.requests[0].method).toEqual("GET");
 			expect(this.server.requests[0].url).toEqual("../db/elements.php");
 	  });
 
-		it('should parse fountain from response when index calling', function() {
-		  this.router.index();
+		it('should parse fountain from response when init calling', function() {
+		  this.router.init();
+		  this.router.navigate("");
 		  this.server.respond();
 		  expect(this.router.markerCollection.length).toEqual(1);
 		});
@@ -30,7 +31,7 @@ describe("ROUTERS", function() {
 	describe('when click on spezific path ->', function(){
 		beforeEach(function() {
 			this.router = new AppRouter;
-			this.router.markerCollection.url = '../../db/elements.php';
+			this.router.markerCollection.url = '../db/elements.php';
 			this.router.feedItemCollection.url = '../rss.php';
 		  	
 			this.mapModel = new MapModel;
@@ -79,7 +80,7 @@ describe("ROUTERS", function() {
 			
 			it("should display the address site", function() {
 				this.addressDiv = $('#address');
-				this.router.showaddressSearch();
+				this.router.showAddressSearch();
 				expect(this.addressDiv.is(':visible')).toBeTruthy();
 				expect(this.addressView).toBeTruthy();
 			});
@@ -95,11 +96,11 @@ describe("ROUTERS", function() {
 				//this.router.showRssFeed();
 			});
 			
-			/*it("should hide the google map", function() {
+			it("should hide the google map", function() {
 				this.mapDiv = $('#map_canvas');
-				
+				this.router.showRssFeed();
 				expect(this.mapDiv.is(':visible')).toBeFalsy();
-			});*/
+			});
 			
 			it("should display the feed site", function() {
 				this.feedDiv = $('#feed');
@@ -108,10 +109,11 @@ describe("ROUTERS", function() {
 				expect(this.feedView).toBeTruthy();
 			});
 			
-			/*it("should call function getLoadingView", function() {
+			it("should call function getLoadingView", function() {
 				spyOn(this.router, 'getLoadingView');
+				this.router.getLoadingView();
 				expect(this.router.getLoadingView).toHaveBeenCalled();			
-			});*/	
+			});
 		});
 	
 		describe("Next-Fontain-Path", function(){
@@ -136,8 +138,12 @@ describe("ROUTERS", function() {
 		describe("MapType-Path", function(){
 		
 			beforeEach(function() {
-				this.mapTypeView = new MapTypeView;
+        this.mapTypeView = new MapTypeView;
 				this.router.showMaptype();
+			});
+			
+			afterEach(function(){
+        $('#maptype').hide();
 			});
 			
 			it("should display the google map", function() {
@@ -148,9 +154,9 @@ describe("ROUTERS", function() {
 			});
 			
 			it("should display the Maptype-View", function() {
-				this.maptypeDiv = $('#maptype');
+				this.mapTypeDiv = $('#maptype');
 				
-				expect(this.maptypeDiv.is(':visible')).toBeTruthy();
+				expect(this.mapTypeDiv.is(':visible')).toBeTruthy();
 				expect(this.mapTypeView).toBeTruthy();
 			});
 		});

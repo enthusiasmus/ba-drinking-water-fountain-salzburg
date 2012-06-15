@@ -7,7 +7,7 @@ var FeedItemCollection = Backbone.Collection.extend({
       var feedItemModel = new FeedItemModel({
         title: data[idx].title, 
         link: data[idx].link,
-        pubDate: $.format.date(data[idx].pubDate, 'dd. MMMM yyyy HH:mm:ss'),
+        pubDate: $.format.date(data[idx].pubDate, 'dd. MMMM yyyy'),
         description: data[idx].description
       });
       feedItems.push(feedItemModel);

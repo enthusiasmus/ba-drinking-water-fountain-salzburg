@@ -1,11 +1,8 @@
 var AppRouter = Backbone.Router.extend({
   routes: {
   	"": "index",
-  	"position": "getUserLocation",
-  	"address": "showaddressSearch",
     "feed": "showRssFeed",
-    "next": "nextFountain",
-    "maptype": "showMaptype",
+    "route/:id": "routeToFountain",
     "maptype/:type": "changeMaptype",
     "about": "showAbout",
     "*actions": "defaultRoute"
@@ -21,7 +18,6 @@ var AppRouter = Backbone.Router.extend({
     this.feedItemCollection.url = 'rss.php';
     
     this.mapView = new MapView({model: this.mapModel});
-    this.navView = new NavigationView;
     this.feedView = new FeedView;
     this.infoView = new InfoView;
     this.mapTypeView = new MapTypeView;
@@ -29,6 +25,10 @@ var AppRouter = Backbone.Router.extend({
     
     this.addressView.mapView = this.mapView;
     this.mapTypeView.mapView = this.mapView;
+
+    this.eventDispatcher = {};
+    _.extend(this.eventDispatcher, Backbone.Events);
+
   },
   init: function(){
     try{
@@ -38,10 +38,8 @@ var AppRouter = Backbone.Router.extend({
     catch(e){
       console.log(e);
     }
-  },
-  index: function(){
-  	this.displayOnly("map_canvas");
-  	var self = this;
+    
+    var self = this;
     this.markerCollection.fetch({
       success: function(){
         self.mapView.addMarkerCollection(self.markerCollection);
@@ -53,25 +51,72 @@ var AppRouter = Backbone.Router.extend({
       add: true
     });
   },
-  nextFountain: function(){
-		this.displayOnly("map_canvas");	
-  	this.mapView.drawRouteUserLocationToNextFountain();
+  index: function(){
+    var currentCenter = this.mapView.map.getCenter();
+  	this.displayOnly('map_canvas');
+    this.mapView.map.setCenter(currentCenter);
   },
-  showaddressSearch: function(){
-		this.displayOnly("map_canvas address");
-		$('input[type=button]').click(function(){
-		  dispatcher.trigger()
-		});
+  nextFountain: function() {
+    if ( this.isMobile() )
+      $('#header-navigation').show();
+
+    this.navigate("", {trigger: true});
+    this.displayOnly('map_canvas'); 
+    if(this.mapView.directionsDisplay){
+      this.mapView.hideRoute();
+      return;
+    }
+    
+    this.calculateGeoLocation('drawRoute');
+    
+    var self = this;
+    this.eventDispatcher.on('drawRoute', function() {
+      self.mapView.drawRouteUserLocationToNextFountain(); 
+      self.eventDispatcher.off('drawRoute');  
+    });
+  },
+  routeToFountain: function(id) {
+    this.calculateGeoLocation('drawRouteTo');
+
+    var self = this;
+    this.eventDispatcher.on('drawRouteTo', function(){
+      self.mapView.drawRouteUserLocationToFountain(id);
+      self.eventDispatcher.off('drawRouteTo');
+    });
+  },
+  showAddressSearch: function() {
+    if ( this.isMobile() )
+      $('#header-navigation').show();
+
+    this.navigate("", {trigger: true});
+    
+    var isVisible = $('#address').is(':visible');
+    this.displayOnly('map_canvas');
+    if(!isVisible){
+      $('#address').show();
+    }
   },
   showMaptype: function(){
-		this.displayOnly("map_canvas maptype");	
+    if ( this.isMobile() )
+      $('#header-navigation').show();
+
+    this.navigate("", {trigger: true});
+    
+    var isVisible = $('#maptype').is(':visible');
+    this.displayOnly('map_canvas');
+    if(!isVisible){
+      $('#maptype').show();
+    }
   },
   changeMaptype: function(type){
-		this.displayOnly("map_canvas maptype");	
+		this.displayOnly('map_canvas');	
 		this.mapTypeView.changeType(type);
   },
-  showRssFeed: function(){	
-  	this.displayOnly("feed");
+  showRssFeed: function() {	
+    if ( this.isMobile() )
+      $('#header-navigation').hide();
+
+  	this.displayOnly('feed');
 		var self = this;
 
     if(this.feedView.timestamp < new Date().getTime() - 60*60*12){
@@ -80,6 +125,7 @@ var AppRouter = Backbone.Router.extend({
         success: function(){
           self.feedView.addFeedItemCollection(self.feedItemCollection);
           self.feedView.timestamp = new Date().getTime();
+          self.eventDispatcher.trigger('hideLoadingView');
         },
         error: function(){
           alert("Feed konnte nicht geladen werden!");
@@ -88,74 +134,91 @@ var AppRouter = Backbone.Router.extend({
       });
     }
   },
-  getUserLocation: function(){
-		this.displayOnly("map_canvas");
-  	var self = this;
-		this.getLoadingView();
-		if(navigator.geolocation){			
-			navigator.geolocation.getCurrentPosition(function(position){
-				var time = position.timestamp;
-	      var lat = position.coords.latitude; //dezimal Grad
-	      var lng = position.coords.longitude; //dezimal Grad
-	      var precision = position.coords.accuracy; //Meter
-	      var altitude = position.coords.altitude; //Meter
-	      var altitudeAcc = position.coords.altitudeAccuracy; //Meter
-	      var speed = position.coords.speed; //Meter pro Sek.
-	      var heading = position.coords.heading; //Grad von wahrem Norden
-				
-	      self.userLocationModel.set({
-	      	latitude: lat,
-	      	longitude: lng,
-	      	time: time,
-	      	precision: precision,
-	      	altitude: altitude,
-	      	altitudeAcc: altitudeAcc,
-	      	speed: speed,
-	      	heading: heading
-	      });
-	
-				self.mapView.removeUserLocation();
-	      self.mapView.placeUserLocation(self.userLocationModel);
-	    	self.mapView.centerUserLocation(self.userLocationModel);
-			}, 
-			function(error){
-				switch(error.code) {
-	        case error.PERMISSION_DENIED:
-	        	alert("Zugriff auf Position wurde verweigert!");
-	        	break;
-	        case error.POSITION_UNAVAILABLE: 
-	        	alert("Position konnte nicht ermittelt werden!");
-	        	break;
-	        case error.TIMEOUT:
-	        	alert("Zeitüberschreitung beim Ermitteln der Position!");
-	        	break;
-	        case error.UNKNOWN_ERROR: 
-	        	alert("Positionsbestimmung zur Zeit nicht möglich!");
-	        	break;
-	        default:
-	        	alert("Fehler bei der Positionsbestimmung!");
-	        	break;
-	   		}
-			},{enableHighAccuracy:true, timeout:5000, maximumAge:60000});
-		}
-		else{
-			console.log("Ihr Browser unterstützt keine Positionsbestimmung!");
-		}
+  getUserLocation: function() {
+    if ( this.isMobile() )
+      $('#header-navigation').show();
+    
+    this.navigate("", {trigger: true});
+		this.displayOnly('map_canvas');
+    this.calculateGeoLocation();
+  },
+  calculateGeoLocation: function(eventtype){
+    var self = this;
+    if(navigator.geolocation){      
+      navigator.geolocation.getCurrentPosition(function(position){
+        var time = position.timestamp;
+        var lat = position.coords.latitude; //dezimal Grad
+        var lng = position.coords.longitude; //dezimal Grad
+        var precision = position.coords.accuracy; //Meter
+        var altitude = position.coords.altitude; //Meter
+        var altitudeAcc = position.coords.altitudeAccuracy; //Meter
+        var speed = position.coords.speed; //Meter pro Sek.
+        var heading = position.coords.heading; //Grad von wahrem Norden
+        
+        self.userLocationModel.set({
+          latitude: lat,
+          longitude: lng,
+          time: time,
+          precision: precision,
+          altitude: altitude,
+          altitudeAcc: altitudeAcc,
+          speed: speed,
+          heading: heading
+        });
+  
+        self.mapView.removeUserLocation();
+        self.mapView.placeUserLocation(self.userLocationModel);
+        self.mapView.centerUserLocation(self.userLocationModel);
+
+        if(eventtype)
+          self.eventDispatcher.trigger(eventtype);
+        else
+          self.eventDispatcher.trigger('hideLoadingView');
+        
+      }, 
+      function(error){
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            alert("Zugriff auf Position wurde verweigert!");
+            break;
+          case error.POSITION_UNAVAILABLE: 
+            alert("Position konnte nicht ermittelt werden!");
+            break;
+          case error.TIMEOUT:
+            alert("Zeitüberschreitung beim Ermitteln der Position!");
+            break;
+          case error.UNKNOWN_ERROR: 
+            alert("Positionsbestimmung zur Zeit nicht möglich!");
+            break;
+          default:
+            alert("Fehler bei der Positionsbestimmung!");
+            break;
+        }
+      },{enableHighAccuracy:true, timeout:5000, maximumAge:60000});
+    }
+    else{
+      console.log("Ihr Browser unterstützt keine Positionsbestimmung!");
+    }
   },
   showAbout: function(){
-		this.displayOnly("info");
+    if ( this.isMobile() )
+      $('#header-navigation').hide();
+
+		this.displayOnly('info');
   },
   defaultRoute: function(){
-  	console.log("no route for this URI!");
+  	console.log('no route for this URI!');
   },
   getLoadingView: function(){
-  	this.loadingView.show();
-  	var self = this;
-		document.addEventListener('loadingFinish', function(){
-			self.loadingView.hide();
-		}, false);
+    this.loadingView.show();
+    var self = this;
+
+    this.eventDispatcher.on('hideLoadingView', function() {
+      self.loadingView.hide();
+      self.eventDispatcher.off('hideLoadingView');  
+    });
   },
-  mainElements: new Array("address", "map_canvas", "feed", "info", "maptype"),
+  mainElements: new Array('address', 'map_canvas', 'feed', 'info', 'maptype'),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");
   	var shouldShow;
@@ -174,5 +237,12 @@ var AppRouter = Backbone.Router.extend({
   		else
   			$('#'+this.mainElements[idx]).hide();
   	}
+  	
+  	if($('#map_canvas').is(':visible'))
+      google.maps.event.trigger(this.mapView.map, "resize");
+  },
+  isMobile: function() {
+    var index = navigator.appVersion.indexOf("Mobile");
+    return (index > -1);
   }
 });

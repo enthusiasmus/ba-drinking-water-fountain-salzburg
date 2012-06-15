@@ -15,18 +15,23 @@ var FeedView = Backbone.View.extend({
     $(this.el).html(template);
 
     _.each(this.feedItemCollection.toArray(), function(feedItemModel) {
+
+      $shortDescription = feedItemModel.get('description').substring(0, 230) + '...';
+
       $('#rss').append(
         '<article>' +
         '<h3 class="feed-title"><a href="' + feedItemModel.escape('link') + '">' + feedItemModel.escape("title") + '</a></h3>' + 
         '<p class="feed-date">' + feedItemModel.escape("pubDate") + '</p>' + 
-        '<div class="feed-content">' + feedItemModel.get('description') + '</div>' +
+        '<div class="feed-content">' + $shortDescription + '</div>' +
+        '<a href="' + feedItemModel.escape('link') + '" class="feed-more">Mehr</a>' +
         '</article>'
       );
+      
     });
     
-    var allFeedImages = document.getElementsByTagName('img')
+    var allFeedImages = $('#rss').find('img');
     for(idx in allFeedImages){
-      if(allFeedImages[idx].width > 150){
+      if(allFeedImages[idx].width > 150 && allFeedImages[idx] ){
         var scaleValue = 150/allFeedImages[idx].width;
         allFeedImages[idx].width = 150;
         allFeedImages[idx].height = allFeedImages[idx].height*scaleValue;

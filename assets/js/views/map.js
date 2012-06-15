@@ -20,18 +20,13 @@ var MapView = Backbone.View.extend({
     
     var self = this;
     google.maps.event.addListener(this.map, 'tilesloaded', function(){
-      self.dispatchLoadingFinished();
+      //fire event, to remove loading view
     }); 
     
     var template = _.template( $('#map_template').html() );
     $(this.el).html(template);
   },
   events: {
-  },
-  dispatchLoadingFinished: function(){
-    var event = document.createEvent('Event');
-    event.initEvent('loadingFinish', true, true)
-    document.dispatchEvent(event);
   },
   markerCollection: undefined,
   map: undefined,
@@ -49,10 +44,13 @@ var MapView = Backbone.View.extend({
   placeMarkersToMap: function(){
     var markerArray = [];
     var self = this;
-    var infoWindow = new Object();
+    var isVisible = false;
+    var ib = new Object();
+    //var infoWindow = new Object();
     
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
+
     _.each(this.markerCollection.toArray(), function(markerModel){ 
 
       var marker = new google.maps.Marker({
@@ -62,32 +60,72 @@ var MapView = Backbone.View.extend({
         content: markerModel.get('title'),
         zIndex: 1
       });
-      
-      infoWindow = new google.maps.InfoWindow({
-      });
-      
-      google.maps.event.addListener(marker, 'click', function(){        
-        var infoContent = marker.content;
-        if(self.userLocationMarker){
-          var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
-          if(distanceInformation)
-            infoContent += "<br>Distanz: " + distanceInformation;
+        
+      var myOptions = {
+        disableAutoPan: false
+        ,maxWidth: 0
+        ,pixelOffset: new google.maps.Size(-75, -155)
+        ,zIndex: null
+        ,boxClass: "mapInfoBox"
+        ,closeBoxMargin: "0"
+        ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+        ,infoBoxClearance: new google.maps.Size(1, 1)
+        ,isHidden: false
+        ,pane: "floatPane"
+        ,enableEventPropagation: false
+        ,boxStyle: { 
+            background: "#0078b7"
+            ,opacity: '0.9'
+            ,width: "280px"
+            ,padding: "10px"
+            ,borderRadius: "10px 10px 10px 10px"
+         }
+      };
+
+      ib = new InfoBox(myOptions);
+
+        /*infoWindow = new google.maps.InfoWindow({
+        });*/
+        
+      google.maps.event.addListener(marker, 'click', function(){    
+
+        if(!isVisible)
+        {
+          var infoContent = '<p class="p_infobox_head">'+ marker.content + '</p><p class="p_infobox_content">';
+           
+          if(self.userLocationMarker){
+            var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
+            if(distanceInformation)
+              infoContent += "Distanz: " + distanceInformation + "<br/>";
+          }
+
+          infoContent += '<br/><a href="#route/' + markerModel.get("id") + '">Route berechnen</a></p>';
+          infoContent += '<div class="pointer"></div>'
+                  
+
+          ib.setContent(infoContent);
+          ib.open(self.map, marker);
+          isVisible = true;
+
         }
-        infoWindow.setContent(infoContent);
-        infoWindow.open(self.map, marker);
+        
+        /*infoWindow.setContent(infoContent);
+        infoWindow.open(self.map, marker);*/
       });
 
       google.maps.event.addListener(marker, 'dblclick', function() {
         self.map.setZoom(16);
         self.map.setCenter(marker.getPosition());
       });
-      
-      markerArray.push(marker); 
+        
+        markerArray.push(marker); 
     });
 
     this.markerCluster = new MarkerClusterer(this.map, markerArray);
     google.maps.event.addListener(this.map, 'click', function() {
-      infoWindow.close();
+      ib.close();
+      isVisible = false;
+      //infoWindow.close();
     });
   },
   distanceCalculator: function(userPosition, markerPosition){
@@ -151,26 +189,31 @@ var MapView = Backbone.View.extend({
       this.userLocationPrecisionCircle = null;
     }
   },
+  hideRoute: function(){
+    if(this.directionsDisplay){
+      this.directionsDisplay.setMap(null);
+      this.directionsDisplay = null;
+    }
+  },
   drawRouteUserLocationToNextFountain: function(){
     if(!this.userLocationMarker){
       console.log("Kein Startpunkt steht zur Verfügung!");
       return false;
     }
-
-    if(this.directionsDisplay)
-      this.directionsDisplay.setMap(null);
+    this.hideRoute();
 
     var self = this;
-    self.directionsDisplay = new google.maps.DirectionsRenderer({
+    this.directionsDisplay = new google.maps.DirectionsRenderer({
       draggable: false,
       suppressMarkers: true,
       suppressInfoWindows: true,
       map: self.map 
     });
-
+    
+    var nearestMarker = this.nearestFountain();
     var request = {
       origin: this.userLocationMarker.getPosition(),
-      destination: this.nearestFountain(),
+      destination: new google.maps.LatLng(nearestMarker.get('latitude'), nearestMarker.get('longitude')),
       travelMode: google.maps.TravelMode.WALKING
     };
 
@@ -179,12 +222,10 @@ var MapView = Backbone.View.extend({
       if (status == google.maps.DirectionsStatus.OK) {
         self.directionsDisplay.setDirections(result);
       }
-      self.dispatchLoadingFinished();
     });
   },
   nearestFountain: function(){
-    var distanceToNextFontain = tempShortestDistance = 0;
-    var nearestFountain = new google.maps.Marker();
+    var distanceToNextFontain = tempShortestDistance = id = 0;
     var self = this;
     
     _.each(this.markerCollection.toArray(), function(markerModel){    
@@ -193,15 +234,43 @@ var MapView = Backbone.View.extend({
         self.userLocationMarker.getPosition()
       );
 
-      if(distanceToNextFontain == 0)
+      if(distanceToNextFontain == 0){
         distanceToNextFontain = tempShortestDistance;
+        id = markerModel.id;
+      }
       
       if(distanceToNextFontain > tempShortestDistance){
         distanceToNextFontain = tempShortestDistance;
-        nearestFountain.setPosition(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")));
+        id = markerModel.id;
       }
     });
-    
-    return nearestFountain.getPosition();
+
+    return this.markerCollection.at(id);
+  },
+  drawRouteUserLocationToFountain: function(id){
+    this.hideRoute();
+
+    var fontain = this.markerCollection.at(id);
+    var self = this;
+
+    this.directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: false,
+      suppressMarkers: true,
+      suppressInfoWindows: true,
+      map: self.map 
+    });
+
+    var request = {
+          origin: this.userLocationMarker.getPosition(),
+          destination: new google.maps.LatLng(fontain.get('latitude'), fontain.get('longitude')),
+          travelMode: google.maps.TravelMode.WALKING
+        };
+
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsService.route(request, function(result, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        self.directionsDisplay.setDirections(result);
+      }
+    });    
   }
 });

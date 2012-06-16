@@ -46,13 +46,14 @@ var MapView = Backbone.View.extend({
     var self = this;
     var isVisible = false;
     var ib = new Object();
-    //var infoWindow = new Object();
+	var myOptions = new Object();
+
     
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
 
     _.each(this.markerCollection.toArray(), function(markerModel){ 
-
+		
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
         icon: markerModel.get('imageUrl'),
@@ -60,57 +61,47 @@ var MapView = Backbone.View.extend({
         content: markerModel.get('title'),
         zIndex: 1
       });
-        
-      var myOptions = {
-        disableAutoPan: false
-        ,maxWidth: 0
-        ,pixelOffset: new google.maps.Size(-75, -155)
-        ,zIndex: null
-        ,boxClass: "mapInfoBox"
-        ,closeBoxMargin: "0"
-        ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
-        ,infoBoxClearance: new google.maps.Size(1, 1)
-        ,isHidden: false
-        ,pane: "floatPane"
-        ,enableEventPropagation: false
-        ,boxStyle: { 
-            background: "#0078b7"
-            ,opacity: '0.9'
-            ,width: "280px"
-            ,padding: "10px"
-            ,borderRadius: "10px 10px 10px 10px"
-         }
-      };
 
+	  myOptions = {
+	    disableAutoPan: false
+	    ,maxWidth: 0
+	    ,pixelOffset: new google.maps.Size(-75, -155)
+	    ,zIndex: null
+	    ,boxClass: "mapInfoBox"
+	    ,closeBoxMargin: "0"
+	    ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+	    ,infoBoxClearance: new google.maps.Size(1, 1)
+	    ,isHidden: false
+	    ,pane: "floatPane"
+	    ,enableEventPropagation: false
+	    ,boxStyle: { 
+		  background: "#0078b7"
+		  ,opacity: '0.9'
+		  ,width: "280px"
+		  ,padding: "10px"
+		  ,borderRadius: "10px 10px 10px 10px"
+	    }
+	};	  
+	  
       ib = new InfoBox(myOptions);
-
-        /*infoWindow = new google.maps.InfoWindow({
-        });*/
-        
+      
       google.maps.event.addListener(marker, 'click', function(){    
+	  
+	  	if(ib) ib.close();
 
-        if(!isVisible)
-        {
-          var infoContent = '<p class="p_infobox_head">'+ marker.content + '</p><p class="p_infobox_content">';
+        var infoContent = '<p class="p_infobox_head">'+ marker.content + '</p><p class="p_infobox_content">';
            
-          if(self.userLocationMarker){
-            var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
-            if(distanceInformation)
-              infoContent += "Distanz: " + distanceInformation + "<br/>";
+        if(self.userLocationMarker){
+          var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
+          if(distanceInformation)
+            infoContent += "Distanz: " + distanceInformation + "<br/>";
           }
 
           infoContent += '<br/><a href="#route/' + markerModel.get("id") + '">Route berechnen</a></p>';
-          infoContent += '<div class="pointer"></div>'
-                  
-
+          infoContent += '<div class="pointer"></div>';
+		  
           ib.setContent(infoContent);
           ib.open(self.map, marker);
-          isVisible = true;
-
-        }
-        
-        /*infoWindow.setContent(infoContent);
-        infoWindow.open(self.map, marker);*/
       });
 
       google.maps.event.addListener(marker, 'dblclick', function() {
@@ -124,8 +115,6 @@ var MapView = Backbone.View.extend({
     this.markerCluster = new MarkerClusterer(this.map, markerArray);
     google.maps.event.addListener(this.map, 'click', function() {
       ib.close();
-      isVisible = false;
-      //infoWindow.close();
     });
   },
   distanceCalculator: function(userPosition, markerPosition){

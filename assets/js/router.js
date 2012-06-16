@@ -52,9 +52,46 @@ var AppRouter = Backbone.Router.extend({
     });
   },
   index: function(){
+    if ( this.isMobile() )
+      this.displayOnly('map_canvas');
+    else 
+      this.displayOnly('map_canvas appinfo hand-phone');
+
     var currentCenter = this.mapView.map.getCenter();
-  	this.displayOnly('map_canvas');
     this.mapView.map.setCenter(currentCenter);
+  },
+  scrollMap: function(){
+    if( $('#map-wrap').css('top') == '250px' ) {
+      $('#address').hide();
+      $('#map-wrap').animate({
+        top: 540
+      }, 1000, function(){
+        window.Trinkbrunnen.mapView.resizeMap();
+        $('#navigation').animate({
+          opacity: 0
+        }, 500);
+        $('#activatemap').show();
+        $('#scroll').text('Probier es aus ↑');
+      });
+      $('#appinfo, #info, #rss, #hand-phone').animate({
+        opacity : 1
+      }, 1000);
+    } else {
+      $('#map-wrap').animate({
+        top: 250
+      }, 1000, function(){
+        window.Trinkbrunnen.mapView.resizeMap();
+
+        $('#navigation').animate({
+          opacity: 1
+        }, 500);
+        $('#activatemap').hide();
+        $('#scroll').text('Karte verkleinern ↓');
+      });
+      $('#appinfo, #info, #rss, #hand-phone').animate({
+        opacity : 0
+      }, 1000);
+    }
   },
   nextFountain: function() {
     if ( this.isMobile() )
@@ -113,10 +150,13 @@ var AppRouter = Backbone.Router.extend({
 		this.mapTypeView.changeType(type);
   },
   showRssFeed: function() {	
-    if ( this.isMobile() )
+    if ( this.isMobile() ) {
       $('#header-navigation').hide();
+      this.displayOnly('feed');
+    } else {
+      this.displayOnly('map_canvas feed');
+    }
 
-  	this.displayOnly('feed');
 		var self = this;
 
     if(this.feedView.timestamp < new Date().getTime() - 60*60*12){
@@ -201,10 +241,12 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showAbout: function(){
-    if ( this.isMobile() )
+    if ( this.isMobile() ) {
       $('#header-navigation').hide();
-
-		this.displayOnly('info');
+      this.displayOnly('info');
+    } else {
+      this.displayOnly('map_canvas info');
+    }
   },
   defaultRoute: function(){
   	console.log('no route for this URI!');
@@ -218,7 +260,7 @@ var AppRouter = Backbone.Router.extend({
       self.eventDispatcher.off('hideLoadingView');  
     });
   },
-  mainElements: new Array('address', 'map_canvas', 'feed', 'info', 'maptype'),
+  mainElements: new Array('address', 'map_canvas', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone'),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");
   	var shouldShow;
@@ -242,6 +284,10 @@ var AppRouter = Backbone.Router.extend({
       google.maps.event.trigger(this.mapView.map, "resize");
   },
   isMobile: function() {
+    // TODO: am iPad soll die "normale" Website angezeigt werden
+    // if( (navigator.userAgent.match(/iPad/i) ) )
+    //   alert('iPad');
+
     var index = navigator.appVersion.indexOf("Mobile");
     return (index > -1);
   }

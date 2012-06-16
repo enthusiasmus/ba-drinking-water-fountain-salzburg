@@ -111,8 +111,15 @@ var MapView = Backbone.View.extend({
         
         markerArray.push(marker); 
     });
+    
+    var mcOptions = {styles: [{
+      height: 52,
+      url: 'assets/img/cluster.png',
+      width: 53,
+      textColor: 'white'
+    }]};
 
-    this.markerCluster = new MarkerClusterer(this.map, markerArray);
+    this.markerCluster = new MarkerClusterer(this.map, markerArray, mcOptions);
     google.maps.event.addListener(this.map, 'click', function() {
       ib.close();
     });

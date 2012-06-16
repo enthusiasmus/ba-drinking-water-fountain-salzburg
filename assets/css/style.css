@@ -112,6 +112,51 @@ a:hover {text-decoration: none;}
 	background-repeat: no-repeat;
 }
 
+/** navigation **/
+#navigation {
+	position: absolute; 
+	top: 50px; 
+	left: 0; 
+	z-index: 5;
+	opacity: 0;
+}
+#navigation .menu-item {
+	font-size: 14px; 
+	display: block; 
+	float: left; 
+	margin-right: 15px;
+}
+#navigation .maptype {display: none;}
+#navigation .menu-item a {
+	position: relative;
+	text-decoration: none; 
+	background-color: #fff; 
+	color: #527dbb; 
+	padding: 17px 15px 12px 45px; 
+}
+#navigation .menu-item a:hover, #navigation .menu-item a:focus, #navigation .menu-item a:active {
+	background-color: #527dbb; 
+	color:#fff; 
+}
+#navigation .menu-item span {
+	position: absolute;
+	top: 7px;
+	left: 7px;
+	display: block;
+	width: 30px;
+	height: 30px;
+	background-image: url('../img/icons.png');
+	background-repeat: no-repeat;
+}
+#navigation .position span {background-position: 0 -60px;}
+#navigation .address span {background-position: 0 -90px;}
+#navigation .fontain span {background-position: 0 -120px;}
+#navigation .menu-item a:hover > span, #navigation .menu-item a:focus > span, #navigation .menu-item a:active > span {
+	top: 5px;
+	left: 5px;
+	border: 2px solid #fff;
+}
+
 /*** wrap ***/
 #wrap {
 	position: relative;
@@ -307,7 +352,8 @@ a:hover {text-decoration: none;}
 }
 
 /*** mobile devices ***/
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) { /*@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {*/
+@media only screen and (min-width : 320px) and (max-width : 480px) { 
+/*@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {*/
 
 	/** text indents only for mobile devices **/
 	#header-navigation .menu-item a {
@@ -347,6 +393,7 @@ a:hover {text-decoration: none;}
 	#header-navigation .about a {background-position: -240px 0;}
 	#navigation {
 		position: fixed;
+		top: auto;
 		bottom: 0;
 		left: 0;
 		width: 100%;
@@ -359,27 +406,33 @@ a:hover {text-decoration: none;}
 		background-image:     -ms-linear-gradient(top, #4c4c4c, #000);
 		background-image:      -o-linear-gradient(top, #4c4c4c, #000);
 		z-index: 15;
+		opacity: 1;
 	}
 	#navigation .menu-item {
 		position: relative;
-		float: left;
 		width: 25%;
 		font-size: 15px;
+		margin-right: 0;
 	}
+	#navigation .maptype {display: block;}
 	#navigation .menu-item a {
 		display: block;
 		width: 64px;
 		margin: 0 auto;
 		color: #fff;
-		text-decoration: none;
 		text-align: center;
+		padding: 0;
+		background-color: transparent; 
+	}
+	#navigation .menu-item a:hover, #navigation .menu-item a:focus, #navigation .menu-item a:active {
+		background-color: transparent; 
 	}
 	#navigation .menu-item span {
-		display: block;
+		position: relative;
+		top: auto;
+		left: auto;
 		width: 60px;
 		height: 60px;
-		background-image: url('../img/icons.png');
-		background-repeat: no-repeat;
 		margin: -50px auto 10px auto;
 	}
 	#navigation .position span {background-position: 0 0;}
@@ -387,6 +440,10 @@ a:hover {text-decoration: none;}
 	#navigation .fontain span {background-position: -120px 0;}
 	#navigation .maptype span {background-position: -180px 0;}
 	#navigation .menu-item a:hover > span, #navigation .menu-item a:focus > span, #navigation .menu-item a:active > span {
+		top: auto;
+		left: auto;
+		border-top: 0;
+		border-bottom: 0;
 		border-left: 2px solid #0079b7;
 		border-right: 2px solid #0079b7;
 	}

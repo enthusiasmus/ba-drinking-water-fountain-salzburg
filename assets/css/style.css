@@ -10,7 +10,7 @@ a {
 a:hover {text-decoration: none;}
 
 /*** text indents ***/
-#address .searchsubmit, #appstore, #googleplay, #logo_aqua, #logo_salzburg {
+#address .searchsubmit, #appstore, #googleplay, #logo_aqua, #logo_salzburg, .prev, .next {
 	display: block;
 	text-indent: -19999px;
 	overflow: hidden;
@@ -63,7 +63,7 @@ a:hover {text-decoration: none;}
 }
 #scroll-wrap {
 	position: relative;
-	width: 80%;
+	width: 960px;
 	margin: 0 auto;
 }
 #scroll{
@@ -201,7 +201,7 @@ a:hover {text-decoration: none;}
 }
 #inner-wrap { /* TODO: genau definieren (vor allem bei großen Bildschirmen)! */
 	position: relative;
-	width: 80%;
+	width: 960px;
 	margin: 0 auto;
 }
 
@@ -318,9 +318,26 @@ a:hover {text-decoration: none;}
 	overflow: hidden;
 	z-index: 10;
 }
+.prev, .next {
+	position: absolute;
+	top: 0;
+	width: 30px;
+	height: 290px;
+	background: url('../img/links.png') #fff 3px 45% no-repeat;
+	z-index: 5;
+}
+.prev {
+	left: 0;
+}
+.next {
+	right: 0;
+	background-image: url('../img/rechts.png');
+}
 #rss {
 	float: left;
 	width: 3000%;
+	margin-left: 40px;
+	z-index: 4;
 }
 #info {
 	height: 260px;
@@ -343,10 +360,10 @@ a:hover {text-decoration: none;}
 }
 #rss article {
 	float: left;
-	width: 180px;
+	width: 192px;
 	height: 270px;
 	background-color: #fff;
-	margin-right: 30px;
+	margin-right: 10px;
 	padding: 10px;
 	overflow: hidden;
 	position: relative;
@@ -596,9 +613,12 @@ a:hover {text-decoration: none;}
 	
 	/** wrap **/
 	#wrap {min-width: 768px;}
-	#inner-wrap {width: 85%;}
+	#inner-wrap {width: 650px;}
 
 	/** hand with iphone **/
-	#hand-phone {right: -165px;}
+	#hand-phone {right: -150px;}
+
+	/** scroll **/
+	#scroll-wrap {width: 650px;}
 	
 }

@@ -44,5 +44,5 @@ var FeedView = Backbone.View.extend({
     var event = document.createEvent('Event');
     event.initEvent('loadingFinish', true, true)
     document.dispatchEvent(event);
-  },
+  }
 });

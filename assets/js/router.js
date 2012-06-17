@@ -303,5 +303,19 @@ var AppRouter = Backbone.Router.extend({
     } else {
       return true;
     }
+  },
+  slideArticleToRight: function() {
+    $('#rss').animate({
+      'margin-left': '-=888'
+    }, 1800, function(){
+
+    });
+  },
+  slideArticleToLeft: function() {
+    $('#rss').animate({
+      'margin-left': '+=888'
+    }, 1800, function(){
+
+    });
   }
 });

@@ -284,11 +284,13 @@ var AppRouter = Backbone.Router.extend({
       google.maps.event.trigger(this.mapView.map, "resize");
   },
   isMobile: function() {
-    // TODO: am iPad soll die "normale" Website angezeigt werden
-    // if( (navigator.userAgent.match(/iPad/i) ) )
-    //   alert('iPad');
-
     var index = navigator.appVersion.indexOf("Mobile");
-    return (index > -1);
+    // return (index > -1);
+
+    if ( (navigator.userAgent.match(/iPad/i)) || (index <= -1) ) {
+      return false;
+    } else {
+      return true;
+    }
   }
 });

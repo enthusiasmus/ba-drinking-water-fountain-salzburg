@@ -116,7 +116,7 @@ a:hover {text-decoration: none;}
 #navigation {
 	position: absolute; 
 	top: 50px; 
-	left: 0; 
+	left: 100px; 
 	z-index: 5;
 	opacity: 0;
 }
@@ -155,6 +155,38 @@ a:hover {text-decoration: none;}
 	top: 5px;
 	left: 5px;
 	border: 2px solid #fff;
+}
+
+/** address search **/
+#address, #maptype {
+	display: none;
+	position: absolute;
+	top: 90px;
+	left: 0;
+	width: 100%;
+	z-index: 30;
+}
+#address div, #maptype div {
+	width: 30%;
+	background-color: #fff;
+	padding: 15px;
+	margin-left: 100px;
+}
+#address .addressinput {
+	width: 87%;
+	color: #666;
+	font-size: 12px;
+	padding: 5px;
+	border: 1px solid #999;
+}
+#address .searchsubmit {
+	background: url('../img/icons.png') -320px 0 no-repeat;
+	border: 0;
+	width: 18px;
+	height: 18px;
+	margin-top: 4px;
+	float: right;
+	cursor: pointer;
 }
 
 /*** wrap ***/
@@ -352,8 +384,8 @@ a:hover {text-decoration: none;}
 }
 
 /*** mobile devices ***/
-@media only screen and (min-width : 320px) and (max-width : 480px) { 
-/*@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {*/
+/*@media only screen and (min-width : 320px) and (max-width : 480px) { */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 
 	/** text indents only for mobile devices **/
 	#header-navigation .menu-item a {
@@ -450,18 +482,12 @@ a:hover {text-decoration: none;}
 
 	/** address search **/
 	#address, #maptype {
-		display:none;
-		position: absolute;
+		top: auto;
 		bottom: 80px;
-		left: 0;
-		width: 100%;
-		z-index: 30;
 	}
 	#address div, #maptype div {
 		width: 80%;
-		background-color: #fff;
 		margin: 0 auto;
-		padding: 15px;
 	}
 	#address .addressinput {
 		width: 87%;
@@ -469,15 +495,6 @@ a:hover {text-decoration: none;}
 		font-size: 12px;
 		padding: 5px;
 		border: 1px solid #999;
-	}
-	#address .searchsubmit {
-		background: url('../img/icons.png') -320px 0 no-repeat;
-		border: 0;
-		width: 20px;
-		height: 18px;
-		margin-top: 4px;
-		float: right;
-		cursor: pointer;
 	}
 	#maptype ul {padding: 10px 0 25px 0;}
 	#maptype .menu-item {
@@ -490,7 +507,6 @@ a:hover {text-decoration: none;}
 	#maptype a:hover, #maptype a:focus, #maptype a:active {color: #0079b7;}
 
 	/** feed & info **/
-
 	#feed, #info {
 		position: relative;
 		top: auto;

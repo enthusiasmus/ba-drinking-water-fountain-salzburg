@@ -132,7 +132,7 @@
     </div>
     <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>
 
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=AT"></script>
 
     <!-- libs -->
     <script type="text/javascript" src="assets/js/libs/markerclusterer.js"></script>

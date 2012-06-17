@@ -94,11 +94,15 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   nextFountain: function() {
-    if ( this.isMobile() )
-      $('#header-navigation').show();
-
     this.navigate("", {trigger: true});
-    this.displayOnly('map_canvas'); 
+
+    if ( this.isMobile() ) {
+      this.displayOnly('map_canvas');
+      $('#header-navigation').show();
+    } else {
+      this.displayOnly('map_canvas appinfo hand-phone');
+    }
+
     if(this.mapView.directionsDisplay){
       this.mapView.hideRoute();
       return;
@@ -122,13 +126,16 @@ var AppRouter = Backbone.Router.extend({
     });
   },
   showAddressSearch: function() {
-    if ( this.isMobile() )
-      $('#header-navigation').show();
-
     this.navigate("", {trigger: true});
+
+    if ( this.isMobile() ) {
+      this.displayOnly('map_canvas');
+      $('#header-navigation').show();
+    } else {
+      this.displayOnly('map_canvas appinfo hand-phone');
+    }
     
     var isVisible = $('#address').is(':visible');
-    this.displayOnly('map_canvas');
     if(!isVisible){
       $('#address').show();
     }
@@ -175,11 +182,15 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   getUserLocation: function() {
-    if ( this.isMobile() )
-      $('#header-navigation').show();
-    
     this.navigate("", {trigger: true});
-		this.displayOnly('map_canvas');
+
+    if ( this.isMobile() ) {
+      this.displayOnly('map_canvas');
+      $('#header-navigation').show();
+    } else {
+      this.displayOnly('map_canvas appinfo hand-phone');
+    }
+    
     this.calculateGeoLocation();
   },
   calculateGeoLocation: function(eventtype){

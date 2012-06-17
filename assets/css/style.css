@@ -384,7 +384,8 @@ a:hover {text-decoration: none;}
 }
 
 /*** mobile devices ***/
-/*@media only screen and (min-width : 320px) and (max-width : 480px) { */
+
+/** smartphones **/
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 
 	/** text indents only for mobile devices **/
@@ -583,4 +584,21 @@ a:hover {text-decoration: none;}
 		margin-bottom: 10px;
 	}
 
+}
+
+/** iPad - landscape **/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+
+}
+
+/** iPad - portrait **/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+	
+	/** wrap **/
+	#wrap {min-width: 768px;}
+	#inner-wrap {width: 85%;}
+
+	/** hand with iphone **/
+	#hand-phone {right: -165px;}
+	
 }

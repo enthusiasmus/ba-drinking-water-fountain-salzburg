@@ -28,9 +28,9 @@
       $mobileBrowser = isMobile();
 
       if ( $mobileBrowser )
-        echo "<title>Aqua Salzburg</title>";
+        echo "<title>AquaSalzburg</title>";
       else
-        echo "<title>Aqua Salzburg - DIE Trinkbrunnen-App für das Land Salzburg</title>";
+        echo "<title>AquaSalzburg - DIE Trinkbrunnen-App für das Land Salzburg</title>";
     ?>
     <meta name="description" content="" />
     <meta name="keywords" content="" />

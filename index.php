@@ -94,9 +94,9 @@
         </div>
       </div>
       <div id="feed">
-        <a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" class="prev">Neuere Wasser-News</a>
+        <?php if ( !$mobileBrowser ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" class="prev">Neuere Wasser-News</a><?php } ?>
         <section id="rss"></section>
-        <a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" class="next">Ältere Wasser-News</a>
+        <?php if ( !$mobileBrowser ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" class="next">Ältere Wasser-News</a><?php } ?>
       </div>
 
   <?php if ( !$mobileBrowser ) { ?>

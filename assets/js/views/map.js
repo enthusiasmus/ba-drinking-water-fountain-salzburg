@@ -52,8 +52,7 @@ var MapView = Backbone.View.extend({
     var self = this;
     var isVisible = false;
     var ib = new Object();
-	var myOptions = new Object();
-
+    var myOptions = new Object();
     
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
@@ -126,6 +125,9 @@ var MapView = Backbone.View.extend({
     }]};
 
     this.markerCluster = new MarkerClusterer(this.map, markerArray, mcOptions);
+    google.maps.event.addListener(this.markerCluster, 'clusterclick', function(cluster) {
+      ib.close();
+    });
     google.maps.event.addListener(this.map, 'click', function() {
       ib.close();
     });

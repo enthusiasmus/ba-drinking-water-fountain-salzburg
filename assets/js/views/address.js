@@ -1,12 +1,5 @@
 var AddressView = Backbone.View.extend({
   el: $("#address"),
-  initialize: function() {
-    this.render();
-  },
-  render: function() {
-    var template = _.template( $('#searchaddressTemplate').html());
-    $(this.el).html(template);
-  },
   show: function(){
     $(this.el).show();
   },
@@ -17,11 +10,15 @@ var AddressView = Backbone.View.extend({
     $(this.el).toggle();
   },
   mapView: "",
-  currentMarker: "",
   events: {
-    'click input[type=button]': 'searchaddress'
+    'click input[name=search_adress]': 'searchAddress',
+    'keypress input[name=address]': 'keypress'
   },
-  searchaddress: function(){
+  keypress: function(event){
+    if(event.keyCode == 13)
+      this.searchAddress();
+  },
+  searchAddress: function(){
     var geocoder = new google.maps.Geocoder();
     var address = $('input[name=address]').val();
     
@@ -29,38 +26,51 @@ var AddressView = Backbone.View.extend({
     geocoder.geocode({ 'address': address}, function(results, status) {
       if(status == google.maps.GeocoderStatus.OK){
         self.mapView.map.setCenter(results[0].geometry.location);
-		self.mapView.map.fitBounds(results[0].geometry.viewport);
+		    self.mapView.map.fitBounds(results[0].geometry.viewport);
         
-    var adressPosition = {
-      "ab": results[0].geometry.location.lat(),
-      "cb": results[0].geometry.location.lng()
-    }
-    
-    //calculate distance and direction to next fontaine
-    var nextFountain = self.mapView.nearestFountain(adressPosition);
-    
-    var diffLat = adressPosition.ab - nextFountain.get('latitude');
-    var diffLng = adressPosition.cb - nextFountain.get('longitude');
-    var quadrant;
+        var adressPosition = {
+          "ab": results[0].geometry.location.lat(),
+          "cb": results[0].geometry.location.lng()
+        }
+        
+        //calculate distance and direction to next fontaine
+        var nextFountain = self.mapView.nearestFountain(adressPosition);
+        
+        var diffLat = adressPosition.ab - nextFountain.get('latitude');
+        var diffLng = adressPosition.cb - nextFountain.get('longitude');
+        var rotateValue = 0;
+        var pointerText = '';
 
-    console.log(diffLat + ", " + diffLng);
+        console.log(diffLat + ", " + diffLng);
 
-    if(diffLat > 0 && diffLng > 0)
-      quadrant = 1;
-    else if(diffLat > 0 && diffLng < 0)
-      quadrant = 2;
-    else if(diffLat < 0 && diffLng < 0)
-      quadrant = 3;
-    else
-      quadrant = 4;
+        if(diffLat > 0 && diffLng > 0) {
+          rotateValue = 45;
+          pointerText = 'NO';
+        } else if(diffLat > 0 && diffLng < 0) {
+          rotateValue = 130;
+          pointerText = 'SO';
+        } else if(diffLat < 0 && diffLng < 0) {
+          rotateValue = 225;
+          pointerText = 'SW';
+        } else {
+          rotateValue = 315;
+          pointerText = 'NW';
+        }
 
-    console.log(quadrant);
+        $('#map_pointer').css({'-moz-transform': 'rotate(' + rotateValue + 'deg)',
+                                '-webkit-transform': 'rotate(' + rotateValue + 'deg)',
+                                '-ms-transform': 'rotate(' + rotateValue + 'deg)'});
+        $('#map_pointer_text').html(pointerText);
 
-		//hide the search-box
-		$(self.el).hide();
+
+    		//hide the search-box and show the pointer
+    		$(self.el).hide();
+        $('#map_pointer').fadeIn();
+        $('#map_pointer_text').fadeIn();
       }
       else{
         console.log("Geocode was not successful for the following reason: " + status);
+        $(self.el).hide();
       }
     });
   }

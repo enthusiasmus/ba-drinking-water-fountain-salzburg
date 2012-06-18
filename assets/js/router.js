@@ -46,7 +46,7 @@ var AppRouter = Backbone.Router.extend({
         self.mapView.placeMarkersToMap();
       },
       error: function(){
-        alert("Trinkbrunnen konnten nicht geladen werden!");
+        console.error("Trinkbrunnen konnten nicht geladen werden!");
       },
       add: true
     });
@@ -55,18 +55,21 @@ var AppRouter = Backbone.Router.extend({
     if ( this.isMobile() )
       this.displayOnly('map_canvas');
     else 
-      this.displayOnly('map_canvas appinfo hand-phone map_pointer');
+      this.displayOnly('map_canvas appinfo hand-phone');
 
     var currentCenter = this.mapView.map.getCenter();
     this.mapView.map.setCenter(currentCenter);
   },
   scrollMap: function(){
+    var mapCenter = this.mapView.map.getCenter();
+    
     if( $('#map-wrap').css('top') == '250px' ) {
       $('#address').hide();
       $('#map-wrap').animate({
         top: 540
       }, 1000, function(){
         window.Trinkbrunnen.mapView.resizeMap();
+        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#navigation').animate({
           opacity: 0
         }, 500);
@@ -81,7 +84,7 @@ var AppRouter = Backbone.Router.extend({
         top: 250
       }, 1000, function(){
         window.Trinkbrunnen.mapView.resizeMap();
-
+        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#navigation').animate({
           opacity: 1
         }, 500);
@@ -138,6 +141,7 @@ var AppRouter = Backbone.Router.extend({
     var isVisible = $('#address').is(':visible');
     if(!isVisible){
       $('#address').show();
+      $('input[name=address]').focus().select();
     }
   },
   showMaptype: function(){
@@ -175,7 +179,7 @@ var AppRouter = Backbone.Router.extend({
           self.eventDispatcher.trigger('hideLoadingView');
         },
         error: function(){
-          alert("Feed konnte nicht geladen werden!");
+          console.error("Feed konnte nicht geladen werden!");
         },
         add: true
       });
@@ -230,7 +234,7 @@ var AppRouter = Backbone.Router.extend({
       function(error){
         switch(error.code) {
           case error.PERMISSION_DENIED:
-            alert("Zugriff auf Position wurde verweigert!");
+            alert("Sie haben den Zugriff auf die Position verweigert!");
             break;
           case error.POSITION_UNAVAILABLE: 
             alert("Position konnte nicht ermittelt werden!");
@@ -271,7 +275,7 @@ var AppRouter = Backbone.Router.extend({
       self.eventDispatcher.off('hideLoadingView');  
     });
   },
-  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone'),
+  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone'),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");
   	var shouldShow;

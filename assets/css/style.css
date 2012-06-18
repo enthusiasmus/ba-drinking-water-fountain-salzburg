@@ -64,6 +64,18 @@ a:hover {text-decoration: none;}
 	z-index: 10;
 }
 
+#map_pointer_text {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	width: auto;
+	height: auto;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	z-index:11;
+}
+
 #activatemap {
 	position:absolute;
 	top: 540px;
@@ -178,7 +190,7 @@ a:hover {text-decoration: none;}
 	width: 100%;
 	z-index: 30;
 }
-#address div, #maptype div {
+#address, #maptype div {
 	width: 30%;
 	background-color: #fff;
 	padding: 15px;

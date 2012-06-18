@@ -11,7 +11,7 @@ var AddressView = Backbone.View.extend({
   },
   mapView: "",
   events: {
-    'click input[name=search_adress]': 'searchAddress',
+    'click input[name=search_address]': 'searchAddress',
     'keypress input[name=address]': 'keypress'
   },
   keypress: function(event){
@@ -26,7 +26,7 @@ var AddressView = Backbone.View.extend({
     geocoder.geocode({ 'address': address}, function(results, status) {
       if(status == google.maps.GeocoderStatus.OK){
         self.mapView.map.setCenter(results[0].geometry.location);     
-        self.mapView.map.fitBounds(results[0].geometry.bounds);
+        self.mapView.map.fitBounds(results[0].geometry.viewport);
         $(self.el).hide();
       }
       else{

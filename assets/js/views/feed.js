@@ -30,11 +30,11 @@ var FeedView = Backbone.View.extend({
     });
     
     var allFeedImages = $('#rss').find('img');
-    for(idx in allFeedImages){
-      if(allFeedImages[idx].width > 150 && allFeedImages[idx] ){
-        var scaleValue = 150/allFeedImages[idx].width;
-        allFeedImages[idx].width = 150;
-        allFeedImages[idx].height = allFeedImages[idx].height*scaleValue;
+    for(idx in allFeedImages) {
+      if ( (allFeedImages[idx].height > 120) && (allFeedImages[idx]) ) {
+        var scaleValue = 120 / allFeedImages[idx].height;
+        allFeedImages[idx].height = 120;
+        allFeedImages[idx].width = allFeedImages[idx].width * scaleValue;
       }
     }
     

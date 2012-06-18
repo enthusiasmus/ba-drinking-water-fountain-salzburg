@@ -313,7 +313,7 @@ a:hover {text-decoration: none;}
 	position: absolute;
 	top: 180px;
 	left: 0; 
-	width: 100%;
+	width: 960px;
 	height: 290px;
 	overflow: hidden;
 	z-index: 10;
@@ -340,6 +340,7 @@ a:hover {text-decoration: none;}
 	z-index: 4;
 }
 #info {
+	width: 920px;
 	height: 260px;
 	background-color: #fff;
 	padding: 20px 20px 10px 20px;
@@ -385,7 +386,10 @@ a:hover {text-decoration: none;}
 .feed-content {
 	line-height: 1.3em;
 }
-.feed-content img {margin-bottom: 5px;}
+.feed-content img {
+	display: block;
+	margin: 0 auto 5px auto;
+}
 .feed-more {
 	display: block;
 	text-transform: lowercase;
@@ -621,4 +625,15 @@ a:hover {text-decoration: none;}
 	/** scroll **/
 	#scroll-wrap {width: 650px;}
 	
+}
+
+/** larger screens **/
+@media only screen and (min-width : 1500px) {
+
+	/** header **/
+	#logo_salzburg {right: 100px;}
+
+	/** slider **/
+	#slider img {width: 100%;}
+
 }

@@ -16,6 +16,10 @@ var MapView = Backbone.View.extend({
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
+
+    if (!this.isMobile)
+      myOptions.mapTypeControl = true;
+
     this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     
     var self = this;
@@ -23,10 +27,7 @@ var MapView = Backbone.View.extend({
       //fire event, to remove loading view
     }); 
 
-    if (!this.isMobile) {
-      myOptions.mapTypeControl = true;
-      this.map.setOptions(myOptions);
-    }
+
     
     var template = _.template( $('#map_template').html() );
     $(this.el).html(template);
@@ -228,14 +229,20 @@ var MapView = Backbone.View.extend({
       }
     });
   },
-  nearestFountain: function(){
+  nearestFountain: function(position){
     var distanceToNextFontain = tempShortestDistance = id = 0;
     var self = this;
-    
+    var actualLocation;
+
+    if(position)
+      actualLocation = position;
+    else
+      actualLocation = self.userLocationMarker.getPosition();
+  
     _.each(this.markerCollection.toArray(), function(markerModel){    
       tempShortestDistance = google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
-        self.userLocationMarker.getPosition()
+        actualLocation
       );
 
       if(distanceToNextFontain == 0){

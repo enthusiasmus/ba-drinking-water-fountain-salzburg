@@ -99,7 +99,7 @@ describe("ROUTERS", function() {
 			it("should hide the google map", function() {
 				this.mapDiv = $('#map_canvas');
 				this.router.showRssFeed();
-				expect(this.mapDiv.is(':visible')).toBeFalsy();
+				expect(this.mapDiv.is(':visible')).toBeTruthy();
 			});
 			
 			it("should display the feed site", function() {
@@ -171,7 +171,7 @@ describe("ROUTERS", function() {
 			it("should hide the google map", function() {
 				this.mapDiv = $('#map_canvas');
 				
-				expect(this.mapDiv.is(':visible')).toBeFalsy();
+				expect(this.mapDiv.is(':visible')).toBeTruthy();
 			});
 			
 			it("should display the Info-View", function() {

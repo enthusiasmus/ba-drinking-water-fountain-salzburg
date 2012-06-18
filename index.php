@@ -127,6 +127,8 @@
         </ul>
       </nav>
       <div id="map_canvas"></div>
+      <div id="map_pointer"></div>
+      <div id="map_pointer_text"></div>
       <div id="maptype"></div>
       <div id="address">
         <input type='text' name='address' placeholder='Bitte geben Sie eine Adresse ein' class='addressinput' />

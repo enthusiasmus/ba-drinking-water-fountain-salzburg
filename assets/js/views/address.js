@@ -11,7 +11,7 @@ var AddressView = Backbone.View.extend({
   },
   mapView: "",
   events: {
-    'click input[name=search_adress]': 'searchAddress',
+    'click input[name=search_address]': 'searchAddress',
     'keypress input[name=address]': 'keypress'
   },
   keypress: function(event){

@@ -52,6 +52,18 @@ a:hover {text-decoration: none;}
 	background: #ddd;
 	z-index: 4;
 }
+
+#map_pointer {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	width: 32px;
+	height: 102px;
+	background-image: url(../img/richter.png);
+	background-repeat: no-repeat;
+	z-index: 10;
+}
+
 #activatemap {
 	position:absolute;
 	top: 540px;

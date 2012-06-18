@@ -55,7 +55,7 @@ var AppRouter = Backbone.Router.extend({
     if ( this.isMobile() )
       this.displayOnly('map_canvas');
     else 
-      this.displayOnly('map_canvas appinfo hand-phone');
+      this.displayOnly('map_canvas appinfo hand-phone map_pointer');
 
     var currentCenter = this.mapView.map.getCenter();
     this.mapView.map.setCenter(currentCenter);
@@ -271,7 +271,7 @@ var AppRouter = Backbone.Router.extend({
       self.eventDispatcher.off('hideLoadingView');  
     });
   },
-  mainElements: new Array('address', 'map_canvas', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone'),
+  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone'),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");
   	var shouldShow;

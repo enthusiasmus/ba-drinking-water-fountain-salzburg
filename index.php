@@ -127,6 +127,7 @@
         </ul>
       </nav>
       <div id="map_canvas"></div>
+      <div id="map_pointer"></div>
       <div id="maptype"></div>
       <div id="address"></div>
     </div>

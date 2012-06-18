@@ -43,18 +43,18 @@ var AddressView = Backbone.View.extend({
 
         console.log(diffLat + ", " + diffLng);
 
-        if(diffLat > 0 && diffLng > 0) {
-          rotateValue = 45;
-          pointerText = 'NO';
-        } else if(diffLat > 0 && diffLng < 0) {
-          rotateValue = 130;
+        if(diffLat < 0 && diffLng > 0) {
+          rotateValue = 135;
           pointerText = 'SO';
-        } else if(diffLat < 0 && diffLng < 0) {
+        } else if(diffLat > 0 && diffLng > 0) {
           rotateValue = 225;
           pointerText = 'SW';
-        } else {
+        } else if(diffLat > 0 && diffLng < 0) {
           rotateValue = 315;
           pointerText = 'NW';
+        } else {
+          rotateValue = 45;
+          pointerText = 'NO';
         }
 
         $('#map_pointer').css({'-moz-transform': 'rotate(' + rotateValue + 'deg)',

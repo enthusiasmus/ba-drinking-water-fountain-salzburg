@@ -46,7 +46,7 @@ var AppRouter = Backbone.Router.extend({
         self.mapView.placeMarkersToMap();
       },
       error: function(){
-        alert("Trinkbrunnen konnten nicht geladen werden!");
+        console.error("Trinkbrunnen konnten nicht geladen werden!");
       },
       add: true
     });
@@ -83,7 +83,6 @@ var AppRouter = Backbone.Router.extend({
       $('#map-wrap').animate({
         top: 250
       }, 1000, function(){
-        console.log(mapCenter);
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#navigation').animate({
@@ -180,7 +179,7 @@ var AppRouter = Backbone.Router.extend({
           self.eventDispatcher.trigger('hideLoadingView');
         },
         error: function(){
-          alert("Feed konnte nicht geladen werden!");
+          console.error("Feed konnte nicht geladen werden!");
         },
         add: true
       });
@@ -235,7 +234,7 @@ var AppRouter = Backbone.Router.extend({
       function(error){
         switch(error.code) {
           case error.PERMISSION_DENIED:
-            alert("Zugriff auf Position wurde verweigert!");
+            alert("Sie haben den Zugriff auf die Position verweigert!");
             break;
           case error.POSITION_UNAVAILABLE: 
             alert("Position konnte nicht ermittelt werden!");

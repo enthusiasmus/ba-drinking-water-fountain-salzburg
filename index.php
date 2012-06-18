@@ -128,7 +128,10 @@
       </nav>
       <div id="map_canvas"></div>
       <div id="maptype"></div>
-      <div id="address"></div>
+      <div id="address">
+        <input type='text' name='address' placeholder='Bitte geben Sie eine Adresse ein' class='addressinput' />
+        <input type='button' name='search_address' class='searchsubmit' />
+      </div>
     </div>
     <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>
 

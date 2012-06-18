@@ -61,12 +61,15 @@ var AppRouter = Backbone.Router.extend({
     this.mapView.map.setCenter(currentCenter);
   },
   scrollMap: function(){
+    var mapCenter = this.mapView.map.getCenter();
+    
     if( $('#map-wrap').css('top') == '250px' ) {
       $('#address').hide();
       $('#map-wrap').animate({
         top: 540
       }, 1000, function(){
         window.Trinkbrunnen.mapView.resizeMap();
+        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#navigation').animate({
           opacity: 0
         }, 500);
@@ -80,8 +83,9 @@ var AppRouter = Backbone.Router.extend({
       $('#map-wrap').animate({
         top: 250
       }, 1000, function(){
+        console.log(mapCenter);
         window.Trinkbrunnen.mapView.resizeMap();
-
+        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#navigation').animate({
           opacity: 1
         }, 500);
@@ -138,6 +142,7 @@ var AppRouter = Backbone.Router.extend({
     var isVisible = $('#address').is(':visible');
     if(!isVisible){
       $('#address').show();
+      $('input[name=address]').focus().select();
     }
   },
   showMaptype: function(){

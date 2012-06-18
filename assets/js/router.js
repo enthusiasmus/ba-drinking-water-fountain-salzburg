@@ -299,6 +299,7 @@ var AppRouter = Backbone.Router.extend({
     // return (index > -1);
 
     if ( (navigator.userAgent.match(/iPad/i)) || (index <= -1) ) {
+      this.mapView.isMobile = false;
       return false;
     } else {
       return true;

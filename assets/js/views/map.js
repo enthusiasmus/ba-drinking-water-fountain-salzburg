@@ -16,6 +16,10 @@ var MapView = Backbone.View.extend({
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
+
+    if (!this.isMobile)
+      myOptions.mapTypeControl = true;
+
     this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     
     var self = this;
@@ -23,10 +27,7 @@ var MapView = Backbone.View.extend({
       //fire event, to remove loading view
     }); 
 
-    if (!this.isMobile) {
-      myOptions.mapTypeControl = true;
-      this.map.setOptions(myOptions);
-    }
+
     
     var template = _.template( $('#map_template').html() );
     $(this.el).html(template);

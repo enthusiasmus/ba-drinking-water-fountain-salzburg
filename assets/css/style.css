@@ -329,8 +329,15 @@ a:hover {text-decoration: none;}
 	top: 122px;
 	left: 0;
 	width: 100%;
+	background: #fff url('../img/loading.gif') no-repeat 50% 50%;
 }
-#slider img {max-width: 100%;}
+#slider img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	max-width: 100%;
+	display: none;
+}
 
 /*** feed & imprint ***/
 #feed, #info {

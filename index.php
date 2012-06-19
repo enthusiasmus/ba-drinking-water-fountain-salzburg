@@ -39,6 +39,7 @@
     
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/nivo-slider.css" />
 
   </head>
   <body>
@@ -47,70 +48,62 @@
 
   <?php if ( !$mobileBrowser ) { ?>
     <div id="wrap">
+      <div id="slider" class="nivoSlider">
+        <img src="assets/img/slider/01.jpg" class="slide" alt="" />
+        <img src="assets/img/slider/02.jpg" class="slide" alt="" />
+        <img src="assets/img/slider/03.jpg" class="slide" alt="" />
+        <img src="assets/img/slider/04.jpg" class="slide" alt="" />
+      </div>
       <div id="inner-wrap">
   <?php } ?>
 
-      <header id="header">
-        <?php if ( !$mobileBrowser ) { ?>
-        <hgroup>
-          <h1 id="logo_aqua"><a href="">Aqua Salzburg</a></h1>
-          <h2 id="logo_salzburg">Land Salzburg</h2>
-        </hgroup>
-        <?php } ?>
-        <nav id="header-navigation">
-          <ul>
-            <li class='menu-item feed'><a href='#feed'>News</a></li>
-            <li class='menu-item about'><a href='#about'>Impressum</a></li>
-          </ul>
-        </nav>   
-      </header>
-
-      <?php if ( !$mobileBrowser ) { ?>
-      <div id="appinfo">
-        <h3 id="slogan">
-          <span>App mit über 160 Trinkbrunnen</span><br>
-          <span>im ganzen Land Salzburg</span>
-        </h3>
-
-        <a href="http://itunes.apple.com/at/genre/ios/id36?mt=8" id="appstore">Availiable on the App Store</a>
-        <a href="https://play.google.com/store?hl=de" id="googleplay">Google play</a>
-      </div>
-      <?php } ?>
-
-      <div id="info">
-        <div>
-          <h2>Aqua Salzburg</h2>
-          <p>entwickelt in Zusammenarbeit mit:<br>
-            <b>MultiMediaTechnology</b> &amp; <b>MultiMediaArt</b><br>
-            Studiengänge der Fachhochschule Salzburg</p>
-          <p><img src="assets/img/logo-fh-salzburg.png" width="200" height="55" alt="FH Salzburg" /></p>
-          <p><i>Programmierung:</i> Lukas Wanko, Nicole Buchegger, Robert Koch<br/>
-            <i>Design:</i> Karin Schnirch, Philipp Fauser</p>
-          <h4>Disclaimer – Haftungsausschlusserklärung</h4>
-          <p>Diese Website dient zu Ihrer Information. Sie wird mit Sorgfalt bearbeitet. Sowohl für die Auswahl der einzelnen Verweise wie für die Beiträge in den Sparten kann für Vollständigkeit, Auswahl und inhaltliche Richtigkeit der Informationen keine Haftung übernommen werden. Der Betreiber kann für fremde Inhalte, die durch die angebotene Datenbank erreichbar sind (Links), keine Haftung übernehmen.</p>
-          <p>Die Website kann insbesondere die persönliche Beratung im konkreten Einzelfall nicht ersetzten. Durch die zur Verfügung gestellten Informationen wird kein wie immer geartetes Rechtsverhältnis zwischen dem Land Salzburg und dem Nutzer begründet. </p>
-          <p>Die auf der Website des Landes Salzburg veröffentlichten Beiträge sind urheberrechtlich geschützt. Jede unberechtigte Vervielfältigung und/oder Verbreitung dieser Seiten stellt eine Verletzung des österreichischen Urheberrechtsgesetzes dar. </p>
-          <p>Dieser Haftungsausschluss ist als Teil des Internetangebotes zu betrachten, von dem aus auf diese Seite verwiesen wurde.</p>
+        <header id="header">
+          <?php if ( !$mobileBrowser ) { ?>
+          <hgroup>
+            <h1 id="logo_aqua"><a href="">Aqua Salzburg</a></h1>
+            <h2 id="logo_salzburg">Land Salzburg</h2>
+          </hgroup>
+          <?php } ?>
+          <nav id="header-navigation">
+            <ul>
+              <li class='menu-item feed'><a href='#feed'>News</a></li>
+              <li class='menu-item about'><a href='#about'>Impressum</a></li>
+            </ul>
+          </nav>   
+        </header>
+        <div id="info">
+          <div>
+            <h2>Aqua Salzburg</h2>
+            <p>entwickelt in Zusammenarbeit mit:<br>
+              <b>MultiMediaTechnology</b> &amp; <b>MultiMediaArt</b><br>
+              Studiengänge der Fachhochschule Salzburg</p>
+            <p><img src="assets/img/logo-fh-salzburg.png" width="200" height="55" alt="FH Salzburg" /></p>
+            <p><i>Programmierung:</i> Lukas Wanko, Nicole Buchegger, Robert Koch<br/>
+              <i>Design:</i> Karin Schnirch, Philipp Fauser</p>
+            <h4>Disclaimer – Haftungsausschlusserklärung</h4>
+            <p>Diese Website dient zu Ihrer Information. Sie wird mit Sorgfalt bearbeitet. Sowohl für die Auswahl der einzelnen Verweise wie für die Beiträge in den Sparten kann für Vollständigkeit, Auswahl und inhaltliche Richtigkeit der Informationen keine Haftung übernommen werden. Der Betreiber kann für fremde Inhalte, die durch die angebotene Datenbank erreichbar sind (Links), keine Haftung übernehmen.</p>
+            <p>Die Website kann insbesondere die persönliche Beratung im konkreten Einzelfall nicht ersetzten. Durch die zur Verfügung gestellten Informationen wird kein wie immer geartetes Rechtsverhältnis zwischen dem Land Salzburg und dem Nutzer begründet. </p>
+            <p>Die auf der Website des Landes Salzburg veröffentlichten Beiträge sind urheberrechtlich geschützt. Jede unberechtigte Vervielfältigung und/oder Verbreitung dieser Seiten stellt eine Verletzung des österreichischen Urheberrechtsgesetzes dar. </p>
+            <p>Dieser Haftungsausschluss ist als Teil des Internetangebotes zu betrachten, von dem aus auf diese Seite verwiesen wurde.</p>
+          </div>
         </div>
-      </div>
-      <div id="feed">
-        <?php if ( !$mobileBrowser ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" class="prev">Neuere Wasser-News</a><?php } ?>
-        <section id="rss"></section>
-        <?php if ( !$mobileBrowser ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" class="next">Ältere Wasser-News</a><?php } ?>
-      </div>
+        <div id="feed">
+          <?php if ( !$mobileBrowser ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" class="prev">Neuere Wasser-News</a><?php } ?>
+          <section id="rss"></section>
+          <?php if ( !$mobileBrowser ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" class="next">Ältere Wasser-News</a><?php } ?>
+        </div>
 
   <?php if ( !$mobileBrowser ) { ?>
+        <div id="appinfo">
+          <h3 id="slogan">
+            <span>App mit über 160 Trinkbrunnen</span><br>
+            <span>im ganzen Land Salzburg</span>
+          </h3>
+          <a href="http://itunes.apple.com/at/genre/ios/id36?mt=8" id="appstore">Availiable on the App Store</a>
+          <a href="https://play.google.com/store?hl=de" id="googleplay">Google play</a>
+        </div>
       </div>
-
-      <div id="slider">
-        <img src="assets/img/slider/01.jpg" class="slide" alt="" />
-        <!-- <img src="assets/img/slider/02.jpg" class="slide" alt="" />
-        <img src="assets/img/slider/03.jpg" class="slide" alt="" />
-        <img src="assets/img/slider/04.jpg" class="slide" alt="" /> -->
-      </div>
-
       <span id="hand-phone"></span>
-
     </div>
   <?php } ?>
 
@@ -144,9 +137,23 @@
     <script type="text/javascript" src="assets/js/libs/infobox.js"></script>
     <script type="text/javascript" src="assets/js/libs/jquery.js"></script>
     <script type="text/javascript" src="assets/js/libs/jquery.dateFormat.js"></script>
+    <script type="text/javascript" src="assets/js/libs/jquery.nivo.slider.js"></script>
     <script type="text/javascript" src="assets/js/libs/spin.js"></script>
     <script type="text/javascript" src="assets/js/libs/underscore.js"></script>
     <script type="text/javascript" src="assets/js/libs/backbone.js"></script>
+    <script type="text/javascript">
+      $(window).load(function() {
+        // initialize image slider
+        $('#slider').nivoSlider({
+          effect: 'fade',
+          animSpeed: 500,
+          pauseTime: 3000,
+          directionNav: false,
+          controlNav: false,
+          pauseOnHover: false
+        });
+      });
+    </script>
 
     <!--models -->
     <script type="text/javascript" src="assets/js/models/feedItem.js"></script>

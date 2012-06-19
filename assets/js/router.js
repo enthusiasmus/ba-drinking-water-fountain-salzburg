@@ -76,7 +76,7 @@ var AppRouter = Backbone.Router.extend({
         $('#activatemap').show();
         $('#scroll').text('Probier es aus ↑');
       });
-      $('#appinfo, #info, #rss, #hand-phone').animate({
+      $('#appinfo, #info, #feed, #hand-phone').animate({
         opacity : 1
       }, 1000);
     } else {
@@ -91,7 +91,7 @@ var AppRouter = Backbone.Router.extend({
         $('#activatemap').hide();
         $('#scroll').text('Karte verkleinern ↓');
       });
-      $('#appinfo, #info, #rss, #hand-phone').animate({
+      $('#appinfo, #info, #feed, #hand-phone').animate({
         opacity : 0
       }, 1000);
     }
@@ -166,6 +166,10 @@ var AppRouter = Backbone.Router.extend({
       this.displayOnly('feed');
     } else {
       this.displayOnly('map_canvas feed');
+
+      if( $('#map-wrap').css('top') == '250px' ) {
+        this.scrollMap();
+      }
     }
 
 		var self = this;
@@ -261,6 +265,10 @@ var AppRouter = Backbone.Router.extend({
       this.displayOnly('info');
     } else {
       this.displayOnly('map_canvas info');
+
+      if( $('#map-wrap').css('top') == '250px' ) {
+        this.scrollMap();
+      }
     }
   },
   defaultRoute: function(){

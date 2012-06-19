@@ -305,11 +305,11 @@ a:hover {text-decoration: none;}
 }
 #appstore {
 	top: 340px; 
-	background-position: -338px 0;
+	background-position: -338px -80px;
 }
 #googleplay {
 	top: 390px; 
-	background-position: -338px -40px;
+	background-position: -338px -120px;
 }
 
 /*** hand with iphone ***/
@@ -354,7 +354,7 @@ a:hover {text-decoration: none;}
 	top: 0;
 	width: 30px;
 	height: 290px;
-	background: url('../img/links.png') #fff 3px 45% no-repeat;
+	background: url('../img/links.png') #fff 3px 47% no-repeat;
 	z-index: 5;
 }
 .prev {
@@ -400,6 +400,7 @@ a:hover {text-decoration: none;}
 	overflow: hidden;
 	position: relative;
 }
+#rss article:first-child {display: none;} /* hide first news element for presentation */
 #rss article:last-child {margin-right: 0;}
 .feed-title a {
 	color:#527dbb; 

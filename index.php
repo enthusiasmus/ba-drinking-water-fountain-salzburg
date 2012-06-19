@@ -146,8 +146,8 @@
         // initialize image slider
         $('#slider').nivoSlider({
           effect: 'fade',
-          animSpeed: 500,
-          pauseTime: 3000,
+          animSpeed: 800,
+          pauseTime: 5000,
           directionNav: false,
           controlNav: false,
           pauseOnHover: false

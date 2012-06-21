@@ -16,8 +16,10 @@ var MapView = Backbone.View.extend({
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    // if (!this.isMobile)
-    //   myOptions.mapTypeControl = true;
+    if (!this.isMobile){
+      myOptions.mapTypeControl = true;
+      myOptions.zoom = myOptions.zoom + 1;
+    }
 
     this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     

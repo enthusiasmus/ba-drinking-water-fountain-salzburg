@@ -1,19 +1,17 @@
 <?php
-  // $isIphone = strstr($_SERVER['HTTP_USER_AGENT'],'iPhone');
-  // $isIpod = strstr($_SERVER['HTTP_USER_AGENT'],'iPod');
-  // $isIpad = strstr($_SERVER['HTTP_USER_AGENT'],'iPad');
-  // $isAndroid = strstr($_SERVER['HTTP_USER_AGENT'],'Android');
-
-  function isMobile() {
-    if ( preg_match('/(alcatel|android|blackberry|benq|cell|elaine|htc|iemobile|iphone|ipad|ipaq|ipod|j2me|java|midp|mini|mobi|motorola|nokia|palm|panasonic|philips|phone|sagem|sharp|smartphone|sony|symbian|t-mobile|up\.browser|up\.link|vodafone|wap|wireless|xda|zte)/i', $_SERVER['HTTP_USER_AGENT']) && !strstr($_SERVER['HTTP_USER_AGENT'],'iPad') )
-      return true;
-    else
-      return false;
-  }
+  if ( preg_match('/(alcatel|android|blackberry|benq|cell|elaine|htc|iemobile|iphone|ipad|ipaq|ipod|j2me|java|midp|mini|mobi|motorola|nokia|palm|panasonic|philips|phone|sagem|sharp|smartphone|sony|symbian|t-mobile|up\.browser|up\.link|vodafone|wap|wireless|xda|zte)/i', $_SERVER['HTTP_USER_AGENT']) && !strstr($_SERVER['HTTP_USER_AGENT'],'iPad') )
+    $isMobile = true;
+  else
+    $isMobile = false;
 ?>
 
 <!DOCTYPE html>
-<html>
+  <?php
+    if ( $isMobile )
+      echo "<html manifest='cache.manifest'>";
+    else
+      echo "<html>";
+  ?>
   <head>
     <meta content="text/html;charset=UTF-8" http-equiv="content-type">    
     
@@ -25,9 +23,7 @@
     <link rel="apple-touch-startup-image" href="assets/img/startup.png" />      <!-- quick startup screen -->
     
     <?php
-      $mobileBrowser = isMobile();
-
-      if ( $mobileBrowser )
+      if ( $isMobile )
         echo "<title>AquaSalzburg</title>";
       else
         echo "<title>AquaSalzburg - DIE Trinkbrunnen-App für das Land Salzburg</title>";
@@ -46,7 +42,7 @@
 
     <div id="loading"></div>
 
-  <?php if ( !$mobileBrowser ) { ?>
+  <?php if ( !$isMobile ) { ?>
     <div id="wrap">
       <div id="slider" class="nivoSlider">
         <img src="assets/img/slider/01.jpg" class="slide" alt="" />
@@ -58,7 +54,7 @@
   <?php } ?>
 
         <header id="header">
-          <?php if ( !$mobileBrowser ) { ?>
+          <?php if ( !$isMobile ) { ?>
           <hgroup>
             <h1 id="logo_aqua"><a href="">Aqua Salzburg</a></h1>
             <h2 id="logo_salzburg">Land Salzburg</h2>
@@ -88,12 +84,12 @@
           </div>
         </div>
         <div id="feed">
-          <?php if ( !$mobileBrowser ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" class="prev">Neuere Wasser-News</a><?php } ?>
+          <?php if ( !$isMobile ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" class="prev">Neuere Wasser-News</a><?php } ?>
           <section id="rss"></section>
-          <?php if ( !$mobileBrowser ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" class="next">Ältere Wasser-News</a><?php } ?>
+          <?php if ( !$isMobile ) { ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" class="next">Ältere Wasser-News</a><?php } ?>
         </div>
 
-  <?php if ( !$mobileBrowser ) { ?>
+  <?php if ( !$isMobile ) { ?>
         <div id="appinfo">
           <h3 id="slogan">
             <span>App mit über 160 Trinkbrunnen</span><br>

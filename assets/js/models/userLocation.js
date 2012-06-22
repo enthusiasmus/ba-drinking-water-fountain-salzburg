@@ -21,7 +21,7 @@ var UserLocationModel = Backbone.Model.extend({
     imageOriginX: 0,
     imageOriginY: 0,
     imageAnchorX: 12,
-    imageAnchorY: 12,
+    imageAnchorY: 12
   },
   validate: function(attrs){
     if(attrs.precision >= 10000)

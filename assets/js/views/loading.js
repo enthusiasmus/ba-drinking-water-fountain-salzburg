@@ -34,5 +34,5 @@ var LoadingView = Backbone.View.extend({
 	hide: function(){
 		$(this.el).hide();
 		this.spinner.stop();
-	},
+	}
 });

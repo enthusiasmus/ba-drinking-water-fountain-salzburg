@@ -4,5 +4,5 @@ var FeedItemModel = Backbone.Model.extend({
 		description: '-',
 		pubDate: new Date().getDate(),
 		link: 'http://www.seppeisl.at'
-	},
+	}
 });

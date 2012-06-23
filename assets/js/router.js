@@ -72,7 +72,7 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#navigation').animate({
           opacity: 0
-        }, 500);
+        }, 500, function(){$(this).hide();});
         $('#activatemap').show();
         $('#scroll').text('Probier es aus ↑');
       });
@@ -85,6 +85,7 @@ var AppRouter = Backbone.Router.extend({
       }, 1000, function(){
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
+        $('#navigation').show();
         $('#navigation').animate({
           opacity: 1
         }, 500);

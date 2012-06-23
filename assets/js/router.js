@@ -65,8 +65,9 @@ var AppRouter = Backbone.Router.extend({
     
     if( $('#map-wrap').css('top') == '250px' ) {
       $('#address').hide();
+      $('#map-wrap').css('min-height', '0px');
       $('#map-wrap').animate({
-        top: 540
+        top: 544
       }, 1000, function(){
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
@@ -80,6 +81,7 @@ var AppRouter = Backbone.Router.extend({
         opacity : 1
       }, 1000);
     } else {
+      $('#map-wrap').css('min-height', '294px');
       $('#map-wrap').animate({
         top: 250
       }, 1000, function(){

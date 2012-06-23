@@ -65,15 +65,15 @@ var AppRouter = Backbone.Router.extend({
     
     if( $('#map-wrap').css('top') == '250px' ) {
       $('#address').hide();
-      $('#map-wrap').css('min-height', '0px');
+      $('#navigation').animate({
+        opacity: 0
+      }, 500, function(){$(this).hide();});
       $('#map-wrap').animate({
         top: 544
       }, 1000, function(){
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
-        $('#navigation').animate({
-          opacity: 0
-        }, 500, function(){$(this).hide();});
+        $('#map-wrap').css('min-height', '0px');
         $('#activatemap').show();
         $('#scroll').text('Probier es aus ↑');
       });

@@ -46,7 +46,7 @@ a:hover {text-decoration: none;}
 	right: 0;
 	bottom: 0;
 	width: 100%;
-	min-width:900px; 
+	min-width:960px; 
 	z-index: 20; 
 	border-top: 6px solid #fff;
 }
@@ -94,7 +94,7 @@ a:hover {text-decoration: none;}
 }
 #scroll-wrap {
 	position: relative;
-	width: 900px;
+	width: 960px;
 	margin: 0 auto;
 }
 #scroll{
@@ -225,7 +225,7 @@ a:hover {text-decoration: none;}
 #wrap {
 	position: relative;
 	width: 100%; 
-	min-width: 900px;
+	min-width: 960px;
 	height: 542px; 
 	border-top: solid 8px #000; 
 	background: url('../img/bg-wrap.jpg') 0 0 repeat; 
@@ -233,7 +233,7 @@ a:hover {text-decoration: none;}
 }
 #inner-wrap {
 	position: relative;
-	width: 900px;
+	width: 960px;
 	margin: 0 auto;
 }
 
@@ -352,7 +352,7 @@ a:hover {text-decoration: none;}
 	position: absolute;
 	top: 180px;
 	left: 0; 
-	width: 900px;
+	width: 960px;
 	height: 290px;
 	overflow: hidden;
 	z-index: 10;

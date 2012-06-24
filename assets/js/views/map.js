@@ -1,6 +1,7 @@
 var MapView = Backbone.View.extend({  
   el: $("#map_canvas"),
   initialize: function() {
+    this.isMobileCheck();
     this.render();
   },
   render: function(){
@@ -33,7 +34,7 @@ var MapView = Backbone.View.extend({
   },
   events: {
   },
-  // isMobile: undefined,
+  isMobile: undefined,
   markerCollection: undefined,
   map: undefined,
   markerCluster: undefined,
@@ -41,6 +42,14 @@ var MapView = Backbone.View.extend({
   userLocationPrecisionCircle: undefined,
   directionsDisplay: undefined,
   directionsService: undefined,
+  isMobileCheck: function(){
+    var index = navigator.appVersion.indexOf("Mobile");
+    var iPad = navigator.userAgent.match(/iPad/i);
+    if(iPad || index < 0)
+      isMobile = true;
+    else
+      isMobile = false;
+  },
   resizeMap: function(){
     google.maps.event.trigger(this.map, 'resize');
   },

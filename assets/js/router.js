@@ -67,7 +67,7 @@ var AppRouter = Backbone.Router.extend({
       $('#address').hide();
       $('#navigation').animate({
         opacity: 0
-      }, 500, function(){$(this).hide();});
+      }, 500);
       $('#map-wrap').animate({
         top: 544
       }, 1000, function(){
@@ -87,7 +87,6 @@ var AppRouter = Backbone.Router.extend({
       }, 1000, function(){
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
-        $('#navigation').show();
         $('#navigation').animate({
           opacity: 1
         }, 500);

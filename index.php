@@ -8,7 +8,7 @@ else
 <!DOCTYPE html>
 <?php
 if ($isMobile)
-  echo "<html manifest='cache.manifest'>";
+  echo "<html>";  // manifest='cache.manifest'
 else
   echo "<html>";
 ?>
@@ -163,19 +163,6 @@ else
   <script type="text/javascript" src="assets/js/libs/spin.js"></script>
   <script type="text/javascript" src="assets/js/libs/underscore.js"></script>
   <script type="text/javascript" src="assets/js/libs/backbone.js"></script>
-  <script type="text/javascript">
-    $(window).load(function() {
-      // initialize image slider
-      $('#slider').nivoSlider({
-        effect : 'fade',
-        animSpeed : 800,
-        pauseTime : 5000,
-        directionNav : false,
-        controlNav : false,
-        pauseOnHover : false
-      });
-    });
-  </script>
   <!--models -->
   <script type="text/javascript" src="assets/js/models/feedItem.js"></script>
   <script type="text/javascript" src="assets/js/models/feed.js"></script>

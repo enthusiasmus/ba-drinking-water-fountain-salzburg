@@ -467,6 +467,9 @@ a:hover {text-decoration: none;}
 		border-top: 0;
 	}
 	#activatemap, #scroll {display: none;}
+	#map_canvas{
+	  min-width:0px;
+	}
 
 	/** navigation **/
 	#header-navigation {
@@ -663,6 +666,7 @@ a:hover {text-decoration: none;}
 	
 	/** wrap **/
 	#wrap {min-width: 768px;}
+	#map_canvas{min-width:0px;}
 	#inner-wrap {width: 650px;}
 
 	/** hand with iphone **/

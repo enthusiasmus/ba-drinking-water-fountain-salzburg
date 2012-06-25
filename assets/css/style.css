@@ -102,11 +102,11 @@ a:hover {text-decoration: none;}
 	z-index: 15; 
 	text-decoration: none; 
 	background-color: #fff; 
-	color: #527dbb; 
+	color: #005586; 
 	padding: 10px 15px;
 }
 #scroll:hover, #scroll:focus, #scroll:active {
-	background-color: #527dbb; 
+	background-color: #005586; 
 	color: #fff; 
 }
 
@@ -158,11 +158,11 @@ a:hover {text-decoration: none;}
 	position: relative;
 	text-decoration: none; 
 	background-color: #fff; 
-	color: #527dbb; 
+	color: #005586; 
 	padding: 17px 15px 12px 45px; 
 }
 #navigation .menu-item a:hover, #navigation .menu-item a:focus, #navigation .menu-item a:active {
-	background-color: #527dbb; 
+	background-color: #005586; 
 	color:#fff; 
 }
 #navigation .menu-item span {
@@ -222,8 +222,8 @@ a:hover {text-decoration: none;}
 	width: 100%; 
 	min-width: 960px;
 	height: 542px; 
-	border-top: solid 8px #000; 
-	background: url('../img/bg-wrap.jpg') 0 0 repeat; 
+	border-top: solid 8px #005586; 
+	background: url('../img/bg-header.jpg') #f0f0f0 0 0 repeat-x; 
 	overflow: hidden;
 }
 #inner-wrap {
@@ -231,7 +231,6 @@ a:hover {text-decoration: none;}
 	width: 960px;
 	margin: 0 auto;
 }
-
 /*** header navigation ***/
 #header-navigation {
 	position: absolute; 
@@ -250,39 +249,30 @@ a:hover {text-decoration: none;}
 	display: block; 
 	text-decoration: none; 
 	color: #fff; 
-	background-color: #527dbb; 
+	background-color: #005586; 
 	padding: 7px 12px;
 }
 #header-navigation .menu-item a:hover, #top_navigation .menu-item a:focus, #top_navigation .menu-item a:active {
 	background-color: #fff; 
-	color: #527dbb; 
+	color: #005586; 
 }
 
 /*** logos ***/
 #logo_aqua a {
 	position: absolute; 
-	top: 0px; 
+	top: 49px; 
 	left: 0; 
-	width: 146px; 
-	height: 110px; 
-	background: url('../img/logo_aqua.png') 0 0 no-repeat; 
-	-webkit-border-bottom-right-radius: 10px;
-	-webkit-border-bottom-left-radius: 10px;
-	-moz-border-radius-bottomright: 10px;
-	-moz-border-radius-bottomleft: 10px;
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
-	-moz-box-shadow: 0px 0px 5px rgba(0,0,0,.2);
-	-webkit-box-shadow: 0px 0px 5px rgba(0,0,0,.2);
-	box-shadow: 0px 0px 5px rgba(0,0,0,.2);
+	width: 461px; 
+	height: 31px; 
+	background: url('../img/sprite-website.png') 0 0 no-repeat; 
 }
-#logo_salzburg {
+#logo_salzburg a {
 	position: absolute; 
-	top: 40px; 
+	top: 35px; 
 	right: 0; 
-	width: 128px; 
-	height: 48px; 
-	background: url('../img/logo_land_salzburg.png') 0 0 no-repeat;
+	width: 140px; 
+	height: 49px; 
+	background: url('../img/sprite-website.png') 0 -31px no-repeat;
 }
 
 /*** app info ***/
@@ -298,7 +288,7 @@ a:hover {text-decoration: none;}
 	margin-bottom: 15px; 
 	background-color: #fff; 
 	padding: 8px 12px; 
-	color: #527dbb;
+	color: #005586;
 }
 #appstore, #googleplay {
 	background-image: url('../img/icons.png');
@@ -381,7 +371,7 @@ a:hover {text-decoration: none;}
 	overflow: auto;
 }
 #info h2 {
-	color:#527dbb; 
+	color:#005586; 
 	font-size: 140%;
 	margin-bottom: 10px;
 }
@@ -406,7 +396,7 @@ a:hover {text-decoration: none;}
 #rss article:first-child {display: none;} /* hide first news element for presentation */
 #rss article:last-child {margin-right: 0;}
 .feed-title a {
-	color:#527dbb; 
+	color:#005586; 
 	text-decoration: none;
 	font-size: 120%;
 }
@@ -433,7 +423,7 @@ a:hover {text-decoration: none;}
 	bottom:9px; 
 	color:#fff;
 	text-decoration:none; 
-	background-color:#527dbb; 
+	background-color:#005586; 
 	color:#FFF; 
 	padding: 9px 15px; 
 	margin-left:0px;
@@ -580,7 +570,7 @@ a:hover {text-decoration: none;}
 		margin-left: 0;
 	}
 	#rss, #info {
-		background-color: #527dbb;
+		background-color: #005586;
 		padding: 5px 0 100px 0;
 	}
 	#rss article, #info div {
@@ -601,13 +591,13 @@ a:hover {text-decoration: none;}
 	}
 	#info, .feed-title, .feed-content {line-height: 1.3em;}
 	#info h2, .feed-title {
-		color:#527dbb;
+		color:#005586;
 		font-size: 14px;
 		margin-bottom: 10px;
 	}
 	#info h2 {margin-bottom: 20px;}
 	.feed-title a {
-		color:#527dbb;
+		color:#005586;
 		text-decoration: none;
 	}
 	.feed-date {
@@ -627,7 +617,7 @@ a:hover {text-decoration: none;}
 		bottom: 20px;
 		left: 10px;
 		display: block;
-		background-color: #527dbb;
+		background-color: #005586;
 		color: #fff;
 		width: 40px; 
 		padding: 9px;
@@ -636,7 +626,7 @@ a:hover {text-decoration: none;}
 	}
 	.feed-more:hover, .feed-more:focus, .feed-more:active {
 		background-color: #fff;
-		color: #527dbb;
+		color: #005586;
 	}
 	#info h4 {
 		font-weight: bold;

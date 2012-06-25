@@ -75,7 +75,7 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#map-wrap').css('min-height', '0px');
         $('#activatemap').show();
-        $('#scroll').text('Probier es aus ↑');
+        $('#scroll').text('Karte vergrößern ↑');
       });
       $('#appinfo, #info, #feed, #hand-phone').animate({
         opacity : 1
@@ -310,14 +310,7 @@ var AppRouter = Backbone.Router.extend({
   },
   isMobile: function() {
     var index = navigator.appVersion.indexOf("Mobile");
-    // return (index > -1);
-
-    if ( (navigator.userAgent.match(/iPad/i)) || (index <= -1) ) {
-      // this.mapView.isMobile = false;
-      return false;
-    } else {
-      return true;
-    }
+    return (index > -1);
   },
   slideArticleToRight: function() {
     $('#rss').animate({

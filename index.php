@@ -1,8 +1,12 @@
 <?php
-if (preg_match('/(alcatel|android|blackberry|benq|cell|elaine|htc|iemobile|iphone|ipad|ipaq|ipod|j2me|java|midp|mini|mobi|motorola|nokia|palm|panasonic|philips|phone|sagem|sharp|smartphone|sony|symbian|t-mobile|up\.browser|up\.link|vodafone|wap|wireless|xda|zte)/i', $_SERVER['HTTP_USER_AGENT']) && !strstr($_SERVER['HTTP_USER_AGENT'], 'iPad'))
-  $isMobile = true;
-else
   $isMobile = false;
+  $iPad = false;
+
+  if ( preg_match('/(alcatel|android|blackberry|benq|cell|elaine|htc|iemobile|iphone|ipad|ipaq|ipod|j2me|java|midp|mini|mobi|motorola|nokia|palm|panasonic|philips|phone|sagem|sharp|smartphone|sony|symbian|t-mobile|up\.browser|up\.link|vodafone|wap|wireless|xda|zte)/i', $_SERVER['HTTP_USER_AGENT']) )
+    $isMobile = true;
+
+  if ( strstr($_SERVER['HTTP_USER_AGENT'], 'iPad') )
+    $iPad = true;
 ?>
 
 <!DOCTYPE html>
@@ -26,21 +30,23 @@ else
   <!-- quick startup screen -->
   <?php
   if ($isMobile)
-    echo "<title>AquaSalzburg</title>";
+    echo "<title>TrinkWasser!</title>";
   else
-    echo "<title>AquaSalzburg - DIE Trinkbrunnen-App für das Land Salzburg</title>";
+    echo "<title>TrinkWasser! Land Salzburg</title>";
   ?>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+  <?php if ($iPad) { ?>
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ipad.css" />
+  <?php } ?>
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/nivo-slider.css" />
 </head>
 <body>
   <div id="loading"></div>
-  <?php if ( !$isMobile ) {
-  ?>
+  <?php if ( !$isMobile ) { ?>
   <div id="wrap">
     <div id="slider" class="nivoSlider">
       <img src="assets/img/slider/01.jpg" class="slide" alt="" />
@@ -49,14 +55,14 @@ else
       <img src="assets/img/slider/04.jpg" class="slide" alt="" />
     </div>
     <div id="inner-wrap">
-      <?php }?>
+    <?php } ?>
 
       <header id="header">
         <?php if ( !$isMobile ) {
         ?>
         <hgroup>
           <h1 id="logo_aqua"><a href="">Aqua Salzburg</a></h1>
-          <h2 id="logo_salzburg">Land Salzburg</h2>
+          <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
         </hgroup>
         <?php }?>
         <nav id="header-navigation">
@@ -125,7 +131,7 @@ else
 
   <div id="map-wrap">
     <div id="scroll-wrap">
-      <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="scroll">Probier es aus &uarr;</a>
+      <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="scroll">Karte vergrößern &uarr;</a>
     </div>
     <nav id="navigation">
       <ul>

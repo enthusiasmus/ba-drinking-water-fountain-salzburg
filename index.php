@@ -1,12 +1,13 @@
 <?php
   $isMobile = false;
-  $iPad = false;
+  $ios = false;
+  $android = false;
 
   if ( preg_match('/(alcatel|android|blackberry|benq|cell|elaine|htc|iemobile|iphone|ipad|ipaq|ipod|j2me|java|midp|mini|mobi|motorola|nokia|palm|panasonic|philips|phone|sagem|sharp|smartphone|sony|symbian|t-mobile|up\.browser|up\.link|vodafone|wap|wireless|xda|zte)/i', $_SERVER['HTTP_USER_AGENT']) )
     $isMobile = true;
 
-  if ( strstr($_SERVER['HTTP_USER_AGENT'], 'iPad') )
-    $iPad = true;
+  if ( strstr($_SERVER['HTTP_USER_AGENT'], 'iPad') || strstr($_SERVER['HTTP_USER_AGENT'], 'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'], 'iPod') )
+    $ios = true;
 ?>
 
 <!DOCTYPE html>
@@ -38,11 +39,17 @@ else
   <meta name="keywords" content="" />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-  <?php if ($iPad) { ?>
+  
+<?php if ($ios) { ?>
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ipad.css" />
-  <?php } ?>
+<?php } else if ( $android ) { ?>
+
+<?php } else if ( $isMobile ) { ?>
+
+<?php } else { ?>
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/nivo-slider.css" />
+<?php } ?>
 </head>
 <body>
   <div id="loading"></div>
@@ -58,18 +65,19 @@ else
     <?php } ?>
 
       <header id="header">
-        <?php if ( !$isMobile ) {
-        ?>
+        <?php if ( !$isMobile ) { ?>
         <hgroup>
           <h1 id="logo_aqua"><a href="">Aqua Salzburg</a></h1>
           <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
         </hgroup>
-        <?php }?>
+        <?php } ?>
         <nav id="header-navigation">
           <ul>
+            <?php if ( !$isMobile ) { ?>
             <li class='menu-item feed'>
-              <a href='#feed'>News</a>
+              <a href='#feed'>Wasser-News</a>
             </li>
+            <?php } ?>
             <li class='menu-item about'>
               <a href='#about'>Impressum</a>
             </li>
@@ -109,14 +117,15 @@ else
         </div>
       </div>
       <div id="feed">
-        <?php if ( !$isMobile ) {
-        ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" class="prev">Neuere Wasser-News</a><?php }?>
+        <?php if ( !$isMobile ) { ?>
+        <a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" class="prev">Neuere Wasser-News</a>
+        <?php } ?>
         <section id="rss"></section>
-        <?php if ( !$isMobile ) {
-        ?><a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" class="next">Ältere Wasser-News</a><?php }?>
+        <?php if ( !$isMobile ) { ?>
+        <a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" class="next">Ältere Wasser-News</a>
+        <?php } ?>
       </div>
-      <?php if ( !$isMobile ) {
-      ?>
+  <?php if ( !$isMobile ) { ?>
       <div id="appinfo">
         <h3 id="slogan"><span>App mit über 160 Trinkbrunnen</span>
         <br>
@@ -127,12 +136,14 @@ else
     </div>
     <span id="hand-phone"></span>
   </div>
-  <?php }?>
+  <?php } ?>
 
   <div id="map-wrap">
+    <?php if ( !$isMobile ) { ?>
     <div id="scroll-wrap">
       <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="scroll">Karte vergrößern &uarr;</a>
     </div>
+    <?php } ?>
     <nav id="navigation">
       <ul>
         <li class='menu-item position'>
@@ -147,6 +158,11 @@ else
         <li class='menu-item maptype'>
           <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showMaptype()'><span></span>Kartentyp</a>
         </li>
+        <?php if ( $isMobile ) { ?>
+        <li class='menu-item feed'>
+          <a href='#feed'><span></span>News</a>
+        </li>
+        <?php } ?>
       </ul>
     </nav>
     <div id="map_canvas"></div>

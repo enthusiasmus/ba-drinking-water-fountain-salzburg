@@ -22,7 +22,7 @@ var FeedView = Backbone.View.extend({
         '<article>' +
         '<h3 class="feed-title"><a href="' + feedItemModel.escape('link') + '">' + feedItemModel.escape("title") + '</a></h3>' + 
         '<p class="feed-date">' + feedItemModel.escape("pubDate") + '</p>' + 
-        '<div class="feed-content">' + $shortDescription + '</div>' +
+        '<p class="feed-content">' + $shortDescription + '</p>' +
         '<a href="' + feedItemModel.escape('link') + '" class="feed-more">Mehr</a>' +
         '</article>'
       );

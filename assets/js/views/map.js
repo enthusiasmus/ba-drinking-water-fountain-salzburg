@@ -44,8 +44,7 @@ var MapView = Backbone.View.extend({
   directionsService: undefined,
   isMobileCheck: function(){
     var index = navigator.appVersion.indexOf("Mobile");
-    var iPad = navigator.userAgent.match(/iPad/i);
-    if(iPad || index < 0)
+    if(index < 0)
       isMobile = true;
     else
       isMobile = false;
@@ -73,6 +72,7 @@ var MapView = Backbone.View.extend({
         icon: markerModel.get('imageUrl'),
         title: markerModel.get("title"),
         content: markerModel.get('title'),
+        shadow: markerModel.get('shadowUrl'),
         zIndex: 1
       });
 
@@ -94,7 +94,7 @@ var MapView = Backbone.View.extend({
 		  ,width: "280px"
 		  ,padding: "10px"
 		  ,borderRadius: "10px 10px 10px 10px"
-	    }
+    }
 	};	  
 	  
       ib = new InfoBox(myOptions);

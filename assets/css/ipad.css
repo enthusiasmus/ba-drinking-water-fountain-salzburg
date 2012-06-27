@@ -185,11 +185,10 @@ a:hover {text-decoration: none;}
 }
 
 /*** feed ***/
-#feed {
-	padding: 20px 0 60px 0;
-}
+#feed {}
 #rss {
 	background-color: #005586;
+	padding: 20px 0 60px 0;
 }
 #rss article {
 	position: relative;

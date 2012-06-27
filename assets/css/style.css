@@ -38,7 +38,7 @@ a:hover {text-decoration: none;}
 /*** map ***/
 #map-wrap {
 	position:absolute;
-	top: 540px;
+	top: 544px;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -146,6 +146,7 @@ a:hover {text-decoration: none;}
 	left: 40px; 
 	z-index: 5;
 	opacity: 0;
+	display: none;
 }
 #navigation .menu-item {
 	font-size: 14px; 

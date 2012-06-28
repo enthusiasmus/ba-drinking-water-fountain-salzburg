@@ -12,10 +12,10 @@ var FeedView = Backbone.View.extend({
   },
   render: function(){
     _.each(this.feedItemCollection.toArray(), function(feedItemModel) {
-      var shortDescription = feedItemModel.get('description').substring(0, 150);
-      descriptionEnd = shortDescription.substr(100, 50);
+      var shortDescription = feedItemModel.get('description').substring(0, 100);
+      descriptionEnd = shortDescription.substr(60, 40);
       var endLastWord = descriptionEnd.lastIndexOf(" ");
-      shortDescription = shortDescription.substr(0, 100+endLastWord);
+      shortDescription = shortDescription.substr(0, 60+endLastWord);
       shortDescription += '...';
       
       $('#rss').append(

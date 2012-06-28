@@ -106,8 +106,8 @@
 /*** info icon (header navigation) ***/
 #header-navigation {
 	position: absolute;
-	top: 50px;
-	right: 10px;
+	top: -2px;
+	right: 0;
 	z-index: 10;
 }
 #header-navigation .menu-item a {
@@ -116,9 +116,8 @@
 	overflow: hidden;
 	width: 48px;
 	height: 48px;
-	background: url('../img/icons-ios.png') -96px -96px no-repeat;
+	background: url('../img/icons-ios.png') -192px 0 no-repeat;
 }
-#header-navigation .menu-item a:hover {background-position: -144px -96px;}
 
 /*** address search ***/
 #address {

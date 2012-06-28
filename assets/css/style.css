@@ -28,6 +28,13 @@ a {
 }
 a:hover {text-decoration: none;}
 
+/*** text indents ***/
+.calculate-route {
+	display: block;
+	text-indent: -19999px;
+	overflow: hidden;
+}
+
 /*** loading view ***/
 #loading {
 	width: 100%;

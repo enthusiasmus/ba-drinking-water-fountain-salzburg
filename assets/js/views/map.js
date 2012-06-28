@@ -72,7 +72,7 @@ var MapView = Backbone.View.extend({
       infoBoxOptions = {
         disableAutoPan : false,
         maxWidth : 0,
-        pixelOffset : new google.maps.Size(-75, -155),
+        pixelOffset : new google.maps.Size(-161, -112),
         zIndex : null,
         boxClass : "mapInfoBox",
         closeBoxMargin : "0",
@@ -82,11 +82,11 @@ var MapView = Backbone.View.extend({
         pane : "floatPane",
         enableEventPropagation : false,
         boxStyle : {
-          background : "#0078b7",
-          opacity : '0.9',
-          width : "280px",
-          padding : "10px",
-          borderRadius : "10px 10px 10px 10px"
+          position: "relative",
+          background : "url('assets/img/infobox.png') no-repeat",
+          width : "279px",
+          height: "62px",
+          padding : "10px 20px"
         }
       };
       infoBox = new InfoBox(infoBoxOptions);
@@ -103,7 +103,7 @@ var MapView = Backbone.View.extend({
           if(distanceInformation)
             infoContent += "Distanz: " + distanceInformation + "<br/>";
         }
-        infoContent += '<br/><a href="#route/' + markerModel.get("id") + '">Route berechnen</a></p>';
+        infoContent += '<a href="#route/' + markerModel.get("id") + '" class="calculate-route">Route berechnen</a></p>';
         infoContent += '<div class="pointer"></div>';
 
         infoBox.setContent(infoContent);

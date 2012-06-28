@@ -75,11 +75,11 @@ else
           <ul>
             <?php if ( !$isMobile ) { ?>
             <li class='menu-item feed'>
-              <a href='#feed'>Wasser-News</a>
+              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showRssFeed()'>Wasser-News</a>
             </li>
             <?php } ?>
             <li class='menu-item about'>
-              <a href='#about'>Impressum</a>
+              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
             </li>
           </ul>
         </nav>
@@ -127,7 +127,7 @@ else
       </div>
   <?php if ( !$isMobile ) { ?>
       <div id="appinfo">
-        <h3 id="slogan"><span>App mit über 160 Trinkbrunnen</span>
+        <h3 id="slogan"><span>App mit über 170 Trinkbrunnen</span>
         <br>
         <span>im ganzen Land Salzburg</span></h3>
         <a href="http://itunes.apple.com/at/genre/ios/id36?mt=8" id="appstore">Availiable on the App Store</a>

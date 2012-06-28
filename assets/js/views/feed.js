@@ -10,23 +10,22 @@ var FeedView = Backbone.View.extend({
     this.feedItemCollection = feedItemCollection;
     this.render();
   },
-  render: function() {
-    // var template = _.template( $('#feed_template').html());
-    // $(this.el).html(template);
-
+  render: function(){
     _.each(this.feedItemCollection.toArray(), function(feedItemModel) {
-
-      $shortDescription = feedItemModel.get('description').substring(0, 230) + '...';
-
+      var shortDescription = feedItemModel.get('description').substring(0, 150);
+      descriptionEnd = shortDescription.substr(100, 50);
+      var endLastWord = descriptionEnd.lastIndexOf(" ");
+      shortDescription = shortDescription.substr(0, 100+endLastWord);
+      shortDescription += '...';
+      
       $('#rss').append(
         '<article>' +
         '<h3 class="feed-title"><a href="' + feedItemModel.escape('link') + '">' + feedItemModel.escape("title") + '</a></h3>' + 
         '<p class="feed-date">' + feedItemModel.escape("pubDate") + '</p>' + 
-        '<p class="feed-content">' + $shortDescription + '</p>' +
+        '<p class="feed-content">' + feedItemModel.get('image') + shortDescription + '</p>' +
         '<a href="' + feedItemModel.escape('link') + '" class="feed-more">Mehr</a>' +
         '</article>'
       );
-      
     });
     
     var allFeedImages = $('#rss').find('img');
@@ -37,12 +36,5 @@ var FeedView = Backbone.View.extend({
         allFeedImages[idx].width = allFeedImages[idx].width * scaleValue;
       }
     }
-    
-    this.dispatchLoadingFinished();
-  },
-  dispatchLoadingFinished: function(){
-    var event = document.createEvent('Event');
-    event.initEvent('loadingFinish', true, true)
-    document.dispatchEvent(event);
   }
 });

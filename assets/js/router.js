@@ -74,10 +74,10 @@ var AppRouter = Backbone.Router.extend({
       $('#map-wrap').animate({
         top: 544
       }, 1000, function(){
-        window.Trinkbrunnen.mapView.resizeMap();
-        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#activatemap').show();
         $('#scroll').text('Karte vergrößern ↑');
+        window.Trinkbrunnen.mapView.resizeMap();
+        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
       });
       $('#appinfo, #info, #feed, #hand-phone').animate({
         opacity : 1
@@ -86,12 +86,12 @@ var AppRouter = Backbone.Router.extend({
       $('#map-wrap').animate({
         top: 250
       }, 1000, function(){
-        window.Trinkbrunnen.mapView.resizeMap();
-        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#map-wrap').css('min-height', '294px');
         $('#navigation').show().animate({
           opacity: 1
         }, 500);
+        window.Trinkbrunnen.mapView.resizeMap();
+        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#activatemap').hide();
         $('#scroll').text('Karte verkleinern ↓');
       });
@@ -140,11 +140,7 @@ var AppRouter = Backbone.Router.extend({
       $('#header-navigation').show();
       
       $('input[name=address]').blur(function(){
-        $('#address').animate({
-          top: '-60'
-        }, 300, function(){
-          $('#address').hide();
-        });
+        $('#address').hide();
       });
     } else {
       this.displayOnly('map_canvas appinfo hand-phone');
@@ -170,12 +166,14 @@ var AppRouter = Backbone.Router.extend({
 		this.mapTypeView.changeType(type);
   },
   showRssFeed: function() {	
+    this.navigate("feed", {trigger: true});
+    
     if ( this.isMobile() ) {
       $('#header-navigation').hide();
       this.displayOnly('feed');
     } else {
       this.displayOnly('map_canvas feed');
-
+      
       if( $('#map-wrap').css('top') == '250px' ) {
         this.scrollMap();
       }
@@ -184,12 +182,10 @@ var AppRouter = Backbone.Router.extend({
 		var self = this;
 
     if(this.feedView.timestamp < new Date().getTime() - 60*60*12){
-      this.getLoadingView();
       this.feedItemCollection.fetch({
         success: function(){
           self.feedView.addFeedItemCollection(self.feedItemCollection);
           self.feedView.timestamp = new Date().getTime();
-          self.eventDispatcher.trigger('hideLoadingView');
         },
         error: function(){
           console.error("Feed konnte nicht geladen werden!");
@@ -269,6 +265,8 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showAbout: function(){
+    this.navigate("about", {trigger: true});
+    
     if ( this.isMobile() ) {
       $('#header-navigation').hide();
       this.displayOnly('info');

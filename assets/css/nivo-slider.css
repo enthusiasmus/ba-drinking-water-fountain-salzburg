@@ -9,9 +9,8 @@
  
 /* The Nivo Slider styles */
 .nivoSlider {
-	position:relative;
 	width:100%;
-	height:auto;
+	height:420px;
 	overflow: hidden;
 }
 .nivoSlider img {

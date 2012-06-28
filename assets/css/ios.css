@@ -106,8 +106,8 @@
 /*** info icon (header navigation) ***/
 #header-navigation {
 	position: absolute;
-	top: 50px;
-	right: 10px;
+	top: -2px;
+	right: 0;
 	z-index: 10;
 }
 #header-navigation .menu-item a {
@@ -116,14 +116,13 @@
 	overflow: hidden;
 	width: 48px;
 	height: 48px;
-	background: url('../img/icons-ios.png') -96px -96px no-repeat;
+	background: url('../img/icons-ios.png') -192px 0 no-repeat;
 }
-#header-navigation .menu-item a:hover {background-position: -144px -96px;}
 
 /*** address search ***/
 #address {
 	position: absolute;
-	top: 44px;
+	top: 0;
 	left: 0;
 	width: 100%;
 	height: 44px;
@@ -157,7 +156,7 @@
 #maptype .menu-item {
 	display: block;
 	float: left;
-	width: 25%;
+	width: 24%;
 	height: 27px;
 	background: url('../img/bg-maptype.gif') 0 0 repeat-x;
 	border-right: 1px solid #afafaf;

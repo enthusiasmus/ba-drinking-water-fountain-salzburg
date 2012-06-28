@@ -44,3 +44,24 @@ a:hover {text-decoration: none;}
 	background: #999;
 	opacity: 0.4;
 }
+
+/** info boxes **/
+.p_infobox_head {
+	font-weight: bold;
+	color: #fff;
+	margin-bottom: 2px;
+}
+.p_infobox_content {color: #fff;}
+.p_infobox_content a {
+	color: #fff;
+	text-decoration: underline;
+}
+.p_infobox_content a:hover {text-decoration: none;}
+.calculate-route {
+	position: absolute;
+	top: 13px;
+	right: 20px;
+	width: 29px;
+	height: 30px;
+	background: url('../img/route.png') 0 0 no-repeat;
+}

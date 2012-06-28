@@ -1,54 +1,44 @@
-/*** default settings ***/
-body, input {
-	font-family: Arial, Helvetica, Verdana, sans-serif;
-	font-size: 12px;
+/*** text indents ***/
+#logo a {
+	display: block;
+	text-indent: -19999px;
+	overflow: hidden;
 }
-p {
-	line-height: 1.4em;
-	margin-bottom: 10px;
-}
-h1 {}
-h2 {
-	font-size: 18px;
-	color: #005586;
-	margin-bottom: 12px;
-}
-h3 {
-	font-size: 16px;
-	color: #005586;
-	margin-bottom: 6px;
-}
-h4 {
-	font-weight: bold;
-	margin-bottom: 6px;
-}
-a {
-	color: #005586;
-	text-decoration: underline;
-}
-a:hover {text-decoration: none;}
 
-/*** loading view ***/
-#loading {
+/*** header ***/
+#header {
+	position: absolute;
+	top: 0;
+	left: 0;
 	width: 100%;
-	height: 100%;
-	min-height: 100px;
-	opacity: 1;
-	position: fixed;
-	z-index: 1000;
-	display: none;
+	height: 44px;
+	background-color: #005586;
+	z-index: 10;
 }
-#loading #background{
-	width: 100%;
-	height: 100%;
-	background: #999;
-	opacity: 0.4;
+#logo a {
+	width: 155px;
+	height: 22px;
+	background: url('../img/icons-ios.png') 0 -144px no-repeat;
+	margin: 10px auto 0 auto;
 }
+#back {
+	position: absolute;
+	top: 7px;
+	left: 10px;
+	display: block;
+	width: 46px;
+	height: 22px;
+	background: url('../img/icons-ios.png') 0 -166px no-repeat;
+	color: #fff;
+	text-decoration: none;
+	padding: 7px 0 0 14px;
+}
+#back:hover {background-position: -60px -166px;}
 
 /*** google map ***/
 #map-wrap {
 	position:absolute;
-	top: 0;
+	top: 44px;
 	left: 0;
 	right: 0;
 	bottom: 49px;
@@ -116,7 +106,7 @@ a:hover {text-decoration: none;}
 /*** info icon (header navigation) ***/
 #header-navigation {
 	position: absolute;
-	top: 10px;
+	top: 50px;
 	right: 10px;
 	z-index: 10;
 }
@@ -133,7 +123,7 @@ a:hover {text-decoration: none;}
 /*** address search ***/
 #address {
 	position: absolute;
-	top: 0;
+	top: 44px;
 	left: 0;
 	width: 100%;
 	height: 44px;
@@ -160,15 +150,20 @@ a:hover {text-decoration: none;}
 	left: 0;
 	width: 100%;
 }
-#maptype div {}
+#maptype ul {
+	width: 85%;
+	margin: 0 auto;
+}
 #maptype .menu-item {
 	display: block;
 	float: left;
+	width: 25%;
 	height: 27px;
 	background: url('../img/bg-maptype.gif') 0 0 repeat-x;
 	border-right: 1px solid #afafaf;
-	padding: 13px 30px 0 30px;
+	padding: 13px 0 0 0;
 	font-size: 14px;
+	text-align: center;
 }
 #maptype .menu-item:first-child {
 	border-top-left-radius: 10px;
@@ -183,12 +178,14 @@ a:hover {text-decoration: none;}
 	text-decoration: none;
 	color: #7f7f7f;
 }
+#maptype .menu-item a:hover {color: #3f3f3f;}
 
 /*** feed ***/
 #feed {}
 #rss {
 	background-color: #005586;
-	padding: 20px 0 60px 0;
+	padding: 5px 0 60px 0;
+	margin-top: 44px;
 }
 #rss article {
 	position: relative;
@@ -213,7 +210,8 @@ a:hover {text-decoration: none;}
 /*** info ***/
 #info {
 	background-color: #005586;
-	padding: 15px 0 60px 0;
+	padding: 0 0 60px 0;
+	margin-top: 44px;
 }
 #info div {
 	position: relative;

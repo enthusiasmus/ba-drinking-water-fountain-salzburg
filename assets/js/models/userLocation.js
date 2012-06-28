@@ -16,7 +16,7 @@ var UserLocationModel = Backbone.Model.extend({
     precisionFillColor: "#0000FF",
     precisionFillOpacity: 0.1,
     imageUrl: 'assets/img/userlocation.png',
-    imageWidth: 24,
+    imageWidth: 25,
     imageHeight: 24,
     imageOriginX: 0,
     imageOriginY: 0,

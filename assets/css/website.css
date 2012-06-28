@@ -1,0 +1,401 @@
+/*** text indents ***/
+#address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, .prev, .next {
+	display: block;
+	text-indent: -19999px;
+	overflow: hidden;
+}
+
+/*** map ***/
+#map-wrap {
+	position:absolute;
+	top: 544px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 20; 
+	border-top: 6px solid #fff;
+}
+#map_canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #ddd;
+	z-index: 4;
+}
+
+#map_pointer {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	width: 32px;
+	height: 102px;
+	background-image: url(../img/richter.png);
+	background-repeat: no-repeat;
+	z-index: 10;
+}
+
+#map_pointer_text {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	width: auto;
+	height: auto;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	z-index:11;
+}
+
+#activatemap {
+	position:absolute;
+	top: 540px;
+	left: 0;
+	bottom: 0;
+	display: block;
+	width: 100%; 
+	z-index: 21;
+}
+#scroll-wrap {
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+}
+#scroll{
+	position: absolute; 
+	top: -42px; 
+	left: 0;
+	font-size: 16px; 
+	display: block; 
+	z-index: 15; 
+	text-decoration: none; 
+	background-color: #fff; 
+	color: #005586; 
+	padding: 10px 15px;
+}
+#scroll:hover, #scroll:focus, #scroll:active {
+	background-color: #005586; 
+	color: #fff; 
+}
+
+/** info boxes **/
+.p_infobox_head {
+	border-bottom: 1px dotted white;
+	padding-bottom: 2px;
+	font-weight: bold;
+	line-height: 15px;
+	color: #fff;
+}
+.p_infobox_content {
+	margin-top: 5px;
+	color: #fff;
+}
+.p_infobox_content a {
+	color: #fff;
+	text-decoration: underline;
+}
+.p_infobox_content a:hover {
+	text-decoration: none;
+}
+.pointer {
+	position: absolute;
+	left: 70px;
+	bottom: -40px;
+	width: 70px;
+	height: 40px;
+	background-image: url('../img/pointer.png');
+	background-repeat: no-repeat;
+}
+
+/** navigation **/
+#navigation {
+	position: absolute; 
+	top: 30px; 
+	left: 40px; 
+	z-index: 5;
+	opacity: 0;
+	display: none;
+}
+#navigation .menu-item {
+	font-size: 14px; 
+	display: block; 
+	float: left; 
+	margin-right: 10px;
+}
+#navigation .maptype {display: none;}
+#navigation .menu-item a {
+	position: relative;
+	text-decoration: none; 
+	background-color: #fff; 
+	color: #005586; 
+	padding: 17px 15px 12px 45px; 
+}
+#navigation .menu-item a:hover, #navigation .menu-item a:focus, #navigation .menu-item a:active {
+	background-color: #005586; 
+	color:#fff; 
+}
+#navigation .menu-item span {
+	position: absolute;
+	top: 7px;
+	left: 7px;
+	display: block;
+	width: 30px;
+	height: 30px;
+	background-image: url('../img/icons.png');
+	background-repeat: no-repeat;
+}
+#navigation .position span {background-position: 0 -60px;}
+#navigation .address span {background-position: 0 -90px;}
+#navigation .fontain span {background-position: 0 -120px;}
+#navigation .menu-item a:hover > span, #navigation .menu-item a:focus > span, #navigation .menu-item a:active > span {
+	top: 5px;
+	left: 5px;
+	border: 2px solid #fff;
+}
+
+/** address search **/
+#address, #maptype {
+	display: none;
+	position: absolute;
+	top: 90px;
+	left: 0;
+	width: 100%;
+	z-index: 30;
+}
+#address, #maptype div {
+	width: 30%;
+	background-color: #fff;
+	padding: 15px;
+	margin-left: 100px;
+}
+#address .addressinput {
+	width: 87%;
+	color: #666;
+	font-size: 12px;
+	padding: 5px;
+	border: 1px solid #999;
+}
+#address .searchsubmit {
+	background: url('../img/icons.png') -320px 0 no-repeat;
+	border: 0;
+	width: 18px;
+	height: 18px;
+	margin-top: 4px;
+	float: right;
+	cursor: pointer;
+}
+
+/*** wrap ***/
+#wrap {
+	position: relative;
+	width: 100%; 
+	min-width: 960px;
+	height: 542px; 
+	border-top: solid 8px #005586; 
+	background: url('../img/bg-header.gif') #f0f0f0 0 0 repeat-x; 
+	overflow: hidden;
+}
+#inner-wrap {
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+}
+
+/*** header navigation ***/
+#header-navigation {
+	position: absolute; 
+	top: 121px; 
+	left: 0px; 
+	z-index: 10;
+}
+#header-navigation .menu-item {
+	font-size: 14px; 
+	display: block; 
+	float: left; 
+	margin-right: 15px; 
+	text-transform: lowercase;
+}
+#header-navigation .menu-item a {
+	display: block; 
+	text-decoration: none; 
+	color: #fff; 
+	background-color: #005586; 
+	padding: 7px 12px;
+}
+#header-navigation .menu-item a:hover, #top_navigation .menu-item a:focus, #top_navigation .menu-item a:active {
+	background-color: #fff; 
+	color: #005586; 
+}
+
+/*** logos ***/
+#logo a {
+	position: absolute; 
+	top: 49px; 
+	left: 0; 
+	width: 461px; 
+	height: 31px; 
+	background: url('../img/sprite-website.png') 0 0 no-repeat; 
+}
+#logo_salzburg a {
+	position: absolute; 
+	top: 35px; 
+	right: 0; 
+	width: 140px; 
+	height: 49px; 
+	background: url('../img/sprite-website.png') 0 -31px no-repeat;
+}
+
+/*** app info ***/
+#slogan, #appstore, #googleplay {
+	position: absolute; 
+	left: 0;
+	z-index: 5;
+}
+#slogan {top: 218px;}
+#slogan span {
+	font-size: 18px; 
+	display: inline-block; 
+	margin-bottom: 15px; 
+	background-color: #fff; 
+	padding: 8px 12px; 
+	color: #005586;
+}
+#appstore, #googleplay {
+	background-image: url('../img/icons.png');
+	background-repeat: no-repeat;
+	width: 120px;
+	height: 40px;
+}
+#appstore {
+	top: 340px; 
+	background-position: -338px -80px;
+}
+#googleplay {
+	top: 390px; 
+	background-position: -338px -120px;
+}
+
+/*** hand with iphone ***/
+#hand-phone {
+	position: absolute; 
+	bottom: 0px; 
+	right: 0px; 
+	background: url('../img/iphone_hand.png') 0 0 no-repeat;
+	width: 564px;
+	height: 480px;
+	z-index: 5;
+}
+
+/*** image slider ***/
+#slider {
+	position: absolute;
+	top: 122px;
+	left: 0;
+	width: 100%;
+	background: #fff url('../img/loading.gif') no-repeat 50% 50%;
+}
+#slider img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	max-width: 100%;
+	display: none;
+}
+
+/*** feed & imprint ***/
+#feed, #info {
+	position: absolute;
+	top: 180px;
+	left: 0; 
+	width: 960px;
+	height: 290px;
+	overflow: hidden;
+	z-index: 10;
+}
+.prev, .next {
+	position: absolute;
+	top: 0;
+	width: 30px;
+	height: 290px;
+	background: url('../img/links.png') #fff 3px 47% no-repeat;
+	z-index: 5;
+}
+.prev {
+	left: 0;
+}
+.next {
+	right: 0;
+	background-image: url('../img/rechts.png');
+}
+#rss {
+	float: left;
+	width: 3000%;
+	margin-left: 40px;
+	z-index: 4;
+}
+#info {
+	width: 920px;
+	height: 260px;
+	background-color: #fff;
+	padding: 20px 20px 10px 20px;
+	overflow: auto;
+}
+#info h2 {
+	color:#005586; 
+	font-size: 140%;
+	margin-bottom: 10px;
+}
+#info h4 {
+	margin-bottom: 6px;
+	font-weight: bold;
+}
+#info p {
+	line-height: 1.3em;
+	margin-bottom: 10px;
+}
+#rss article {
+	float: left;
+	width: 192px;
+	height: 270px;
+	background-color: #fff;
+	margin-right: 10px;
+	padding: 10px;
+	overflow: hidden;
+	position: relative;
+}
+#rss article:last-child {margin-right: 0;}
+.feed-title a {
+	color:#005586; 
+	text-decoration: none;
+	font-size: 120%;
+}
+.feed-title {
+	margin-bottom: 10px;
+}
+.feed-date {
+	position: absolute;
+	bottom: 15px;
+	right: 10px;
+}
+.feed-content {
+	line-height: 1.3em;
+}
+.feed-content img {
+	display: block;
+	margin: 0 auto 5px auto;
+}
+.feed-more {
+	display: block;
+	text-transform: lowercase;
+	line-height:1.2em; 
+	position:absolute; 
+	bottom:9px; 
+	color:#fff;
+	text-decoration:none; 
+	background-color:#005586; 
+	color:#FFF; 
+	padding: 9px 15px; 
+	margin-left:0px;
+}

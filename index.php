@@ -8,6 +8,9 @@
 
   if ( strstr($_SERVER['HTTP_USER_AGENT'], 'iPad') || strstr($_SERVER['HTTP_USER_AGENT'], 'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'], 'iPod') )
     $ios = true;
+
+  if ( strstr($_SERVER['HTTP_USER_AGENT'], 'Android') )
+    $android = true;
 ?>
 
 <!DOCTYPE html>
@@ -39,15 +42,15 @@ else
   <meta name="keywords" content="" />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
-  
-<?php if ($ios) { ?>
-  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ipad.css" />
-<?php } else if ( $android ) { ?>
-
-<?php } else if ( $isMobile ) { ?>
-
-<?php } else { ?>
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+<?php if ($ios) { ?>
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ios.css" />
+<?php } else if ( $android ) { ?>
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/android.css" />
+<?php } else if ( $isMobile ) { ?>
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/mobile.css" />
+<?php } else { ?>
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/website.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/nivo-slider.css" />
 <?php } ?>
 </head>
@@ -63,13 +66,15 @@ else
     </div>
     <div id="inner-wrap">
     <?php } ?>
-
       <header id="header">
         <?php if ( !$isMobile ) { ?>
         <hgroup>
-          <h1 id="logo_aqua"><a href="">Aqua Salzburg</a></h1>
+          <h1 id="logo"><a href="/">TrinkWasser! Land Salzburg</a></h1>
           <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
         </hgroup>
+        <?php } else { ?>
+          <h1 id="logo"><a href="/">Land Salzburg</a></h1>
+          <a href="" id="back">Zurück</a>
         <?php } ?>
         <nav id="header-navigation">
           <ul>
@@ -86,7 +91,7 @@ else
       </header>
       <div id="info">
         <div>
-          <h2>Aqua Salzburg</h2>
+          <h2>TrinkWasser!</h2>
           <p>
             entwickelt in Zusammenarbeit mit:
             <br>
@@ -137,7 +142,6 @@ else
     <span id="hand-phone"></span>
   </div>
   <?php } ?>
-
   <div id="map-wrap">
     <?php if ( !$isMobile ) { ?>
     <div id="scroll-wrap">

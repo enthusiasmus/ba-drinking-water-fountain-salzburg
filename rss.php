@@ -1,6 +1,6 @@
 <?php
 
-  header('Content-Type: application/json; charset=utf-8');
+  header('Content-type: application/json; charset=utf-8;');
   $feed = new DOMDocument();
   $feed->load('http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7');
 
@@ -22,6 +22,15 @@
     $final[] = $item; 
   }
 
-  echo json_encode($final);
+  $final = json_encode($final);
+  $final = str_replace("&auml;", "ä", $final);
+  $final = str_replace("&uml;", "Ä", $final);
+  $final = str_replace("&ouml;", "ö", $final);
+  $final = str_replace("&Ouml;", "Ö", $final);
+  $final = str_replace("&uuml;", "ü", $final);
+  $final = str_replace("&Uuml;", "Ü", $final);
+  $final = str_replace("&szlig;", "ß", $final);
+  
+  echo $final;
 
 ?>

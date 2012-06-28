@@ -92,7 +92,6 @@ var MapView = Backbone.View.extend({
       infoBox = new InfoBox(infoBoxOptions);
 
       google.maps.event.addListener(marker, 'click', function() {
-
         if(infoBox)
           infoBox.close();
 
@@ -108,6 +107,7 @@ var MapView = Backbone.View.extend({
 
         infoBox.setContent(infoContent);
         infoBox.open(self.map, marker);
+        self.map.setCenter(marker.getPosition());
       });
 
       google.maps.event.addListener(marker, 'dblclick', function() {

@@ -66,7 +66,9 @@ var AppRouter = Backbone.Router.extend({
     if( $('#map-wrap').css('top') == '250px' ) {
       $('#map-wrap').css('min-height', '0px');
       $('#address').hide();
-      $('#navigation').fadeOut(500, function() {
+      $('#navigation').animate({
+        opacity: 0
+      }, 500, function() {
         $('#navigation').hide();
       });
       $('#map-wrap').animate({
@@ -77,19 +79,25 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
       });
-      $('#appinfo, #info, #feed, #hand-phone').fadeIn(1000);
+      $('#appinfo, #info, #feed, #hand-phone').animate({
+        opacity : 1
+      }, 1000);
     } else {
       $('#map-wrap').animate({
         top: 250
       }, 1000, function(){
         $('#map-wrap').css('min-height', '294px');
-        $('#navigation').show().fadeIn(500);
+        $('#navigation').show().animate({
+          opacity: 1
+        }, 500);
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
         $('#activatemap').hide();
         $('#scroll').text('Karte verkleinern ↓');
       });
-      $('#appinfo, #info, #feed, #hand-phone').fadeOut(1000);
+      $('#appinfo, #info, #feed, #hand-phone').animate({
+        opacity : 0
+      }, 1000);
     }
   },
   nextFountain: function() {

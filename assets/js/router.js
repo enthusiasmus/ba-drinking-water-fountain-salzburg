@@ -138,15 +138,20 @@ var AppRouter = Backbone.Router.extend({
     if ( this.isMobile() ) {
       this.displayOnly('map_canvas');
       $('#header-navigation').show();
+      
+      $('input[name=address]').blur(function(){
+        $('#address').animate({
+          top: '-60'
+        }, 300, function(){
+          $('#address').hide();
+        });
+      });
     } else {
       this.displayOnly('map_canvas appinfo hand-phone');
     }
     
-    var isVisible = $('#address').is(':visible');
-    if(!isVisible){
-      $('#address').show();
-      $('input[name=address]').focus().select();
-    }
+    $('#address').show();
+    $('input[name=address]').focus().select();
   },
   showMaptype: function(){
     if ( this.isMobile() )

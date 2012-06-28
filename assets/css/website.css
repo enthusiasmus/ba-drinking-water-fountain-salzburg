@@ -1,5 +1,5 @@
 /*** text indents ***/
-#address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, .prev, .next, .calculate-route {
+#address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, .prev, .next {
 	display: block;
 	text-indent: -19999px;
 	overflow: hidden;
@@ -82,10 +82,10 @@
 
 /** info boxes **/
 .p_infobox_head {
-	/*border-bottom: 1px dotted white;
-	padding-bottom: 2px;*/
+	border-bottom: 1px dotted white;
+	padding-bottom: 2px;
 	font-weight: bold;
-	/*line-height: 15px;*/
+	line-height: 15px;
 	color: #fff;
 }
 .p_infobox_content {
@@ -99,15 +99,7 @@
 .p_infobox_content a:hover {
 	text-decoration: none;
 }
-.calculate-route {
-	position: absolute;
-	top: 13px;
-	right: 20px;
-	width: 29px;
-	height: 30px;
-	background: url('../img/route.png') 0 0 no-repeat;
-}
-/*.pointer {
+.pointer {
 	position: absolute;
 	left: 70px;
 	bottom: -40px;
@@ -115,7 +107,7 @@
 	height: 40px;
 	background-image: url('../img/pointer.png');
 	background-repeat: no-repeat;
-}*/
+}
 
 /** navigation **/
 #navigation {
@@ -257,7 +249,10 @@
 
 /*** app info ***/
 #appinfo{
-  filter: alpha(opacity=1);
+  opacity: 0.5;
+  filter: alpha(opacity = 50);
+  width: 100%; /* stupid IE */
+  zoom: 1;
 }
 #slogan, #appstore, #googleplay {
 	position: absolute; 

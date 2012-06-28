@@ -1,5 +1,5 @@
 /*** text indents ***/
-#address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, .prev, .next, .calculate-route {
+#address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, .prev, .next {
 	display: block;
 	text-indent: -19999px;
 	overflow: hidden;
@@ -240,6 +240,12 @@
 }
 
 /*** app info ***/
+#appinfo{
+  opacity: 0.5;
+  filter: alpha(opacity = 50);
+  width: 100%; /* stupid IE */
+  zoom: 1;
+}
 #slogan, #appstore, #googleplay {
 	position: absolute; 
 	left: 0;

@@ -248,6 +248,9 @@
 }
 
 /*** app info ***/
+#appinfo{
+  filter: alpha(opacity=1);
+}
 #slogan, #appstore, #googleplay {
 	position: absolute; 
 	left: 0;

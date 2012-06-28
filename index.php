@@ -147,7 +147,7 @@ else
     <nav id="navigation">
       <ul>
         <li class='menu-item position'>
-          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.getUserLocation()'><span></span>Position</a>
+          <a href='javascript:void(0)' onclick='alert(window.Trinkbrunnen.isMobile())'><span></span>Position</a>
         </li>
         <li class='menu-item address'>
           <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAddressSearch()'><span></span>Adresse</a>

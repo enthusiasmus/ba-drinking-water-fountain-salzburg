@@ -1,7 +1,6 @@
 var MapView = Backbone.View.extend({  
   el: $("#map_canvas"),
   initialize: function() {
-    this.isMobileCheck();
     this.render();
   },
   render: function(){
@@ -17,7 +16,7 @@ var MapView = Backbone.View.extend({
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    if (!this.isMobile){
+    if (!this.isMobile()){
       myOptions.mapTypeControl = true;
       myOptions.zoom = myOptions.zoom + 1;
     }
@@ -34,7 +33,6 @@ var MapView = Backbone.View.extend({
   },
   events: {
   },
-  isMobile: undefined,
   markerCollection: undefined,
   map: undefined,
   markerCluster: undefined,
@@ -42,12 +40,9 @@ var MapView = Backbone.View.extend({
   userLocationPrecisionCircle: undefined,
   directionsDisplay: undefined,
   directionsService: undefined,
-  isMobileCheck: function(){
+  isMobile: function(){
     var index = navigator.appVersion.indexOf("Mobile");
-    if(index < 0)
-      isMobile = true;
-    else
-      isMobile = false;
+    return (index > -1);
   },
   resizeMap: function(){
     google.maps.event.trigger(this.map, 'resize');

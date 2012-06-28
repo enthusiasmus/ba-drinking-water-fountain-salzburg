@@ -53,6 +53,9 @@ else
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/website.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/nivo-slider.css" />
 <?php } ?>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->  
 </head>
 <body>
   <div id="loading"></div>

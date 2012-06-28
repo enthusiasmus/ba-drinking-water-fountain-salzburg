@@ -219,11 +219,9 @@
 }
 
 /*** app info ***/
-#appinfo{
-  opacity: 0.5;
-  filter: alpha(opacity = 50);
-  width: 100%; /* stupid IE */
-  zoom: 1;
+#appinfo {
+	position: relative;
+	z-index: 5;
 }
 #slogan, #appstore, #googleplay {
 	position: absolute; 

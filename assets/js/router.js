@@ -29,6 +29,10 @@ var AppRouter = Backbone.Router.extend({
     this.eventDispatcher = {};
     _.extend(this.eventDispatcher, Backbone.Events);
 
+    if(!this.isMobile()){
+      var self = this;
+      $('#activatemap').mousedown(function(){self.scrollMap();});
+    }
   },
   init: function(){
     try{

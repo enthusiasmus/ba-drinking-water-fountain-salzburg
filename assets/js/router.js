@@ -172,8 +172,7 @@ var AppRouter = Backbone.Router.extend({
 		this.mapTypeView.changeType(type);
   },
   showRssFeed: function() {	
-    this.navigate("feed", {trigger: true});
-
+    this.navigate("feed", {trigger: true}); 
     $('#feed').css('display', 'block');
     
     if ( this.isMobile() ) {
@@ -188,12 +187,14 @@ var AppRouter = Backbone.Router.extend({
     }
 
 		var self = this;
-
     if(this.feedView.timestamp < new Date().getTime() - 60*60*12){
       this.feedItemCollection.fetch({
         success: function(){
           self.feedView.addFeedItemCollection(self.feedItemCollection);
           self.feedView.timestamp = new Date().getTime();
+          if(!self.canSlideArticle('left')){
+            $('.prev').css('background-image', 'url(assets/img/links_disabled.png)');
+          }
         },
         error: function(){
           self.showFailureMessage("Feed konnte nicht geladen werden!");
@@ -324,19 +325,60 @@ var AppRouter = Backbone.Router.extend({
     var index = navigator.appVersion.indexOf("Mobile");
     return (index > -1);
   },
-  slideArticleToRight: function() {
-    $('#rss').animate({
-      'margin-left': '-=888'
-    }, 1800, function(){
-
-    });
+  slideArticleToRight: function() { 
+    var self = this;   
+    if(this.canSlideArticle('right')){
+      $('#rss').animate({
+        'margin-left': '-=888'
+      }, 1800, function(){
+        if(!self.canSlideArticle('right')){
+          $('.next').css('background-image', 'url(assets/img/rechts_disabled.png)');
+        }
+        if(self.canSlideArticle('left')){
+          $('.prev').css('background-image', 'url(assets/img/links.png)');
+        }
+      });
+    }
   },
-  slideArticleToLeft: function() {
-    $('#rss').animate({
-      'margin-left': '+=888'
-    }, 1800, function(){
-
-    });
+  slideArticleToLeft: function() {    
+    var self = this;
+    if(this.canSlideArticle('left')){
+      $('#rss').animate({
+        'margin-left': '+=888'
+      }, 1800, function(){
+        if(!self.canSlideArticle('left')){
+          $('.prev').css('background-image', 'url(assets/img/links_disabled.png)');
+        }
+        if(self.canSlideArticle('right')){
+          $('.next').css('background-image', 'url(assets/img/rechts.png)');
+        }
+      });
+    }
+  },
+  canSlideArticle: function(direction){
+    var currentMargin = $('#rss').css('margin-left');
+    currentMargin = currentMargin.replace('px', '');
+    
+    if(direction == 'left'){
+      if(currentMargin >= '0'){
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
+    else if(direction == 'right'){
+      var sizeFeedItemCollection = this.feedItemCollection.size()
+      var lastPageItems = sizeFeedItemCollection % 4;    
+      var lastAllowedSlidePosition = ((sizeFeedItemCollection - lastPageItems)/4 * 888)*(-1);
+      
+      if(currentMargin <= lastAllowedSlidePosition){
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
   },
   showFailureMessage: function(message){
     $('#failure_message').text(message);

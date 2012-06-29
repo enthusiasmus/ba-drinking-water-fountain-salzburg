@@ -299,6 +299,7 @@
 	float: left;
 	width: 4000%;
 	z-index: 4;
+	margin-left:0px;
 }
 #rss_content{
   width:880px;

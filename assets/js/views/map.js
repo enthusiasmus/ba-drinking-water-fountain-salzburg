@@ -145,7 +145,8 @@ var MapView = Backbone.View.extend({
     this.markerCluster.clearMarkers();
   },
   placeUserLocation : function(markerModel) {
-    var userLocationPrecisionCircleOptions = {
+    //*** uncomment to display the precisioncircle ***//
+    /*var userLocationPrecisionCircleOptions = {
       strokeColor : markerModel.get("precisionStrokeColor"),
       strokeOpacity : markerModel.get("precisionStrokeOpacity"),
       strokeWeight : markerModel.get("precisionStrokeWeight"),
@@ -156,7 +157,7 @@ var MapView = Backbone.View.extend({
       radius : markerModel.get("precision"),
       zIndex : 9999
     };
-    this.userLocationPrecisionCircle = new google.maps.Circle(userLocationPrecisionCircleOptions);
+    this.userLocationPrecisionCircle = new google.maps.Circle(userLocationPrecisionCircleOptions);*/
 
     var icon = new google.maps.MarkerImage(markerModel.get("imageUrl"), new google.maps.Size(markerModel.get("imageWidth"), markerModel.get("imageHeight")), new google.maps.Point(markerModel.get("imageOriginX"), markerModel.get("imageOriginX")), new google.maps.Point(markerModel.get("imageAnchorX"), markerModel.get("imageAnchorY")));
 

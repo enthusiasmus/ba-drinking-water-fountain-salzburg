@@ -217,7 +217,7 @@
 	left: 0;
 	z-index: 5;
 }
-#slogan {top: 218px;}
+#slogan {top: 160px;}
 #slogan span {
 	font-size: 18px; 
 	display: inline-block; 
@@ -233,11 +233,12 @@
 	height: 40px;
 }
 #appstore {
-	top: 340px; 
+	top: 260px; 
 	background-position: -338px -80px;
 }
 #googleplay {
-	top: 390px; 
+	top: 263px;
+	margin-left: 140px; 
 	background-position: -338px -120px;
 }
 

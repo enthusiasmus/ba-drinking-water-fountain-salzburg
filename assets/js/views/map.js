@@ -59,13 +59,21 @@ var MapView = Backbone.View.extend({
     google.maps.Marker.prototype.content = "";
 
     _.each(this.markerCollection.toArray(), function(markerModel) {
+      var icon = new google.maps.MarkerImage(markerModel.get('imageUrl'),
+          new google.maps.Size(17,40),
+          new google.maps.Point(0,0),
+          new google.maps.Point(9,40));
+      var shadow = new google.maps.MarkerImage(markerModel.get('shadowUrl'),
+          new google.maps.Size(49,40),
+          new google.maps.Point(0,0),
+          new google.maps.Point(25,40));
 
       var marker = new google.maps.Marker({
         position : new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
-        icon : markerModel.get('imageUrl'),
+        icon : icon,
         title : markerModel.get("title"),
         content : markerModel.get('title'),
-        shadow : markerModel.get('shadowUrl'),
+        shadow : shadow,
         zIndex : 1
       });
       

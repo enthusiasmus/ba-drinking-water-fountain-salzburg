@@ -16,12 +16,12 @@ var UserLocationModel = Backbone.Model.extend({
     precisionFillColor: "#0000FF",
     precisionFillOpacity: 0.1,
     imageUrl: 'assets/img/userlocation.png',
-    imageWidth: 25,
-    imageHeight: 24,
+    imageWidth: 28,
+    imageHeight: 28,
     imageOriginX: 0,
     imageOriginY: 0,
-    imageAnchorX: 12,
-    imageAnchorY: 12
+    imageAnchorX: 14,
+    imageAnchorY: 14
   },
   validate: function(attrs){
     if(attrs.precision >= 10000)

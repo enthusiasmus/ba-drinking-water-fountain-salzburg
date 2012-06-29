@@ -32,6 +32,7 @@
 	color: #fff;
 	text-decoration: none;
 	padding: 7px 0 0 14px;
+  display:none;
 }
 #back:hover {background-position: -60px -166px;}
 

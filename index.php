@@ -76,8 +76,8 @@ else
           <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
         </hgroup>
         <?php } else { ?>
-          <h1 id="logo"><a href="/">Land Salzburg</a></h1>
-          <a href="" id="back">Zurück</a>
+          <h1 id="logo"><a href="javascript:void(0)">Land Salzburg</a></h1>
+          <a href="javascript:void(0)" onclick='window.Trinkbrunnen.index()' id="back">Zurück</a>
         <?php } ?>
         <nav id="header-navigation">
           <ul>
@@ -89,7 +89,7 @@ else
             <li class='menu-item about'>
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
             </li>
-            <li class='menu-item'>
+            <li class='menu-item' id='lake_temperature'>
               <a href='http://www.salzburg.at/sbg_aktuell.html?AktuellID=WT' target='_blank'>Seetemperaturen</a>
             </li>
           </ul>
@@ -220,13 +220,5 @@ else
     include ("assets/templates/main.html");
   ?>
   <script type="text/javascript" src="assets/js/main.js"></script>
-
-  <!-- chrome & safari displays header-div false, correct it -->
-  <script type="text/javascript">
-      if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || navigator.userAgent.toLowerCase().indexOf('safari') > -1)
-      {
-        document.getElementById('header-navigation').style.top = '109px';
-      }
-  </script>
 </body>
 </html>

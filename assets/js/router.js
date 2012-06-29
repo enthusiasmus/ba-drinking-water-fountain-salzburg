@@ -55,12 +55,12 @@ var AppRouter = Backbone.Router.extend({
     });
   },
   index: function(){
+    this.navigate("", {trigger: true});
+    var currentCenter = this.mapView.map.getCenter();
     if ( this.isMobile() )
       this.displayOnly('map_canvas');
     else 
       this.displayOnly('map_canvas appinfo hand-phone');
-
-    var currentCenter = this.mapView.map.getCenter();
     this.mapView.map.setCenter(currentCenter);
   },
   scrollMap: function(){
@@ -178,7 +178,7 @@ var AppRouter = Backbone.Router.extend({
     
     if ( this.isMobile() ) {
       $('#header-navigation').hide();
-      this.displayOnly('feed');
+      this.displayOnly('feed back');
     } else {
       this.displayOnly('map_canvas feed');
       
@@ -275,9 +275,9 @@ var AppRouter = Backbone.Router.extend({
   showAbout: function(){
     this.navigate("about", {trigger: true});
     
-    if ( this.isMobile() ) {
+    if ( this.isMobile() ){
       $('#header-navigation').hide();
-      this.displayOnly('info');
+      this.displayOnly('info back');
     } else {
       this.displayOnly('map_canvas info');
 
@@ -297,7 +297,7 @@ var AppRouter = Backbone.Router.extend({
       self.eventDispatcher.off('hideLoadingView');  
     });
   },
-  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone'),
+  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone', 'back'),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");
   	var shouldShow;

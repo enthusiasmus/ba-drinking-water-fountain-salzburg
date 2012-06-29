@@ -22,6 +22,7 @@
 	margin: 10px auto 0 auto;
 }
 #back {
+  display:none;
 	position: absolute;
 	top: 8px;
 	left: 10px;
@@ -205,6 +206,7 @@
 
 /*** info ***/
 #info {
+  display:none;
 	background-color: #005586;
 	padding: 0 0 60px 0;
 	margin-top: 44px;

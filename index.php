@@ -176,12 +176,15 @@ else
       </ul>
     </nav>
     <div id="map_canvas"></div>
-    <div id="map_pointer"></div>
-    <div id="map_pointer_text"></div>
     <div id="maptype"></div>
+    <div id="failure">
+      <div id="failure_message"></div>
+      <div id="failure_close_button"></div>
+    </div>
     <div id="address">
       <input type='text' name='address' placeholder='Bitte geben Sie eine Adresse ein' class='addressinput' />
       <input type='button' name='search_address' class='searchsubmit' />
+      <div id="search_close_button"></div>
     </div>
   </div>
   <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>

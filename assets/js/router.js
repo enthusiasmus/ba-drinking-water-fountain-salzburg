@@ -31,6 +31,7 @@ var AppRouter = Backbone.Router.extend({
 
     if(!this.isMobile()){
       var self = this;
+      $('#search_close_button, #failure_close_button').click(function(){$('#address').hide();$('#failure').hide();});
       $('#activatemap').mousedown(function(){self.scrollMap();});
     }
   },
@@ -39,9 +40,7 @@ var AppRouter = Backbone.Router.extend({
       if(!(Backbone.history.start()))
         throw "Couldn't start backbone history!";
     }
-    catch(e){
-      console.log(e);
-    }
+    catch(e){}
     
     var self = this;
     this.markerCollection.fetch({
@@ -50,7 +49,7 @@ var AppRouter = Backbone.Router.extend({
         self.mapView.placeMarkersToMap();
       },
       error: function(){
-        console.error("Trinkbrunnen konnten nicht geladen werden!");
+        self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
       },
       add: true
     });
@@ -197,7 +196,7 @@ var AppRouter = Backbone.Router.extend({
           self.feedView.timestamp = new Date().getTime();
         },
         error: function(){
-          console.error("Feed konnte nicht geladen werden!");
+          self.showFailureMessage("Feed konnte nicht geladen werden!");
         },
         add: true
       });
@@ -252,25 +251,25 @@ var AppRouter = Backbone.Router.extend({
       function(error){
         switch(error.code) {
           case error.PERMISSION_DENIED:
-            alert("Sie haben den Zugriff auf die Position verweigert!");
+            self.showFailureMessage("Zugriff auf Position verweigert!");
             break;
           case error.POSITION_UNAVAILABLE: 
-            alert("Position konnte nicht ermittelt werden!");
+            self.showFailureMessage("Position konnte nicht ermittelt werden!");
             break;
           case error.TIMEOUT:
-            alert("Zeitüberschreitung beim Ermitteln der Position!");
+            self.showFailureMessage("Zeitüberschreitung beim Ermitteln der Position!");
             break;
           case error.UNKNOWN_ERROR: 
-            alert("Positionsbestimmung zur Zeit nicht möglich!");
+            self.showFailureMessage("Positionsbestimmung zur Zeit nicht möglich!");
             break;
           default:
-            alert("Fehler bei der Positionsbestimmung!");
+            self.showFailureMessage("Fehler bei der Positionsbestimmung!");
             break;
         }
       },{enableHighAccuracy:true, timeout:5000, maximumAge:60000});
     }
     else{
-      console.log("Ihr Browser unterstützt keine Positionsbestimmung!");
+      self.showFailureMessage("Ihr Browser unterstützt keine Positionsbestimmung!");
     }
   },
   showAbout: function(){
@@ -288,7 +287,6 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   defaultRoute: function(){
-  	console.log('no route for this URI!');
   },
   getLoadingView: function(){
     this.loadingView.show();
@@ -339,5 +337,10 @@ var AppRouter = Backbone.Router.extend({
     }, 1800, function(){
 
     });
+  },
+  showFailureMessage: function(message){
+    $('#failure_message').text(message);
+    $('#failure').show();
+    setTimeout(function(){$('#failure').fadeOut();}, 2000);
   }
 });

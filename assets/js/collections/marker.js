@@ -2,11 +2,12 @@ var MarkerCollection = Backbone.Collection.extend({
 	model: MarkerModel,
 	parse: function(data){
 		var markers = new Array();
+		var title = "";
 		for(idx in data){
-		  if(data[idx].fontain_name == "")
-		    var title = data[idx].water_distributor + " - " + data[idx].fontain_name;
+		  if(data[idx].fontain_name != "")
+		    title = data[idx].water_distributor + " - " + data[idx].fontain_name;
 		  else 
-		    var title = data[idx].water_distributor;
+		    title = data[idx].water_distributor;
 		    
 			var markerModel = new MarkerModel({
 				id: idx,
@@ -15,6 +16,7 @@ var MarkerCollection = Backbone.Collection.extend({
 				title: title
 			});
 			markers.push(markerModel);
+			title = null;
 		}
 		return markers;
 	}

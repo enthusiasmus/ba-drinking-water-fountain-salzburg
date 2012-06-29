@@ -89,6 +89,9 @@ else
             <li class='menu-item about'>
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
             </li>
+            <li class='menu-item'>
+              <a href='http://www.salzburg.at/sbg_aktuell.html?AktuellID=WT' target='_blank'>Seetemperaturen</a>
+            </li>
           </ul>
         </nav>
       </header>
@@ -214,5 +217,13 @@ else
     include ("assets/templates/main.html");
   ?>
   <script type="text/javascript" src="assets/js/main.js"></script>
+
+  <!-- chrome & safari displays header-div false, correct it -->
+  <script type="text/javascript">
+      if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || navigator.userAgent.toLowerCase().indexOf('safari') > -1)
+      {
+        document.getElementById('header-navigation').style.top = '109px';
+      }
+  </script>
 </body>
 </html>

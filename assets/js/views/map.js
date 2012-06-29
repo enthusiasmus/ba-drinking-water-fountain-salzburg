@@ -136,8 +136,15 @@ var MapView = Backbone.View.extend({
   distanceCalculator : function(userPosition, markerPosition) {
     if(userPosition && markerPosition) {
       var distanceUserLocationToMarker = google.maps.geometry.spherical.computeDistanceBetween(userPosition, markerPosition);
-      var distanceInKm = (distanceUserLocationToMarker / 1000).toFixed(3) + " km";
-      return distanceInKm;
+      
+      var distanceInM = distanceUserLocationToMarker.toFixed(2);
+
+      if(distanceInM < 1000)
+      {
+        return distanceInM.toFixed(0) + " m";
+      }
+      else
+        return (distanceUserLocationToMarker / 1000).toFixed(2) + " km";
     }
     return false;
   },
@@ -145,7 +152,8 @@ var MapView = Backbone.View.extend({
     this.markerCluster.clearMarkers();
   },
   placeUserLocation : function(markerModel) {
-    var userLocationPrecisionCircleOptions = {
+    //*** uncomment to display the precisioncircle ***//
+    /*var userLocationPrecisionCircleOptions = {
       strokeColor : markerModel.get("precisionStrokeColor"),
       strokeOpacity : markerModel.get("precisionStrokeOpacity"),
       strokeWeight : markerModel.get("precisionStrokeWeight"),
@@ -156,7 +164,7 @@ var MapView = Backbone.View.extend({
       radius : markerModel.get("precision"),
       zIndex : 9999
     };
-    this.userLocationPrecisionCircle = new google.maps.Circle(userLocationPrecisionCircleOptions);
+    this.userLocationPrecisionCircle = new google.maps.Circle(userLocationPrecisionCircleOptions);*/
 
     var icon = new google.maps.MarkerImage(markerModel.get("imageUrl"), new google.maps.Size(markerModel.get("imageWidth"), markerModel.get("imageHeight")), new google.maps.Point(markerModel.get("imageOriginX"), markerModel.get("imageOriginX")), new google.maps.Point(markerModel.get("imageAnchorX"), markerModel.get("imageAnchorY")));
 

@@ -107,7 +107,7 @@
 #address, #maptype {
 	display: none;
 	position: absolute;
-	top: 90px;
+	top: 70px;
 	left: 0;
 	width: 100%;
 	z-index: 30;
@@ -116,7 +116,7 @@
 	width: 30%;
 	background-color: #fff;
 	padding: 15px;
-	margin-left: 100px;
+	margin-left: 40px;
 }
 #address .addressinput {
 	width: 87%;

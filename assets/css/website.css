@@ -82,7 +82,7 @@
 	color: #005586; 
 	padding: 17px 15px 12px 45px; 
 }
-#navigation .menu-item a:hover, #navigation .menu-item a:focus, #navigation .menu-item a:active {
+#navigation .menu-item a:hover{
 	background-color: #005586; 
 	color:#fff; 
 }

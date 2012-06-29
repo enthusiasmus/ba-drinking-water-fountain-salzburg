@@ -270,7 +270,7 @@ var AppRouter = Backbone.Router.extend({
             self.showFailureMessage("Fehler bei der Positionsbestimmung!");
             break;
         }
-      },{enableHighAccuracy:true, timeout:5000, maximumAge:60000});
+      },{enableHighAccuracy:true, timeout:4900, maximumAge:60000});
     }
     else{
       self.showFailureMessage("Ihr Browser unterstützt keine Positionsbestimmung!");
@@ -344,6 +344,9 @@ var AppRouter = Backbone.Router.extend({
         $('.next').attr('onclick', 'window.Trinkbrunnen.slideArticleToRight()');
       });
     }
+    else{
+      $('.next').attr('onclick', 'window.Trinkbrunnen.slideArticleToRight()');    
+    }
   },
   slideArticleToLeft: function() {    
     var self = this;
@@ -360,6 +363,9 @@ var AppRouter = Backbone.Router.extend({
         }
         $('.prev').attr('onclick', 'window.Trinkbrunnen.slideArticleToLeft()');
       });
+    }
+    else{
+      $('.prev').attr('onclick', 'window.Trinkbrunnen.slideArticleToLeft()');
     }
   },
   canSlideArticle: function(direction){

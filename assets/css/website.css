@@ -285,22 +285,27 @@
 	top: 0;
 	width: 30px;
 	height: 290px;
-	background: url('../img/links.png') #fff 3px 47% no-repeat;
+	background: url('../img/links.png') 3px 47% no-repeat;
 	z-index: 5;
 }
 .prev {
-	left: 0;
+	left: 0px;
 }
 .next {
-	right: 0;
+	right: 0px;
 	background-image: url('../img/rechts.png');
 }
 #rss {
 	float: left;
-	width: 3000%;
-	margin-left: 40px;
+	width: 4000%;
 	z-index: 4;
 }
+#rss_content{
+  width:880px;
+  overflow: hidden;
+  margin: 0px 40px;
+}
+
 #info {
 	width: 920px;
 	height: 250px;
@@ -335,7 +340,7 @@
 .feed-title a {
 	color:#005586; 
 	text-decoration: none;
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 600;
 }
 .feed-title {

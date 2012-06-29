@@ -14,7 +14,7 @@
 
     $item = (array) $item;
     $item['title'] = $title;
-    $item['description'] = $description;
+    $item['description'] = strip_tags($description, '<img>');
     $item['pubDate'] = $pubDate;
     $item['link'] = $link;
 

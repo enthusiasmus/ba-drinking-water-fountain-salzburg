@@ -135,9 +135,11 @@ else
       <div id="feed">
         <?php if ( !$isMobile ) { ?>
         <a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" class="prev">Neuere Wasser-News</a>
-        <?php } ?>
+        <div id="rss_content">
+        <?php } ?>       
         <section id="rss"></section>
         <?php if ( !$isMobile ) { ?>
+        </div>
         <a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" class="next">Ältere Wasser-News</a>
         <?php } ?>
       </div>

@@ -4,16 +4,25 @@ var FeedItemCollection = Backbone.Collection.extend({
     var feedItems = new Array();
    
     for(idx in data){
-
       var description = data[idx].description;
+
+      //Extracting image tag if exists
       var image = "";
       if(description[0] == "<"){
         var lastImageLetter = description.indexOf(">");
-        image = description.slice(0, lastImageLetter);
+        image = description.slice(0, lastImageLetter+1);
         description = description.replace(image, "");
+        if(description[0] == " "){
+          description = description.substring(1,description.length);
+        }
+        else if(description.substring(0, 6) == '&nbsp;'){
+          description = description.substring(6,description.length);
+        }
       }
       
-      if(description.indexOf("(") && description.indexOf(")")){
+      //Remove not nessecary part (date, location) on the beginning of description
+      if(description.indexOf("(") != -1 && description.indexOf(")") != -1){
+        
         var firstDateLetter = description.indexOf("(");
         var lastDateLetter = description.indexOf(")");
         
@@ -24,7 +33,7 @@ var FeedItemCollection = Backbone.Collection.extend({
           
         description = description.replace(replacePart, "");
       }
- 
+      
       var feedItemModel = new FeedItemModel({
         title: data[idx].title, 
         link: data[idx].link,

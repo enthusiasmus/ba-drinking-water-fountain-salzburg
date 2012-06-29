@@ -82,11 +82,13 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
       });
+      if(this.routes[Backbone.history.fragment] == 'showRssFeed'){
+        $('#feed').show();
+      }
       $('#appinfo, #info, #feed, #hand-phone').animate({
         opacity : 1
       }, 1000);
-      if(this.routes[Backbone.history.fragment] == 'showRssFeed')
-        $('#feed').css({'display': 'block'});
+
     } else {
       $('#map-wrap').animate({
         top: 250
@@ -102,8 +104,9 @@ var AppRouter = Backbone.Router.extend({
       });
       $('#appinfo, #info, #feed, #hand-phone').animate({
         opacity : 0
-      }, 1000);
-      $('#feed').css('display', 'none');
+      }, 1000, function(){
+        $('#feed').css('display', 'none');
+      });
     }
   },
   nextFountain: function() {
@@ -327,6 +330,7 @@ var AppRouter = Backbone.Router.extend({
   },
   slideArticleToRight: function() { 
     var self = this;   
+    $('.next').attr('onclick', '');
     if(this.canSlideArticle('right')){
       $('#rss').animate({
         'margin-left': '-=888'
@@ -337,11 +341,13 @@ var AppRouter = Backbone.Router.extend({
         if(self.canSlideArticle('left')){
           $('.prev').css('background-image', 'url(assets/img/links.png)');
         }
+        $('.next').attr('onclick', 'window.Trinkbrunnen.slideArticleToRight()');
       });
     }
   },
   slideArticleToLeft: function() {    
     var self = this;
+    $('.prev').attr('onclick', '');
     if(this.canSlideArticle('left')){
       $('#rss').animate({
         'margin-left': '+=888'
@@ -352,13 +358,14 @@ var AppRouter = Backbone.Router.extend({
         if(self.canSlideArticle('right')){
           $('.next').css('background-image', 'url(assets/img/rechts.png)');
         }
+        $('.prev').attr('onclick', 'window.Trinkbrunnen.slideArticleToLeft()');
       });
     }
   },
   canSlideArticle: function(direction){
     var currentMargin = $('#rss').css('margin-left');
     currentMargin = currentMargin.replace('px', '');
-    
+
     if(direction == 'left'){
       if(currentMargin >= '0'){
         return false;

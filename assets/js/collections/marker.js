@@ -4,10 +4,7 @@ var MarkerCollection = Backbone.Collection.extend({
 		var markers = new Array();
 		var title = "";
 		for(idx in data){
-		  if(data[idx].fontain_name != "")
-		    title = data[idx].water_distributor + " - " + data[idx].fontain_name;
-		  else 
-		    title = data[idx].water_distributor;
+		  title = data[idx].water_distributor;
 		    
 			var markerModel = new MarkerModel({
 				id: idx,

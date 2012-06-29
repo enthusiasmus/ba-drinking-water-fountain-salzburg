@@ -149,7 +149,7 @@
 
 /*** wrap ***/
 #wrap {
-	position: relative;
+	position: absolute;
 	width: 100%; 
 	min-width: 960px;
 	height: 542px; 
@@ -158,7 +158,7 @@
 	overflow: hidden;
 }
 #inner-wrap {
-	position: absolute;
+	position: relative;
 	width: 960px;
 	margin: 0 auto;
 }

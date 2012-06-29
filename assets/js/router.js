@@ -82,6 +82,8 @@ var AppRouter = Backbone.Router.extend({
       $('#appinfo, #info, #feed, #hand-phone').animate({
         opacity : 1
       }, 1000);
+      if(this.routes[Backbone.history.fragment] == 'showRssFeed')
+        $('#feed').css({'display': 'block'});
     } else {
       $('#map-wrap').animate({
         top: 250
@@ -98,6 +100,7 @@ var AppRouter = Backbone.Router.extend({
       $('#appinfo, #info, #feed, #hand-phone').animate({
         opacity : 0
       }, 1000);
+      $('#feed').css('display', 'none');
     }
   },
   nextFountain: function() {
@@ -167,6 +170,8 @@ var AppRouter = Backbone.Router.extend({
   },
   showRssFeed: function() {	
     this.navigate("feed", {trigger: true});
+
+    $('#feed').css('display', 'block');
     
     if ( this.isMobile() ) {
       $('#header-navigation').hide();

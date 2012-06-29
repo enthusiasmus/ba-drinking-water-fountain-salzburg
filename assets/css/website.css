@@ -158,9 +158,10 @@
 	overflow: hidden;
 }
 #inner-wrap {
-	position: relative;
+	position: absolute;
 	width: 960px;
-	margin: 0 auto;
+  left:50%;
+	margin-left:-480px;
 }
 
 /*** header navigation ***/

@@ -89,6 +89,9 @@ else
             <li class='menu-item about'>
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
             </li>
+            <li class='menu-item'>
+              <a href='http://www.salzburg.at/sbg_aktuell.html?AktuellID=WT' target='_blank'>Seetemperaturen</a>
+            </li>
           </ul>
         </nav>
       </header>

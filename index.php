@@ -217,5 +217,13 @@ else
     include ("assets/templates/main.html");
   ?>
   <script type="text/javascript" src="assets/js/main.js"></script>
+
+  <!-- chrome & safari displays header-div false, correct it -->
+  <script type="text/javascript">
+      if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || navigator.userAgent.toLowerCase().indexOf('safari') > -1)
+      {
+        document.getElementById('header-navigation').style.top = '109px';
+      }
+  </script>
 </body>
 </html>

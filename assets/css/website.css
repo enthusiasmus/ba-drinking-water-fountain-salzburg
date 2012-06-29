@@ -54,7 +54,7 @@
 	color: #005586; 
 	padding: 10px 15px;
 }
-#scroll:hover, #scroll:focus, #scroll:active {
+#scroll:hover{
 	background-color: #005586; 
 	color: #fff; 
 }
@@ -158,8 +158,8 @@
 	overflow: hidden;
 }
 #inner-wrap {
+  width: 960px;
 	position: absolute;
-	width: 960px;
   left:50%;
 	margin-left:-480px;
 }

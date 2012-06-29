@@ -136,8 +136,15 @@ var MapView = Backbone.View.extend({
   distanceCalculator : function(userPosition, markerPosition) {
     if(userPosition && markerPosition) {
       var distanceUserLocationToMarker = google.maps.geometry.spherical.computeDistanceBetween(userPosition, markerPosition);
-      var distanceInKm = (distanceUserLocationToMarker / 1000).toFixed(3) + " km";
-      return distanceInKm;
+      
+      var distanceInM = distanceUserLocationToMarker.toFixed(2);
+
+      if(distanceInM < 1000)
+      {
+        return distanceInM.toFixed(0) + " m";
+      }
+      else
+        return (distanceUserLocationToMarker / 1000).toFixed(2) + " km";
     }
     return false;
   },

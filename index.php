@@ -66,6 +66,8 @@ else
       <img src="assets/img/slider/02.jpg" class="slide" alt="" />
       <img src="assets/img/slider/03.jpg" class="slide" alt="" />
       <img src="assets/img/slider/04.jpg" class="slide" alt="" />
+      <img src="assets/img/slider/05.jpg" class="slide" alt="" />
+      <img src="assets/img/slider/06.jpg" class="slide" alt="" />
     </div>
     <div id="inner-wrap">
     <?php } ?>

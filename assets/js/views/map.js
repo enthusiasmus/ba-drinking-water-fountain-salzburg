@@ -82,7 +82,7 @@ var MapView = Backbone.View.extend({
         enableEventPropagation : false,
         boxStyle : {
           position: "relative",
-          background : "url('assets/img/infobox.png') no-repeat",
+          background : "url(assets/img/infobox.png) no-repeat",
           width : "279px",
           height: "58px",
           padding : "8px 20px"
@@ -136,15 +136,14 @@ var MapView = Backbone.View.extend({
   distanceCalculator : function(userPosition, markerPosition) {
     if(userPosition && markerPosition) {
       var distanceUserLocationToMarker = google.maps.geometry.spherical.computeDistanceBetween(userPosition, markerPosition);
-      
       var distanceInM = distanceUserLocationToMarker.toFixed(2);
 
-      if(distanceInM < 1000)
-      {
-        return distanceInM.toFixed(0) + " m";
+      if(parseInt(distanceInM) < 1000){
+        return parseInt(distanceInM).toFixed(0) + " m";
       }
-      else
+      else{
         return (distanceUserLocationToMarker / 1000).toFixed(2) + " km";
+      }
     }
     return false;
   },

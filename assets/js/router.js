@@ -304,7 +304,7 @@ var AppRouter = Backbone.Router.extend({
       self.eventDispatcher.off('hideLoadingView');  
     });
   },
-  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone', 'back'),
+  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone', 'back', 'failure'),
   displayOnly: function(elementsToShow){
   	var elementsArray = elementsToShow.split(" ");
   	var shouldShow;

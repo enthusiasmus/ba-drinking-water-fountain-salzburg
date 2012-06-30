@@ -145,6 +145,10 @@
 	margin-top: 4px;
 	float: right;
 	cursor: pointer;
+	
+	/* hide the w3c-nessecary value on the button */
+	text-indent: -9000px;
+	text-transform: capitalize;
 }
 
 /*** wrap ***/
@@ -395,8 +399,8 @@
 #failure #failure_message{
   height: 20px;
   color: #800;
-  font-size:13px;
-  font-weight: 600;
+  font-size:12px;
+  font-weight: bold;
   text-align: center;
   line-height: 20px;
   vertical-align: middle;

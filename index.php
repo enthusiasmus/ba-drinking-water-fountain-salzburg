@@ -23,23 +23,21 @@ else
 <head>
   <meta content="text/html;charset=UTF-8" http-equiv="content-type">
   <!-- iphone commands -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <!-- hiding safari user interface components -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <!-- changing status bar appearance, only with command above! -->
-  <link rel="apple-touch-icon" href="assets/img/icon-apple.png"/>
-  <!-- default icon image for the homescreen -->
-  <link rel="apple-touch-startup-image" href="assets/img/startup.png" />
-  <!-- quick startup screen -->
-  <?php
-  if ($isMobile)
-    echo "<title>TrinkWasser!</title>";
-  else{
-    echo "<title>TrinkWasser! Land Salzburg</title>";
-    echo "<link rel='icon' href='assets/img/favicon.png' type='image/png'>";
-  }
-  ?>
+  <?php if ($isMobile) { ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- hiding safari user interface components -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- changing status bar appearance, only with command above! -->
+    <link rel="apple-touch-icon" href="assets/img/icon-apple.png"/>
+    <!-- default icon image for the homescreen -->
+    <link rel="apple-touch-startup-image" href="assets/img/startup.png" />
+    <!-- quick startup screen -->
+    <title>TrinkWasser!</title>
+  <?php } else { ?>
+    <title>TrinkWasser! Land Salzburg</title>
+    <link rel='icon' href='assets/img/favicon.png' type='image/png'>
+  <?php } ?>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
@@ -59,7 +57,9 @@ else
   <![endif]-->  
 </head>
 <body>
-  <div id="loading"></div>
+  <div id="loading">
+    <div id="background"></div>
+  </div>
   <?php if ( !$isMobile ) { ?>
   <div id="wrap">
     <div id="slider" class="nivoSlider">
@@ -184,19 +184,28 @@ else
       </ul>
     </nav>
     <div id="map_canvas"></div>
-    <div id="maptype"></div>
+    <div id="maptype">
+      <div>
+        <ul>
+          <li class='menu-item'><a href='#maptype/roadmap'>Straße</a></li>
+          <li class='menu-item'><a href='#maptype/satellite'>Satellit</a></li>
+          <li class='menu-item'><a href='#maptype/hybrid'>Hybrid</a></li>
+          <li class='menu-item'><a href='#maptype/terrain'>Terrain</a></li>
+        </ul>
+      </div>
+    </div>
     <div id="failure">
       <div id="failure_message"></div>
       <div id="failure_close_button"></div>
     </div>
     <div id="address">
-      <input type='text' name='address' placeholder='Bitte geben Sie eine Adresse ein' class='addressinput' />
-      <input type='button' name='search_address' class='searchsubmit' />
+      <input type='text' name='address' placeholder='Bitte geben Sie eine Adresse ein' class='addressinput'/>
+      <input type='button' name='search_address' class='searchsubmit' value='Suche' />
       <div id="search_close_button"></div>
     </div>
   </div>
   <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>
-  <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=AT"></script>
+  <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT"></script>
   <!-- libs -->
   <script type="text/javascript" src="assets/js/libs/markerclusterer.js"></script>
   <script type="text/javascript" src="assets/js/libs/infobox.js"></script>
@@ -224,9 +233,6 @@ else
   <script type="text/javascript" src="assets/js/collections/feedItem.js"></script>
   <!-- router -->
   <script type="text/javascript" src="assets/js/router.js"></script>
-  <?php
-    include ("assets/templates/main.html");
-  ?>
   <script type="text/javascript" src="assets/js/main.js"></script>
 </body>
 </html>

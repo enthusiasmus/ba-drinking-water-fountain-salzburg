@@ -196,7 +196,7 @@ var AppRouter = Backbone.Router.extend({
           self.feedView.addFeedItemCollection(self.feedItemCollection);
           self.feedView.timestamp = new Date().getTime();
           if(!self.canSlideArticle('left')){
-            $('.prev').css('background-image', 'url(assets/img/links_disabled.png)');
+            $('#prev').css('background-image', 'url(assets/img/links_disabled.png)');
           }
         },
         error: function(){
@@ -331,42 +331,48 @@ var AppRouter = Backbone.Router.extend({
   },
   slideArticleToRight: function() { 
     var self = this;   
-    $('.next').attr('onclick', '');
+    var onClick = document.createAttribute("onclick");
+    onClick.nodeValue = "window.Trinkbrunnen.slideArticleToRight()";
+    
+    $('#next').attr('onclick', '');
     if(this.canSlideArticle('right')){
       $('#rss').animate({
         'margin-left': '-=888'
       }, 1800, function(){
         if(!self.canSlideArticle('right')){
-          $('.next').css('background-image', 'url(assets/img/rechts_disabled.png)');
+          $('#next').css('background-image', 'url(assets/img/rechts_disabled.png)');
         }
         if(self.canSlideArticle('left')){
-          $('.prev').css('background-image', 'url(assets/img/links.png)');
+          $('#prev').css('background-image', 'url(assets/img/links.png)');
         }
-        $('.next').attr('onclick', 'window.Trinkbrunnen.slideArticleToRight()');
+        document.getElementById('next').setAttributeNode(onClick);
       });
     }
     else{
-      $('.next').attr('onclick', 'window.Trinkbrunnen.slideArticleToRight()');    
+      document.getElementById('next').setAttributeNode(onClick);
     }
   },
   slideArticleToLeft: function() {    
     var self = this;
-    $('.prev').attr('onclick', '');
+    var onClick = document.createAttribute("onclick");
+    onClick.nodeValue = "window.Trinkbrunnen.slideArticleToLeft()";
+
+    $('#prev').attr('onclick', '');
     if(this.canSlideArticle('left')){
       $('#rss').animate({
         'margin-left': '+=888'
       }, 1800, function(){
         if(!self.canSlideArticle('left')){
-          $('.prev').css('background-image', 'url(assets/img/links_disabled.png)');
+          $('#prev').css('background-image', 'url(assets/img/links_disabled.png)');
         }
         if(self.canSlideArticle('right')){
-          $('.next').css('background-image', 'url(assets/img/rechts.png)');
+          $('#next').css('background-image', 'url(assets/img/rechts.png)');
         }
-        $('.prev').attr('onclick', 'window.Trinkbrunnen.slideArticleToLeft()');
+        document.getElementById('prev').setAttributeNode(onClick);
       });
     }
     else{
-      $('.prev').attr('onclick', 'window.Trinkbrunnen.slideArticleToLeft()');
+      document.getElementById('prev').setAttributeNode(onClick);
     }
   },
   canSlideArticle: function(direction){

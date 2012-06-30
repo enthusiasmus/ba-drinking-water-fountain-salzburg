@@ -1,5 +1,5 @@
 /*** text indents ***/
-#address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, .prev, .next {
+#address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, #prev, #next {
 	display: block;
 	text-indent: -19999px;
 	overflow: hidden;
@@ -280,7 +280,7 @@
 	overflow: hidden;
 	z-index: 10;
 }
-.prev, .next {
+#prev, #next {
 	position: absolute;
 	top: 0;
 	width: 30px;
@@ -288,10 +288,10 @@
 	background: url('../img/links.png') 3px 47% no-repeat;
 	z-index: 5;
 }
-.prev {
+#prev {
 	left: 0px;
 }
-.next {
+#next {
 	right: 0px;
 	background-image: url('../img/rechts.png');
 }

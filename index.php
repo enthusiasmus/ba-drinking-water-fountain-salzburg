@@ -134,13 +134,13 @@ else
       </div>
       <div id="feed">
         <?php if ( !$isMobile ) { ?>
-        <a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToLeft()" id="prev">Neuere Wasser-News</a>
+        <a href="javascript:void(0)" id="prev">Neuere Wasser-News</a>
         <div id="rss_content">
         <?php } ?>       
         <section id="rss"></section>
         <?php if ( !$isMobile ) { ?>
         </div>
-        <a href="javascript:void(0)" onclick="window.Trinkbrunnen.slideArticleToRight()" id="next">Ältere Wasser-News</a>
+        <a href="javascript:void(0)" id="next">Ältere Wasser-News</a>
         <?php } ?>
       </div>
   <?php if ( !$isMobile ) { ?>

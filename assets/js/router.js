@@ -33,6 +33,8 @@ var AppRouter = Backbone.Router.extend({
       var self = this;
       $('#search_close_button, #failure_close_button').click(function(){$('#address').hide();$('#failure').hide();});
       $('#activatemap').mousedown(function(){self.scrollMap();});
+      $('#prev').click(function(){self.slideArticleToLeft();});
+      $('#next').click(function(){self.slideArticleToRight();})
     }
   },
   init: function(){
@@ -331,10 +333,8 @@ var AppRouter = Backbone.Router.extend({
   },
   slideArticleToRight: function() { 
     var self = this;   
-    var onClick = document.createAttribute("onclick");
-    onClick.nodeValue = "window.Trinkbrunnen.slideArticleToRight()";
+    $('#next').off('click');
     
-    $('#next').attr('onclick', '');
     if(this.canSlideArticle('right')){
       $('#rss').animate({
         'margin-left': '-=888'
@@ -345,19 +345,17 @@ var AppRouter = Backbone.Router.extend({
         if(self.canSlideArticle('left')){
           $('#prev').css('background-image', 'url(assets/img/links.png)');
         }
-        document.getElementById('next').setAttributeNode(onClick);
+        $('#next').on('click', function(){self.slideArticleToRight();});
       });
     }
     else{
-      document.getElementById('next').setAttributeNode(onClick);
+      $('#next').on('click', function(){self.slideArticleToRight();});
     }
   },
   slideArticleToLeft: function() {    
     var self = this;
-    var onClick = document.createAttribute("onclick");
-    onClick.nodeValue = "window.Trinkbrunnen.slideArticleToLeft()";
+    $('#prev').off('click');
 
-    $('#prev').attr('onclick', '');
     if(this.canSlideArticle('left')){
       $('#rss').animate({
         'margin-left': '+=888'
@@ -368,11 +366,11 @@ var AppRouter = Backbone.Router.extend({
         if(self.canSlideArticle('right')){
           $('#next').css('background-image', 'url(assets/img/rechts.png)');
         }
-        document.getElementById('prev').setAttributeNode(onClick);
+        $('#prev').on('click', function(){self.slideArticleToLeft();});
       });
     }
     else{
-      document.getElementById('prev').setAttributeNode(onClick);
+      $('#prev').on('click', function(){self.slideArticleToLeft();});
     }
   },
   canSlideArticle: function(direction){

@@ -150,6 +150,8 @@ else
         <span>im ganzen Land Salzburg</span></h3>
         <a href="http://itunes.apple.com/at/genre/ios/id36?mt=8" id="appstore">Availiable on the App Store</a>
         <a href="https://play.google.com/store?hl=de" id="googleplay">Google play</a>
+        <br>
+        <div id="latest_feed"></div>
       </div>
     </div>
     <span id="hand-phone"></span>

@@ -284,7 +284,8 @@
 	position: absolute;
 	top: 0;
 	width: 30px;
-	height: 290px;
+	height: 44px;
+	margin-top:120px;
 	background: url('../img/links.png') 3px 47% no-repeat;
 	z-index: 5;
 }

@@ -110,7 +110,7 @@ var MapView = Backbone.View.extend({
           if(distanceInformation)
             infoContent += "Distanz: " + distanceInformation + "<br/>";
         }
-        infoContent += '<a href="#route/' + markerModel.get("id") + '" class="calculate-route" title="Route berechnen">Route berechnen</a></p>';
+        infoContent += '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.routeToFountain(' + markerModel.get("id") + ')" class="calculate-route" title="Route berechnen">Route berechnen</a></p>';
         infoContent += '<div class="pointer"></div>';
 
         infoBox.setContent(infoContent);

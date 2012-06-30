@@ -204,9 +204,9 @@
 	background: url('../img/sprite-website.png') 0 0 no-repeat; 
 }
 #logo_salzburg a {
-	position: absolute; 
+	position: fixed; 
 	top: 30px; 
-	right: -80px; 
+	right: 100px; 
 	width: 145px; 
 	height: 65px; 
 	background: url('../img/sprite-website.png') 0 -31px no-repeat;

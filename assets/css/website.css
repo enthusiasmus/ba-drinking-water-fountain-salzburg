@@ -246,14 +246,6 @@
 	margin-left: 140px; 
 	background-position: -338px -120px;
 }
-#latest_feed {
-	top: 320px;
-	width: 430px;
-	background: #fff;
-}
-
-#latest_feed img {
-}
 /*** hand with iphone ***/
 #hand-phone {
 	position: absolute; 
@@ -356,7 +348,7 @@
 	color:#005586; 
 	text-decoration: none;
 	font-size: 12px;
-	font-weight: 600;
+	font-weight: bold;
 }
 .feed-title {
 	margin-bottom: 10px;
@@ -367,26 +359,50 @@
 	right: 10px;
 }
 
-.latest-feed-date {
-	position: absolute;
-	bottom: 0px;
-	right: 10px;
-}
-
-.feed-content {
+.feed-content, #latest-feed-content{
 	line-height: 1.3em;
 }
 
-.latest-feed-content {
-	position: absolute;
-	left: 160px;
-	top: 40px;
+#latest_feed {
+  display:none;
+  top: 320px;
+  width: 320px;
+  background: #fff;
+  padding:8px;
+}
+#latest-feed-headline{
+}
+#latest_feed #latest-feed-news{
+  color:#005586; 
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  float:left;
+}
+#latest_feed #latest-feed-date {
+  float:right;
+}
+#latest_feed #latest-feed-title{
+  font-size: 12px;
+  font-weight:bold;
+  color: #005586;
+  float:left;
+  padding:8px;
+  margin-top:3px;
+}
+#latest_feed #latest-feed-title a{
+  text-decoration: none;
+}
+#latest-feed-content {
+	width:280px;
+  padding:8px;
 }
 .feed-content img {
 	display: block;
 	margin: 0 auto 5px auto;
 }
-.feed-more, .latest-feed-more {
+.feed-more{
 	display: block;
 	text-transform: lowercase;
 	line-height:1.2em; 
@@ -399,10 +415,18 @@
 	padding: 9px 15px; 
 	margin-left:0px;
 }
-
-.latest-feed-more {
-	bottom: 1px;
+  
+#latest-feed-more {
+  width:30px;
 	padding: 5px 11px;
+  display: block;
+  text-transform: lowercase;
+  line-height:1.2em; 
+  color:#fff;
+  text-decoration:none; 
+  background-color:#005586; 
+  color:#FFF; 
+  margin-top:5px;
 }
 
 /*

@@ -13,7 +13,6 @@ var FeedView = Backbone.View.extend({
   render : function() {
     _.each(this.feedItemCollection.toArray(), function(feedItemModel) {
       var completeDescription = feedItemModel.get('description');
-      //console.log(completeDescription);
       var shortDescription = completeDescription.substring(0, 90);
       var descriptionEnd = shortDescription.substring(60, 90);
       var endLastWord = descriptionEnd.lastIndexOf(" ");

@@ -201,10 +201,10 @@
 }
 #logo_salzburg a {
 	position: absolute; 
-	top: 35px; 
+	top: 30px; 
 	right: 0; 
-	width: 140px; 
-	height: 49px; 
+	width: 145px; 
+	height: 65px; 
 	background: url('../img/sprite-website.png') 0 -31px no-repeat;
 }
 
@@ -249,7 +249,7 @@
 	bottom: 0px; 
 	right: 0px; 
 	background: url('../img/iphone_hand.png') 0 0 no-repeat;
-	width: 564px;
+	width: 525px;
 	height: 480px;
 	z-index: 5;
 }

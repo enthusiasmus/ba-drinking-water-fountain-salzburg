@@ -35,12 +35,13 @@ else
   <?php
   if ($isMobile)
     echo "<title>TrinkWasser!</title>";
-  else
+  else{
     echo "<title>TrinkWasser! Land Salzburg</title>";
+    echo "<link rel='icon' href='assets/img/favicon.png' type='image/png'>";
+  }
   ?>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 <?php if ($ios) { ?>
@@ -145,7 +146,7 @@ else
       </div>
   <?php if ( !$isMobile ) { ?>
       <div id="appinfo">
-        <h3 id="slogan"><span>App mit über 170 Trinkbrunnen</span>
+        <h3 id="slogan"><span>App mit über 180 Trinkbrunnen</span>
         <br>
         <span>im ganzen Land Salzburg</span></h3>
         <a href="http://itunes.apple.com/at/genre/ios/id36?mt=8" id="appstore">Availiable on the App Store</a>

@@ -91,6 +91,7 @@ var MapView = Backbone.View.extend({
         boxStyle : {
           position: "relative",
           background : "url(assets/img/infobox.png) no-repeat",
+          filter: 'alpha(opacity=255)',
           width : "279px",
           height: "58px",
           padding : "8px 20px"

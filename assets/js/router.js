@@ -220,7 +220,7 @@ var AppRouter = Backbone.Router.extend({
   },
   calculateGeoLocation: function(eventtype){
     var self = this;
-    if(navigator.geolocation){      
+    if(navigator.geolocation){     
       navigator.geolocation.getCurrentPosition(function(position){
         var time = position.timestamp;
         var lat = position.coords.latitude; //dezimal Grad
@@ -250,9 +250,9 @@ var AppRouter = Backbone.Router.extend({
           self.eventDispatcher.trigger(eventtype);
         else
           self.eventDispatcher.trigger('hideLoadingView');
-        
+            
       }, 
-      function(error){
+      function(error){  
         switch(error.code) {
           case error.PERMISSION_DENIED:
             self.showFailureMessage("Zugriff auf Position verweigert!");
@@ -270,7 +270,8 @@ var AppRouter = Backbone.Router.extend({
             self.showFailureMessage("Fehler bei der Positionsbestimmung!");
             break;
         }
-      },{enableHighAccuracy:true, timeout:4900, maximumAge:60000});
+             
+      },{enableHighAccuracy:true, timeout:5000, maximumAge:60000});
     }
     else{
       self.showFailureMessage("Ihr Browser unterstützt keine Positionsbestimmung!");

@@ -8,6 +8,7 @@ var FeedView = Backbone.View.extend({
   timestamp : '',
   addFeedItemCollection : function(feedItemCollection) {
     this.feedItemCollection = feedItemCollection;
+    $('#rss').html("");
     this.render();
   },
   render : function() {
@@ -33,6 +34,9 @@ var FeedView = Backbone.View.extend({
       if(self.checkLoadingImages()){
         self.scaleImages();
         window.clearInterval(checkState);
+      }
+      else{
+        self.scaleImages();
       }
     }, 300);
   },

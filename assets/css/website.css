@@ -371,6 +371,7 @@
   padding:8px;
 }
 #latest-feed-headline{
+  width:100%;
 }
 #latest_feed #latest-feed-news{
   color:#005586; 
@@ -390,13 +391,14 @@
   float:left;
   padding:8px;
   margin-top:3px;
+  width:100%;
 }
 #latest_feed #latest-feed-title a{
   text-decoration: none;
 }
 #latest-feed-content {
 	width:280px;
-  padding:8px;
+  padding:0px 8px 8px 8px;
 }
 .feed-content img {
 	display: block;
@@ -426,7 +428,7 @@
   text-decoration:none; 
   background-color:#005586; 
   color:#FFF; 
-  margin-top:5px;
+  margin-top:2px;
 }
 
 /*

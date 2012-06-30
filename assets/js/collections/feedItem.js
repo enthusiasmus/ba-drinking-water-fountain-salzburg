@@ -1,5 +1,6 @@
 var FeedItemCollection = Backbone.Collection.extend({
   model: FeedItemModel,
+  timestamp: '',
   parse: function(data){
     var feedItems = new Array();
    

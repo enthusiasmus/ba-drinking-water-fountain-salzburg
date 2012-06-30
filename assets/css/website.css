@@ -202,7 +202,7 @@
 #logo_salzburg a {
 	position: absolute; 
 	top: 30px; 
-	right: 0; 
+	right: -80px; 
 	width: 145px; 
 	height: 65px; 
 	background: url('../img/sprite-website.png') 0 -31px no-repeat;

@@ -206,7 +206,7 @@
 #logo_salzburg a {
 	position: absolute; 
 	top: 30px; 
-	right: 0; 
+	right: -80px; 
 	width: 145px; 
 	height: 65px; 
 	background: url('../img/sprite-website.png') 0 -31px no-repeat;
@@ -217,7 +217,7 @@
 	position: relative;
 	z-index: 5;
 }
-#slogan, #appstore, #googleplay {
+#slogan, #appstore, #googleplay, #latest_feed {
 	position: absolute; 
 	left: 0;
 	z-index: 5;
@@ -246,7 +246,14 @@
 	margin-left: 140px; 
 	background-position: -338px -120px;
 }
+#latest_feed {
+	top: 320px;
+	width: 430px;
+	background: #fff;
+}
 
+#latest_feed img {
+}
 /*** hand with iphone ***/
 #hand-phone {
 	position: absolute; 
@@ -359,14 +366,27 @@
 	bottom: 15px;
 	right: 10px;
 }
+
+.latest-feed-date {
+	position: absolute;
+	bottom: 0px;
+	right: 10px;
+}
+
 .feed-content {
 	line-height: 1.3em;
+}
+
+.latest-feed-content {
+	position: absolute;
+	left: 160px;
+	top: 40px;
 }
 .feed-content img {
 	display: block;
 	margin: 0 auto 5px auto;
 }
-.feed-more {
+.feed-more, .latest-feed-more {
 	display: block;
 	text-transform: lowercase;
 	line-height:1.2em; 
@@ -378,6 +398,11 @@
 	color:#FFF; 
 	padding: 9px 15px; 
 	margin-left:0px;
+}
+
+.latest-feed-more {
+	bottom: 1px;
+	padding: 5px 11px;
 }
 
 /*

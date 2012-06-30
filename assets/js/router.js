@@ -59,6 +59,49 @@ var AppRouter = Backbone.Router.extend({
   index: function(){
     this.navigate("", {trigger: true});
     var currentCenter = this.mapView.map.getCenter();
+    var self = this;
+    
+    $('#info').hide();
+    //load latest feed
+      this.feedItemCollection.fetch({
+        success: function(){
+          self.feedView.addFeedItemCollection(self.feedItemCollection);
+          $('#feed').hide();
+          self.feedView.timestamp = new Date().getTime();
+          if(!self.canSlideArticle('left')){
+            $('.prev').css('background-image', 'url(assets/img/links_disabled.png)');
+            self.eventDispatcher.trigger('loadedFeed');
+          }
+        },
+        error: function(){
+          self.showFailureMessage("Feed konnte nicht geladen werden!");
+        },
+        add: true
+      });
+
+      this.eventDispatcher.on('loadedFeed', function(){
+        var element = _.first(self.feedItemCollection.toArray());
+        console.log(element);
+
+        var completeDescription = element.get('description');
+        var shortDescription = completeDescription.substring(0, 150);
+        shortDescription += '...';
+
+        $('#latest_feed').html('<article>' + '<h3 class="feed-title"><a href="' + 
+        element.escape('link') + '">' + element.escape("title") + 
+        '</a></h3>' + '<p class="latest-feed-date">' + element.escape("pubDate") + 
+        '</p>' + element.get('image') +'<p class="latest-feed-content">'+ shortDescription + '</p>' + '<a href="' + element.escape('link') + 
+        '" class="latest-feed-more">Mehr</a>' + '</article>');
+        var feedImg = $('#latest_feed img');
+        var imgScaleValue = feedImg.height() / 120;
+        var imgWidth = feedImg.width() / imgScaleValue;
+        console.log(imgWidth);
+        $('#latest_feed img').css({'width':  imgWidth, 'height': 120});
+
+        self.eventDispatcher.off('loadedFeed');
+      });
+
+
     if ( this.isMobile() )
       this.displayOnly('map_canvas');
     else 

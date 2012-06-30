@@ -21,7 +21,6 @@ var AddressView = Backbone.View.extend({
   searchAddress: function(){
     var geocoder = new google.maps.Geocoder();
     var address = $('input[name=address]').val();
-    
     var self = this;
     geocoder.geocode({ 'address': address}, function(results, status) {
       if(status == google.maps.GeocoderStatus.OK){
@@ -30,9 +29,14 @@ var AddressView = Backbone.View.extend({
     		$(self.el).hide();
       }
       else{
-        console.log("Geocode was not successful for the following reason: " + status);
         $(self.el).hide();
+        self.showFailureMessage("Keine Suchergebnisse!");
       }
     });
+  },
+  showFailureMessage: function(message){
+    $('#failure_message').text(message);
+    $('#failure').show();
+    setTimeout(function(){$('#failure').fadeOut();}, 2000);
   }
 });

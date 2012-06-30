@@ -27,8 +27,6 @@ var MapView = Backbone.View.extend({
     google.maps.event.addListener(this.map, 'tilesloaded', function() {
       //fire event, to remove loading view
     });
-    var template = _.template($('#map_template').html());
-    $(this.el).html(template);
   },
   events : {
   },

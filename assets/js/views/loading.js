@@ -23,9 +23,6 @@ var LoadingView = Backbone.View.extend({
 		};
 		var target = document.getElementById('loading');
 		this.spinner = new Spinner(opts).spin(target);
-		
-		var template = _.template( $('#loading_template').html());
-		$(this.el).html(template);
 	},
 	show: function(){
 		$(this.el).show();

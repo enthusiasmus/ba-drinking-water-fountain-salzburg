@@ -1,5 +1,5 @@
 /*** text indents ***/
-#address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, .prev, .next {
+#address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, #prev, #next {
 	display: block;
 	text-indent: -19999px;
 	overflow: hidden;
@@ -201,10 +201,10 @@
 }
 #logo_salzburg a {
 	position: absolute; 
-	top: 35px; 
+	top: 30px; 
 	right: 0; 
-	width: 140px; 
-	height: 49px; 
+	width: 145px; 
+	height: 65px; 
 	background: url('../img/sprite-website.png') 0 -31px no-repeat;
 }
 
@@ -256,7 +256,7 @@
 	bottom: 0px; 
 	right: 0px; 
 	background: url('../img/iphone_hand.png') 0 0 no-repeat;
-	width: 564px;
+	width: 525px;
 	height: 480px;
 	z-index: 5;
 }
@@ -287,18 +287,19 @@
 	overflow: hidden;
 	z-index: 10;
 }
-.prev, .next {
+#prev, #next {
 	position: absolute;
 	top: 0;
 	width: 30px;
-	height: 290px;
+	height: 44px;
+	margin-top:120px;
 	background: url('../img/links.png') 3px 47% no-repeat;
 	z-index: 5;
 }
-.prev {
+#prev {
 	left: 0px;
 }
-.next {
+#next {
 	right: 0px;
 	background-image: url('../img/rechts.png');
 }

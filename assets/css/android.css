@@ -116,15 +116,23 @@
 	right: 0;
 	z-index: 10;
 }
-#header-navigation .menu-item a {
+#header-navigation .about, #header-navigation .lake{
 	display: block;
 	text-indent: -19999px;
 	overflow: hidden;
 	width: 48px;
 	height: 48px;
-	background: url('../img/icons-android.png') -192px 0 no-repeat;
+  position: absolute;
+  right: 0px;
 }
-
+#header-navigation .about{
+  top: 0px;
+  background: url('../img/icons-android.png') -192px 0 no-repeat;
+}
+#header-navigation .lake{
+  top: 47px;
+  background: url('../img/icons-android.png') -192px -52px no-repeat;
+}
 /*** address search ***/
 #address {
 	position: absolute;

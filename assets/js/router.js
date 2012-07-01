@@ -41,7 +41,12 @@ var AppRouter = Backbone.Router.extend({
         self.mapView.placeMarkersToMap();
       },
       error : function() {
-        self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
+        if(self.isMobile()){
+          alert("Trinkbrunnen konnten nicht geladen werden!");
+        }
+        else{
+          self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
+        }
       },
       add : true
     });
@@ -110,7 +115,12 @@ var AppRouter = Backbone.Router.extend({
             }
           },
           error : function() {
-            self.showFailureMessage("Feed konnte nicht geladen werden!");
+            if(self.isMobile()){
+              alert("Feed konnte nicht geladen werden!");
+            }
+            else{
+              self.showFailureMessage("Feed konnte nicht geladen werden!");
+            }
           },
           add : true
         });
@@ -139,7 +149,6 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
       });
       if(this.routes[Backbone.history.fragment] == 'showRssFeed') {
-        console.log('feed show');
         $('#feed').show();
       }
       $('#appinfo, #info, #feed, #hand-phone').animate({
@@ -272,7 +281,6 @@ var AppRouter = Backbone.Router.extend({
     var self = this;
     if(this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
       this.feedItemCollection.reset();
-      console.log(this.feedItemCollection.timestamp);
       this.feedItemCollection.fetch({
         success : function() {
           self.feedView.addFeedItemCollection(self.feedItemCollection);
@@ -283,7 +291,12 @@ var AppRouter = Backbone.Router.extend({
           }
         },
         error : function() {
-          self.showFailureMessage("Feed konnte nicht geladen werden!");
+          if(self.isMobile()){
+            alert("Feed konnte nicht geladen werden!");
+          }
+          else{
+            self.showFailureMessage("Feed konnte nicht geladen werden!");
+          }
         },
         add : true
       });
@@ -353,31 +366,44 @@ var AppRouter = Backbone.Router.extend({
           self.eventDispatcher.trigger('hideLoadingView');
 
       }, function(error) {
+        var message = 'Fehler bei der Positionsbestimmung!';
+        
         switch(error.code) {
           case error.PERMISSION_DENIED:
-            self.showFailureMessage("Zugriff auf Position verweigert!");
+            message = "Zugriff auf Position verweigert!";
             break;
           case error.POSITION_UNAVAILABLE:
-            self.showFailureMessage("Position konnte nicht ermittelt werden!");
+            message = "Position konnte nicht ermittelt werden!";
             break;
           case error.TIMEOUT:
-            self.showFailureMessage("Zeitüberschreitung beim Ermitteln der Position!");
+            message = "Zeitüberschreitung beim Ermitteln der Position!";
             break;
           case error.UNKNOWN_ERROR:
-            self.showFailureMessage("Positionsbestimmung zur Zeit nicht möglich!");
+            message = "Positionsbestimmung zur Zeit nicht möglich!";
             break;
           default:
-            self.showFailureMessage("Fehler bei der Positionsbestimmung!");
+            message = "Fehler bei der Positionsbestimmung!";
             break;
         }
-
+        
+        if(self.isMobile()){
+          alert(message);
+        }
+        else{
+          self.showFailureMessage(message);
+        }
       }, {
         enableHighAccuracy : true,
         timeout : 5000,
         maximumAge : 60000
       });
     } else {
-      self.showFailureMessage("Ihr Browser unterstützt keine Positionsbestimmung!");
+      if(self.isMobile()){
+        alert("Ihr Browser unterstützt keine Positionsbestimmung!");
+      }
+      else{
+        self.showFailureMessage("Ihr Browser unterstützt keine Positionsbestimmung!");
+      }
     }
   },
   showAbout : function() {

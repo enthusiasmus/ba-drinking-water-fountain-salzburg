@@ -135,6 +135,7 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
       });
       if(this.routes[Backbone.history.fragment] == 'showRssFeed') {
+        console.log('feed show');
         $('#feed').show();
       }
       $('#appinfo, #info, #feed, #hand-phone').animate({
@@ -249,6 +250,12 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showRssFeed : function() {
+    if(this.isMobile()){
+      this.navigate("", {
+        trigger : true
+      });
+    }
+    
     if(this.isMobile()) {
       this.displayOnly('feed back');
     } else {

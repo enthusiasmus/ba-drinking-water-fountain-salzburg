@@ -89,14 +89,14 @@ else
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.scrollMap()'>Karte</a>
             </li>
             <li class='menu-item feed'>
-              <a href='#feed'>Wasser-News</a>
+              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showRssFeed()'>Wasser-News</a>
             </li>
             <?php } ?>
             <li class='menu-item' id='lake_temperature'>
               <a href='http://www.salzburg.at/sbg_aktuell.html?AktuellID=WT' target='_blank'>Seetemperaturen</a>
             </li>
             <li class='menu-item about'>
-              <a href='#about'>Impressum</a>
+              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
             </li>
           </ul>
         </nav>

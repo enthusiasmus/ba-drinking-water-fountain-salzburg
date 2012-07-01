@@ -186,7 +186,6 @@ var AppRouter = Backbone.Router.extend({
           backgroundColor : '#ffffff',
           color : '#005586'
         });
-        $('#fontain_toggle').addClass('');
       }
       return;
     }
@@ -202,7 +201,9 @@ var AppRouter = Backbone.Router.extend({
           backgroundColor : '#005586',
           color : '#ffffff'
         });
-        $('#fontain_toggle').removeClass('');
+      }
+      if(self.mapView.infoBox){
+          self.mapView.infoBox.close();
       }
     });
   },

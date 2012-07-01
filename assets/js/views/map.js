@@ -51,7 +51,7 @@ var MapView = Backbone.View.extend({
     var markerArray = [];
     var self = this;
     var isVisible = false;
-    var infoBox = new Object();
+    this.infoBox = new Object();
     var myOptions = new Object();
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
@@ -95,11 +95,11 @@ var MapView = Backbone.View.extend({
           padding : "8px 20px"
         }
       };
-      infoBox = new InfoBox(infoBoxOptions);
+      self.infoBox = new InfoBox(infoBoxOptions);
 
       google.maps.event.addListener(marker, 'click', function() {
-        if(infoBox)
-          infoBox.close();
+        if(self.infoBox)
+          self.infoBox.close();
 
         var infoContent = '<p class="p_infobox_head">' + marker.content + '</p><p class="p_infobox_content">';
 
@@ -111,8 +111,8 @@ var MapView = Backbone.View.extend({
         infoContent += '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.routeToFountain(' + markerModel.get("id") + ')" class="calculate-route" title="Route berechnen">Route berechnen</a></p>';
         infoContent += '<div class="pointer"></div>';
 
-        infoBox.setContent(infoContent);
-        infoBox.open(self.map, marker);
+        self.infoBox.setContent(infoContent);
+        self.infoBox.open(self.map, marker);
         self.map.setCenter(marker.getPosition());
       });
 
@@ -134,10 +134,10 @@ var MapView = Backbone.View.extend({
 
     this.markerCluster = new MarkerClusterer(this.map, markerArray, mcOptions);
     google.maps.event.addListener(this.markerCluster, 'clusterclick', function(cluster) {
-      infoBox.close();
+      self.infoBox.close();
     });
     google.maps.event.addListener(this.map, 'click', function() {
-      infoBox.close();
+      self.infoBox.close();
     });
   },
   distanceCalculator : function(userPosition, markerPosition) {

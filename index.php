@@ -75,7 +75,7 @@ else
       <header id="header">
         <?php if ( !$isMobile ) { ?>
         <hgroup>
-          <h1 id="logo"><a href="/">TrinkWasser! Land Salzburg</a></h1>
+          <h1 id="logo"><a href="#">TrinkWasser! Land Salzburg</a></h1>
           <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
         </hgroup>
         <?php } else { ?>

@@ -255,7 +255,10 @@ var AppRouter = Backbone.Router.extend({
         trigger : true
       });
     }
-    
+    this.navigate("feed", {
+      replace : true
+    });
+   
     if(this.isMobile()) {
       this.displayOnly('feed back');
     } else {

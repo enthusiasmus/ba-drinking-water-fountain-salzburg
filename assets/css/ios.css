@@ -24,7 +24,6 @@
   position: absolute;
   top: 7px;
   left: 10px;
-  display: block;
   width: 46px;
   height: 22px;
   background: url('../img/icons-ios.png') 0 -166px no-repeat;
@@ -218,8 +217,9 @@
 #feed {
 }
 #rss {
-  background-color: #005586;
-  padding: 5px 0 60px 0;
+  height:100%;
+  background:url('../img/background_ios.png');
+  padding: 10px 0 60px 0;
   margin-top: 44px;
 }
 #rss article {
@@ -245,16 +245,27 @@
 }
 /*** info ***/
 #info {
-  background-color: #005586;
-  padding: 0 0 60px 0;
+  background:url('../img/background_ios.png');
+  padding: 0 0 65px 0;
   margin-top: 44px;
 }
 #info div {
   position: relative;
+  top: 8px;
   width: 90%;
   margin: 0 auto;
   background-color: #fff;
   border: 1px solid #ababab;
   border-radius: 10px;
   padding: 10px;
+}
+
+#overlay{
+  position: fixed;
+  display:none;
+  top: 0;
+  left: 0;
+  width: 10000px;
+  height: 50000px;
+  background:url('../img/background_ios.png');
 }

@@ -31,7 +31,7 @@ else
     <!-- changing status bar appearance, only with command above! -->
     <link rel="apple-touch-icon" href="assets/img/icon-apple.png"/>
     <!-- default icon image for the homescreen -->
-    <link rel="apple-touch-startup-image" href="assets/img/startup.png" />
+    <link rel="apple-touch-startup-image" href="assets/img/startup-iphone.png" />
     <!-- quick startup screen -->
     <title>TrinkWasser!</title>
   <?php } else { ?>
@@ -75,7 +75,7 @@ else
       <header id="header">
         <?php if ( !$isMobile ) { ?>
         <hgroup>
-          <h1 id="logo"><a href="#">TrinkWasser! Land Salzburg</a></h1>
+          <h1 id="logo"><a href="/">TrinkWasser! Land Salzburg</a></h1>
           <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
         </hgroup>
         <?php } else { ?>
@@ -101,6 +101,7 @@ else
           </ul>
         </nav>
       </header>
+      <div id='overlay'></div>
       <div id="info">
         <div>
           <h2>TrinkWasser!</h2>

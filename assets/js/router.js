@@ -46,7 +46,8 @@ var AppRouter = Backbone.Router.extend({
           alert("Trinkbrunnen konnten nicht geladen werden!");
         }
         else{
-          self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
+          //TODO: Think about a failure message place, when map is not scrolled up
+          //self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
         }
       },
       add : true
@@ -78,10 +79,12 @@ var AppRouter = Backbone.Router.extend({
     var currentCenter = this.mapView.map.getCenter();
     var self = this;
 
-    if(this.isMobile())
+    if(this.isMobile()){
       this.displayOnly('map_canvas header-navigation');
-    else
+    }
+    else{
       this.displayOnly('map_canvas appinfo hand-phone header-navigation');
+    }
       
     this.mapView.map.setCenter(currentCenter);
 
@@ -120,7 +123,8 @@ var AppRouter = Backbone.Router.extend({
               alert("Feed konnte nicht geladen werden!");
             }
             else{
-              self.showFailureMessage("Feed konnte nicht geladen werden!");
+              //TODO: Think about a failure message place, when map is not scrolled up
+              //self.showFailureMessage("Feed konnte nicht geladen werden!");
             }
           },
           add : true
@@ -135,12 +139,13 @@ var AppRouter = Backbone.Router.extend({
 
     if($('#map-wrap').css('top') == '250px') {
       $('#map-wrap').css('min-height', '0px');
-      $('#address').hide();
-      $('#navigation').animate({
+
+      $('#navigation, #address').animate({
         opacity : 0
       }, 500, function() {
-        $('#navigation').hide();
+        $('#navigation, #address').hide();
       });
+      
       $('#map-wrap').animate({
         top : 544
       }, 1000, function() {
@@ -149,19 +154,24 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
       });
+      
       if(this.routes[Backbone.history.fragment] == 'showRssFeed') {
-        $('#feed').show();
+        this.displayOnly('map_canvas header-navigation feed');
+      }else if(this.routes[Backbone.history.fragment] == 'showAbout'){
+        this.displayOnly('map_canvas header-navigation info');
       }
+      
       $('#appinfo, #info, #feed, #hand-phone').animate({
         opacity : 1
       }, 1000);
-
+      
     } else {
       $('#map-wrap').animate({
         top : 250
       }, 1000, function() {
         $('#map-wrap').css('min-height', '294px');
-        $('#navigation').show().animate({
+        $('#navigation').show();
+        $('#navigation, #address').animate({
           opacity : 1
         }, 500);
         window.Trinkbrunnen.mapView.resizeMap();
@@ -189,29 +199,12 @@ var AppRouter = Backbone.Router.extend({
       this.displayOnly('map_canvas appinfo hand-phone header-navigation');
     }
 
-    if(this.mapView.directionsDisplay) {
-      this.mapView.hideRoute();
-      if(!this.isMobile()) {
-        $('#fontain_toggle').css({
-          backgroundColor : '#ffffff',
-          color : '#005586'
-        });
-      }
-      return;
-    }
-
     this.calculateGeoLocation('drawRoute');
 
     var self = this;
     this.eventDispatcher.on('drawRoute', function() {
       self.mapView.drawRouteUserLocationToNextFountain();
       self.eventDispatcher.off('drawRoute');
-      if(!self.isMobile()) {
-        $('#fontain_toggle').css({
-          backgroundColor : '#005586',
-          color : '#ffffff'
-        });
-      }
       if(self.mapView.infoBox){
           self.mapView.infoBox.close();
       }
@@ -224,6 +217,9 @@ var AppRouter = Backbone.Router.extend({
     this.eventDispatcher.on('drawRouteTo', function() {
       self.mapView.drawRouteUserLocationToFountain(id);
       self.eventDispatcher.off('drawRouteTo');
+      if(self.mapView.infoBox){
+          self.mapView.infoBox.close();
+      }
     });
   },
   showAddressSearch : function() {
@@ -272,7 +268,10 @@ var AppRouter = Backbone.Router.extend({
     });
    
     if(this.isMobile()) {
-      this.displayOnly('feed back');
+      this.displayOnly('feed back overlay');
+      setTimeout(function () {
+        window.scrollTo(0, 1);
+      }, 500);
     } else {
       this.displayOnly('map_canvas feed header-navigation');
 
@@ -324,7 +323,7 @@ var AppRouter = Backbone.Router.extend({
     if(this.isMobile()) {
       this.displayOnly('map_canvas header-navigation');
     } else {
-      this.displayOnly('map_canvas appinfo hand-phone');
+      this.displayOnly('map_canvas appinfo hand-phone header-navigation');
     }
 
     this.calculateGeoLocation();
@@ -416,7 +415,10 @@ var AppRouter = Backbone.Router.extend({
     });
     
     if(this.isMobile()) {
-      this.displayOnly('info back');
+      this.displayOnly('info back overlay');
+      setTimeout(function () {
+        window.scrollTo(0, 1);
+      }, 500);
     } else {
       this.displayOnly('map_canvas info header-navigation');
 
@@ -434,7 +436,7 @@ var AppRouter = Backbone.Router.extend({
       self.eventDispatcher.off('hideLoadingView');
     });
   },
-  mainElements : new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone', 'back', 'failure', 'header-navigation'),
+  mainElements : new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone', 'back', 'failure', 'header-navigation', 'overlay'),
   displayOnly : function(elementsToShow) {
     var elementsArray = elementsToShow.split(" ");
     var shouldShow;

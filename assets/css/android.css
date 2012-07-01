@@ -22,17 +22,16 @@
 	margin: 10px auto 0 auto;
 }
 #back {
-  display:none;
 	position: absolute;
 	top: 8px;
 	left: 10px;
-	display: block;
 	width: 44px;
 	height: 20px;
 	background: url('../img/icons-android.png') 0 -166px no-repeat;
 	color: #000;
 	text-decoration: none;
 	padding: 6px 0 0 7px;
+	display:none;
 }
 #back:hover {background-position: -51px -166px;}
 
@@ -122,13 +121,12 @@
   overflow: hidden;
   width: 48px;
   height: 48px;
-  position: absolute;
 }
 #header-navigation .about{
   position: absolute;
   right:0px;
   top: 0px;
-  background: url('../img/icons-android.png') -192px 0 no-repeat;
+  background: url('../img/icons-android.png') -192px 0 no-repeat
 }
 #header-navigation .lake{
   position: absolute;
@@ -192,8 +190,9 @@
 /*** feed ***/
 #feed {}
 #rss {
-	background-color: #005586;
-	padding: 5px 0 60px 0;
+  height:100%;
+	background-color: #fff;
+	padding: 10px 0 60px 0;
 	margin-top: 44px;
 }
 #rss article {
@@ -202,8 +201,7 @@
 	min-height: 160px;
 	margin: 0 auto 10px auto;
 	background-color: #fff;
-	border: 1px solid #ababab;
-	border-radius: 10px;
+	border: 2px solid #005586;
 	padding: 10px;
 }
 #rss a {text-decoration: none;}
@@ -218,17 +216,16 @@
 
 /*** info ***/
 #info {
-  display:none;
-	background-color: #005586;
-	padding: 0 0 60px 0;
-	margin-top: 44px;
+  background-color: #fff;
+  padding: 0 0 65px 0;
+  margin-top: 44px;
 }
 #info div {
 	position: relative;
 	width: 90%;
+  top: 8px;
 	margin: 0 auto;
 	background-color: #fff;
-	border: 1px solid #ababab;
-	border-radius: 10px;
+	border: 2px solid #005586;
 	padding: 10px;
 }

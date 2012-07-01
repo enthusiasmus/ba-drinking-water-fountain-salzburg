@@ -209,10 +209,6 @@ var MapView = Backbone.View.extend({
     }
   },
   drawRouteUserLocationToNextFountain : function() {
-    if(!this.userLocationMarker) {
-      console.log("Kein Startpunkt steht zur Verfügung!");
-      return false;
-    }
     this.hideRoute();
 
     var self = this;

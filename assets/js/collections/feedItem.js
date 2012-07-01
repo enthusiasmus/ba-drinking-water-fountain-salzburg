@@ -3,7 +3,7 @@ var FeedItemCollection = Backbone.Collection.extend({
   timestamp: '',
   parse: function(data){
     var feedItems = new Array();
-   
+    alert(data);
     for(idx in data){
       var description = data[idx].description;
       //Extracting image tag if exists
@@ -42,6 +42,7 @@ var FeedItemCollection = Backbone.Collection.extend({
       });
       feedItems.push(feedItemModel);
     }
+    alert(feedItems.length);
     return feedItems;
   }
 });

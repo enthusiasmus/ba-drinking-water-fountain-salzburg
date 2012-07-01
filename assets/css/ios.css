@@ -1,234 +1,259 @@
 /*** text indents ***/
-#logo a {
-	display: block;
-	text-indent: -19999px;
-	overflow: hidden;
+#logo{
+  display: block;
+  text-indent: -19999px;
+  overflow: hidden;
 }
-
 /*** header ***/
 #header {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 44px;
-	background-color: #005586;
-	z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 44px;
+  background-color: #005586;
+  z-index: 10;
 }
-#logo a {
-	width: 155px;
-	height: 22px;
-	background: url('../img/icons-ios.png') 0 -144px no-repeat;
-	margin: 10px auto 0 auto;
+#logo{
+  width: 155px;
+  height: 22px;
+  background: url('../img/icons-ios.png') 0 -144px no-repeat;
+  margin: 10px auto 0 auto;
 }
 #back {
-	position: absolute;
-	top: 7px;
-	left: 10px;
-	display: block;
-	width: 46px;
-	height: 22px;
-	background: url('../img/icons-ios.png') 0 -166px no-repeat;
-	color: #fff;
-	text-decoration: none;
-	padding: 7px 0 0 14px;
-  display:none;
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  display: block;
+  width: 46px;
+  height: 22px;
+  background: url('../img/icons-ios.png') 0 -166px no-repeat;
+  color: #fff;
+  text-decoration: none;
+  padding: 7px 0 0 14px;
+  display: none;
 }
-#back:hover {background-position: -60px -166px;}
-
+#back:hover {
+  background-position: -60px -166px;
+}
 /*** google map ***/
 #map-wrap {
-	position:absolute;
-	top: 44px;
-	left: 0;
-	right: 0;
-	bottom: 49px;
-	width: 100%; 
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  bottom: 49px;
+  width: 100%;
 }
 #map_canvas {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: #ddd;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ddd;
 }
-
 /*** navigation ***/
 #navigation {
-	position: fixed;
-	top: auto;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 49px;
-	background: url('../img/bg-navigation-ipad.png') 0 0 repeat-x; 
-	overflow: hidden;
+  position: fixed;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 49px;
+  background: url('../img/bg-navigation-ipad.png') 0 0 repeat-x;
+  overflow: hidden;
 }
 #navigation .menu-item {
-	display: block;
-	float: left; 
-	width: 20%;
-	font-size: 13px;
-	text-align: center; 
+  display: block;
+  float: left;
+  width: 20%;
+  font-size: 13px;
+  text-align: center;
 }
 #navigation .menu-item a {
-	position: relative;
-	text-decoration: none; 
-	color: #a8a8a8; 
-	width: auto;
-	margin: 0 auto;
-	padding-top: 31px;
-	display: inline-block;
+  position: relative;
+  text-decoration: none;
+  color: #a8a8a8;
+  width: auto;
+  margin: 0 auto;
+  padding-top: 31px;
+  display: inline-block;
 }
-#navigation .menu-item a:hover {color: #fff;}
+#navigation .menu-item a:hover {
+  color: #fff;
+}
 #navigation .menu-item span {
-	position: absolute;
-	top: -6px;
-	left: 50%;
-	margin-left: -24px;
-	display: block;
-	width: 48px;
-	height: 48px;
-	background-image: url('../img/icons-ios.png');
-	background-repeat: no-repeat;
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  margin-left: -24px;
+  display: block;
+  width: 48px;
+  height: 48px;
+  background-image: url('../img/icons-ios.png');
+  background-repeat: no-repeat;
 }
-#navigation .position span {background-position: 0 0;}
-#navigation .menu-item.position a:hover > span {background-position: -48px 0;}
-#navigation .address span {background-position: -96px 0;}
-#navigation .menu-item.address a:hover > span {background-position: -144px 0;}
-#navigation .fontain span {background-position: 0 -96px;}
-#navigation .menu-item.fontain a:hover > span {background-position: -48px -96px;}
-#navigation .maptype span {background-position: 0 -48px;}
-#navigation .menu-item.maptype a:hover > span {background-position: -48px -48px;}
-#navigation .feed span {background-position: -96px -48px;}
-#navigation .menu-item.feed a:hover > span {background-position: -144px -48px;}
-
+#navigation .position span {
+  background-position: 0 0;
+}
+#navigation .menu-item.position a:hover > span {
+  background-position: -48px 0;
+}
+#navigation .address span {
+  background-position: -96px 0;
+}
+#navigation .menu-item.address a:hover > span {
+  background-position: -144px 0;
+}
+#navigation .fontain span {
+  background-position: 0 -96px;
+}
+#navigation .menu-item.fontain a:hover > span {
+  background-position: -48px -96px;
+}
+#navigation .maptype span {
+  background-position: 0 -48px;
+}
+#navigation .menu-item.maptype a:hover > span {
+  background-position: -48px -48px;
+}
+#navigation .feed span {
+  background-position: -96px -48px;
+}
+#navigation .menu-item.feed a:hover > span {
+  background-position: -144px -48px;
+}
 /*** info icon (header navigation) ***/
 #header-navigation {
-	position: absolute;
-	top: -2px;
-	right: 0;
-	z-index: 10;
+  position: absolute;
+  top: -2px;
+  right: 0;
+  z-index: 10;
 }
-#header-navigation .about, #header-navigation .lake{
+#header-navigation .menu-item a {
   display: block;
   text-indent: -19999px;
   overflow: hidden;
   width: 48px;
   height: 48px;
-  position: absolute;
-  right: 0px;
-
 }
 #header-navigation .about{
+  position: absolute;
+  right:0px;
   top: 0px;
-  background: url('../img/icons-android.png') -192px 0 no-repeat #434;
+  background: url('../img/icons-ios.png') -192px 0 no-repeat;
 }
 #header-navigation .lake{
+  position: absolute;
+  right:0px;
   top: 47px;
-  background: url('../img/icons-android.png') -192px -52px no-repeat #434;
+  background: url('../img/icons-ios.png') -192px -52px no-repeat;
 }
 
 /*** address search ***/
 #address {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 44px;
-	background: url('../img/bg-search.png') 0 0 repeat-x;
-	display: none;
-	z-index: 30;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 44px;
+  background: url('../img/bg-search.png') 0 0 repeat-x;
+  display: none;
+  z-index: 30;
 }
 .addressinput {
-	display: block;
-	border: 1px solid #afafaf;
-	border-radius: 15px;
-	padding: 5px 10px 5px 30px;
-	color: #a8a8a8;
-	margin: 7px auto 0 auto;
-	width: 75%;
-	background: url('../img/search.gif') #fff 10px 5px no-repeat;
+  display: block;
+  border: 1px solid #afafaf;
+  border-radius: 15px;
+  padding: 5px 10px 5px 30px;
+  color: #a8a8a8;
+  margin: 7px auto 0 auto;
+  width: 75%;
+  background: url('../img/search.gif') #fff 10px 5px no-repeat;
 }
-.searchsubmit {display: none;}
-
+.searchsubmit {
+  display: none;
+}
 /*** maptypes ***/
 #maptype {
-	position: absolute;
-	bottom: 15px;
-	left: 0;
-	width: 100%;
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  width: 100%;
 }
 #maptype ul {
-	width: 85%;
-	margin: 0 auto;
+  width: 85%;
+  margin: 0 auto;
 }
 #maptype .menu-item {
-	display: block;
-	float: left;
-	width: 24%;
-	height: 27px;
-	background: url('../img/bg-maptype.gif') 0 0 repeat-x;
-	border-right: 1px solid #afafaf;
-	padding: 13px 0 0 0;
-	font-size: 14px;
-	text-align: center;
+  display: block;
+  float: left;
+  width: 24%;
+  height: 27px;
+  background: url('../img/bg-maptype.gif') 0 0 repeat-x;
+  border-right: 1px solid #afafaf;
+  padding: 13px 0 0 0;
+  font-size: 14px;
+  text-align: center;
 }
 #maptype .menu-item:first-child {
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 #maptype .menu-item:last-child {
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-	border-right: 0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-right: 0;
 }
 #maptype .menu-item a {
-	text-decoration: none;
-	color: #7f7f7f;
+  text-decoration: none;
+  color: #7f7f7f;
 }
-#maptype .menu-item a:hover {color: #3f3f3f;}
-
+#maptype .menu-item a:hover {
+  color: #3f3f3f;
+}
 /*** feed ***/
-#feed {}
+#feed {
+}
 #rss {
-	background-color: #005586;
-	padding: 5px 0 60px 0;
-	margin-top: 44px;
+  background-color: #005586;
+  padding: 5px 0 60px 0;
+  margin-top: 44px;
 }
 #rss article {
-	position: relative;
-	width: 90%;
-	min-height: 160px;
-	margin: 0 auto 10px auto;
-	background-color: #fff;
-	border: 1px solid #ababab;
-	border-radius: 10px;
-	padding: 10px;
+  position: relative;
+  width: 90%;
+  min-height: 160px;
+  margin: 0 auto 10px auto;
+  background-color: #fff;
+  border: 1px solid #ababab;
+  border-radius: 10px;
+  padding: 10px;
 }
-#rss a {text-decoration: none;}
+#rss a {
+  text-decoration: none;
+}
 #rss img {
-	float: right;
-	margin: -20px 10px 0 15px;
+  float: right;
+  margin: -20px 10px 0 15px;
 }
 #rss .feed-date {
-	font-size: 11px;
-	color: #a8a8a8;
+  font-size: 11px;
+  color: #a8a8a8;
 }
-
 /*** info ***/
 #info {
-	background-color: #005586;
-	padding: 0 0 60px 0;
-	margin-top: 44px;
+  background-color: #005586;
+  padding: 0 0 60px 0;
+  margin-top: 44px;
 }
 #info div {
-	position: relative;
-	width: 90%;
-	margin: 0 auto;
-	background-color: #fff;
-	border: 1px solid #ababab;
-	border-radius: 10px;
-	padding: 10px;
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #ababab;
+  border-radius: 10px;
+  padding: 10px;
 }

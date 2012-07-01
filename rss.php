@@ -1,5 +1,4 @@
 <?php
-
   header('Content-type: application/json; charset=utf-8;');
   $feed = new DOMDocument();
   $feed->load('http://www.seppeisl.at/modules/news/rss2.php?page_id=1&group_id=7');
@@ -32,5 +31,4 @@
   $final = str_replace("&szlig;", "ß", $final);
   
   echo $final;
-
 ?>

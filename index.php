@@ -79,7 +79,7 @@ else
           <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
         </hgroup>
         <?php } else { ?>
-          <h1 id="logo"><a href="javascript:void(0)">Land Salzburg</a></h1>
+          <h1 id="logo">Land Salzburg</h1>
           <a href="javascript:void(0)" onclick='window.Trinkbrunnen.index()' id="back">Zurück</a>
         <?php } ?>
         <nav id="header-navigation">

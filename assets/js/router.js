@@ -3,6 +3,7 @@ var AppRouter = Backbone.Router.extend({
     "" : "index",
     "feed" : "showRssFeed",
     "about" : "showAbout",
+    "maptype/:type": "changeMaptype",
     "*actions" : "index"
   },
   initialize : function() {
@@ -233,16 +234,19 @@ var AppRouter = Backbone.Router.extend({
     }
 
     if(this.isMobile()) {
-      this.displayOnly('map_canvas header-navigation');
-      $('input[name=address]').blur(function() {
-        $('#address').hide();
-      });
+        $('input[name=address]').blur(function() {
+          $('#address').hide();
+        });
+        this.displayOnly('map_canvas header-navigation address');
+        $('input[name=address]').focus().select();    
     } else {
-      this.displayOnly('map_canvas appinfo hand-phone header-navigation');
+      this.displayOnly('map_canvas address appinfo hand-phone header-navigation');
+      $('input[name=address]').focus().select();
     }
-
-    $('#address').show();
-    $('input[name=address]').focus().select();
+  },
+  blurAllElements: function(){
+    document.activeElement.blur();
+    $("input").blur();
   },
   showMaptype : function() {
     if(this.isMobile()){
@@ -250,17 +254,16 @@ var AppRouter = Backbone.Router.extend({
         trigger : true
       });
 
-      this.displayOnly('map_canvas header-navigation');
-      var isVisible = $('#maptype').is(':visible');
-      if(!isVisible) {
-        $('#maptype').show();
-      }
+      this.displayOnly('map_canvas header-navigation maptype');
     }
   },
   changeMaptype : function(type) {
     if(this.isMobile()){
       this.displayOnly('map_canvas header-navigation');
       this.mapTypeView.changeType(type);
+    }
+    else{
+      this.index();
     }
   },
   showRssFeed : function() {
@@ -286,7 +289,8 @@ var AppRouter = Backbone.Router.extend({
           self.feedView.addFeedItemCollection(self.feedItemCollection);
           self.feedView.timestamp = new Date().getTime();
           self.feedItemCollection.timestamp = new Date().getTime();
-          if(!self.canSlideArticle('left')) {
+          
+          if(!self.isMobile() && !self.canSlideArticle('left')) {
             $('#prev').css('background-image', 'url(assets/img/links_disabled.png)');
           }
         },
@@ -301,7 +305,7 @@ var AppRouter = Backbone.Router.extend({
         add : true
       });
     } else {
-      if(this.feedView.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+      if(!this.isMobile() && this.feedView.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
         self.feedView.addFeedItemCollection(self.feedItemCollection);
         self.feedView.timestamp = new Date().getTime();
         if(!self.canSlideArticle('left')) {

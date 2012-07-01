@@ -21,6 +21,8 @@ var AddressView = Backbone.View.extend({
   searchAddress: function(){
     var geocoder = new google.maps.Geocoder();
     var address = $('input[name=address]').val();
+    this.blurAllElements();
+    
     var self = this;
     geocoder.geocode({ 'address': address}, function(results, status) {
       if(status == google.maps.GeocoderStatus.OK){
@@ -34,9 +36,22 @@ var AddressView = Backbone.View.extend({
       }
       else{
         $(self.el).hide();
-        self.showFailureMessage("Keine Suchergebnisse!");
+        if(self.isMobile()){
+          alert('Keine Suchergebnisse!');
+        }
+        else{
+          self.showFailureMessage("Keine Suchergebnisse!");
+        }
       }
     });
+  },
+  blurAllElements: function(){
+    document.activeElement.blur();
+    $("input").blur();
+  },
+  isMobile : function() {
+    var index = navigator.appVersion.indexOf("Mobile");
+    return (index > -1);
   },
   showFailureMessage: function(message){
     $('#failure_message').text(message);

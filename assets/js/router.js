@@ -90,7 +90,11 @@ var AppRouter = Backbone.Router.extend({
         shortDescription = shortDescription.substring(0, 80 + endLastWord);
         shortDescription += '...';
 
-        $('#latest_feed').html('<article>' + '<div id="latest-feed-headline">' + '<div id="latest-feed-news" onclick="window.Trinkbrunnen.showRssFeed()">Wasser-News</div>' + '<div id="latest-feed-date">' + element.escape("pubDate") + '</div>' + '</div>' + '<div id="latest-feed-title"><a href="' + element.escape('link') + '" target="_blank">' + element.escape("title") + '</a></div>' + '<div id="latest-feed-content">' + shortDescription + '</div>' + '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.showRssFeed()" ' + 'id="latest-feed-more">Mehr</a>' + '</article>');
+        $('#latest_feed').html('<article>' + '<div id="latest-feed-headline">' + 
+        '<div id="latest-feed-news" onclick="window.Trinkbrunnen.showRssFeed()">wasser-news</div>' + 
+        '<div id="latest-feed-date">' + element.escape("pubDate") + '</div>' + '</div>' + 
+        '<div><div id="latest-feed-title"><a href="' + element.escape('link') + '" target="_blank">' + element.escape("title") + 
+        '</a></div>' + '<div onclick="window.Trinkbrunnen.showRssFeed()" id="latest-feed-more">Mehr</div></div>' + '</article>');
         self.eventDispatcher.off('loadedFeed');
 
         $('#latest_feed').show();
@@ -250,13 +254,8 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showRssFeed : function() {
-    if(this.isMobile()){
-      this.navigate("", {
-        trigger : true
-      });
-    }
     this.navigate("feed", {
-      replace : true
+      trigger : true
     });
    
     if(this.isMobile()) {
@@ -381,6 +380,10 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showAbout : function() {
+    this.navigate("about", {
+      trigger : true
+    });
+    
     if(this.isMobile()) {
       this.displayOnly('info back');
     } else {

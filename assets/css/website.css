@@ -222,7 +222,7 @@
 	left: 0;
 	z-index: 5;
 }
-#slogan {top: 160px;}
+#slogan {top: 170px;}
 #slogan span {
 	font-size: 18px; 
 	display: inline-block; 
@@ -238,11 +238,11 @@
 	height: 40px;
 }
 #appstore {
-	top: 260px; 
+	top: 270px; 
 	background-position: -338px -80px;
 }
 #googleplay {
-	top: 263px;
+	top: 273px;
 	margin-left: 140px; 
 	background-position: -338px -120px;
 }
@@ -365,10 +365,11 @@
 
 #latest_feed {
   display:none;
-  top: 320px;
-  width: 320px;
+  top: 340px;
+  width: 220px;
   background: #fff;
   padding:8px;
+  word-wrap: break-word;
 }
 #latest-feed-headline{
   width:100%;
@@ -390,8 +391,9 @@
   color: #005586;
   float:left;
   padding:8px;
+  padding-bottom:4px;
   margin-top:3px;
-  width:100%;
+  width:150px;
 }
 #latest_feed #latest-feed-title a{
   text-decoration: none;
@@ -419,16 +421,21 @@
 }
   
 #latest-feed-more {
-  width:30px;
-	padding: 5px 11px;
-  display: block;
+  width:50px;
+  height:30px;
   text-transform: lowercase;
-  line-height:1.2em; 
   color:#fff;
   text-decoration:none; 
   background-color:#005586; 
   color:#FFF; 
-  margin-top:2px;
+  float:right;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
 }
 
 /*

@@ -125,13 +125,13 @@
   position: absolute;
 }
 #header-navigation .about{
-  position: fixed;
+  position: absolute;
   right:0px;
   top: 0px;
   background: url('../img/icons-android.png') -192px 0 no-repeat;
 }
 #header-navigation .lake{
-  position: fixed;
+  position: absolute;
   right:0px;
   top: 47px;
   background: url('../img/icons-android.png') -192px -52px no-repeat;

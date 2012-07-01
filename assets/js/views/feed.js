@@ -8,23 +8,17 @@ var FeedView = Backbone.View.extend({
   timestamp : '',
   addFeedItemCollection : function(feedItemCollection) {
     this.feedItemCollection = feedItemCollection;
-    alert(this.feedItemCollection.size() + " feed items 1");
     $('#rss').html("");
     this.render();
   },
   render : function(){
-    alert(this.feedItemCollection.size() + " feed items 2 ");
     _.each(this.feedItemCollection.toArray(), function(feedItemModel) {
-      alert('first item ');
       var completeDescription = feedItemModel.get('description');
       var shortDescription = completeDescription.substring(0, 90);
       var descriptionEnd = shortDescription.substring(60, 90);
       var endLastWord = descriptionEnd.lastIndexOf(" ");
       shortDescription = shortDescription.substring(0, 60 + endLastWord);
       shortDescription += '...';
-      
-      alert('first item: ' + shortDescription);
-      return;
 
       $('#rss').append('<article>' + '<h3 class="feed-title"><a href="' + 
       feedItemModel.escape('link') + '">' + feedItemModel.escape("title") + 

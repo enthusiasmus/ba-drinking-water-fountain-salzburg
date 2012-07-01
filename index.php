@@ -71,7 +71,7 @@ else
       <img src="assets/img/slider/06.jpg" class="slide" alt="" />
     </div>
     <div id="inner-wrap">
-    <?php } ?>
+  <?php } ?>
       <header id="header">
         <?php if ( !$isMobile ) { ?>
         <hgroup>
@@ -89,14 +89,14 @@ else
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.scrollMap()'>Karte</a>
             </li>
             <li class='menu-item feed'>
-              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showRssFeed()'>Wasser-News</a>
+              <a href='#feed'>Wasser-News</a>
             </li>
             <?php } ?>
             <li class='menu-item' id='lake_temperature'>
               <a href='http://www.salzburg.at/sbg_aktuell.html?AktuellID=WT' target='_blank'>Seetemperaturen</a>
             </li>
             <li class='menu-item about'>
-              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
+              <a href='#about'>Impressum</a>
             </li>
           </ul>
         </nav>

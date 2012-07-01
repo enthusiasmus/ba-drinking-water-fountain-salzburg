@@ -15,9 +15,7 @@ var AppRouter = Backbone.Router.extend({
     this.feedItemCollection = new FeedItemCollection;
     this.feedItemCollection.url = 'rss.php';
 
-    this.mapView = new MapView({
-      model : this.mapModel
-    });
+    this.mapView = new MapView({model : this.mapModel});
     this.feedView = new FeedView;
     this.infoView = new InfoView;
     this.mapTypeView = new MapTypeView;
@@ -28,23 +26,6 @@ var AppRouter = Backbone.Router.extend({
 
     this.eventDispatcher = {};
     _.extend(this.eventDispatcher, Backbone.Events);
-
-    if(!this.isMobile()) {
-      var self = this;
-      $('#search_close_button, #failure_close_button').click(function() {
-        $('#address').hide();
-        $('#failure').hide();
-      });
-      $('#activatemap').mousedown(function() {
-        self.scrollMap();
-      });
-      $('#prev').click(function() {
-        self.slideArticleToLeft();
-      });
-      $('#next').click(function() {
-        self.slideArticleToRight();
-      })
-    }
   },
   init : function() {
     try {
@@ -55,7 +36,7 @@ var AppRouter = Backbone.Router.extend({
 
     var self = this;
     this.markerCollection.fetch({
-      success : function() {
+      success : function(){
         self.mapView.addMarkerCollection(self.markerCollection);
         self.mapView.placeMarkersToMap();
       },
@@ -64,21 +45,42 @@ var AppRouter = Backbone.Router.extend({
       },
       add : true
     });
+
+    if(!this.isMobile()) {
+      var self = this;
+      $('#search_close_button, #failure_close_button').click(function() {
+        $('#address').hide();
+        $('#failure').hide();
+      });
+      $('#activatemap').mousedown(function() {
+        self.scrollMap();
+      });
+      //because set/get of node attribute onclick is for ie a problem
+      $('#prev').click(function() {
+        self.slideArticleToLeft();
+      });
+      $('#next').click(function() {
+        self.slideArticleToRight();
+      })
+    }
   },
   index : function() {
-    this.navigate("", {replace : true});
-      
+    this.navigate("", {
+      trigger : true
+    });
+
     var currentCenter = this.mapView.map.getCenter();
     var self = this;
 
     if(this.isMobile())
-      this.displayOnly('map_canvas');
+      this.displayOnly('map_canvas header-navigation');
     else
-      this.displayOnly('map_canvas appinfo hand-phone');
+      this.displayOnly('map_canvas appinfo hand-phone header-navigation');
+      
     this.mapView.map.setCenter(currentCenter);
 
     //get latest feeditem
-    if(!this.isMobile()){
+    if(!this.isMobile()) {
       this.eventDispatcher.on('loadedFeed', function() {
         var element = _.first(self.feedItemCollection.toArray());
         var completeDescription = element.get('description');
@@ -88,13 +90,7 @@ var AppRouter = Backbone.Router.extend({
         shortDescription = shortDescription.substring(0, 80 + endLastWord);
         shortDescription += '...';
 
-        $('#latest_feed').html('<article>' + '<div id="latest-feed-headline">' + 
-        '<div id="latest-feed-news" onclick="window.Trinkbrunnen.showRssFeed()">Wasser-News</div>' + 
-        '<div id="latest-feed-date">' + element.escape("pubDate") + '</div>' + '</div>' + 
-        '<div id="latest-feed-title"><a href="' + element.escape('link') + '" target="_blank">' + 
-        element.escape("title") + '</a></div>' + '<div id="latest-feed-content">' + shortDescription 
-        + '</div>' + '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.showRssFeed()" '+
-        'id="latest-feed-more">Mehr</a>' + '</article>');
+        $('#latest_feed').html('<article>' + '<div id="latest-feed-headline">' + '<div id="latest-feed-news" onclick="window.Trinkbrunnen.showRssFeed()">Wasser-News</div>' + '<div id="latest-feed-date">' + element.escape("pubDate") + '</div>' + '</div>' + '<div id="latest-feed-title"><a href="' + element.escape('link') + '" target="_blank">' + element.escape("title") + '</a></div>' + '<div id="latest-feed-content">' + shortDescription + '</div>' + '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.showRssFeed()" ' + 'id="latest-feed-more">Mehr</a>' + '</article>');
         self.eventDispatcher.off('loadedFeed');
 
         $('#latest_feed').show();
@@ -114,8 +110,7 @@ var AppRouter = Backbone.Router.extend({
           },
           add : true
         });
-      }
-      else{
+      } else {
         self.eventDispatcher.trigger('loadedFeed');
       }
     }
@@ -167,20 +162,25 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   nextFountain : function() {
-    if(this.isMobile())
-      this.navigate("", {replace : true});
-      
+    if(this.isMobile()){
+      this.navigate("", {
+        trigger : true
+      });
+    }
+
     if(this.isMobile()) {
-      this.displayOnly('map_canvas');
-      $('#header-navigation').show();
+      this.displayOnly('map_canvas header-navigation');
     } else {
-      this.displayOnly('map_canvas appinfo hand-phone');
+      this.displayOnly('map_canvas appinfo hand-phone header-navigation');
     }
 
     if(this.mapView.directionsDisplay) {
       this.mapView.hideRoute();
-      if(!this.isMobile()){
-        $('#fontain_toggle').css({backgroundColor: '#ffffff', color: '#005586'});
+      if(!this.isMobile()) {
+        $('#fontain_toggle').css({
+          backgroundColor : '#ffffff',
+          color : '#005586'
+        });
         $('#fontain_toggle').addClass('');
       }
       return;
@@ -192,8 +192,11 @@ var AppRouter = Backbone.Router.extend({
     this.eventDispatcher.on('drawRoute', function() {
       self.mapView.drawRouteUserLocationToNextFountain();
       self.eventDispatcher.off('drawRoute');
-      if(!self.isMobile()){
-        $('#fontain_toggle').css({backgroundColor: '#005586', color: '#ffffff'});
+      if(!self.isMobile()) {
+        $('#fontain_toggle').css({
+          backgroundColor : '#005586',
+          color : '#ffffff'
+        });
         $('#fontain_toggle').removeClass('');
       }
     });
@@ -208,49 +211,48 @@ var AppRouter = Backbone.Router.extend({
     });
   },
   showAddressSearch : function() {
-    if(this.isMobile())
-      this.navigate("", {replace : true});
+    if(this.isMobile()){
+      this.navigate("", {
+        trigger : true
+      });
+    }
 
     if(this.isMobile()) {
-      this.displayOnly('map_canvas');
-      $('#header-navigation').show();
-
+      this.displayOnly('map_canvas header-navigation');
       $('input[name=address]').blur(function() {
         $('#address').hide();
       });
     } else {
-      this.displayOnly('map_canvas appinfo hand-phone');
+      this.displayOnly('map_canvas appinfo hand-phone header-navigation');
     }
 
     $('#address').show();
     $('input[name=address]').focus().select();
   },
   showMaptype : function() {
-    if(this.isMobile())
-      this.navigate("", {replace : true});
-    
-    if(this.isMobile())
-      $('#header-navigation').show();
+    if(this.isMobile()){
+      this.navigate("", {
+        trigger : true
+      });
 
-    var isVisible = $('#maptype').is(':visible');
-    this.displayOnly('map_canvas');
-    if(!isVisible) {
-      $('#maptype').show();
+      this.displayOnly('map_canvas header-navigation');
+      var isVisible = $('#maptype').is(':visible');
+      if(!isVisible) {
+        $('#maptype').show();
+      }
     }
   },
   changeMaptype : function(type) {
-    this.displayOnly('map_canvas');
-    this.mapTypeView.changeType(type);
+    if(this.isMobile()){
+      this.displayOnly('map_canvas header-navigation');
+      this.mapTypeView.changeType(type);
+    }
   },
   showRssFeed : function() {
-    this.navigate("feed", {replace : true});
-    $('#feed').css('display', 'block');
-
     if(this.isMobile()) {
-      $('#header-navigation').hide();
       this.displayOnly('feed back');
     } else {
-      this.displayOnly('map_canvas feed');
+      this.displayOnly('map_canvas feed header-navigation');
 
       if($('#map-wrap').css('top') == '250px') {
         this.scrollMap();
@@ -258,8 +260,9 @@ var AppRouter = Backbone.Router.extend({
     }
 
     var self = this;
-    if(this.feedItemCollection.timestamp < new Date().getTime() - 60 * 60 * 12) {
+    if(this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
       this.feedItemCollection.reset();
+      console.log(this.feedItemCollection.timestamp);
       this.feedItemCollection.fetch({
         success : function() {
           self.feedView.addFeedItemCollection(self.feedItemCollection);
@@ -275,7 +278,7 @@ var AppRouter = Backbone.Router.extend({
         add : true
       });
     } else {
-      if(this.feedView.timestamp < new Date().getTime() - 60 * 60 * 12) {
+      if(this.feedView.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
         self.feedView.addFeedItemCollection(self.feedItemCollection);
         self.feedView.timestamp = new Date().getTime();
         if(!self.canSlideArticle('left')) {
@@ -285,12 +288,14 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   getUserLocation : function() {
-    if(this.isMobile())
-      this.navigate("", {replace : true});
+    if(this.isMobile()){
+      this.navigate("", {
+        trigger : true
+      });
+    }
 
     if(this.isMobile()) {
-      this.displayOnly('map_canvas');
-      $('#header-navigation').show();
+      this.displayOnly('map_canvas header-navigation');
     } else {
       this.displayOnly('map_canvas appinfo hand-phone');
     }
@@ -366,13 +371,10 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showAbout : function() {
-    this.navigate("about", {replace : true});
-
     if(this.isMobile()) {
-      $('#header-navigation').hide();
       this.displayOnly('info back');
     } else {
-      this.displayOnly('map_canvas info');
+      this.displayOnly('map_canvas info header-navigation');
 
       if($('#map-wrap').css('top') == '250px') {
         this.scrollMap();
@@ -388,7 +390,7 @@ var AppRouter = Backbone.Router.extend({
       self.eventDispatcher.off('hideLoadingView');
     });
   },
-  mainElements : new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone', 'back', 'failure'),
+  mainElements : new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone', 'back', 'failure', 'header-navigation'),
   displayOnly : function(elementsToShow) {
     var elementsArray = elementsToShow.split(" ");
     var shouldShow;

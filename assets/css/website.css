@@ -282,6 +282,7 @@
 	height: 290px;
 	overflow: hidden;
 	z-index: 10;
+	display:none;
 }
 #prev, #next {
 	position: absolute;

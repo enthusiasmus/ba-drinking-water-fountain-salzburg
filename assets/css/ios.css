@@ -181,6 +181,7 @@
   bottom: 15px;
   left: 0;
   width: 100%;
+  display:none;
 }
 #maptype ul {
   width: 85%;

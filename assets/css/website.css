@@ -163,9 +163,9 @@
 }
 #inner-wrap {
   width: 960px;
-	position: absolute;
-  left:50%;
-	margin-left:-480px;
+  height: 542px;
+	position: relative;
+  margin: 0 auto;
 }
 
 /*** header navigation ***/
@@ -204,9 +204,9 @@
 	background: url('../img/sprite-website.png') 0 0 no-repeat; 
 }
 #logo_salzburg a {
-	position: fixed; 
+	position: absolute; 
 	top: 30px; 
-	right: 100px; 
+	right: 0; 
 	width: 145px; 
 	height: 65px; 
 	background: url('../img/sprite-website.png') 0 -31px no-repeat;
@@ -250,9 +250,9 @@
 #hand-phone {
 	position: absolute; 
 	bottom: 0px; 
-	right: 0px; 
+	right: -260px; 
 	background: url('../img/iphone_hand.png') 0 0 no-repeat;
-	width: 525px;
+	width: 711px;
 	height: 480px;
 	z-index: 5;
 }

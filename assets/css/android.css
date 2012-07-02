@@ -191,7 +191,7 @@
 #feed {}
 #rss {
   height:100%;
-	background-color: #fff;
+	background-color: #212121;
 	padding: 10px 0 60px 0;
 	margin-top: 44px;
 }
@@ -201,7 +201,6 @@
 	min-height: 160px;
 	margin: 0 auto 10px auto;
 	background-color: #fff;
-	border: 2px solid #005586;
 	padding: 10px;
 }
 #rss a {text-decoration: none;}
@@ -216,7 +215,7 @@
 
 /*** info ***/
 #info {
-  background-color: #fff;
+  background-color: #212121;
   padding: 0 0 65px 0;
   margin-top: 44px;
 }
@@ -226,6 +225,5 @@
   top: 8px;
 	margin: 0 auto;
 	background-color: #fff;
-	border: 2px solid #005586;
 	padding: 10px;
 }

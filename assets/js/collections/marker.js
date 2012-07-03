@@ -5,9 +5,10 @@ var MarkerCollection = Backbone.Collection.extend({
 		for(idx in data){
 			var markerModel = new MarkerModel({
 				id: idx,
-				latitude: data[idx].latitude, 
-				longitude: data[idx].longitude,
-				title: data[idx].water_distributor
+				latitude: data[idx].LATITUDE, 
+				longitude: data[idx].LONGITUDE,
+				title: data[idx].ROOT_ANL_NAME,
+				description: data[idx].ANL_NAME
 			});
 			markers.push(markerModel);
 		}

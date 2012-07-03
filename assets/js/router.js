@@ -12,7 +12,7 @@ var AppRouter = Backbone.Router.extend({
     this.feedModel = new FeedModel;
     this.userLocationModel = new UserLocationModel;
     this.markerCollection = new MarkerCollection;
-    this.markerCollection.url = 'db/elements.php';
+    this.markerCollection.url = 'db/wis.php';
     this.feedItemCollection = new FeedItemCollection;
     this.feedItemCollection.url = 'rss.php';
 

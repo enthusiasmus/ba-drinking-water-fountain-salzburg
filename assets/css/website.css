@@ -182,7 +182,6 @@
 	display: block; 
 	float: left; 
 	margin-right: 15px; 
-	text-transform: lowercase;
 }
 #header-navigation .menu-item a {
 	display: block; 

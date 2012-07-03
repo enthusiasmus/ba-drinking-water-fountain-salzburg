@@ -240,13 +240,21 @@
 	height: 40px;
 }
 #appstore {
-	top: 270px; 
+	top: 420px; 
 	background-position: -338px -80px;
 }
 #googleplay {
-	top: 273px;
+	top: 423px;
 	margin-left: 140px; 
 	background-position: -338px -120px;
+}
+#latest_feed {
+  display:none;
+  top: 270px;
+  width: 220px;
+  background: #fff;
+  padding:8px;
+  word-wrap: break-word;
 }
 /*** hand with iphone ***/
 #hand-phone {
@@ -366,14 +374,6 @@
 	line-height: 1.3em;
 }
 
-#latest_feed {
-  display:none;
-  top: 340px;
-  width: 220px;
-  background: #fff;
-  padding:8px;
-  word-wrap: break-word;
-}
 #latest-feed-headline{
   width:100%;
 }

@@ -164,8 +164,10 @@
 #inner-wrap {
   width: 960px;
   height: 542px;
-	position: relative;
-  margin: 0 auto;
+  /* not use relative - safari and chrome will place the header otherwise not correct */
+  position: absolute;
+  left:50%;
+  margin-left:-480px;
 }
 
 /*** header navigation ***/

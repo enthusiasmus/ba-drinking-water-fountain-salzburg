@@ -1,101 +1,101 @@
 /*** text indents ***/
 #logo{
-	display: block;
-	text-indent: -19999px;
-	overflow: hidden;
+  display: block;
+  text-indent: -19999px;
+  overflow: hidden;
 }
 
 /*** header ***/
 #header {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 44px;
-	background-color: #005586;
-	z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 44px;
+  background-color: #005586;
+  z-index: 10;
 }
 #logo{
-	width: 155px;
-	height: 22px;
-	background: url('../img/icons-android.png') 0 -144px no-repeat;
-	margin: 10px auto 0 auto;
+  width: 155px;
+  height: 22px;
+  background: url('../img/icons-android.png') 0 -144px no-repeat;
+  margin: 10px auto 0 auto;
 }
 #back {
-	position: absolute;
-	top: 8px;
-	left: 10px;
-	width: 44px;
-	height: 20px;
-	background: url('../img/icons-android.png') 0 -166px no-repeat;
-	color: #000;
-	text-decoration: none;
-	padding: 6px 0 0 7px;
-	display:none;
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  width: 44px;
+  height: 20px;
+  background: url('../img/icons-android.png') 0 -166px no-repeat;
+  color: #000;
+  text-decoration: none;
+  padding: 6px 0 0 7px;
+  display:none;
 }
 #back:hover {background-position: -51px -166px;}
 
 /*** google map ***/
 #map-wrap {
-	position:absolute;
-	top: 44px;
-	left: 0;
-	right: 0;
-	bottom: 50px;
-	width: 100%; 
+  position:absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  width: 100%; 
 }
 #map_canvas {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: #ddd;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ddd;
 }
 
 /*** navigation ***/
 #navigation {
-	position: fixed;
-	top: auto;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 48px;
-	background-color: #000;
-	border-top: 2px solid #8e8e8e;
-	overflow: hidden;
+  position: fixed;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background-color: #000;
+  border-top: 2px solid #8e8e8e;
+  overflow: hidden;
 }
 #navigation .menu-item {
-	display: block;
-	float: left; 
-	width: 20%;
-	font-size: 13px;
-	text-align: center; 
+  display: block;
+  float: left; 
+  width: 20%;
+  font-size: 13px;
+  text-align: center; 
 }
 #navigation .menu-item a {
-	position: relative;
-	text-decoration: none; 
-	color: #8e8e8e; 
-	width: 100%;
-	height: 18px;
-	margin: 0 auto;
-	padding-top: 30px;
-	display: inline-block;
+  position: relative;
+  text-decoration: none; 
+  color: #8e8e8e; 
+  width: 100%;
+  height: 18px;
+  margin: 0 auto;
+  padding-top: 30px;
+  display: inline-block;
 }
 #navigation .menu-item a:hover {
-	color: #fff;
-	background-color: #8e8e8e;
+  color: #fff;
+  background-color: #8e8e8e;
 }
 #navigation .menu-item span {
-	position: absolute;
-	top: -7px;
-	left: 50%;
-	margin-left: -24px;
-	display: block;
-	width: 48px;
-	height: 48px;
-	background-image: url('../img/icons-android.png');
-	background-repeat: no-repeat;
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  margin-left: -24px;
+  display: block;
+  width: 48px;
+  height: 48px;
+  background-image: url('../img/icons-android.png');
+  background-repeat: no-repeat;
 }
 #navigation .position span {background-position: 0 0;}
 #navigation .menu-item.position a:hover > span {background-position: -48px 0;}
@@ -110,10 +110,10 @@
 
 /*** info icon (header navigation) ***/
 #header-navigation {
-	position: absolute;
-	top: -2px;
-	right: 0;
-	z-index: 10;
+  position: absolute;
+  top: -2px;
+  right: 0;
+  z-index: 10;
 }
 #header-navigation .menu-item a {
   display: block;
@@ -136,54 +136,54 @@
 }
 /*** address search ***/
 #address {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 44px;
-	background-color: #eee;
-	display: none;
-	z-index: 30;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 44px;
+  background-color: #eee;
+  display: none;
+  z-index: 30;
 }
 .addressinput {
-	display: block;
-	border: 1px solid #afafaf;
-	padding: 5px 10px 5px 30px;
-	color: #bababa;
-	margin: 7px auto 0 auto;
-	width: 75%;
-	background: url('../img/search.gif') #fff 10px 5px no-repeat;
+  display: block;
+  border: 1px solid #afafaf;
+  padding: 5px 10px 5px 30px;
+  color: #bababa;
+  margin: 7px auto 0 auto;
+  width: 75%;
+  background: url('../img/search.gif') #fff 10px 5px no-repeat;
 }
 .searchsubmit {display: none;}
 
 /*** maptypes ***/
 #maptype {
-	position: absolute;
-	bottom: 15px;
-	left: 0;
-	width: 100%;
-	display:none;
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  width: 100%;
+  display:none;
 }
 #maptype ul {
-	width: 85%;
-	margin: 0 auto;
+  width: 85%;
+  margin: 0 auto;
 }
 #maptype .menu-item {
-	display: block;
-	float: left;
-	width: 24%;
-	height: 27px;
-	background-color: #eee;
-	border: 1px solid #afafaf;
-	border-right: 0;
-	padding: 13px 0 0 0;
-	font-size: 14px;
-	text-align: center;
+  display: block;
+  float: left;
+  width: 24%;
+  height: 27px;
+  background-color: #eee;
+  border: 1px solid #afafaf;
+  border-right: 0;
+  padding: 13px 0 0 0;
+  font-size: 14px;
+  text-align: center;
 }
 #maptype .menu-item:last-child {border-right: 1px solid #afafaf;}
 #maptype .menu-item a {
-	text-decoration: none;
-	color: #8e8e8e;
+  text-decoration: none;
+  color: #8e8e8e;
 }
 #maptype .menu-item a:hover {color: #000;}
 
@@ -191,26 +191,26 @@
 #feed {}
 #rss {
   height:100%;
-	background-color: #212121;
-	padding: 10px 0 60px 0;
-	margin-top: 44px;
+  background-color: #212121;
+  padding: 10px 0 60px 0;
+  margin-top: 44px;
 }
 #rss article {
-	position: relative;
-	width: 90%;
-	min-height: 160px;
-	margin: 0 auto 10px auto;
-	background-color: #fff;
-	padding: 10px;
+  position: relative;
+  width: 90%;
+  min-height: 160px;
+  margin: 0 auto 10px auto;
+  background-color: #fff;
+  padding: 10px;
 }
 #rss a {text-decoration: none;}
 #rss img {
-	float: right;
-	margin: -20px 10px 0 15px;
+  float: right;
+  margin: -20px 10px 0 15px;
 }
 #rss .feed-date {
-	font-size: 11px;
-	color: #a8a8a8;
+  font-size: 11px;
+  color: #a8a8a8;
 }
 
 /*** info ***/
@@ -220,10 +220,10 @@
   margin-top: 44px;
 }
 #info div {
-	position: relative;
-	width: 90%;
+  position: relative;
+  width: 90%;
   top: 8px;
-	margin: 0 auto;
-	background-color: #fff;
-	padding: 10px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 10px;
 }

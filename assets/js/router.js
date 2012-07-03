@@ -245,13 +245,11 @@ var AppRouter = Backbone.Router.extend({
     $("input").blur();
   },
   showMaptype : function() {
-    if(this.isMobile()){
-      this.navigate("", {
-        trigger : true
-      });
+    this.navigate("", {
+      trigger : true
+    });
 
-      this.displayOnly('map_canvas header-navigation maptype');
-    }
+    this.displayOnly('map_canvas header-navigation maptype');
   },
   changeMaptype : function(type) {
     if(this.isMobile()){

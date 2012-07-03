@@ -176,10 +176,14 @@ else
         <li class='menu-item fontain'>
           <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.nextFountain()'><span></span>Brunnen</a>
         </li>
+        <?php if(!$isMobile){ ?>
+        <li class='menu-item cluster'>
+          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.toggleClusterSingled()'><span></span>Cluster</a>
+        </li>
+        <?php } else { ?>
         <li class='menu-item maptype'>
           <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showMaptype()'><span></span>Kartentyp</a>
         </li>
-        <?php if ( $isMobile ) { ?>
         <li class='menu-item feed'>
           <a href='#feed'><span></span>News</a>
         </li>

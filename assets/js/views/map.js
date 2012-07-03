@@ -22,17 +22,11 @@ var MapView = Backbone.View.extend({
     }
 
     this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-    var self = this;
-    google.maps.event.addListener(this.map, 'tilesloaded', function() {
-      //fire event, to remove loading view
-    });
-  },
-  events : {
   },
   markerCollection : undefined,
   map : undefined,
   markerCluster : undefined,
+  markerArray: [],
   userLocationMarker : undefined,
   userLocationPrecisionCircle : undefined,
   directionsDisplay : undefined,
@@ -48,7 +42,7 @@ var MapView = Backbone.View.extend({
     this.markerCollection = markerCollection;
   },
   placeMarkersToMap : function() {
-    var markerArray = [];
+    var markerTempArray = [];
     var self = this;
     var isVisible = false;
     this.infoBox = new Object();
@@ -120,8 +114,9 @@ var MapView = Backbone.View.extend({
         self.map.setZoom(16);
         self.map.setCenter(marker.getPosition());
       });
+      markerTempArray.push(marker);
 
-      markerArray.push(marker);
+      self.markerArray.push(marker);
     });
     var mcOptions = {
       styles : [{
@@ -132,13 +127,27 @@ var MapView = Backbone.View.extend({
       }]
     };
 
-    this.markerCluster = new MarkerClusterer(this.map, markerArray, mcOptions);
+    this.markerCluster = new MarkerClusterer(this.map, markerTempArray, mcOptions);
     google.maps.event.addListener(this.markerCluster, 'clusterclick', function(cluster) {
       self.infoBox.close();
     });
     google.maps.event.addListener(this.map, 'click', function() {
       self.infoBox.close();
     });
+  },
+  toggleClusterSingled: function(){
+    if(this.markerArray[0].getMap() == null && this.markerCluster.getMap() != null){
+      for (i in this.markerArray) {
+        this.markerArray[i].setMap(this.map);
+      }
+      this.markerCluster.setMap(null);
+    }
+    else{
+      for (i in this.markerArray) {
+        this.markerArray[i].setMap(null);
+      }
+      this.markerCluster.setMap(this.map);
+    }
   },
   distanceCalculator : function(userPosition, markerPosition) {
     if(userPosition && markerPosition) {
@@ -158,20 +167,6 @@ var MapView = Backbone.View.extend({
     this.markerCluster.clearMarkers();
   },
   placeUserLocation : function(markerModel) {
-    //*** uncomment to display the precisioncircle ***//
-    /*var userLocationPrecisionCircleOptions = {
-      strokeColor : markerModel.get("precisionStrokeColor"),
-      strokeOpacity : markerModel.get("precisionStrokeOpacity"),
-      strokeWeight : markerModel.get("precisionStrokeWeight"),
-      fillColor : markerModel.get("precisionFillColor"),
-      fillOpacity : markerModel.get("precisionFillOpacity"),
-      map : this.map,
-      center : new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
-      radius : markerModel.get("precision"),
-      zIndex : 9999
-    };
-    this.userLocationPrecisionCircle = new google.maps.Circle(userLocationPrecisionCircleOptions);*/
-
     var icon = new google.maps.MarkerImage(markerModel.get("imageUrl"), new google.maps.Size(markerModel.get("imageWidth"), markerModel.get("imageHeight")), new google.maps.Point(markerModel.get("imageOriginX"), markerModel.get("imageOriginX")), new google.maps.Point(markerModel.get("imageAnchorX"), markerModel.get("imageAnchorY")));
 
     this.userLocationMarker = new google.maps.Marker({

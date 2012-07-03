@@ -100,7 +100,7 @@ var AppRouter = Backbone.Router.extend({
         shortDescription += '...';
 
         $('#latest_feed').html('<article>' + '<div id="latest-feed-headline">' + 
-        '<div id="latest-feed-news" onclick="window.Trinkbrunnen.showRssFeed()">wasser-news</div>' + 
+        '<div id="latest-feed-news" onclick="window.Trinkbrunnen.showRssFeed()">Wasser-News</div>' + 
         '<div id="latest-feed-date">' + element.escape("pubDate") + '</div>' + '</div>' + 
         '<div><div id="latest-feed-title"><a href="' + element.escape('link') + '" target="_blank">' + element.escape("title") + 
         '</a></div>' + '<div onclick="window.Trinkbrunnen.showRssFeed()" id="latest-feed-more">Mehr</div></div>' + '</article>');
@@ -537,5 +537,8 @@ var AppRouter = Backbone.Router.extend({
     setTimeout(function() {
       $('#failure').fadeOut();
     }, 2000);
+  },
+  toggleClusterSingled: function(){
+    this.mapView.toggleClusterSingled();
   }
 });

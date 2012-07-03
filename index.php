@@ -33,9 +33,9 @@ else
     <!-- default icon image for the homescreen -->
     <link rel="apple-touch-startup-image" href="assets/img/startup-iphone.png" />
     <!-- quick startup screen -->
-    <title>TrinkWasser!</title>
+    <title>Wasser</title>
   <?php } else { ?>
-    <title>TrinkWasser! Land Salzburg</title>
+    <title>Wasser Land Salzburg</title>
     <link rel='icon' href='assets/img/favicon.png' type='image/png'>
   <?php } ?>
   <meta name="description" content="" />
@@ -75,7 +75,7 @@ else
       <header id="header">
         <?php if ( !$isMobile ) { ?>
         <hgroup>
-          <h1 id="logo"><a href="/">TrinkWasser! Land Salzburg</a></h1>
+          <h1 id="logo"><a href="/">Wasser Land Salzburg</a></h1>
           <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
         </hgroup>
         <?php } else { ?>
@@ -93,7 +93,7 @@ else
             </li>
             <?php } ?>
             <li class='menu-item lake'>
-              <a href='http://www.salzburg.at/sbg_aktuell.html?AktuellID=WT' target='_blank'>Seetemperaturen</a>
+              <a href='http://www.salzburg.at/sbg_aktuell.html?AktuellID=WT' target='_blank'>Seentemperaturen</a>
             </li>
             <li class='menu-item about'>
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
@@ -104,7 +104,7 @@ else
       <div id='overlay'></div>
       <div id="info">
         <div>
-          <h2>TrinkWasser!</h2>
+          <h2>Wasser Land Salzburg</h2>
           <p>
             entwickelt in Zusammenarbeit mit:
             <br>
@@ -147,7 +147,7 @@ else
       </div>
   <?php if ( !$isMobile ) { ?>
       <div id="appinfo">
-        <h3 id="slogan"><span>App mit über 180 Trinkbrunnen</span>
+        <h3 id="slogan"><span>App mit mehr als 180 Trinkbrunnen</span>
         <br>
         <span>im ganzen Land Salzburg</span></h3>
         <a href="http://itunes.apple.com/at/genre/ios/id36?mt=8" id="appstore">Availiable on the App Store</a>

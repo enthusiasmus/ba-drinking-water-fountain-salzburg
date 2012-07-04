@@ -119,10 +119,11 @@ var MapView = Backbone.View.extend({
       self.markerArray.push(marker);
     });
     var mcOptions = {
+      gridSize: 45,
       styles : [{
-        height : 52,
+        height : 44,
         url : 'assets/img/cluster.png',
-        width : 53,
+        width : 44,
         textColor : 'white'
       }]
     };

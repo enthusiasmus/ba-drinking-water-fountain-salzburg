@@ -22,18 +22,15 @@ else
 ?>
 <head>
   <meta content="text/html;charset=UTF-8" http-equiv="content-type">
-  <!-- iphone commands -->
   <?php if ($isMobile) { ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <!-- hiding safari user interface components -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <!-- changing status bar appearance, only with command above! -->
-    <link rel="apple-touch-icon" href="assets/img/icon-apple.png"/>
-    <!-- default icon image for the homescreen -->
-    <link rel="apple-touch-startup-image" href="assets/img/startup-iphone.png" />
-    <!-- quick startup screen -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />    
+    <link rel="apple-touch-icon-precomposed" href="assets/img/icon-apple.png"/>
     <title>Wasser</title>
+    <?php if($ios) { ?>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="apple-touch-startup-image" href="assets/img/startup-iphone.png" />
+    <?php } ?>
   <?php } else { ?>
     <title>Wasser Land Salzburg</title>
     <link rel='icon' href='assets/img/favicon.png' type='image/png'>
@@ -75,7 +72,7 @@ else
       <header id="header">
         <?php if ( !$isMobile ) { ?>
         <hgroup>
-          <h1 id="logo"><a href="/">Wasser Land Salzburg</a></h1>
+          <h1 id="logo"><a href="#">Wasser Land Salzburg</a></h1>
           <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
         </hgroup>
         <?php } else { ?>

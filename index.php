@@ -12,15 +12,8 @@
   if ( strstr($_SERVER['HTTP_USER_AGENT'], 'Android') )
     $android = true;
 ?>
-
 <!DOCTYPE html>
-<?php
-if ($isMobile)
-  //only for mobile website, not for nativ app
-  echo "<html manifest='cache.manifest'>";
-else
-  echo "<html>";
-?>
+<html>
 <head>
   <meta content="text/html;charset=UTF-8" http-equiv="content-type">
   <?php if ($isMobile) { ?>

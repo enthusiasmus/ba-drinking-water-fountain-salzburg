@@ -99,6 +99,7 @@
 #navigation .position span {background-position: 0 -60px;}
 #navigation .address span {background-position: 0 -90px;}
 #navigation .fontain span {background-position: 0 -120px;}
+#navigation .cluster span {background-position: -30px -60px;}
 #navigation .menu-item a:hover > span, #navigation .menu-item a:focus > span, #navigation .menu-item a:active > span {
 	top: 5px;
 	left: 5px;

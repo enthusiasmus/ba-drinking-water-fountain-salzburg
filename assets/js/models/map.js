@@ -1,7 +1,7 @@
 var MapModel = Backbone.Model.extend({
   defaults: {
-    centerLatitude: 47.557994,
-    centerLongitude: 13.100281,
-    zoom: 7
+    centerLatitude: 47.494937,
+    centerLongitude: 13.046265,
+    zoom: 8
   }
 });

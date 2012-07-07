@@ -536,7 +536,7 @@ var AppRouter = Backbone.Router.extend({
     $('#failure').show();
     setTimeout(function() {
       $('#failure').fadeOut();
-    }, 2000);
+    }, 3500);
   },
   toggleClusterSingled: function(){
     this.mapView.toggleClusterSingled();

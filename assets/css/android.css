@@ -112,8 +112,9 @@
 #header-navigation {
   position: absolute;
   top: -2px;
-  right: 0;
+  left: 0;
   z-index: 10;
+  width:100%;
 }
 #header-navigation .menu-item a {
   display: block;
@@ -130,8 +131,8 @@
 }
 #header-navigation .lake{
   position: absolute;
-  right:0px;
-  top: 47px;
+  left:0px;
+  top: 0px;
   background: url('../img/icons-android.png') -192px -52px no-repeat;
 }
 /*** address search ***/

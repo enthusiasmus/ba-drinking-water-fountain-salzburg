@@ -16,9 +16,11 @@ var MapView = Backbone.View.extend({
       mapTypeId : google.maps.MapTypeId.ROADMAP
     };
 
-    if(!this.isMobile()) {
+    if(!this.isMobile()){
       myOptions.mapTypeControl = true;
-      myOptions.zoom = myOptions.zoom + 1;
+    }
+    else{
+      myOptions.zoom = this.model.get('zoom') + 1;
     }
 
     this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
@@ -31,9 +33,11 @@ var MapView = Backbone.View.extend({
   userLocationPrecisionCircle : undefined,
   directionsDisplay : undefined,
   directionsService : undefined,
+  isIpad: function(){
+    return (navigator.userAgent.match(/iPad/i) != null);
+  },
   isMobile : function() {
-    var index = navigator.appVersion.indexOf("Mobile");
-    return (index > -1);
+    return (navigator.appVersion.indexOf("Mobile") > -1);
   },
   resizeMap : function() {
     google.maps.event.trigger(this.map, 'resize');

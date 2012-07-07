@@ -17,7 +17,7 @@
 #logo{
   width: 155px;
   height: 22px;
-  background: url('../img/icons-ios.png') 0 -144px no-repeat;
+  background: url('../img/ios/sprite.png') 0 -144px no-repeat;
   margin: 11px auto 0 auto;
 }
 #back {
@@ -26,7 +26,7 @@
   left: 10px;
   width: 46px;
   height: 22px;
-  background: url('../img/icons-ios.png') 0 -166px no-repeat;
+  background: url('../img/ios/sprite.png') 0 -166px no-repeat;
   color: #fff;
   text-decoration: none;
   padding: 7px 0 0 14px;
@@ -60,7 +60,7 @@
   left: 0;
   width: 100%;
   height: 49px;
-  background: url('../img/bg-navigation-ipad.png') 0 0 repeat-x;
+  background: url('../img/ios/bg-navigation.png') 0 0 repeat-x;
   overflow: hidden;
 }
 #navigation .menu-item {
@@ -90,7 +90,7 @@
   display: block;
   width: 48px;
   height: 48px;
-  background-image: url('../img/icons-ios.png');
+  background-image: url('../img/ios/sprite.png');
   background-repeat: no-repeat;
 }
 #navigation .position span {
@@ -142,13 +142,13 @@
   position: absolute;
   right:0px;
   top: 0px;
-  background: url('../img/icons-ios.png') -192px -2px no-repeat
+  background: url('../img/ios/sprite.png') -192px -2px no-repeat
 }
 #header-navigation .lake{
   position: absolute;
   left:0px;
   top: 0px;
-  background: url('../img/icons-ios.png') -192px -52px no-repeat;
+  background: url('../img/ios/sprite.png') -192px -52px no-repeat;
 }
 
 /*** address search ***/
@@ -158,7 +158,7 @@
   left: 0;
   width: 100%;
   height: 44px;
-  background: url('../img/bg-search.png') 0 0 repeat-x;
+  background: url('../img/ios/bg-search.png') 0 0 repeat-x;
   display: none;
   z-index: 30;
 }
@@ -170,7 +170,7 @@
   color: #a8a8a8;
   margin: 7px auto 0 auto;
   width: 75%;
-  background: url('../img/search.gif') #fff 10px 5px no-repeat;
+  background: url('../img/mobile/search.gif') #fff 10px 5px no-repeat;
 }
 .searchsubmit {
   display: none;
@@ -192,7 +192,7 @@
   float: left;
   width: 24%;
   height: 27px;
-  background: url('../img/bg-maptype.gif') 0 0 repeat-x;
+  background: url('../img/ios/bg-maptype.gif') 0 0 repeat-x;
   border-right: 1px solid #afafaf;
   padding: 13px 0 0 0;
   font-size: 14px;
@@ -219,7 +219,7 @@
 }
 #rss {
   height:100%;
-  background:url('../img/background_ios.png');
+  background:url('../img/ios/bg.png') repeat;
   padding: 10px 0 60px 0;
   margin-top: 44px;
 }
@@ -246,12 +246,12 @@
 }
 /*** info ***/
 #info {
-  background:url('../img/background_ios.png');
+  background:url('../img/ios/bg.png');
   padding: 0 0 65px 0;
   margin-top: 44px;
   display:none;
 }
-#info div {
+#info #info-content {
   position: relative;
   top: 8px;
   width: 90%;
@@ -269,5 +269,5 @@
   left: 0;
   width: 10000px;
   height: 50000px;
-  background:url('../img/background_ios.png');
+  background:url('../img/ios/bg.png');
 }

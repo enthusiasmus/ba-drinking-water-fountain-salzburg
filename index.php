@@ -18,16 +18,16 @@
   <meta content="text/html;charset=UTF-8" http-equiv="content-type">
   <?php if ($isMobile) { ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />    
-    <link rel="apple-touch-icon-precomposed" href="assets/img/icon-apple.png"/>
+    <link rel="apple-touch-icon-precomposed" href="assets/img/mobile/icon.png"/>
     <title>Wasser</title>
     <?php if($ios) { ?>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <link rel="apple-touch-startup-image" href="assets/img/startup-iphone.png" />
+    <link rel="apple-touch-startup-image" href="assets/img/ios/startup-iphone.png" />
     <?php } ?>
   <?php } else { ?>
     <title>Wasser Land Salzburg</title>
-    <link rel='icon' href='assets/img/favicon.png' type='image/png'>
+    <link rel='icon' href='assets/img/website/favicon.png' type='image/png'>
   <?php } ?>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
@@ -46,12 +46,8 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->  
 <?php } ?>
-
 </head>
 <body>
-  <div id="loading">
-    <div id="background"></div>
-  </div>
   <?php if ( !$isMobile ) { ?>
   <div id="wrap">
     <div id="slider" class="nivoSlider">
@@ -95,7 +91,7 @@
       </header>
       <div id='overlay'></div>
       <div id="info">
-        <div>
+        <div id="info-content">
           <h2>Wasser Land Salzburg</h2>
           <p>
             entwickelt in Zusammenarbeit mit:
@@ -104,7 +100,8 @@
             <br>
             Studiengänge der Fachhochschule Salzburg
           </p>
-          <p><img src="assets/img/logo-fh-salzburg.png" width="200" height="55" alt="FH Salzburg" />
+          <p>
+            <div id="fh-logo"></div>
           </p>
           <p>
             <i>Programmierung:</i> Lukas Wanko, Nicole Buchegger, Robert Koch

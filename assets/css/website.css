@@ -93,13 +93,13 @@
 	display: block;
 	width: 30px;
 	height: 30px;
-	background-image: url('../img/icons.png');
+	background-image: url('../img/website/sprite.png');
 	background-repeat: no-repeat;
 }
-#navigation .position span {background-position: 0 -60px;}
-#navigation .address span {background-position: 0 -90px;}
-#navigation .fontain span {background-position: 0 -120px;}
-#navigation .cluster span {background-position: -30px -60px;}
+#navigation .position span {background-position: 0 -104px;}
+#navigation .address span {background-position: -60px -104px;}
+#navigation .fontain span {background-position: -90px -104px;}
+#navigation .cluster span {background-position: -30px -104px;}
 #navigation .menu-item a:hover > span, #navigation .menu-item a:focus > span, #navigation .menu-item a:active > span {
 	top: 5px;
 	left: 5px;
@@ -116,13 +116,13 @@
 	z-index: 30;
 }
 #address{
-	width: 325px;
+	width: 443px;
 	background-color: #fff;
 	padding: 15px;
 }
 
 #address #search_close_button{
-  background: url('../img/close_button.png');
+  background: url('../img/website/sprite.png') no-repeat -138px -104px;
   width: 20px;
   height: 20px;
   position: absolute;
@@ -131,7 +131,7 @@
   cursor: pointer;
 }
 #address .addressinput {
-	width: 285px;
+	width: 400px;
 	color: #666;
 	font-size: 12px;
 	padding: 5px;
@@ -139,7 +139,7 @@
 	float:left;
 }
 #address .searchsubmit {
-	background: url('../img/icons.png') -320px 0 no-repeat;
+	background: url('../img/website/sprite.png') -120px -104px no-repeat;
 	border: 0;
 	width: 18px;
 	height: 18px;
@@ -159,7 +159,7 @@
 	min-width: 960px;
 	height: 542px; 
 	border-top: solid 8px #005586; 
-	background: url('../img/bg-header.gif') #f0f0f0 0 0 repeat-x; 
+	background: url('../img/website/bg-header.gif') #f0f0f0 0 0 repeat-x; 
 	overflow: hidden;
 }
 #inner-wrap {
@@ -203,7 +203,7 @@
 	left: 0; 
 	width: 461px; 
 	height: 31px; 
-	background: url('../img/sprite-website.png') 0 0 no-repeat; 
+	background: url('../img/website/sprite.png') 0 0 no-repeat; 
 }
 #logo_salzburg a {
 	position: absolute; 
@@ -211,7 +211,7 @@
 	right: 0; 
 	width: 145px; 
 	height: 65px; 
-	background: url('../img/sprite-website.png') 0 -31px no-repeat;
+	background: url('../img/website/sprite.png') 0 -31px no-repeat;
 }
 
 /*** app info ***/
@@ -234,19 +234,20 @@
 	color: #005586;
 }
 #appstore, #googleplay {
-	background-image: url('../img/icons.png');
+	background-image: url('../img/website/sprite.png');
 	background-repeat: no-repeat;
 	width: 120px;
 	height: 40px;
 }
 #appstore {
 	top: 420px; 
-	background-position: -338px -80px;
+	background-position: 0px -134px;
 }
 #googleplay {
 	top: 423px;
+	height:33px;
 	margin-left: 140px; 
-	background-position: -338px -120px;
+	background-position: 0px -174px;
 }
 #latest_feed {
   display:none;
@@ -261,7 +262,7 @@
 	position: absolute; 
 	bottom: 0px; 
 	right: -260px; 
-	background: url('../img/iphone_hand.png') 0 0 no-repeat;
+	background: url('../img/website/iphone_hand.png') 0 0 no-repeat;
 	width: 711px;
 	height: 480px;
 	z-index: 5;
@@ -273,7 +274,7 @@
 	top: 122px;
 	left: 0;
 	width: 100%;
-	background: #fff url('../img/loading.gif') no-repeat 50% 50%;
+	background: #fff url('../img/website/loading.gif') no-repeat 50% 50%;
 }
 #slider img {
 	position: absolute;
@@ -304,19 +305,19 @@
 }
 .prev{
   left: 0px;
-  background: url('../img/arrows.png') no-repeat -45px 0px;
+  background: url('../img/website/sprite.png') no-repeat -45px -206px;
 }
 .next {
 	right: 0px;
-  background: url('../img/arrows.png') no-repeat -68px 0px;
+  background: url('../img/website/sprite.png') no-repeat -68px -206px;
 }
 .prev_disabled {
   left: 0px;
-  background: url('../img/arrows.png') no-repeat 0px 0px;
+  background: url('../img/website/sprite.png') no-repeat 0px -206px;
 }
 .next_disabled {
   right: 0px;
-  background: url('../img/arrows.png') no-repeat -23px 0px;
+  background: url('../img/website/sprite.png') no-repeat -23px -206px;
 }
 #rss {
 	float: left;
@@ -459,7 +460,7 @@
   top: 70px;
   left: 40px;
   z-index: 30;
-  width: 325px;
+  width: 443px;
   background-color: #fff;
   padding: 15px;
   height: 20px;
@@ -477,7 +478,7 @@
 }
 
 #failure #failure_close_button{
-  background: url('../img/close_button.png');
+  background: url('../img/website/sprite.png') no-repeat -138px -104px;
   width: 20px;
   height: 20px;
   position: absolute;

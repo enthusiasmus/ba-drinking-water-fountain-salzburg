@@ -19,7 +19,7 @@ var MapView = Backbone.View.extend({
     if(!this.isMobile()){
       myOptions.mapTypeControl = true;
     }
-    else{
+    else if(this.isIpad()){
       myOptions.zoom = this.model.get('zoom') + 1;
     }
 
@@ -86,7 +86,7 @@ var MapView = Backbone.View.extend({
         enableEventPropagation : false,
         boxStyle : {
           position: "relative",
-          background : "url(assets/img/infobox.png) no-repeat",
+          background : "url(assets/img/sprite-map.png) no-repeat 0px 0px",
           filter: 'alpha(opacity=255)',
           width : "279px",
           height: "58px",
@@ -122,17 +122,19 @@ var MapView = Backbone.View.extend({
 
       self.markerArray.push(marker);
     });
-    var mcOptions = {
+    
+    var markerClusterOptions = {
       gridSize: 45,
       styles : [{
         height : 44,
-        url : 'assets/img/cluster.png',
-        width : 44,
+        url : 'assets/img/sprite-map.png',
+        backgroundPosition: '-37px -68px',
+        width : 45,
         textColor : 'white'
       }]
     };
 
-    this.markerCluster = new MarkerClusterer(this.map, markerTempArray, mcOptions);
+    this.markerCluster = new MarkerClusterer(this.map, markerTempArray, markerClusterOptions);
     google.maps.event.addListener(this.markerCluster, 'clusterclick', function(cluster) {
       self.infoBox.close();
     });

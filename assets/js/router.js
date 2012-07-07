@@ -7,12 +7,11 @@ var AppRouter = Backbone.Router.extend({
     "*actions" : "index"
   },
   initialize : function() {
-    this.loadingView = new LoadingView;
     this.mapModel = new MapModel;
     this.feedModel = new FeedModel;
     this.userLocationModel = new UserLocationModel;
     this.markerCollection = new MarkerCollection;
-    this.markerCollection.url = 'db/wis.php';
+    this.markerCollection.url = 'wis.php';
     this.feedItemCollection = new FeedItemCollection;
     this.feedItemCollection.url = 'rss.php';
 
@@ -267,9 +266,6 @@ var AppRouter = Backbone.Router.extend({
    
     if(this.isMobile()) {
       this.displayOnly('feed back overlay');
-      setTimeout(function () {
-        window.scrollTo(0, 1);
-      }, 500);
     } else {
       this.displayOnly('map_canvas feed header-navigation');
 
@@ -414,9 +410,6 @@ var AppRouter = Backbone.Router.extend({
     
     if(this.isMobile()) {
       this.displayOnly('info back overlay');
-      setTimeout(function () {
-        window.scrollTo(0, 1);
-      }, 500);
     } else {
       this.displayOnly('map_canvas info header-navigation');
 
@@ -424,15 +417,6 @@ var AppRouter = Backbone.Router.extend({
         this.scrollMap();
       }
     }
-  },
-  getLoadingView : function() {
-    this.loadingView.show();
-    var self = this;
-
-    this.eventDispatcher.on('hideLoadingView', function() {
-      self.loadingView.hide();
-      self.eventDispatcher.off('hideLoadingView');
-    });
   },
   mainElements : new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'hand-phone', 'back', 'failure', 'header-navigation', 'overlay'),
   displayOnly : function(elementsToShow) {

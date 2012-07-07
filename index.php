@@ -16,7 +16,8 @@
 <!DOCTYPE html>
 <?php
 if ($isMobile)
-  echo "<html>";  // manifest='cache.manifest'
+  //only for mobile website, not for nativ app
+  echo "<html manifest='cache.manifest'>";
 else
   echo "<html>";
 ?>
@@ -48,10 +49,11 @@ else
 <?php } else { ?>
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/website.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/nivo-slider.css" />
-<?php } ?>
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->  
+<?php } ?>
+
 </head>
 <body>
   <div id="loading">
@@ -216,7 +218,6 @@ else
   <script type="text/javascript" src="assets/js/libs/jquery.js"></script>
   <script type="text/javascript" src="assets/js/libs/jquery.dateFormat.js"></script>
   <script type="text/javascript" src="assets/js/libs/jquery.nivo.slider.js"></script>
-  <script type="text/javascript" src="assets/js/libs/spin.js"></script>
   <script type="text/javascript" src="assets/js/libs/underscore.js"></script>
   <script type="text/javascript" src="assets/js/libs/backbone.js"></script>
   <!--models -->
@@ -229,7 +230,6 @@ else
   <script type="text/javascript" src="assets/js/views/address.js"></script>
   <script type="text/javascript" src="assets/js/views/feed.js"></script>
   <script type="text/javascript" src="assets/js/views/info.js"></script>
-  <script type="text/javascript" src="assets/js/views/loading.js"></script>
   <script type="text/javascript" src="assets/js/views/mapType.js"></script>
   <script type="text/javascript" src="assets/js/views/map.js"></script>
   <!-- collections -->

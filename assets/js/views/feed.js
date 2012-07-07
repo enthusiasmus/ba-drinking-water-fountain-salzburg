@@ -12,12 +12,21 @@ var FeedView = Backbone.View.extend({
     this.render();
   },
   render : function(){
+    if(this.isIpad()){
+      var length = 300;
+    }
+    else{
+      var length = 90;
+    }
+    
+    var potentialEnd = length - 40;
+    var searchEnd = length - potentialEnd;
     _.each(this.feedItemCollection.toArray(), function(feedItemModel) {
       var completeDescription = feedItemModel.get('description');
-      var shortDescription = completeDescription.substring(0, 90);
-      var descriptionEnd = shortDescription.substring(60, 90);
+      var shortDescription = completeDescription.substring(0, length);
+      var descriptionEnd = shortDescription.substring(potentialEnd, length);
       var endLastWord = descriptionEnd.lastIndexOf(" ");
-      shortDescription = shortDescription.substring(0, 60 + endLastWord);
+      shortDescription = shortDescription.substring(0, potentialEnd + endLastWord);
       shortDescription += '...';
 
       $('#rss').append('<article>' + '<h3 class="feed-title"><a href="' + 
@@ -62,5 +71,8 @@ var FeedView = Backbone.View.extend({
         allFeedImages[idx].width = 180;
       }
     }
+  },
+  isIpad: function(){
+    return (navigator.userAgent.match(/iPad/i) != null);
   }
 });

@@ -112,10 +112,7 @@ var AppRouter = Backbone.Router.extend({
         this.feedItemCollection.fetch({
           success : function() {
             self.feedItemCollection.timestamp = new Date().getTime();
-            if(!self.canSlideArticle('left')) {
-              $('.prev').css('background-image', 'url(assets/img/links_disabled.png)');
-              self.eventDispatcher.trigger('loadedFeed');
-            }
+            self.eventDispatcher.trigger('loadedFeed');
           },
           error : function() {
             if(self.isMobile()){
@@ -283,8 +280,8 @@ var AppRouter = Backbone.Router.extend({
           self.feedView.timestamp = new Date().getTime();
           self.feedItemCollection.timestamp = new Date().getTime();
           
-          if(!self.isMobile() && !self.canSlideArticle('left')) {
-            $('#prev').css('background-image', 'url(assets/img/links_disabled.png)');
+          if(!self.isMobile()) {
+            self.canSlideArticle('left')
           }
         },
         error : function() {
@@ -301,9 +298,7 @@ var AppRouter = Backbone.Router.extend({
       if(!this.isMobile() && this.feedView.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
         self.feedView.addFeedItemCollection(self.feedItemCollection);
         self.feedView.timestamp = new Date().getTime();
-        if(!self.canSlideArticle('left')) {
-          $('#prev').css('background-image', 'url(assets/img/links_disabled.png)');
-        }
+        self.canSlideArticle('left')
       }
     }
   },
@@ -453,12 +448,8 @@ var AppRouter = Backbone.Router.extend({
       $('#rss').animate({
         'margin-left' : '-=888'
       }, 1800, function() {
-        if(!self.canSlideArticle('right')) {
-          $('#next').css('background-image', 'url(assets/img/rechts_disabled.png)');
-        }
-        if(self.canSlideArticle('left')) {
-          $('#prev').css('background-image', 'url(assets/img/links.png)');
-        }
+        self.canSlideArticle('right');
+        self.canSlideArticle('left');
         $('#next').on('click', function() {
           self.slideArticleToRight();
         });
@@ -477,12 +468,8 @@ var AppRouter = Backbone.Router.extend({
       $('#rss').animate({
         'margin-left' : '+=888'
       }, 1800, function() {
-        if(!self.canSlideArticle('left')) {
-          $('#prev').css('background-image', 'url(assets/img/links_disabled.png)');
-        }
-        if(self.canSlideArticle('right')) {
-          $('#next').css('background-image', 'url(assets/img/rechts.png)');
-        }
+        self.canSlideArticle('left');
+        self.canSlideArticle('right');
         $('#prev').on('click', function() {
           self.slideArticleToLeft();
         });
@@ -499,8 +486,10 @@ var AppRouter = Backbone.Router.extend({
 
     if(direction == 'left') {
       if(currentMargin >= '0') {
+        $('#prev').toggleClass('prev_disabled', true);
         return false;
       } else {
+        $('#prev').toggleClass('prev_disabled', false);
         return true;
       }
     } else if(direction == 'right') {
@@ -509,8 +498,10 @@ var AppRouter = Backbone.Router.extend({
       var lastAllowedSlidePosition = ((sizeFeedItemCollection - lastPageItems) / 4 * 888) * (-1);
 
       if(currentMargin <= lastAllowedSlidePosition) {
+        $('#next').toggleClass('next_disabled', true);
         return false;
       } else {
+        $('#next').toggleClass('next_disabled', false);
         return true;
       }
     }

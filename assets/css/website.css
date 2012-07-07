@@ -297,18 +297,26 @@
 #prev, #next {
 	position: absolute;
 	top: 0;
-	width: 30px;
+	width: 22px;
 	height: 44px;
 	margin-top:120px;
-	background: url('../img/links.png') 3px 47% no-repeat;
 	z-index: 5;
 }
-#prev {
-	left: 0px;
+.prev{
+  left: 0px;
+  background: url('../img/arrows.png') no-repeat -45px 0px;
 }
-#next {
+.next {
 	right: 0px;
-	background-image: url('../img/rechts.png');
+  background: url('../img/arrows.png') no-repeat -68px 0px;
+}
+.prev_disabled {
+  left: 0px;
+  background: url('../img/arrows.png') no-repeat 0px 0px;
+}
+.next_disabled {
+  right: 0px;
+  background: url('../img/arrows.png') no-repeat -23px 0px;
 }
 #rss {
 	float: left;

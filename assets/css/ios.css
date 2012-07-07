@@ -18,7 +18,7 @@
   width: 155px;
   height: 22px;
   background: url('../img/icons-ios.png') 0 -144px no-repeat;
-  margin: 10px auto 0 auto;
+  margin: 11px auto 0 auto;
 }
 #back {
   position: absolute;
@@ -126,22 +126,23 @@
 /*** info icon (header navigation) ***/
 #header-navigation {
   position: absolute;
-  top: -2px;
+  top: 0px;
   left: 0;
   z-index: 10;
+  width:100%;
 }
 #header-navigation .menu-item a {
   display: block;
   text-indent: -19999px;
   overflow: hidden;
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 42px;
 }
 #header-navigation .about{
   position: absolute;
   right:0px;
   top: 0px;
-  background: url('../img/icons-ios.png') -192px 0 no-repeat;
+  background: url('../img/icons-ios.png') -192px -2px no-repeat
 }
 #header-navigation .lake{
   position: absolute;
@@ -248,6 +249,7 @@
   background:url('../img/background_ios.png');
   padding: 0 0 65px 0;
   margin-top: 44px;
+  display:none;
 }
 #info div {
   position: relative;

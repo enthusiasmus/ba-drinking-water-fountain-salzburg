@@ -230,3 +230,10 @@
   background-color: #fff;
   padding: 10px;
 }
+
+@media only screen and (max-device-width : 320px) {
+  #rss img {
+    max-width: 120px;
+    height: auto;
+  }
+}

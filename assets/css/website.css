@@ -348,6 +348,7 @@
 #info h4 {
 	margin-bottom: 6px;
 	font-weight: bold;
+  clear: both;
 }
 #info p {
 	line-height: 1.3em;
@@ -362,6 +363,16 @@
 	padding: 10px;
 	overflow: hidden;
 	position: relative;
+}
+#info .left {
+  width: 50%;
+  float: left;
+  margin-bottom: 20px;
+}
+#info .right {
+  width: 50%;
+  float: right;
+  margin-bottom: 20px;
 }
 #rss article:last-child {margin-right: 0;}
 .feed-title a {

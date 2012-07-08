@@ -92,34 +92,56 @@
       <div id='overlay'></div>
       <div id="info">
         <div id="info-content">
-          <h2>Wasser Land Salzburg</h2>
-          <p>
-            entwickelt in Zusammenarbeit mit:
-            <br>
-            <b>MultiMediaTechnology</b> &amp; <b>MultiMediaArt</b>
-            <br>
-            Studiengänge der Fachhochschule Salzburg
-          </p>
-          <p>
-            <div id="fh-logo"></div>
-          </p>
-          <p>
-            <i>Programmierung:</i> Lukas Wanko, Nicole Buchegger, Robert Koch
-            <br/>
-            <i>Design:</i> Karin Schnirch, Philipp Fauser
-          </p>
+          <h2>Impressum / Kontakt</h2>
+          <div  class="left">
+            <p>
+              <div id="salzburg-logo"></div>
+            </p>
+            <p>
+              <b>Land Salzburg</b>
+              <br>
+              Information, Kommunikation, Marketing
+              <br>
+              Landes-Medienzentrum
+              <br>
+              Chiemseehof, Postfach 527
+              <br>
+              5010, Salzburg
+              <br>
+              <a href="http://www.salzburg.gv.at" target="_blank">www.salzburg.gv.at</a>
+            </p>
+          </div>
+          <div class="right">
+            <p>
+              entwickelt in Zusammenarbeit mit:
+              <br>
+              <b>MultiMediaTechnology</b> &amp; <b>MultiMediaArt</b>
+              <br>
+              Studiengänge der Fachhochschule Salzburg
+            </p>
+            <p>
+              <div id="fh-logo"></div>
+            </p>
+            <p>
+              <i>Programmierung:</i> Lukas Wanko, Nicole Buchegger, Robert Koch
+              <br/>
+              <i>Design:</i> Karin Schnirch, Philipp Fauser
+              <br />
+              <i>Foto:</i> Karin Schnirch
+            </p>
+          </div>
           <h4>Disclaimer – Haftungsausschlusserklärung</h4>
           <p>
-            Diese Website dient zu Ihrer Information. Sie wird mit Sorgfalt bearbeitet. Sowohl für die Auswahl der einzelnen Verweise wie für die Beiträge in den Sparten kann für Vollständigkeit, Auswahl und inhaltliche Richtigkeit der Informationen keine Haftung übernommen werden. Der Betreiber kann für fremde Inhalte, die durch die angebotene Datenbank erreichbar sind (Links), keine Haftung übernehmen.
+            Diese Website/ Applikation dient zu Ihrer Information. Sie wird mit Sorgfalt bearbeitet. Sowohl für die Auswahl der einzelnen Verweise wie für die Beiträge in den Sparten kann für Vollständigkeit, Auswahl und inhaltliche Richtigkeit der Informationen keine Haftung übernommen werden. Der Betreiber kann für fremde Inhalte, die durch die angebotene Datenbank erreichbar sind (Links), keine Haftung übernehmen.
           </p>
           <p>
-            Die Website kann insbesondere die persönliche Beratung im konkreten Einzelfall nicht ersetzten. Durch die zur Verfügung gestellten Informationen wird kein wie immer geartetes Rechtsverhältnis zwischen dem Land Salzburg und dem Nutzer begründet.
+            Die Website/ Applikation kann insbesondere die persönliche Beratung im konkreten Einzelfall nicht ersetzten. Durch die zur Verfügung gestellten Informationen wird kein wie immer geartetes Rechtsverhältnis zwischen dem Land Salzburg und dem Nutzer begründet.
           </p>
           <p>
-            Die auf der Website des Landes Salzburg veröffentlichten Beiträge sind urheberrechtlich geschützt. Jede unberechtigte Vervielfältigung und/oder Verbreitung dieser Seiten stellt eine Verletzung des österreichischen Urheberrechtsgesetzes dar.
+            Die auf der Website/ Applikation des Landes Salzburg veröffentlichten Beiträge sind urheberrechtlich geschützt. Jede unberechtigte Vervielfältigung und/oder Verbreitung dieser Seiten stellt eine Verletzung des österreichischen Urheberrechtsgesetzes dar.
           </p>
           <p>
-            Dieser Haftungsausschluss ist als Teil des Internetangebotes zu betrachten, von dem aus auf diese Seite verwiesen wurde.
+            Dieser Haftungsausschluss ist als Teil des Internetangebotes zu betrachten, von dem aus auf diese Seite/ Applikation verwiesen wurde.
           </p>
         </div>
       </div>

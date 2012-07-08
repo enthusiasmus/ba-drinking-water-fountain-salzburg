@@ -271,3 +271,10 @@
   height: 50000px;
   background:url('../img/ios/bg.png');
 }
+
+@media only screen and (max-device-width : 320px) {
+  #rss img {
+    max-width: 120px;
+    height: auto;
+  }
+}

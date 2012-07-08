@@ -68,3 +68,8 @@ a:hover {text-decoration: none;}
   width:200px;
   height:57px;
 }
+#salzburg-logo{
+  background: url('../img/logos.png') 0px -59px no-repeat;
+  width:200px;
+  height:91px;
+}

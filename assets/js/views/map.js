@@ -64,11 +64,16 @@ var MapView = Backbone.View.extend({
           new google.maps.Point(0,0),
           new google.maps.Point(25,40));
 
+      var description = markerModel.get('description').substring(0, 37);
+      if(description.length >= 37){
+        description += ".";
+      }
+      
       var marker = new google.maps.Marker({
         position : new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
         icon : icon,
-        title : markerModel.get("title"),
-        content : markerModel.get('title'),
+        title : markerModel.get("description"),
+        content : description,
         shadow : shadow,
         zIndex : 1
       });

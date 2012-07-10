@@ -81,6 +81,12 @@
   padding-top: 30px;
   display: inline-block;
 }
+  
+#navigation .menu-item a:active {
+  color: #fff;
+  background-color: #8e8e8e;
+}
+
 .navigation-a-active{
   color: #fff !important;
   background-color: #8e8e8e !important;

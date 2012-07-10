@@ -81,10 +81,14 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
               <li class='menu-item feed'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showRssFeed()'>Wasser-News</a>
               </li>
-              <?php }?>
               <li class='menu-item lake'>
                 <a href='http://www.salzburg.at/sbg_aktuell.html?AktuellID=WT' target='_blank'>Seentemperaturen</a>
               </li>
+              <?php } else { ?>
+              <li class='menu-item lake'>
+                <a href='http://www.salzburg.mobi/mobi/badeseen.html' target='_blank'>Seentemperaturen</a>
+              </li>
+              <?php } ?>
               <li class='menu-item about'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
               </li>

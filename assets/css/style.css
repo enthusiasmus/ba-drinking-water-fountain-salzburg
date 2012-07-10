@@ -67,6 +67,7 @@ a:hover {text-decoration: none;}
   background: url('../img/logos.png') 0px 0px no-repeat;
   width:200px;
   height:57px;
+  margin-bottom:15px;
 }
 #salzburg-logo{
   background: url('../img/logos.png') 0px -59px no-repeat;

@@ -4,10 +4,9 @@
   text-indent: -19999px;
   overflow: hidden;
 }
-
 /*** header ***/
 #header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -19,11 +18,11 @@
   width: 155px;
   height: 22px;
   background: url('../img/android/sprite.png') 0 -144px no-repeat;
-  margin: 10px auto 0 auto;
+  margin: 12px auto 0 auto;
 }
 #back {
   position: absolute;
-  top: 8px;
+  top: 9px;
   left: 10px;
   width: 44px;
   height: 20px;
@@ -82,7 +81,7 @@
   padding-top: 30px;
   display: inline-block;
 }
-#navigation .menu-item a:hover {
+#navigation .menu-item a:active {
   color: #fff;
   background-color: #8e8e8e;
 }
@@ -98,15 +97,15 @@
   background-repeat: no-repeat;
 }
 #navigation .position span {background-position: 0 0;}
-#navigation .menu-item.position a:hover > span {background-position: -48px 0;}
+#navigation .menu-item.position a:active > span {background-position: -48px 0;}
 #navigation .address span {background-position: -96px 0;}
-#navigation .menu-item.address a:hover > span {background-position: -144px 0;}
+#navigation .menu-item.address a:active > span {background-position: -144px 0;}
 #navigation .fontain span {background-position: 0 -96px;}
-#navigation .menu-item.fontain a:hover > span {background-position: -48px -96px;}
+#navigation .menu-item.fontain a:active > span {background-position: -48px -96px;}
 #navigation .maptype span {background-position: 0 -48px;}
-#navigation .menu-item.maptype a:hover > span {background-position: -48px -48px;}
+#navigation .menu-item.maptype a:active > span {background-position: -48px -48px;}
 #navigation .feed span {background-position: -96px -48px;}
-#navigation .menu-item.feed a:hover > span {background-position: -144px -48px;}
+#navigation .menu-item.feed a:active > span {background-position: -144px -48px;}
 
 /*** info icon (header navigation) ***/
 #header-navigation {
@@ -151,7 +150,7 @@
   display: block;
   border: 1px solid #afafaf;
   padding: 5px 10px 5px 30px;
-  color: #bababa;
+  color: #333;
   margin: 7px auto 0 auto;
   width: 75%;
   background: url('../img/mobile/search.gif') #fff 10px 5px no-repeat;
@@ -229,6 +228,16 @@
   margin: 0 auto;
   background-color: #fff;
   padding: 10px;
+}
+
+#overlay{
+  position: fixed;
+  display:none;
+  top: 0;
+  left: 0;
+  width: 10000px;
+  height: 50000px;
+  background-color: #212121;
 }
 
 @media only screen and (max-device-width : 320px) {

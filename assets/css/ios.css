@@ -6,7 +6,7 @@
 }
 /*** header ***/
 #header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -18,12 +18,12 @@
   width: 155px;
   height: 22px;
   background: url('../img/ios/sprite.png') 0 -144px no-repeat;
-  margin: 11px auto 0 auto;
+  margin: 12px auto 0 auto;
 }
 #back {
   position: absolute;
-  top: 7px;
-  left: 10px;
+  top: 8px;
+  left: 7px;
   width: 46px;
   height: 22px;
   background: url('../img/ios/sprite.png') 0 -166px no-repeat;
@@ -79,7 +79,7 @@
   padding-top: 31px;
   display: inline-block;
 }
-#navigation .menu-item a:hover {
+#navigation .menu-item a:active {
   color: #fff;
 }
 #navigation .menu-item span {
@@ -96,31 +96,31 @@
 #navigation .position span {
   background-position: 0 0;
 }
-#navigation .menu-item.position a:hover > span {
+#navigation .menu-item.position a:active > span {
   background-position: -48px 0;
 }
 #navigation .address span {
   background-position: -96px 0;
 }
-#navigation .menu-item.address a:hover > span {
+#navigation .menu-item.address a:active > span {
   background-position: -144px 0;
 }
 #navigation .fontain span {
   background-position: 0 -96px;
 }
-#navigation .menu-item.fontain a:hover > span {
+#navigation .menu-item.fontain a:active > span {
   background-position: -48px -96px;
 }
 #navigation .maptype span {
   background-position: 0 -48px;
 }
-#navigation .menu-item.maptype a:hover > span {
+#navigation .menu-item.maptype a:active > span {
   background-position: -48px -48px;
 }
 #navigation .feed span {
   background-position: -96px -48px;
 }
-#navigation .menu-item.feed a:hover > span {
+#navigation .menu-item.feed a:active > span {
   background-position: -144px -48px;
 }
 /*** info icon (header navigation) ***/
@@ -167,7 +167,7 @@
   border: 1px solid #afafaf;
   border-radius: 15px;
   padding: 5px 10px 5px 30px;
-  color: #a8a8a8;
+  color: #333;
   margin: 7px auto 0 auto;
   width: 75%;
   background: url('../img/mobile/search.gif') #fff 10px 5px no-repeat;

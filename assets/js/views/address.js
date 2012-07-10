@@ -42,6 +42,7 @@ var AddressView = Backbone.View.extend({
         else{
           self.showFailureMessage("Keine Suchergebnisse!");
         }
+        self.blurAllElements();
       }
     });
   },

@@ -69,24 +69,75 @@ var AppRouter = Backbone.Router.extend({
         self.slideArticleToRight();
       })
     }
+    else{
+      
+      $(".menu-item").click(function(event){
+        var self = this;
+        switch($(this).attr('id')){
+          case 'navi-position':
+            $('#navi-position > a > span').css({"backgroundPosition": "-48px 0px"});
+            $('#navi-position > a').css({"color": "#ffffff", "backgroundColor": "#8e8e8e"});
+            setTimeout(function() {
+              $('#navi-position > a').css({"color": "", "backgroundColor": ""});
+              $('#navi-position > a > span').css({"backgroundPosition": "0px 0px"});
+            }, 250);
+            break;
+          case 'navi-fontain':
+            $('#navi-fontain > a > span').css({"backgroundPosition": "-48px -96px"});
+            $('#navi-fontain > a').css({"color": "#ffffff", "backgroundColor": "#8e8e8e"});
+            setTimeout(function() {
+              $('#navi-fontain > a').css({"color": "", "backgroundColor": ""});
+              $('#navi-fontain > a > span').css({"backgroundPosition": "0px -96px"});
+            }, 250);
+            break;
+          case 'navi-maptype':
+            $('#navi-maptype > a > span').css({"backgroundPosition": "-48px -48px"});
+            $('#navi-maptype > a').css({"color": "#ffffff", "backgroundColor": "#8e8e8e"});
+            setTimeout(function() {
+              $('#navi-maptype > a').css({"color": "", "backgroundColor": ""});
+              $('#navi-maptype > a > span').css({"backgroundPosition": "0px -48px"});
+            }, 250);
+            break;
+          case 'navi-feed':
+            $('#navi-feed > a > span').css({"backgroundPosition": "-144px -48px"});
+            $('#navi-feed > a').css({"color": "#ffffff", "backgroundColor": "#8e8e8e"});
+            setTimeout(function() {
+              $('#navi-feed > a').css({"color": "", "backgroundColor": ""});
+              $('#navi-feed > a > span').css({"backgroundPosition": "-96px -48px"});
+            }, 250);
+            break;
+          case 'navi-address':
+            $('#navi-address > a > span').css({"backgroundPosition": "-144px -0px"});
+            $('#navi-address > a').css({"color": "#ffffff", "backgroundColor": "#8e8e8e"});
+            setTimeout(function() {
+              $('#navi-address > a').css({"color": "", "backgroundColor": ""});
+              $('#navi-address > a > span').css({"backgroundPosition": "-96px -0px"});
+            }, 250);
+            break;
+          default:
+            break;
+        }
+      });
+    }
   },
   index : function() {
+    var currentCenter = this.mapView.map.getCenter();
     this.navigate("", {
       trigger : true
     });
-
-    var currentCenter = this.mapView.map.getCenter();
-    var self = this;
 
     if(this.isMobile()){
       this.displayOnly('map_canvas header-navigation');
     }
     else{
+      if($('#map-wrap').css('top') == '250px') {
+        this.scrollMap();
+      }
       this.displayOnly('map_canvas appinfo hand-phone header-navigation');
     }
-      
     this.mapView.map.setCenter(currentCenter);
-
+    
+    var self = this;
     //get latest feeditem
     if(!this.isMobile()) {
       this.eventDispatcher.on('loadedFeed', function() {
@@ -133,7 +184,7 @@ var AppRouter = Backbone.Router.extend({
   scrollMap : function() {
     var mapCenter = this.mapView.map.getCenter();
 
-    if($('#map-wrap').css('top') == '250px') {
+    if($('#map-wrap').css('top') == '250px'){
       $('#map-wrap').css('min-height', '0px');
 
       $('#navigation, #address').animate({

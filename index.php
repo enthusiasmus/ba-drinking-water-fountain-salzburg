@@ -170,7 +170,8 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
           <br>
           <div id="latest_feed"></div>
         </div>
-        <span id="hand-phone"></span>
+        <span id="left-hand-phone"></span>
+        <span id="right-hand-phone"></span>
       </div>
     </div>
     <?php }?>

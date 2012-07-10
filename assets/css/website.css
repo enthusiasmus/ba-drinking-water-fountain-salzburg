@@ -174,7 +174,7 @@
 /*** header navigation ***/
 #header-navigation {
 	position: absolute; 
-	top: 121px; 
+	top: 118px; 
 	left: 0px; 
 	z-index: 10;
 }
@@ -258,14 +258,24 @@
   word-wrap: break-word;
 }
 /*** hand with iphone ***/
-#hand-phone {
-	position: absolute; 
-	bottom: 0px; 
-	right: -260px; 
-	background: url('../img/website/iphone_hand.png') 0 0 no-repeat;
-	width: 711px;
-	height: 480px;
-	z-index: 5;
+#left-hand-phone{
+  width:281px;
+  height:480px;
+  background: url('../img/website/iphone_hand.png') 0 0 no-repeat;
+  position: absolute;
+  bottom:0px;
+  right:170px; 
+  z-index: 5;
+}
+
+#right-hand-phone{
+  width:431px;
+  height:407px;
+  background: url('../img/website/iphone_hand.png') -281px -73px no-repeat;
+  position: absolute;
+  bottom:0px;
+  right:-261px; 
+  z-index: 5;
 }
 
 /*** image slider ***/
@@ -442,6 +452,9 @@
 	padding: 9px 15px; 
 	margin-left:0px;
 }
+.feed-more:hover{
+  background-color:#2277a8;
+}
   
 #latest-feed-more {
   width:50px;
@@ -459,6 +472,10 @@
   position: absolute;
   bottom: 8px;
   right: 8px;
+}
+
+#latest-feed-more:hover{
+  background-color:#2277a8;
 }
 
 /*

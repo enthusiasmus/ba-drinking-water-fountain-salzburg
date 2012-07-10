@@ -32,7 +32,7 @@
   padding: 6px 0 0 7px;
   display:none;
 }
-#back:hover {background-position: -51px -166px;}
+#back:active {background-position: -51px -166px;}
 
 /*** google map ***/
 #map-wrap {
@@ -81,9 +81,9 @@
   padding-top: 30px;
   display: inline-block;
 }
-#navigation .menu-item a:active {
-  color: #fff;
-  background-color: #8e8e8e;
+.navigation-a-active{
+  color: #fff !important;
+  background-color: #8e8e8e !important;
 }
 #navigation .menu-item span {
   position: absolute;
@@ -98,14 +98,19 @@
 }
 #navigation .position span {background-position: 0 0;}
 #navigation .menu-item.position a:active > span {background-position: -48px 0;}
+.navigation-position-a-active-span{background-position: -48px 0 !important;}
 #navigation .address span {background-position: -96px 0;}
 #navigation .menu-item.address a:active > span {background-position: -144px 0;}
+.navigation-address-a-active-span{background-position: -144px 0 !important;}
 #navigation .fontain span {background-position: 0 -96px;}
 #navigation .menu-item.fontain a:active > span {background-position: -48px -96px;}
+.navigation-fontain-a-active-span{background-position: -48px -96px !important;}
 #navigation .maptype span {background-position: 0 -48px;}
 #navigation .menu-item.maptype a:active > span {background-position: -48px -48px;}
+.navigation-maptype-a-active-span{background-position: -48px -48px !important;}
 #navigation .feed span {background-position: -96px -48px;}
 #navigation .menu-item.feed a:active > span {background-position: -144px -48px;}
+.navigation-feed-a-active-span{background-position: -144px -48px !important;}
 
 /*** info icon (header navigation) ***/
 #header-navigation {

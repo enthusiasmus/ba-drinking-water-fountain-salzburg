@@ -32,7 +32,7 @@
   padding: 7px 0 0 14px;
   display: none;
 }
-#back:hover {
+#back:active {
   background-position: -60px -166px;
 }
 /*** google map ***/
@@ -82,6 +82,9 @@
 #navigation .menu-item a:active {
   color: #fff;
 }
+.navigation-a-active{
+  color: #fff;
+}
 #navigation .menu-item span {
   position: absolute;
   top: -6px;
@@ -93,36 +96,22 @@
   background-image: url('../img/ios/sprite.png');
   background-repeat: no-repeat;
 }
-#navigation .position span {
-  background-position: 0 0;
-}
-#navigation .menu-item.position a:active > span {
-  background-position: -48px 0;
-}
-#navigation .address span {
-  background-position: -96px 0;
-}
-#navigation .menu-item.address a:active > span {
-  background-position: -144px 0;
-}
-#navigation .fontain span {
-  background-position: 0 -96px;
-}
-#navigation .menu-item.fontain a:active > span {
-  background-position: -48px -96px;
-}
-#navigation .maptype span {
-  background-position: 0 -48px;
-}
-#navigation .menu-item.maptype a:active > span {
-  background-position: -48px -48px;
-}
-#navigation .feed span {
-  background-position: -96px -48px;
-}
-#navigation .menu-item.feed a:active > span {
-  background-position: -144px -48px;
-}
+#navigation .position span {background-position: 0 0;}
+#navigation .menu-item.position a:active > span {background-position: -48px 0;}
+.navigation-position-a-active-span{background-position: -48px 0 !important;}
+#navigation .address span {background-position: -96px 0;}
+#navigation .menu-item.address a:active > span {background-position: -144px 0;}
+.navigation-address-a-active-span{background-position: -144px 0 !important;}
+#navigation .fontain span {background-position: 0 -96px;}
+#navigation .menu-item.fontain a:active > span {background-position: -48px -96px;}
+.navigation-fontain-a-active-span{background-position: -48px -96px !important;}
+#navigation .maptype span {background-position: 0 -48px;}
+#navigation .menu-item.maptype a:active > span {background-position: -48px -48px;}
+.navigation-maptype-a-active-span{background-position: -48px -48px !important;}
+#navigation .feed span {background-position: -96px -48px;}
+#navigation .menu-item.feed a:active > span {background-position: -144px -48px;}
+.navigation-feed-a-active-span{background-position: -144px -48px !important;}
+
 /*** info icon (header navigation) ***/
 #header-navigation {
   position: absolute;

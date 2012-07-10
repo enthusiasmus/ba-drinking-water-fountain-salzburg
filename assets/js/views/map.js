@@ -106,7 +106,9 @@ var MapView = Backbone.View.extend({
           if(distanceInformation)
             infoContent += "Distanz: " + distanceInformation + "<br/>";
         }
-        infoContent += '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.routeToFountain(' + markerModel.get("id") + ')" class="calculate-route" title="Route berechnen">Route berechnen</a></p>';
+        if(navigator.geolocation){
+          infoContent += '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.routeToFountain(' + markerModel.get("id") + ')" class="calculate-route" title="Route berechnen">Route berechnen</a></p>';
+        }
         infoContent += '<div class="pointer"></div>';
 
         self.infoBox.setContent(infoContent);
@@ -233,6 +235,14 @@ var MapView = Backbone.View.extend({
       if(status == google.maps.DirectionsStatus.OK) {
         self.directionsDisplay.setDirections(result);
       }
+      else{
+        if(self.isMobile()){
+          alert('Keine Route gefunden!');
+        }
+        else{
+          self.showFailureMessage("Keine Route gefunden!");
+        }
+      }
     });
   },
   nearestFountain : function(position) {
@@ -283,6 +293,14 @@ var MapView = Backbone.View.extend({
     this.directionsService.route(request, function(result, status) {
       if(status == google.maps.DirectionsStatus.OK) {
         self.directionsDisplay.setDirections(result);
+      }
+      else{
+        if(self.isMobile()){
+          alert('Keine Route gefunden!');
+        }
+        else{
+          self.showFailureMessage("Keine Route gefunden!");
+        }
       }
     });
   }

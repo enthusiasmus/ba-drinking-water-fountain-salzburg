@@ -375,12 +375,12 @@
 	position: relative;
 }
 #info .left {
-  width: 50%;
+  width: 48%;
   float: left;
   margin-bottom: 20px;
 }
 #info .right {
-  width: 50%;
+  width: 48%;
   float: right;
   margin-bottom: 20px;
 }

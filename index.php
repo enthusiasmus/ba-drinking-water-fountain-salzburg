@@ -37,12 +37,10 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <meta name="keywords" content="" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-    <?php if ($isIos) { ?>
+    <?php if ( $isIos ) { ?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ios.css" />
-    <?php } else if ( $isAndroid ) {?>
+    <?php } else if ( $isAndroid || $isMobile ) {?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/android.css" />
-    <?php } else if ( $isMobile ) {?>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/mobile.css" />
     <?php } else {?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/website.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/nivo-slider.css" />

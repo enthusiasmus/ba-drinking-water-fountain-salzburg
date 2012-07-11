@@ -79,10 +79,19 @@ var MapView = Backbone.View.extend({
         zIndex : 1
       });
       
+      if(navigator.appVersion.indexOf('MSIE') > -1){ 
+        var infoBoxBackground = "url(assets/img/website/infobox-ie.png) no-repeat";
+        var pixelOffset = new google.maps.Size(-150, -112);
+      }
+      else{
+        var infoBoxBackground = "url(assets/img/sprite-map.png) no-repeat 0px 0px";
+        var pixelOffset = new google.maps.Size(-161, -112);
+      }
+      
       infoBoxOptions = {
         disableAutoPan : false,
         maxWidth : 0,
-        pixelOffset : new google.maps.Size(-161, -112),
+        pixelOffset : pixelOffset,
         zIndex : null,
         boxClass : "mapInfoBox",
         closeBoxURL : "",
@@ -92,7 +101,7 @@ var MapView = Backbone.View.extend({
         enableEventPropagation : false,
         boxStyle : {
           position: "relative",
-          background : "url(assets/img/sprite-map.png) no-repeat 0px 0px",
+          background : infoBoxBackground,
           filter: 'alpha(opacity=255)',
           width : "279px",
           height: "58px",

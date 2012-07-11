@@ -1,28 +1,30 @@
 <?php
 $isMobile = false;
-$ios = false;
-$android = false;
+$isIos = false;
+$isIpad = false;
+$isAndroid = false;
 
 if (preg_match('/(alcatel|android|blackberry|benq|cell|elaine|htc|iemobile|iphone|ipad|ipaq|ipod|j2me|java|midp|mini|mobi|motorola|nokia|palm|panasonic|philips|phone|sagem|sharp|smartphone|sony|symbian|t-mobile|up\.browser|up\.link|vodafone|wap|wireless|xda|zte)/i', $_SERVER['HTTP_USER_AGENT']))
   $isMobile = true;
 
 if (strstr($_SERVER['HTTP_USER_AGENT'], 'iPad') || strstr($_SERVER['HTTP_USER_AGENT'], 'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'], 'iPod'))
-  $ios = true;
+  $isIos = true;
+
+if (strstr($_SERVER['HTTP_USER_AGENT'], 'iPad'))
+  $isIpad = true;
 
 if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
-  $android = true;
+  $isAndroid = true;
 ?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta content="text/html;charset=UTF-8" http-equiv="content-type">
-    <?php if ($isMobile) {
-    ?>
+    <?php if ($isMobile) { ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="apple-touch-icon-precomposed" href="assets/img/mobile/icon.png"/>
     <title>Wasser</title>
-    <?php if($ios) {
-    ?>
+    <?php if($isIos) { ?>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <link rel="apple-touch-startup-image" href="assets/img/ios/startup-iphone.png" />
@@ -35,9 +37,9 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <meta name="keywords" content="" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-    <?php if ($ios) { ?>
+    <?php if ($isIos) { ?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ios.css" />
-    <?php } else if ( $android ) {?>
+    <?php } else if ( $isAndroid ) {?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/android.css" />
     <?php } else if ( $isMobile ) {?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/mobile.css" />
@@ -74,7 +76,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
           <?php }?>
           <nav id="header-navigation">
             <ul>
-              <?php if ( !$isMobile ) {?>
+              <?php if ( !$isMobile || $isIpad ) {?>
               <li class='menu-item show_map'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.scrollMap()'>Karte</a>
               </li>

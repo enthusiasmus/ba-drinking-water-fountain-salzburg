@@ -170,13 +170,13 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
           <br>
           <span>im ganzen Land Salzburg</span></h3>
           <a href="http://itunes.apple.com/at/genre/ios/id36?mt=8" id="appstore">Availiable on the App Store</a>
-          <a href="https://play.google.com/store?hl=de" id="googleplay">Google play</a>
+          <a href="http://play.google.com/store/apps/details?id=at.sbg.fh.mmt.wasser" id="googleplay">Google play</a>
           <br>
           <div id="latest_feed"></div>
         </div>
         <span id="left-hand-phone"></span>
         <span id="right-hand-phone"></span>
-      </div>
+      </div>  
     </div>
     <?php }?>
     <div id="map-wrap">

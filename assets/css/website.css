@@ -236,16 +236,17 @@
 #appstore, #googleplay {
 	background-image: url('../img/website/sprite.png');
 	background-repeat: no-repeat;
-	width: 120px;
-	height: 40px;
 }
 #appstore {
-	top: 420px; 
+  top: 420px;
+  width: 120px;
+  height: 40px; 
 	background-position: 0px -134px;
 }
 #googleplay {
-	top: 423px;
-	height:33px;
+	top: 418px;
+  width:129px;
+	height:45px;
 	margin-left: 140px; 
 	background-position: 0px -174px;
 }
@@ -315,19 +316,19 @@
 }
 .prev{
   left: 0px;
-  background: url('../img/website/sprite.png') no-repeat -45px -206px;
+  background: url('../img/website/sprite.png') no-repeat -45px -219px;
 }
 .next {
 	right: 0px;
-  background: url('../img/website/sprite.png') no-repeat -68px -206px;
+  background: url('../img/website/sprite.png') no-repeat -68px -219px;
 }
 .prev_disabled {
   left: 0px;
-  background: url('../img/website/sprite.png') no-repeat 0px -206px;
+  background: url('../img/website/sprite.png') no-repeat 0px -219px;
 }
 .next_disabled {
   right: 0px;
-  background: url('../img/website/sprite.png') no-repeat -23px -206px;
+  background: url('../img/website/sprite.png') no-repeat -23px -219px;
 }
 #rss {
 	float: left;

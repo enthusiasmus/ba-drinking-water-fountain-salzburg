@@ -4,7 +4,7 @@ var MapView = Backbone.View.extend({
     this.render();
   },
   render : function() {
-    var myOptions = {
+    var mapOptions = {
       center : new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude')),
       zoom : this.model.get('zoom'),
       keyboardShortcuts : false,
@@ -17,13 +17,14 @@ var MapView = Backbone.View.extend({
     };
 
     if(!this.isMobile()){
-      myOptions.mapTypeControl = true;
+      mapOptions.mapTypeControl = true;
     }
     else if(this.isIpad()){
-      myOptions.zoom = this.model.get('zoom') + 1;
+      mapOptions.zoom = this.model.get('zoom') + 1;
     }
-
-    this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    
+    this.mapCenter = new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude'))
+    this.map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
   },
   markerCollection : undefined,
   map : undefined,

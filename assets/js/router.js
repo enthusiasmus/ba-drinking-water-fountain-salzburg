@@ -120,7 +120,6 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   index : function() {
-    var currentCenter = this.mapView.map.getCenter();
     this.navigate("", {
       trigger : true
     });
@@ -134,7 +133,7 @@ var AppRouter = Backbone.Router.extend({
       }
       this.displayOnly('map_canvas appinfo left-hand-phone right-hand-phone header-navigation');
     }
-    this.mapView.map.setCenter(currentCenter);
+    this.mapView.map.setCenter(this.mapView.mapCenter);
     
     var self = this;
     //get latest feeditem
@@ -157,7 +156,7 @@ var AppRouter = Backbone.Router.extend({
 
         $('#latest_feed').show();
       });
-      if(this.feedItemCollection.timestamp < new Date().getTime() - 60 * 60 * 12) {
+      if(this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
         this.feedItemCollection.reset();
         this.feedItemCollection.fetch({
           success : function() {
@@ -181,7 +180,7 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   scrollMap : function() {
-    var mapCenter = this.mapView.map.getCenter();
+    this.mapView.mapCenter = this.mapView.map.getCenter();
 
     if($('#map-wrap').css('top') == '250px'){
       $('#map-wrap').css('min-height', '0px');
@@ -198,7 +197,7 @@ var AppRouter = Backbone.Router.extend({
         $('#activatemap').show();
         $('#scroll').text('Karte vergrößern ↑');
         window.Trinkbrunnen.mapView.resizeMap();
-        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
+        window.Trinkbrunnen.mapView.map.setCenter(window.Trinkbrunnen.mapView.mapCenter);
       });
       
       if(this.routes[Backbone.history.fragment] == 'showRssFeed') {
@@ -221,7 +220,7 @@ var AppRouter = Backbone.Router.extend({
           opacity : 1
         }, 500);
         window.Trinkbrunnen.mapView.resizeMap();
-        window.Trinkbrunnen.mapView.map.setCenter(mapCenter);
+        window.Trinkbrunnen.mapView.map.setCenter(window.Trinkbrunnen.mapView.mapCenter);
         $('#activatemap').hide();
         $('#scroll').text('Karte verkleinern ↓');
       });
@@ -307,6 +306,7 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showRssFeed : function() {
+    this.mapView.mapCenter = this.mapView.map.getCenter();
     this.navigate("feed", {
       trigger : true
     });
@@ -449,6 +449,7 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showAbout : function() {
+    this.mapView.mapCenter = this.mapView.map.getCenter();
     this.navigate("about", {
       trigger : true
     });

@@ -253,7 +253,8 @@
 
 @media only screen and (max-device-width : 320px) {
   #rss img {
-    max-width: 120px;
+    max-width: 80px;
     height: auto;
+    margin-top: 0;
   }
 }

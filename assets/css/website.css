@@ -95,6 +95,7 @@
 	height: 30px;
 	background-image: url('../img/website/sprite.png');
 	background-repeat: no-repeat;
+	cursor: pointer;
 }
 #navigation .position span {background-position: 0 -104px;}
 #navigation .address span {background-position: -60px -104px;}
@@ -226,9 +227,8 @@
 }
 #slogan {top: 170px;}
 #slogan span {
-	font-size: 18px; 
-	display: inline-block; 
-	margin-bottom: 15px; 
+	font-size: 14px; 
+	display: block;  
 	background-color: #fff; 
 	padding: 8px 12px; 
 	color: #005586;
@@ -420,11 +420,10 @@
   float:right;
 }
 #latest_feed #latest-feed-title{
-  font-size: 12px;
-  font-weight:bold;
+  font-size: 13px;
   color: #005586;
   float:left;
-  padding:8px;
+  padding:8px 8px 8px 0;
   padding-bottom:4px;
   margin-top:3px;
   width:150px;

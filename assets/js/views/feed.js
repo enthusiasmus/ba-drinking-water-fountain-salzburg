@@ -33,7 +33,7 @@ var FeedView = Backbone.View.extend({
       feedItemModel.escape('link') + '">' + feedItemModel.escape("title") + 
       '</a></h3>' + '<p class="feed-date">' + feedItemModel.escape("pubDate") + 
       '</p>' + '<p class="feed-content">' + feedItemModel.get('image') + 
-      shortDescription + '</p>' + '<a href="' + feedItemModel.escape('link') + 
+      shortDescription + '</p>' + '<a target="_blank" href="' + feedItemModel.escape('link') + 
       '" class="feed-more">Mehr</a>' + '</article>');
     });
     this.scaleImages();

@@ -125,13 +125,13 @@ var AppRouter = Backbone.Router.extend({
     });
 
     if(this.isMobile()){
-      this.displayOnly('map_canvas header-navigation');
+      this.displayOnly('map_canvas map-wrap header-navigation');
     }
     else{
       if($('#map-wrap').css('top') == '250px') {
         this.scrollMap();
       }
-      this.displayOnly('map_canvas appinfo left-hand-phone right-hand-phone header-navigation');
+      this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
     }
     this.mapView.map.setCenter(this.mapView.mapCenter);
     
@@ -201,9 +201,9 @@ var AppRouter = Backbone.Router.extend({
       });
       
       if(this.routes[Backbone.history.fragment] == 'showRssFeed') {
-        this.displayOnly('map_canvas header-navigation feed');
+        this.displayOnly('map_canvas map-wrap header-navigation feed');
       }else if(this.routes[Backbone.history.fragment] == 'showAbout'){
-        this.displayOnly('map_canvas header-navigation info');
+        this.displayOnly('map_canvas map-wrap header-navigation info');
       }
       
       $('#appinfo, #info, #feed, #left-hand-phone, #right-hand-phone').animate({
@@ -239,9 +239,9 @@ var AppRouter = Backbone.Router.extend({
     }
 
     if(this.isMobile()) {
-      this.displayOnly('map_canvas header-navigation');
+      this.displayOnly('map_canvas map-wrap header-navigation');
     } else {
-      this.displayOnly('map_canvas appinfo left-hand-phone right-hand-phone header-navigation');
+      this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
     }
 
     this.calculateGeoLocation('drawRoute');
@@ -278,10 +278,10 @@ var AppRouter = Backbone.Router.extend({
         $('input[name=address]').blur(function() {
           $('#address').hide();
         });
-        this.displayOnly('map_canvas header-navigation address');
+        this.displayOnly('map_canvas map-wrap header-navigation address');
         $('input[name=address]').focus().select();    
     } else {
-      this.displayOnly('map_canvas address appinfo left-hand-phone right-hand-phone header-navigation');
+      this.displayOnly('map_canvas map-wrap address appinfo left-hand-phone right-hand-phone header-navigation');
       $('input[name=address]').focus().select();
     }
   },
@@ -294,11 +294,11 @@ var AppRouter = Backbone.Router.extend({
       trigger : true
     });
 
-    this.displayOnly('map_canvas header-navigation maptype');
+    this.displayOnly('map_canvas map-wrap header-navigation maptype');
   },
   changeMaptype : function(type) {
     if(this.isMobile()){
-      this.displayOnly('map_canvas header-navigation');
+      this.displayOnly('map_canvas map-wrap header-navigation');
       this.mapTypeView.changeType(type);
     }
     else{
@@ -314,7 +314,7 @@ var AppRouter = Backbone.Router.extend({
     if(this.isMobile()) {
       this.displayOnly('feed back overlay');
     } else {
-      this.displayOnly('map_canvas feed header-navigation');
+      this.displayOnly('map_canvas map-wrap feed header-navigation');
 
       if($('#map-wrap').css('top') == '250px') {
         this.scrollMap();
@@ -360,9 +360,9 @@ var AppRouter = Backbone.Router.extend({
     }
 
     if(this.isMobile()) {
-      this.displayOnly('map_canvas header-navigation');
+      this.displayOnly('map_canvas map-wrap header-navigation');
     } else {
-      this.displayOnly('map_canvas appinfo left-hand-phone right-hand-phone header-navigation');
+      this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
     }
 
     this.calculateGeoLocation();
@@ -457,14 +457,14 @@ var AppRouter = Backbone.Router.extend({
     if(this.isMobile()) {
       this.displayOnly('info back overlay');
     } else {
-      this.displayOnly('map_canvas info header-navigation');
+      this.displayOnly('map_canvas map-wrap info header-navigation');
 
       if($('#map-wrap').css('top') == '250px') {
         this.scrollMap();
       }
     }
   },
-  mainElements : new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay'),
+  mainElements : new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'map-wrap'),
   displayOnly : function(elementsToShow) {
     var elementsArray = elementsToShow.split(" ");
     var shouldShow;

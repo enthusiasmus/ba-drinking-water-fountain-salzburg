@@ -55,7 +55,6 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
       <div id="slider" class="nivoSlider">
         <img src="assets/img/slider/06.jpg" class="slide" alt="" />
         <img src="assets/img/slider/01.jpg" class="slide" alt="" />
-        <img src="assets/img/slider/02.jpg" class="slide" alt="" />
         <img src="assets/img/slider/03.jpg" class="slide" alt="" />
         <img src="assets/img/slider/04.jpg" class="slide" alt="" />
         <img src="assets/img/slider/05.jpg" class="slide" alt="" />
@@ -74,21 +73,17 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
           <?php }?>
           <nav id="header-navigation">
             <ul>
-              <?php if ( !$isMobile || $isIpad ) {?>
+              <?php if ( !$isMobile ) {?>
               <li class='menu-item show_map'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.scrollMap()'>Karte</a>
               </li>
               <li class='menu-item feed'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showRssFeed()'>Wasser-News</a>
               </li>
-              <li class='menu-item lake'>
-                <a href='http://www.salzburg.at/sbg_aktuell.html?AktuellID=WT' target='_blank'>Seentemperaturen</a>
-              </li>
-              <?php } else { ?>
-              <li class='menu-item lake'>
-                <a href='http://www.salzburg.mobi/mobi/badeseen.html' target='_blank'>Seentemperaturen</a>
-              </li>
               <?php } ?>
+              <li class='menu-item lake'>
+                <a href='http://www.salzburg.mobi/mobi/badeseen.html' target='_blank'>Seetemperaturen</a>
+              </li>
               <li class='menu-item about'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
               </li>
@@ -98,7 +93,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         <div id='overlay'></div>
         <div id="info">
           <div id="info-content">
-            <h2>Impressum / Kontakt</h2>
+                        <h2>Impressum / Kontakt</h2>
             <div  class="left">
               <p>
                 <div id="salzburg-logo"></div>
@@ -106,9 +101,9 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
               <p>
                 <b>Land Salzburg</b>
                 <br>
-                Information, Kommunikation, Marketing
-                <br>
                 Landes-Medienzentrum
+                <br>
+                Information, Kommunikation und Marketing
                 <br>
                 Chiemseehof, Postfach 527
                 <br>
@@ -138,12 +133,19 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
                 <i>Natur-Fotos:</i> Karin Schnirch
               </p>
             </div>
+            <h4>Wasser-App</h4>
+            <p>
+              Finden Sie einen Trinkbrunnen in Ihrer Nähe, um Ihren Durst zu stillen!
+            </p>
+            <p>
+              Die Wasser-App des Landes Salzburg führt Sie zu mehr als 200 Trinkbrunnen im ganzen Land Salzburg, perfekt um auf dem schnellsten Weg mit frischem Trinkwasser den Durst zu stillen. Die App lokalisiert Ihre Position, um den nächstgelegenen Trinkbrunnen zu finden. Weiters können Sie jederzeit die aktuellen Badeseentemperaturen abrufen und den neusten News der Wasserwirtschaft nachgehen. Um die App zu nutzen ist eine Internetverbindung (Wifi oder 3G-Netz) erforderlich oder GPS, um Ihre Position zu lokalisieren.
+            </p>
             <h4>Disclaimer – Haftungsausschlusserklärung</h4>
             <p>
               Diese Website/ Applikation dient zu Ihrer Information. Sie wird mit Sorgfalt bearbeitet. Sowohl für die Auswahl der einzelnen Verweise wie für die Beiträge in den Sparten kann für Vollständigkeit, Auswahl und inhaltliche Richtigkeit der Informationen keine Haftung übernommen werden. Der Betreiber kann für fremde Inhalte, die durch die angebotene Datenbank erreichbar sind (Links), keine Haftung übernehmen.
             </p>
             <p>
-              Die Website/ Applikation kann insbesondere die persönliche Beratung im konkreten Einzelfall nicht ersetzten. Durch die zur Verfügung gestellten Informationen wird kein wie immer geartetes Rechtsverhältnis zwischen dem Land Salzburg und dem Nutzer begründet.
+              Die Website/ Applikation kann insbesondere die persönliche Beratung im konkreten Einzelfall nicht ersetzen. Durch die zur Verfügung gestellten Informationen wird kein wie immer geartetes Rechtsverhältnis zwischen dem Land Salzburg und dem Nutzer begründet.
             </p>
             <p>
               Die auf der Website/ Applikation des Landes Salzburg veröffentlichten Beiträge sind urheberrechtlich geschützt. Jede unberechtigte Vervielfältigung und/oder Verbreitung dieser Seiten stellt eine Verletzung des österreichischen Urheberrechtsgesetzes dar.
@@ -155,21 +157,22 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         </div>
         <div id="feed">
           <?php if ( !$isMobile ) {?>
-          <a href="javascript:void(0)" id="prev" class="prev">Neuere Wasser-News</a>
-          <div id="rss_content">
-            <?php }?>
-            <section id="rss"></section>
-            <?php if ( !$isMobile ) {?>
-          </div>
-          <a href="javascript:void(0)" id="next" class="next">Ältere Wasser-News</a>
+            <a href="javascript:void(0)" id="prev" class="prev">Neuere Wasser-News</a>
+            <div id="rss_content">
+          <?php }?>
+          <?php if($isMobile){ ?> <span id="feed_loading">News werden geladen...</span> <?php } ?>
+          <section id="rss"></section>
+          <?php if ( !$isMobile ) {?>
+            </div>
+            <a href="javascript:void(0)" id="next" class="next">Ältere Wasser-News</a>
           <?php }?>
         </div>
         <?php if ( !$isMobile ) {?>
         <div id="appinfo">
-          <h3 id="slogan"><span>App mit über 190 Trinkbrunnen</span>
+          <h3 id="slogan"><span>App mit über 200 Trinkbrunnen</span>
           <br>
           <span>im ganzen Land Salzburg</span></h3>
-          <a href="http://itunes.apple.com/at/genre/ios/id36?mt=8" id="appstore">Availiable on the App Store</a>
+          <a href="http://itunes.apple.com/at/app/wasser-land-salzburg/id544685735?mt=8" id="appstore">Availiable on the App Store</a>
           <a href="http://play.google.com/store/apps/details?id=at.sbg.fh.mmt.wasser" id="googleplay">Google play</a>
           <br>
           <div id="latest_feed"></div>
@@ -179,12 +182,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
       </div>  
     </div>
     <?php }?>
-    <div id="map-wrap">
-      <?php if ( !$isMobile ) {?>
-      <div id="scroll-wrap">
-        <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="scroll">Karte vergrößern &uarr;</a>
-      </div>
-      <?php }?>
+    <?php if($isMobile){ ?>
       <nav id="navigation">
         <ul>
           <li id='navi-position' class='menu-item position'>
@@ -196,20 +194,39 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
           <li id='navi-fontain' class='menu-item fontain'>
             <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.nextFountain()'><span></span>Brunnen</a>
           </li>
-          <?php if(!$isMobile){?>
-          <li class='menu-item cluster'>
-            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.toggleClusterSingled()'><span></span>Gruppe</a>
-          </li>
-          <?php } else {?>
           <li id='navi-maptype' class='menu-item maptype'>
             <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showMaptype()'><span></span>Kartentyp</a>
           </li>
           <li id='navi-feed' class='menu-item feed'>
             <a href='#feed'><span></span>News</a>
           </li>
-          <?php }?>
         </ul>
       </nav>
+    <?php } ?>
+    <div id="map-wrap">
+      <?php if(!$isMobile){ ?>
+        <nav id="navigation">
+          <ul>
+            <li id='navi-position' class='menu-item position'>
+              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.getUserLocation()'><span></span>Position</a>
+            </li>
+            <li id='navi-address' class='menu-item address'>
+              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAddressSearch()'><span></span>Adresse</a>
+            </li>
+            <li id='navi-fontain' class='menu-item fontain'>
+              <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.nextFountain()'><span></span>Brunnen</a>
+            </li>
+            <li class='menu-item cluster'>
+              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.toggleClusterSingled()'><span></span>Gruppe</a>
+            </li>
+          </ul>
+        </nav>
+      <?php } ?>
+      <?php if ( !$isMobile ) {?>
+      <div id="scroll-wrap">
+        <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="scroll">Karte vergrößern &uarr;</a>
+      </div>
+      <?php }?>
       <div id="map_canvas"></div>
       <div id="maptype">
         <div>
@@ -239,7 +256,9 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         <div id="search_close_button"></div>
       </div>
     </div>
+    <?php if ( !$isMobile ) { ?>
     <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>
+    <?php }?>
     <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT"></script>
     <!-- libs -->
     <script type="text/javascript" src="assets/js/libs/markerclusterer.js"></script>

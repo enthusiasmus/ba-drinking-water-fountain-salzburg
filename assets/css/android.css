@@ -49,7 +49,20 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #ddd;
+  background: #EEE;
+  z-index: 5;
+}
+
+#map_canvas #info_offline{
+  position: absolute;
+  top:50%;
+  left:50%;
+  margin-top:-25px;
+  margin-left:-150px;
+  text-align:center;
+  width:300px;
+  height:50px;
+  font-size: 13px;
 }
 
 /*** navigation ***/
@@ -63,6 +76,7 @@
   background-color: #000;
   border-top: 2px solid #8e8e8e;
   overflow: hidden;
+  z-index: 10;
 }
 #navigation .menu-item {
   display: block;
@@ -175,6 +189,7 @@
   left: 0;
   width: 100%;
   display:none;
+  z-index: 10;
 }
 #maptype ul {
   width: 85%;
@@ -219,6 +234,9 @@
 #rss img {
   float: right;
   margin: -20px 10px 0 15px;
+  max-width: 100px;
+  height: auto;
+  margin-top: 0;
 }
 #rss .feed-date {
   font-size: 11px;
@@ -250,11 +268,6 @@
   height: 50000px;
   background-color: #212121;
 }
-
-@media only screen and (max-device-width : 320px) {
-  #rss img {
-    max-width: 80px;
-    height: auto;
-    margin-top: 0;
-  }
+#map-wrap{
+  background-color: #555;
 }

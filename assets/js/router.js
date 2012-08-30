@@ -320,7 +320,7 @@ var AppRouter = Backbone.Router.extend({
         this.scrollMap();
       }
     }
-
+    return;
     var self = this;
     if(this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
       this.feedItemCollection.reset();

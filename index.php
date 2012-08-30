@@ -160,7 +160,6 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
             <a href="javascript:void(0)" id="prev" class="prev">Neuere Wasser-News</a>
             <div id="rss_content">
           <?php }?>
-          <?php if($isMobile){ ?> <span id="feed_loading">News werden geladen...</span> <?php } ?>
           <section id="rss"></section>
           <?php if ( !$isMobile ) {?>
             </div>
@@ -227,7 +226,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="scroll">Karte vergrößern &uarr;</a>
       </div>
       <?php }?>
-      <div id="map_canvas"></div>
+      <div id="map_canvas"><span id="info_offline">Bitte verbinden Sie sich mit dem Internet und starten Sie die Anwendung neu!</span></div>
       <div id="maptype">
         <div>
           <ul>

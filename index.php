@@ -20,11 +20,13 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
 <html>
   <head>
     <meta content="text/html;charset=UTF-8" http-equiv="content-type">
-    <?php if ($isMobile) { ?>
+    <?php if ($isMobile) {
+    ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="apple-touch-icon-precomposed" href="assets/img/mobile/icon.png"/>
     <title>Wasser</title>
-    <?php if($isIos) { ?>
+    <?php if($isIos) {
+    ?>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <link rel="apple-touch-startup-image" href="assets/img/ios/startup-iphone.png" />
@@ -38,10 +40,11 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <meta author="author" content="Wanko Lukas, Nicole Buchegger, Robert Koch, Landesregierung Salzburg"/>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-    <?php if ( $isIos ) { ?>
+    <?php if ( $isIos ) {
+    ?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ios.css" />
     <?php } else if ( $isAndroid || $isMobile ) { ?>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/android.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/mobile.css" />
     <?php } else { ?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/website.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/nivo-slider.css" />
@@ -51,7 +54,8 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <?php } ?>
   </head>
   <body>
-    <?php if ( !$isMobile ) { ?>
+    <?php if ( !$isMobile ) {
+    ?>
     <div id="wrap">
       <div id="slider" class="nivoSlider">
         <img src="assets/img/slider/06.jpg" class="slide" alt="" />
@@ -85,7 +89,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
               </li>
               <?php } ?>
               <li class='menu-item lake'>
-                <a href='http://www.salzburg.mobi/mobi/badeseen.html' target='_blank'>Seetemperaturen</a>
+                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showLakeTemperatures()'>Seetemperaturen</a>
               </li>
               <li class='menu-item about'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
@@ -158,18 +162,127 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
             </p>
           </div>
         </div>
+        <div id="lakes">
+          <div id="lakes-content">
+            <h2>Seetemperaturen</h2>
+            <ul>
+              <li>
+                <ul>
+                  <li>
+                    <h3>Fuschlsee</h3>
+                    Fuschl am See
+                  </li>
+                  <li>
+                   <big>4.8 °C</big>
+                  </li>
+                  <li>
+                    17:30 14.12.2012
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul>
+                  <li>
+                    <h3>Grabensee</h3>
+                    Grabensee
+                  </li>
+                  <li>
+                    <big>4.8 °C</big>
+                  </li>
+                  <li>
+                    17:30 14.12.2012
+                  </li>
+                </ul>
+              </li>
+              <li>
+
+                <ul>
+                  <li>
+                    <h3>Mattsee</h3>
+                    Mattsee
+                  </li>
+                  <li>
+                    <big>4.8 °C</big>
+                  </li>
+                  <li>
+                    17:30 14.12.2012
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul>
+                  <li>
+                    <h3>Obertrumer See</h3>
+                    Obertrum
+                  </li>
+                  <li>
+                    <big>4.8 °C</big>
+                  </li>
+                  <li>
+                    17:30 14.12.2012
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul>
+                  <li>
+                    <h3>Wolfgangsee</h3>
+                    St. Gilgen
+                  </li>
+                  <li>
+                     <big>4.8 °C</big>
+                  </li>
+                  <li>
+                    17:30 14.12.2012
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul>
+                  <li>
+                    <h3>Wallersee</h3>
+                    Wallersee
+                  </li>
+                  <li>
+                    <big>4.8 °C</big>
+                  </li>
+                  <li>
+                    17:30 14.12.2012
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul>
+                  <li>
+                    <h3>Zeller See</h3>
+                    Zell am See
+                  </li>
+                  <li>
+                    <big>4.8 °C</big>
+                  </li>
+                  <li>
+                    17:30 14.12.2012
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
         <div id="feed">
-          <?php if ( !$isMobile ) {?>
+          <?php if ( !$isMobile ) {
+          ?>
           <a href="javascript:void(0)" id="prev" class="prev">Neuere Wasser-News</a>
           <div id="rss_content">
             <?php } ?>
             <section id="rss"></section>
-            <?php if ( !$isMobile ) {?>
+            <?php if ( !$isMobile ) {
+            ?>
           </div>
           <a href="javascript:void(0)" id="next" class="next">Ältere Wasser-News</a>
           <?php } ?>
         </div>
-        <?php if ( !$isMobile ) {?>
+        <?php if ( !$isMobile ) {
+        ?>
         <div id="appinfo">
           <h3 id="slogan"><span>App mit über 200 Trinkbrunnen</span>
           <br>
@@ -184,7 +297,8 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
       </div>
     </div>
     <?php } ?>
-    <?php if($isMobile){ ?>
+    <?php if($isMobile){
+    ?>
     <nav id="navigation">
       <ul>
         <li id='navi-position' class='menu-item position'>
@@ -262,7 +376,8 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         <div id="search_close_button"></div>
       </div>
     </div>
-    <?php if ( !$isMobile ) { ?>
+    <?php if ( !$isMobile ) {
+    ?>
     <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>
     <?php } ?>
     <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT"></script>
@@ -271,14 +386,16 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <script type="text/javascript" src="assets/js/libs/infobox.js"></script>
     <script type="text/javascript" src="assets/js/libs/jquery.js"></script>
     <script type="text/javascript" src="assets/js/libs/jquery.dateFormat.js"></script>
-    <?php if ( !$isMobile ) { ?>
+    <?php if ( !$isMobile ) {
+    ?>
     <script type="text/javascript" src="assets/js/libs/jquery.nivo.slider.js"></script>
     <?php } ?>
     <script type="text/javascript" src="assets/js/libs/json2.js"></script>
     <script type="text/javascript" src="assets/js/libs/underscore.js"></script>
     <script type="text/javascript" src="assets/js/libs/backbone.js"></script>
     <!--templates -->
-		<?php include "assets/templates/article.html" ?>
+    <?php include "assets/templates/article.html"
+    ?>
     <!--models -->
     <script type="text/javascript" src="assets/js/models/feedItem.js"></script>
     <script type="text/javascript" src="assets/js/models/feed.js"></script>
@@ -298,6 +415,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <script type="text/javascript" src="assets/js/router.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
     <!-- stats -->
-    <?php include "stats/stats.php" ?>
+    <?php include "stats/stats.php"
+    ?>
   </body>
 </html>

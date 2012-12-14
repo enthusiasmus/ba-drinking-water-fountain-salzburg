@@ -1,325 +1,336 @@
 /*** text indents ***/
 #address .searchsubmit, #appstore, #googleplay, #logo, #logo_salzburg, #prev, #next {
-	display: block;
-	text-indent: -19999px;
-	overflow: hidden;
+  display: block;
+  text-indent: -19999px;
+  overflow: hidden;
 }
 
 /*** map ***/
 #map-wrap {
-	position:absolute;
-	top: 544px;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	width: 100%;
-	z-index: 20; 
-	border-top: 6px solid #fff;
-	min-width:960px;
+  position: absolute;
+  top: 544px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 20;
+  border-top: 6px solid #fff;
+  min-width: 960px;
 }
 #map_canvas {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: #ddd;
-	z-index: 4;
-	min-width:960px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ddd;
+  z-index: 4;
+  min-width: 960px;
 }
 
 #activatemap {
-	position:absolute;
-	top: 540px;
-	left: 0;
-	bottom: 0;
-	display: block;
-	width: 100%; 
-	z-index: 21;
+  position: absolute;
+  top: 540px;
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  z-index: 21;
 }
 #scroll-wrap {
-	position: relative;
-	width: 960px;
-	margin: 0 auto;
+  position: relative;
+  width: 960px;
+  margin: 0 auto;
 }
-#scroll{
-	position: absolute; 
-	top: -42px; 
-	left: 0;
-	font-size: 16px; 
-	display: block; 
-	z-index: 15; 
-	text-decoration: none; 
-	background-color: #fff; 
-	color: #005586; 
-	padding: 10px 15px;
+#scroll {
+  position: absolute;
+  top: -42px;
+  left: 0;
+  font-size: 16px;
+  display: block;
+  z-index: 15;
+  text-decoration: none;
+  background-color: #fff;
+  color: #005586;
+  padding: 10px 15px;
 }
-#scroll:hover{
-	background-color: #005586; 
-	color: #fff; 
+#scroll:hover {
+  background-color: #005586;
+  color: #fff;
 }
 
 /** navigation **/
 #navigation {
-	position: absolute; 
-	top: 30px; 
-	left: 40px; 
-	z-index: 5;
-	opacity: 0;
-	display: none;
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  z-index: 5;
+  opacity: 0;
+  display: none;
 }
 #navigation .menu-item {
-	font-size: 14px; 
-	display: block; 
-	float: left; 
-	margin-right: 10px;
+  font-size: 14px;
+  display: block;
+  float: left;
+  margin-right: 10px;
 }
-#navigation .maptype {display: none;}
+#navigation .maptype {
+  display: none;
+}
 #navigation .menu-item a {
-	position: relative;
-	text-decoration: none; 
-	background-color: #fff; 
-	color: #005586; 
-	padding: 17px 15px 12px 45px; 
+  position: relative;
+  text-decoration: none;
+  background-color: #fff;
+  color: #005586;
+  padding: 17px 15px 12px 45px;
 }
-#navigation .menu-item a:hover{
-	background-color: #005586; 
-	color:#fff; 
+#navigation .menu-item a:hover {
+  background-color: #005586;
+  color: #fff;
 }
 #navigation .menu-item span {
-	position: absolute;
-	top: 7px;
-	left: 7px;
-	display: block;
-	width: 30px;
-	height: 30px;
-	background-image: url('../img/website/sprite.png');
-	background-repeat: no-repeat;
-	cursor: pointer;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-image: url('../img/website/sprite.png');
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
-#navigation .position span {background-position: 0 -104px;}
-#navigation .address span {background-position: -60px -104px;}
-#navigation .fontain span {background-position: -90px -104px;}
-#navigation .cluster span {background-position: -30px -104px;}
+#navigation .position span {
+  background-position: 0 -104px;
+}
+#navigation .address span {
+  background-position: -60px -104px;
+}
+#navigation .fontain span {
+  background-position: -90px -104px;
+}
+#navigation .cluster span {
+  background-position: -30px -104px;
+}
 #navigation .menu-item a:hover > span, #navigation .menu-item a:focus > span, #navigation .menu-item a:active > span {
-	top: 5px;
-	left: 5px;
-	border: 2px solid #fff;
+  top: 5px;
+  left: 5px;
+  border: 2px solid #fff;
 }
 
 /** address search **/
 #address, #maptype {
-	display: none;
-	position: absolute;
-	top: 70px;
-	left: 40px;
-	width: 100%;
-	z-index: 30;
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 40px;
+  width: 100%;
+  z-index: 30;
 }
-#address{
-	width: 443px;
-	background-color: #fff;
-	padding: 15px;
+#address {
+  width: 443px;
+  background-color: #fff;
+  padding: 15px;
 }
 
-#address #search_close_button{
+#address #search_close_button {
   background: url('../img/website/sprite.png') no-repeat -138px -104px;
   width: 20px;
   height: 20px;
   position: absolute;
-  top:-7px;
-  right:-7px;
+  top: -7px;
+  right: -7px;
   cursor: pointer;
 }
 #address .addressinput {
-	width: 400px;
-	color: #333;
-	font-size: 12px;
-	padding: 5px;
-	border: 1px solid #999;
-	float:left;
+  width: 400px;
+  color: #333;
+  font-size: 12px;
+  padding: 5px;
+  border: 1px solid #999;
+  float: left;
 }
 #address .searchsubmit {
-	background: url('../img/website/sprite.png') -120px -104px no-repeat;
-	border: 0;
-	width: 18px;
-	height: 18px;
-	margin-top: 4px;
-	float: right;
-	cursor: pointer;
-	
-	/* hide the w3c-nessecary value on the button */
-	text-indent: -9000px;
-	text-transform: capitalize;
+  background: url('../img/website/sprite.png') -120px -104px no-repeat;
+  border: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  float: right;
+  cursor: pointer;
+  /* hide the w3c-nessecary value on the button */
+  text-indent: -9000px;
+  text-transform: capitalize;
 }
 
 /*** wrap ***/
 #wrap {
-	position: absolute;
-	width: 100%; 
-	min-width: 960px;
-	height: 542px; 
-	border-top: solid 8px #005586; 
-	background: url('../img/website/bg-header.gif') #f0f0f0 0 0 repeat-x; 
-	overflow: hidden;
+  position: absolute;
+  width: 100%;
+  min-width: 960px;
+  height: 542px;
+  border-top: solid 8px #005586;
+  background: url('../img/website/bg-header.gif') #f0f0f0 0 0 repeat-x;
+  overflow: hidden;
 }
 #inner-wrap {
   width: 960px;
   height: 542px;
   /* not use relative - safari and chrome will place the header otherwise not correct */
   position: absolute;
-  left:50%;
-  margin-left:-480px;
+  left: 50%;
+  margin-left: -480px;
 }
 
 /*** header navigation ***/
 #header-navigation {
-	position: absolute; 
-	top: 118px; 
-	left: 0px; 
-	z-index: 10;
+  position: absolute;
+  top: 118px;
+  left: 0px;
+  z-index: 10;
 }
 #header-navigation .menu-item {
-	font-size: 14px; 
-	display: block; 
-	float: left; 
-	margin-right: 15px; 
+  font-size: 14px;
+  display: block;
+  float: left;
+  margin-right: 15px;
 }
 #header-navigation .menu-item a {
-	display: block; 
-	text-decoration: none; 
-	color: #fff; 
-	background-color: #005586; 
-	padding: 7px 12px;
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  background-color: #005586;
+  padding: 7px 12px;
 }
 #header-navigation .menu-item a:hover, #top_navigation .menu-item a:focus, #top_navigation .menu-item a:active {
-	background-color: #fff; 
-	color: #005586; 
+  background-color: #fff;
+  color: #005586;
 }
 
 /*** logos ***/
 #logo a {
-	position: absolute; 
-	top: 49px; 
-	left: 0; 
-	width: 461px; 
-	height: 31px; 
-	background: url('../img/website/sprite.png') 0 0 no-repeat; 
+  position: absolute;
+  top: 49px;
+  left: 0;
+  width: 461px;
+  height: 31px;
+  background: url('../img/website/sprite.png') 0 0 no-repeat;
 }
 #logo_salzburg a {
-	position: absolute; 
-	top: 30px; 
-	right: 0; 
-	width: 145px; 
-	height: 65px; 
-	background: url('../img/website/sprite.png') 0 -31px no-repeat;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 145px;
+  height: 65px;
+  background: url('../img/website/sprite.png') 0 -31px no-repeat;
 }
 
 /*** app info ***/
 #appinfo {
-	position: relative;
-	z-index: 5;
+  position: relative;
+  z-index: 5;
 }
 #slogan, #appstore, #googleplay, #latest_feed {
-	position: absolute; 
-	left: 0;
-	z-index: 5;
+  position: absolute;
+  left: 0;
+  z-index: 5;
 }
-#slogan {top: 170px;}
+#slogan {
+  top: 170px;
+}
 #slogan span {
-	font-size: 14px; 
-	display: block;  
-	background-color: #fff; 
-	padding: 8px 12px; 
-	color: #005586;
+  font-size: 14px;
+  display: block;
+  background-color: #fff;
+  padding: 8px 12px;
+  color: #005586;
 }
 #appstore, #googleplay {
-	background-image: url('../img/website/sprite.png');
-	background-repeat: no-repeat;
+  background-image: url('../img/website/sprite.png');
+  background-repeat: no-repeat;
 }
 #appstore {
   top: 420px;
   width: 120px;
-  height: 40px; 
-	background-position: 0px -134px;
+  height: 40px;
+  background-position: 0px -134px;
 }
 #googleplay {
-	top: 418px;
-  width:129px;
-	height:45px;
-	margin-left: 140px; 
-	background-position: 0px -174px;
+  top: 418px;
+  width: 129px;
+  height: 45px;
+  margin-left: 140px;
+  background-position: 0px -174px;
 }
 #latest_feed {
-  display:none;
+  display: none;
   top: 270px;
   width: 220px;
   background: #fff;
-  padding:8px;
+  padding: 8px;
   word-wrap: break-word;
 }
 /*** hand with iphone ***/
-#left-hand-phone{
-  width:281px;
-  height:480px;
+#left-hand-phone {
+  width: 281px;
+  height: 480px;
   background: url('../img/website/iphone_hand.png') 0 0 no-repeat;
   position: absolute;
-  bottom:0px;
-  right:170px; 
+  bottom: 0px;
+  right: 170px;
   z-index: 5;
 }
 
-#right-hand-phone{
-  width:431px;
-  height:407px;
+#right-hand-phone {
+  width: 431px;
+  height: 407px;
   background: url('../img/website/iphone_hand.png') -281px -73px no-repeat;
   position: absolute;
-  bottom:0px;
-  right:-261px; 
+  bottom: 0px;
+  right: -261px;
   z-index: 5;
 }
 
 /*** image slider ***/
 #slider {
-	position: absolute;
-	top: 122px;
-	left: 0;
-	width: 100%;
-	background: #fff url('../img/website/loading.gif') no-repeat 50% 50%;
+  position: absolute;
+  top: 122px;
+  left: 0;
+  width: 100%;
+  background: #fff url('../img/website/loading.gif') no-repeat 50% 50%;
 }
 #slider img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	max-width: 100%;
-	display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  display: none;
 }
 
 /*** feed & imprint ***/
-#feed, #info {
-	position: absolute;
-	top: 180px;
-	left: 0; 
-	width: 960px;
-	height: 290px;
-	overflow: hidden;
-	z-index: 10;
-	display:none;
+#feed, #info, #lakes {
+  position: absolute;
+  top: 180px;
+  left: 0;
+  width: 960px;
+  height: 290px;
+  overflow: hidden;
+  z-index: 10;
+  display: none;
 }
 #prev, #next {
-	position: absolute;
-	top: 0;
-	width: 22px;
-	height: 44px;
-	margin-top:120px;
-	z-index: 5;
+  position: absolute;
+  top: 0;
+  width: 22px;
+  height: 44px;
+  margin-top: 120px;
+  z-index: 5;
 }
-.prev{
+.prev {
   left: 0px;
   background: url('../img/website/sprite.png') no-repeat -45px -219px;
 }
 .next {
-	right: 0px;
+  right: 0px;
   background: url('../img/website/sprite.png') no-repeat -68px -219px;
 }
 .prev_disabled {
@@ -331,49 +342,40 @@
   background: url('../img/website/sprite.png') no-repeat -23px -219px;
 }
 #rss {
-	float: left;
-	width: 4000%;
-	z-index: 4;
-	margin-left:0px;
+  float: left;
+  width: 4000%;
+  z-index: 4;
+  margin-left: 0px;
 }
-#rss_content{
-  width:880px;
+#rss_content {
+  width: 880px;
   overflow: hidden;
   margin: 0px 40px;
-  height:100%;
-  position:relative;
+  height: 100%;
+  position: relative;
 }
 
-#info {
-	width: 920px;
-	height: 250px;
-	background-color: #fff;
-	overflow: auto;
-	border: 20px solid #fff;
+#info, #lakes {
+  width: 920px;
+  height: 250px;
+  background-color: #fff;
+  overflow: auto;
+  border: 20px solid #fff;
 }
-#info h2 {
-	color:#005586; 
-	font-size: 140%;
-	margin-bottom: 10px;
+#info h2, #lakes h2 {
+  color: #005586;
+  font-size: 140%;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
-#info h4 {
-	margin-bottom: 6px;
-	font-weight: bold;
+#info h4, #lakes h4 {
+  margin-bottom: 6px;
+  font-weight: bold;
   clear: both;
 }
 #info p {
-	line-height: 1.3em;
-	margin-bottom: 10px;
-}
-#rss article {
-	float: left;
-	width: 192px;
-	height: 270px;
-	background-color: #fff;
-	margin-right: 10px;
-	padding: 10px;
-	overflow: hidden;
-	position: relative;
+  line-height: 1.3em;
+  margin-bottom: 10px;
 }
 #info .left {
   width: 48%;
@@ -385,86 +387,131 @@
   float: right;
   margin-bottom: 20px;
 }
-#rss article:last-child {margin-right: 0;}
+
+#lakes-content > ul {
+  margin-top: 20px;
+}
+#lakes big {
+  font-size: 110%;
+  font-weight: bold;
+}
+#lakes h3 {
+  margin: 0px;
+  font-weight: bold;
+}
+#lakes ul li {
+  font-size: 13px;
+}
+#lakes ul li ul {
+  width: 50%;
+  float: left;
+}
+#lakes ul li ul li {
+  float: left;
+  margin: 10px 10px 10px 15px;
+}
+#lakes ul li ul li {
+  width: 130px;
+}
+#lakes ul li ul li + li {
+  width: 60px;
+}
+#lakes ul li ul li + li + li {
+  width: 150px;
+}
+
+#rss article {
+  float: left;
+  width: 192px;
+  height: 270px;
+  background-color: #fff;
+  margin-right: 10px;
+  padding: 10px;
+  overflow: hidden;
+  position: relative;
+}
+#rss article:last-child {
+  margin-right: 0;
+}
 .feed-title a {
-	color:#005586; 
-	text-decoration: none;
-	font-size: 12px;
-	font-weight: bold;
+  color: #005586;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
 }
 .feed-title {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .feed-date {
-	position: absolute;
-	bottom: 15px;
-	right: 10px;
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
 }
 
-.feed-content, #latest-feed-content{
-	line-height: 1.3em;
+.feed-content, #latest-feed-content {
+  line-height: 1.3em;
 }
 
-#latest-feed-headline{
-  width:100%;
+#latest-feed-headline {
+  width: 100%;
 }
-#latest_feed #latest-feed-news{
-  color:#005586; 
+#latest_feed #latest-feed-news {
+  color: #005586;
   text-decoration: none;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  float:left;
+  float: left;
 }
 #latest_feed #latest-feed-date {
-  float:right;
+  float: right;
 }
-#latest_feed #latest-feed-title{
+#latest_feed #latest-feed-title {
   font-size: 13px;
   color: #005586;
-  float:left;
-  padding:8px 8px 8px 0;
-  padding-bottom:4px;
-  margin-top:3px;
-  width:150px;
+  float: left;
+  padding: 8px 8px 8px 0;
+  padding-bottom: 4px;
+  margin-top: 3px;
+  width: 150px;
 }
-#latest_feed #latest-feed-title a{
+#latest_feed #latest-feed-title a {
   text-decoration: none;
 }
 #latest-feed-content {
-	width:280px;
-  padding:0px 8px 8px 8px;
+  width: 280px;
+  padding: 0px 8px 8px 8px;
 }
 .feed-content img {
-	display: block;
-	margin: 0 auto 5px auto;
+  display: block;
+  margin: 0 auto 5px auto;
 }
-.feed-more{
-	display: block;
-	text-transform: lowercase;
-	line-height:1.2em; 
-	position:absolute; 
-	bottom:9px; 
-	color:#fff;
-	text-decoration:none; 
-	background-color:#005586; 
-	color:#FFF; 
-	padding: 9px 15px; 
-	margin-left:0px;
-}
-.feed-more:hover{
-  background-color:#2277a8;
-}
-  
-#latest-feed-more {
-  width:50px;
-  height:30px;
+.feed-more {
+  display: block;
   text-transform: lowercase;
-  color:#fff;
-  text-decoration:none; 
-  background-color:#005586; 
-  color:#FFF; 
-  float:right;
+  line-height: 1.2em;
+  position: absolute;
+  bottom: 9px;
+  color: #fff;
+  text-decoration: none;
+  background-color: #005586;
+  color: #FFF;
+  padding: 9px 15px;
+  margin-left: 0px;
+}
+.feed-more:hover {
+  background-color: #2277a8;
+}
+
+#latest-feed-more {
+  width: 50px;
+  height: 30px;
+  text-transform: lowercase;
+  color: #fff;
+  text-decoration: none;
+  background-color: #005586;
+  color: #FFF;
+  float: right;
   vertical-align: middle;
   text-align: center;
   line-height: 30px;
@@ -474,8 +521,8 @@
   right: 8px;
 }
 
-#latest-feed-more:hover{
-  background-color:#2277a8;
+#latest-feed-more:hover {
+  background-color: #2277a8;
 }
 
 /*
@@ -494,23 +541,23 @@
   height: 20px;
 }
 
-#failure #failure_message{
+#failure #failure_message {
   height: 20px;
   color: #800;
-  font-size:12px;
+  font-size: 12px;
   font-weight: bold;
   text-align: center;
   line-height: 20px;
   vertical-align: middle;
-  overflow:hidden;
+  overflow: hidden;
 }
 
-#failure #failure_close_button{
+#failure #failure_close_button {
   background: url('../img/website/sprite.png') no-repeat -138px -104px;
   width: 20px;
   height: 20px;
   position: absolute;
-  top:-7px;
-  right:-7px;
+  top: -7px;
+  right: -7px;
   cursor: pointer;
 }

@@ -2,6 +2,7 @@ var AppRouter = Backbone.Router.extend({
   routes: {
     "": "index",
     "feed": "showRssFeed",
+    "lakes": "showLakeTemperatures",
     "about": "showAbout",
     "maptype/:type": "changeMaptype",
     "*actions": "index"
@@ -69,6 +70,9 @@ var AppRouter = Backbone.Router.extend({
       $('#next').click(function() {
         self.slideArticleToRight();
       })
+      //color the lake temperatues 1,2,5,6,9,10,etc.
+      $("#lakes ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
+      $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
     } else {
       $(".menu-item").click(function(event) {
         var self = this;
@@ -436,6 +440,22 @@ var AppRouter = Backbone.Router.extend({
       }
     }
   },
+  showLakeTemperatures: function() {
+    this.mapView.mapCenter = this.mapView.map.getCenter();
+    this.navigate("lakes", {
+      trigger: true
+    });
+
+    if (this.isMobile()) {
+      this.displayOnly('lakes back overlay');
+    } else {
+      this.displayOnly('map_canvas map-wrap lakes header-navigation');
+
+      if ($('#map-wrap').css('top') == '250px') {
+        this.scrollMap();
+      }
+    }
+  },
   showAbout: function() {
     this.mapView.mapCenter = this.mapView.map.getCenter();
     this.navigate("about", {
@@ -452,7 +472,7 @@ var AppRouter = Backbone.Router.extend({
       }
     }
   },
-  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'map-wrap'),
+  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'map-wrap', 'lakes'),
   displayOnly: function(elementsToShow) {
     var elementsArray = elementsToShow.split(" ");
     var shouldShow;

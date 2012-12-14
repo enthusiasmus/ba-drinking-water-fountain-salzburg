@@ -1,127 +1,119 @@
 var MapView = Backbone.View.extend({
-  el : $("#map_canvas"),
-  initialize : function() {
+  el: $("#map_canvas"),
+  initialize: function() {
     this.render();
   },
-  render : function() {
+  render: function() {
     var mapOptions = {
-      center : new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude')),
-      zoom : this.model.get('zoom'),
-      keyboardShortcuts : false,
-      mapTypeControl : false,
-      panControl : false,
-      rotateControl : false,
-      streetViewControl : false,
-      scaleControl : true,
-      mapTypeId : google.maps.MapTypeId.ROADMAP
+      center: new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude')),
+      zoom: this.model.get('zoom'),
+      keyboardShortcuts: false,
+      mapTypeControl: false,
+      panControl: false,
+      rotateControl: false,
+      streetViewControl: false,
+      scaleControl: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    if(!this.isMobile()){
+    if (!this.isMobile()) {
       mapOptions.mapTypeControl = true;
-    }
-    else if(this.isIpad()){
+    } else if (this.isIpad()) {
       mapOptions.zoom = this.model.get('zoom') + 1;
     }
-    
+
     this.mapCenter = new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude'))
     this.map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
   },
-  markerCollection : undefined,
-  map : undefined,
-  markerCluster : undefined,
+  markerCollection: undefined,
+  map: undefined,
+  markerCluster: undefined,
   markerArray: [],
-  userLocationMarker : undefined,
-  userLocationPrecisionCircle : undefined,
-  directionsDisplay : undefined,
-  directionsService : undefined,
-  isIpad: function(){
+  userLocationMarker: undefined,
+  userLocationPrecisionCircle: undefined,
+  directionsDisplay: undefined,
+  directionsService: undefined,
+  isIpad: function() {
     return (navigator.userAgent.match(/iPad/i) != null);
   },
-  isMobile : function() {
+  isMobile: function() {
     return (navigator.appVersion.indexOf("Mobile") > -1);
   },
-  resizeMap : function() {
+  resizeMap: function() {
     google.maps.event.trigger(this.map, 'resize');
   },
-  addMarkerCollection : function(markerCollection) {
+  addMarkerCollection: function(markerCollection) {
     this.markerCollection = markerCollection;
   },
-  placeMarkersToMap : function() {
-    var markerTempArray = [];
+  placeMarkersToMap: function() {
     var self = this;
     var isVisible = false;
-    this.infoBox = new Object();
     var myOptions = new Object();
+    this.infoBox = new Object();
+
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
 
     _.each(this.markerCollection.toArray(), function(markerModel) {
-      var icon = new google.maps.MarkerImage(markerModel.get('imageUrl'),
-          new google.maps.Size(17,40),
-          new google.maps.Point(0,0),
-          new google.maps.Point(9,40));
-      var shadow = new google.maps.MarkerImage(markerModel.get('shadowUrl'),
-          new google.maps.Size(49,40),
-          new google.maps.Point(0,0),
-          new google.maps.Point(25,40));
+      var icon = new google.maps.MarkerImage(markerModel.get('imageUrl'), new google.maps.Size(17, 40), new google.maps.Point(0, 0), new google.maps.Point(9, 40));
+      var shadow = new google.maps.MarkerImage(markerModel.get('shadowUrl'), new google.maps.Size(49, 40), new google.maps.Point(0, 0), new google.maps.Point(25, 40));
 
       var description = markerModel.get('description').substring(0, 37);
-      if(description.length >= 37){
+      if (description.length >= 37) {
         description += ".";
       }
-      
+
       var marker = new google.maps.Marker({
-        position : new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
-        icon : icon,
-        title : markerModel.get("description"),
-        content : description,
-        shadow : shadow,
-        zIndex : 1
+        position: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
+        icon: icon,
+        title: markerModel.get("description"),
+        content: description,
+        shadow: shadow,
+        zIndex: 1
       });
-      
-      if(navigator.appVersion.indexOf('MSIE') > -1){ 
+
+      if (navigator.appVersion.indexOf('MSIE') > -1) {
         var infoBoxBackground = "url(assets/img/website/infobox-ie.png) no-repeat";
         var pixelOffset = new google.maps.Size(-150, -112);
-      }
-      else{
+      } else {
         var infoBoxBackground = "url(assets/img/sprite-map.png) no-repeat 0px 0px";
         var pixelOffset = new google.maps.Size(-161, -112);
       }
-      
+
       infoBoxOptions = {
-        disableAutoPan : false,
-        maxWidth : 0,
-        pixelOffset : pixelOffset,
-        zIndex : null,
-        boxClass : "mapInfoBox",
-        closeBoxURL : "",
-        infoBoxClearance : new google.maps.Size(1, 1),
-        isHidden : false,
-        pane : "floatPane",
-        enableEventPropagation : false,
-        boxStyle : {
+        disableAutoPan: false,
+        maxWidth: 0,
+        pixelOffset: pixelOffset,
+        zIndex: null,
+        boxClass: "mapInfoBox",
+        closeBoxURL: "",
+        infoBoxClearance: new google.maps.Size(1, 1),
+        isHidden: false,
+        pane: "floatPane",
+        enableEventPropagation: false,
+        boxStyle: {
           position: "relative",
-          background : infoBoxBackground,
+          background: infoBoxBackground,
           filter: 'alpha(opacity=255)',
-          width : "279px",
+          width: "279px",
           height: "58px",
-          padding : "8px 20px"
+          padding: "8px 20px"
         }
       };
       self.infoBox = new InfoBox(infoBoxOptions);
 
       google.maps.event.addListener(marker, 'click', function() {
-        if(self.infoBox)
+        if (self.infoBox)
           self.infoBox.close();
 
         var infoContent = '<p class="p_infobox_head">' + marker.content + '</p><p class="p_infobox_content">';
 
-        if(self.userLocationMarker) {
+        if (self.userLocationMarker) {
           var distanceInformation = self.distanceCalculator(self.userLocationMarker.getPosition(), marker.getPosition());
-          if(distanceInformation)
+          if (distanceInformation)
             infoContent += "Distanz: " + distanceInformation + "<br/>";
         }
-        if(navigator.geolocation){
+        if (navigator.geolocation) {
           infoContent += '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.routeToFountain(' + markerModel.get("id") + ')" class="calculate-route" title="Route berechnen">Route berechnen</a></p>';
         }
         infoContent += '<div class="pointer"></div>';
@@ -135,23 +127,22 @@ var MapView = Backbone.View.extend({
         self.map.setZoom(16);
         self.map.setCenter(marker.getPosition());
       });
-      markerTempArray.push(marker);
 
       self.markerArray.push(marker);
     });
-    
+
     var markerClusterOptions = {
       gridSize: 45,
-      styles : [{
-        height : 44,
-        url : 'assets/img/sprite-map.png',
+      styles: [{
+        height: 44,
+        url: 'assets/img/sprite-map.png',
         backgroundPosition: '-37px -68px',
-        width : 45,
-        textColor : 'white'
+        width: 45,
+        textColor: 'white'
       }]
     };
 
-    this.markerCluster = new MarkerClusterer(this.map, markerTempArray, markerClusterOptions);
+    this.markerCluster = new MarkerClusterer(this.map, this.markerArray, markerClusterOptions);
     google.maps.event.addListener(this.markerCluster, 'clusterclick', function(cluster) {
       self.infoBox.close();
     });
@@ -159,49 +150,47 @@ var MapView = Backbone.View.extend({
       self.infoBox.close();
     });
   },
-  toggleClusterSingled: function(){
-    if(this.markerArray[0].getMap() == null && this.markerCluster.getMap() != null){
+  toggleClusterSingled: function() {
+    if (this.markerArray[0].getMap() == null && this.markerCluster.getMap() != null) {
       for (i in this.markerArray) {
         this.markerArray[i].setMap(this.map);
       }
       this.markerCluster.setMap(null);
-    }
-    else{
+    } else {
       for (i in this.markerArray) {
         this.markerArray[i].setMap(null);
       }
       this.markerCluster.setMap(this.map);
     }
   },
-  distanceCalculator : function(userPosition, markerPosition) {
-    if(userPosition && markerPosition) {
+  distanceCalculator: function(userPosition, markerPosition) {
+    if (userPosition && markerPosition) {
       var distanceUserLocationToMarker = google.maps.geometry.spherical.computeDistanceBetween(userPosition, markerPosition);
       var distanceInM = distanceUserLocationToMarker.toFixed(2);
 
-      if(parseInt(distanceInM) < 1000){
+      if (parseInt(distanceInM) < 1000) {
         return parseInt(distanceInM).toFixed(0) + " m";
-      }
-      else{
+      } else {
         return (distanceUserLocationToMarker / 1000).toFixed(2) + " km";
       }
     }
     return false;
   },
-  removeMarkersFromMap : function() {
+  removeMarkersFromMap: function() {
     this.markerCluster.clearMarkers();
   },
-  placeUserLocation : function(markerModel) {
+  placeUserLocation: function(markerModel) {
     var icon = new google.maps.MarkerImage(markerModel.get("imageUrl"), new google.maps.Size(markerModel.get("imageWidth"), markerModel.get("imageHeight")), new google.maps.Point(markerModel.get("imageOriginX"), markerModel.get("imageOriginX")), new google.maps.Point(markerModel.get("imageAnchorX"), markerModel.get("imageAnchorY")));
 
     this.userLocationMarker = new google.maps.Marker({
-      map : this.map,
-      icon : icon,
-      title : markerModel.get("title"),
-      position : new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
-      zIndex : 9999
+      map: this.map,
+      icon: icon,
+      title: markerModel.get("title"),
+      position: new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")),
+      zIndex: 9999
     });
   },
-  centerUserLocation : function(userLocationModel) {
+  centerUserLocation: function(userLocationModel) {
     var latitude = userLocationModel.get("latitude");
     var longitude = userLocationModel.get("longitude");
     var centerPoint = new google.maps.LatLng(latitude, longitude);
@@ -211,61 +200,59 @@ var MapView = Backbone.View.extend({
 
     this.map.fitBounds(userLocationCircle.getBounds());
   },
-  removeUserLocation : function() {
-    if(this.userLocationMarker) {
+  removeUserLocation: function() {
+    if (this.userLocationMarker) {
       this.userLocationMarker.setMap(null);
       this.userLocationMarker = null;
     }
-    if(this.userLocationPrecisionCircle) {
+    if (this.userLocationPrecisionCircle) {
       this.userLocationPrecisionCircle.setMap(null);
       this.userLocationPrecisionCircle = null;
     }
   },
-  hideRoute : function() {
-    if(this.directionsDisplay) {
+  hideRoute: function() {
+    if (this.directionsDisplay) {
       this.directionsDisplay.setMap(null);
       this.directionsDisplay = null;
     }
   },
-  drawRouteUserLocationToNextFountain : function() {
+  drawRouteUserLocationToNextFountain: function() {
     this.hideRoute();
 
     var self = this;
     this.directionsDisplay = new google.maps.DirectionsRenderer({
-      draggable : false,
-      suppressMarkers : true,
-      suppressInfoWindows : true,
-      map : self.map
+      draggable: false,
+      suppressMarkers: true,
+      suppressInfoWindows: true,
+      map: self.map
     });
 
     var nearestMarker = this.nearestFountain();
     var request = {
-      origin : this.userLocationMarker.getPosition(),
-      destination : new google.maps.LatLng(nearestMarker.get('latitude'), nearestMarker.get('longitude')),
-      travelMode : google.maps.TravelMode.WALKING
+      origin: this.userLocationMarker.getPosition(),
+      destination: new google.maps.LatLng(nearestMarker.get('latitude'), nearestMarker.get('longitude')),
+      travelMode: google.maps.TravelMode.WALKING
     };
 
     this.directionsService = new google.maps.DirectionsService();
     this.directionsService.route(request, function(result, status) {
-      if(status == google.maps.DirectionsStatus.OK) {
+      if (status == google.maps.DirectionsStatus.OK) {
         self.directionsDisplay.setDirections(result);
-      }
-      else{
-        if(self.isMobile()){
+      } else {
+        if (self.isMobile()) {
           alert('Keine Route gefunden!');
-        }
-        else{
+        } else {
           self.showFailureMessage("Keine Route gefunden!");
         }
       }
     });
   },
-  nearestFountain : function(position) {
+  nearestFountain: function(position) {
     var distanceToNextFontain = tempShortestDistance = id = 0;
     var self = this;
     var actualLocation;
 
-    if(position)
+    if (position)
       actualLocation = position;
     else
       actualLocation = self.userLocationMarker.getPosition();
@@ -273,47 +260,45 @@ var MapView = Backbone.View.extend({
     _.each(this.markerCollection.toArray(), function(markerModel) {
       tempShortestDistance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(markerModel.get("latitude"), markerModel.get("longitude")), actualLocation);
 
-      if(distanceToNextFontain == 0) {
+      if (distanceToNextFontain == 0) {
         distanceToNextFontain = tempShortestDistance;
         id = markerModel.id;
       }
 
-      if(distanceToNextFontain > tempShortestDistance) {
+      if (distanceToNextFontain > tempShortestDistance) {
         distanceToNextFontain = tempShortestDistance;
         id = markerModel.id;
       }
     });
     return this.markerCollection.at(id);
   },
-  drawRouteUserLocationToFountain : function(id) {
+  drawRouteUserLocationToFountain: function(id) {
     this.hideRoute();
 
     var fontain = this.markerCollection.at(id);
     var self = this;
 
     this.directionsDisplay = new google.maps.DirectionsRenderer({
-      draggable : false,
-      suppressMarkers : true,
-      suppressInfoWindows : true,
-      map : self.map
+      draggable: false,
+      suppressMarkers: true,
+      suppressInfoWindows: true,
+      map: self.map
     });
 
     var request = {
-      origin : this.userLocationMarker.getPosition(),
-      destination : new google.maps.LatLng(fontain.get('latitude'), fontain.get('longitude')),
-      travelMode : google.maps.TravelMode.WALKING
+      origin: this.userLocationMarker.getPosition(),
+      destination: new google.maps.LatLng(fontain.get('latitude'), fontain.get('longitude')),
+      travelMode: google.maps.TravelMode.WALKING
     };
 
     this.directionsService = new google.maps.DirectionsService();
     this.directionsService.route(request, function(result, status) {
-      if(status == google.maps.DirectionsStatus.OK) {
+      if (status == google.maps.DirectionsStatus.OK) {
         self.directionsDisplay.setDirections(result);
-      }
-      else{
-        if(self.isMobile()){
+      } else {
+        if (self.isMobile()) {
           alert('Keine Route gefunden!');
-        }
-        else{
+        } else {
           self.showFailureMessage("Keine Route gefunden!");
         }
       }

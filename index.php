@@ -5,16 +5,16 @@ $isIpad = false;
 $isAndroid = false;
 
 if (preg_match('/(alcatel|android|blackberry|benq|cell|elaine|htc|iemobile|iphone|ipad|ipaq|ipod|j2me|java|midp|mini|mobi|motorola|nokia|palm|panasonic|philips|phone|sagem|sharp|smartphone|sony|symbian|t-mobile|up\.browser|up\.link|vodafone|wap|wireless|xda|zte)/i', $_SERVER['HTTP_USER_AGENT']))
-  $isMobile = true;
+	$isMobile = true;
 
 if (strstr($_SERVER['HTTP_USER_AGENT'], 'iPad') || strstr($_SERVER['HTTP_USER_AGENT'], 'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'], 'iPod'))
-  $isIos = true;
+	$isIos = true;
 
 if (strstr($_SERVER['HTTP_USER_AGENT'], 'iPad'))
-  $isIpad = true;
+	$isIpad = true;
 
 if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
-  $isAndroid = true;
+	$isAndroid = true;
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,26 +28,27 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <link rel="apple-touch-startup-image" href="assets/img/ios/startup-iphone.png" />
-    <?php }?>
-    <?php } else {?>
+    <?php } ?>
+    <?php } else { ?>
     <title>Wasser Land Salzburg</title>
-    <link rel='icon' href='assets/img/website/favicon.png' type='image/png'>
-    <?php }?>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+    <link rel='icon' href='assets/img/website/favicon.png' type='image/png'/>
+    <?php } ?>
+    <meta name="description" content="Wasser Land Salzburg! Über 200 Trinkbrunnen im Land Salzburg!"/>
+    <meta name="keywords" content="Trinken, Trinkwasser, Trinkbrunnen, Salzburg, Wasser, Land"/>
+    <meta author="author" content="Wanko Lukas, Nicole Buchegger, Robert Koch, Landesregierung Salzburg"/>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <?php if ( $isIos ) { ?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ios.css" />
-    <?php } else if ( $isAndroid || $isMobile ) {?>
+    <?php } else if ( $isAndroid || $isMobile ) { ?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/android.css" />
-    <?php } else {?>
+    <?php } else { ?>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/website.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/nivo-slider.css" />
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <?php }?>
+    <?php } ?>
   </head>
   <body>
     <?php if ( !$isMobile ) { ?>
@@ -60,25 +61,27 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         <img src="assets/img/slider/05.jpg" class="slide" alt="" />
       </div>
       <div id="inner-wrap">
-        <?php }?>
+        <?php } ?>
         <header id="header">
-          <?php if ( !$isMobile ) { ?>
+          <?php if ( !$isMobile ) {
+          ?>
           <hgroup>
             <h1 id="logo"><a href="javascript:void(0)" onclick="window.Trinkbrunnen.index()">Wasser Land Salzburg</a></h1>
             <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
           </hgroup>
-          <?php } else {?>
+          <?php } else { ?>
           <h1 id="logo">Land Salzburg</h1>
           <a href="javascript:void(0)" onclick='window.Trinkbrunnen.index()' id="back">Zurück</a>
-          <?php }?>
+          <?php } ?>
           <nav id="header-navigation">
             <ul>
-              <?php if ( !$isMobile ) {?>
+              <?php if ( !$isMobile ) {
+              ?>
               <li class='menu-item show_map'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.scrollMap()'>Karte</a>
               </li>
               <li class='menu-item feed'>
-                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showRssFeed()'>Wasser-News</a>
+              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showRssFeed()'>Wasser-News</a>
               </li>
               <?php } ?>
               <li class='menu-item lake'>
@@ -93,7 +96,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         <div id='overlay'></div>
         <div id="info">
           <div id="info-content">
-                        <h2>Impressum / Kontakt</h2>
+            <h2>Impressum / Kontakt</h2>
             <div  class="left">
               <p>
                 <div id="salzburg-logo"></div>
@@ -157,14 +160,14 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         </div>
         <div id="feed">
           <?php if ( !$isMobile ) {?>
-            <a href="javascript:void(0)" id="prev" class="prev">Neuere Wasser-News</a>
-            <div id="rss_content">
-          <?php }?>
-          <section id="rss"></section>
-          <?php if ( !$isMobile ) {?>
-            </div>
-            <a href="javascript:void(0)" id="next" class="next">Ältere Wasser-News</a>
-          <?php }?>
+          <a href="javascript:void(0)" id="prev" class="prev">Neuere Wasser-News</a>
+          <div id="rss_content">
+            <?php } ?>
+            <section id="rss"></section>
+            <?php if ( !$isMobile ) {?>
+          </div>
+          <a href="javascript:void(0)" id="next" class="next">Ältere Wasser-News</a>
+          <?php } ?>
         </div>
         <?php if ( !$isMobile ) {?>
         <div id="appinfo">
@@ -178,10 +181,33 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         </div>
         <span id="left-hand-phone"></span>
         <span id="right-hand-phone"></span>
-      </div>  
+      </div>
     </div>
-    <?php }?>
+    <?php } ?>
     <?php if($isMobile){ ?>
+    <nav id="navigation">
+      <ul>
+        <li id='navi-position' class='menu-item position'>
+          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.getUserLocation()'><span></span>Position</a>
+        </li>
+        <li id='navi-address' class='menu-item address'>
+          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAddressSearch()'><span></span>Adresse</a>
+        </li>
+        <li id='navi-fontain' class='menu-item fontain'>
+          <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.nextFountain()'><span></span>Brunnen</a>
+        </li>
+        <li id='navi-maptype' class='menu-item maptype'>
+          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showMaptype()'><span></span>Kartentyp</a>
+        </li>
+        <li id='navi-feed' class='menu-item feed'>
+          <a href='#feed'><span></span>News</a>
+        </li>
+      </ul>
+    </nav>
+    <?php } ?>
+    <div id="map-wrap">
+      <?php if(!$isMobile){
+      ?>
       <nav id="navigation">
         <ul>
           <li id='navi-position' class='menu-item position'>
@@ -193,40 +219,21 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
           <li id='navi-fontain' class='menu-item fontain'>
             <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.nextFountain()'><span></span>Brunnen</a>
           </li>
-          <li id='navi-maptype' class='menu-item maptype'>
-            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showMaptype()'><span></span>Kartentyp</a>
-          </li>
-          <li id='navi-feed' class='menu-item feed'>
-            <a href='#feed'><span></span>News</a>
+          <li class='menu-item cluster'>
+            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.toggleClusterSingled()'><span></span>Gruppe</a>
           </li>
         </ul>
       </nav>
-    <?php } ?>
-    <div id="map-wrap">
-      <?php if(!$isMobile){ ?>
-        <nav id="navigation">
-          <ul>
-            <li id='navi-position' class='menu-item position'>
-              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.getUserLocation()'><span></span>Position</a>
-            </li>
-            <li id='navi-address' class='menu-item address'>
-              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAddressSearch()'><span></span>Adresse</a>
-            </li>
-            <li id='navi-fontain' class='menu-item fontain'>
-              <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.nextFountain()'><span></span>Brunnen</a>
-            </li>
-            <li class='menu-item cluster'>
-              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.toggleClusterSingled()'><span></span>Gruppe</a>
-            </li>
-          </ul>
-        </nav>
       <?php } ?>
-      <?php if ( !$isMobile ) {?>
+      <?php if ( !$isMobile ) {
+      ?>
       <div id="scroll-wrap">
         <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="scroll">Karte vergrößern &uarr;</a>
       </div>
-      <?php }?>
-      <div id="map_canvas"><span id="info_offline">Bitte verbinden Sie sich mit dem Internet und starten Sie die Anwendung neu!</span></div>
+      <?php } ?>
+      <div id="map_canvas">
+        <span id="info_offline">Bitte verbinden Sie sich mit dem Internet und starten Sie die Anwendung neu!</span>
+      </div>
       <div id="maptype">
         <div>
           <ul>
@@ -257,7 +264,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     </div>
     <?php if ( !$isMobile ) { ?>
     <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>
-    <?php }?>
+    <?php } ?>
     <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT"></script>
     <!-- libs -->
     <script type="text/javascript" src="assets/js/libs/markerclusterer.js"></script>
@@ -266,10 +273,12 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <script type="text/javascript" src="assets/js/libs/jquery.dateFormat.js"></script>
     <?php if ( !$isMobile ) { ?>
     <script type="text/javascript" src="assets/js/libs/jquery.nivo.slider.js"></script>
-    <?php }?>
+    <?php } ?>
     <script type="text/javascript" src="assets/js/libs/json2.js"></script>
     <script type="text/javascript" src="assets/js/libs/underscore.js"></script>
     <script type="text/javascript" src="assets/js/libs/backbone.js"></script>
+    <!--templates -->
+		<?php include "assets/templates/article.html" ?>
     <!--models -->
     <script type="text/javascript" src="assets/js/models/feedItem.js"></script>
     <script type="text/javascript" src="assets/js/models/feed.js"></script>
@@ -288,5 +297,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <!-- router -->
     <script type="text/javascript" src="assets/js/router.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
+    <!-- stats -->
+    <?php include "stats/stats.php" ?>
   </body>
 </html>

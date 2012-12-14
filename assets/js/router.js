@@ -1,12 +1,12 @@
 var AppRouter = Backbone.Router.extend({
-  routes : {
-    "" : "index",
-    "feed" : "showRssFeed",
-    "about" : "showAbout",
+  routes: {
+    "": "index",
+    "feed": "showRssFeed",
+    "about": "showAbout",
     "maptype/:type": "changeMaptype",
-    "*actions" : "index"
+    "*actions": "index"
   },
-  initialize : function() {
+  initialize: function() {
     this.mapModel = new MapModel;
     this.feedModel = new FeedModel;
     this.userLocationModel = new UserLocationModel;
@@ -15,7 +15,9 @@ var AppRouter = Backbone.Router.extend({
     this.feedItemCollection = new FeedItemCollection;
     this.feedItemCollection.url = 'rss.php';
 
-    this.mapView = new MapView({model : this.mapModel});
+    this.mapView = new MapView({
+      model: this.mapModel
+    });
     this.feedView = new FeedView;
     this.infoView = new InfoView;
     this.mapTypeView = new MapTypeView;
@@ -27,32 +29,31 @@ var AppRouter = Backbone.Router.extend({
     this.eventDispatcher = {};
     _.extend(this.eventDispatcher, Backbone.Events);
   },
-  init : function() {
+  init: function() {
     try {
-      if(!(Backbone.history.start()))
+      if (!(Backbone.history.start()))
         throw "Couldn't start backbone history!";
     } catch(e) {
     }
 
     var self = this;
     this.markerCollection.fetch({
-      success : function(){
+      success: function() {
         self.mapView.addMarkerCollection(self.markerCollection);
         self.mapView.placeMarkersToMap();
       },
-      error : function() {
-        if(self.isMobile()){
+      error: function() {
+        if (self.isMobile()) {
           alert("Trinkbrunnen konnten nicht geladen werden!");
-        }
-        else{
+        } else {
           //TODO: Think about a failure message place, when map is not scrolled up
           //self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
         }
       },
-      add : true
+      add: true
     });
 
-    if(!this.isMobile()) {
+    if (!this.isMobile()) {
       var self = this;
       $('#search_close_button, #failure_close_button').click(function() {
         $('#address').hide();
@@ -68,11 +69,10 @@ var AppRouter = Backbone.Router.extend({
       $('#next').click(function() {
         self.slideArticleToRight();
       })
-    }
-    else{
-      $(".menu-item").click(function(event){
+    } else {
+      $(".menu-item").click(function(event) {
         var self = this;
-        switch($(this).attr('id')){
+        switch($(this).attr('id')) {
           case 'navi-position':
             $('#navi-position > a > span').addClass('navigation-position-a-active-span');
             $('#navi-position > a').addClass('navigation-a-active');
@@ -119,105 +119,97 @@ var AppRouter = Backbone.Router.extend({
       });
     }
   },
-  index : function() {
+  index: function() {
     this.navigate("", {
-      trigger : true
+      trigger: true
     });
 
-    if(this.isMobile()){
+    if (this.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
-    }
-    else{
-      if($('#map-wrap').css('top') == '250px') {
+    } else {
+      if ($('#map-wrap').css('top') == '250px') {
         this.scrollMap();
       }
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
     }
     this.mapView.map.setCenter(this.mapView.mapCenter);
-    
+
     var self = this;
     //get latest feeditem
-    if(!this.isMobile()) {
+    if (!this.isMobile()) {
       this.eventDispatcher.on('loadedFeed', function() {
         var element = _.first(self.feedItemCollection.toArray());
-        var completeDescription = element.get('description');
-        var shortDescription = completeDescription.substring(0, 110);
-        var descriptionEnd = shortDescription.substring(80, 110);
-        var endLastWord = descriptionEnd.lastIndexOf(" ");
-        shortDescription = shortDescription.substring(0, 80 + endLastWord);
-        shortDescription += '...';
-
-        $('#latest_feed').html('<article>' + '<div id="latest-feed-headline">' + 
-        '<div id="latest-feed-news" onclick="window.Trinkbrunnen.showRssFeed()">Wasser-News</div>' + 
-        '<div id="latest-feed-date">' + element.escape("pubDate") + '</div>' + '</div>' + 
-        '<div><div id="latest-feed-title"><a href="' + element.escape('link') + '" target="_blank">' + element.escape("title") + 
-        '</a></div>' + '<div onclick="window.Trinkbrunnen.showRssFeed()" id="latest-feed-more">Mehr</div></div>' + '</article>');
-        self.eventDispatcher.off('loadedFeed');
-
+        var template = _.template($("#template_article").html(), {
+          pubDate: element.escape("pubDate"),
+          link: element.escape("link"),
+          title: element.escape("title")
+        });
+        $('#latest_feed').html(template);
         $('#latest_feed').show();
+
+        self.eventDispatcher.off('loadedFeed');
       });
-      if(this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+      if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
         this.feedItemCollection.reset();
         this.feedItemCollection.fetch({
-          success : function() {
+          success: function() {
             self.feedItemCollection.timestamp = new Date().getTime();
             self.eventDispatcher.trigger('loadedFeed');
           },
-          error : function() {
-            if(self.isMobile()){
+          error: function() {
+            if (self.isMobile()) {
               alert("Feed konnte nicht geladen werden!");
-            }
-            else{
+            } else {
               //TODO: Think about a failure message place, when map is not scrolled up
               //self.showFailureMessage("Feed konnte nicht geladen werden!");
             }
           },
-          add : true
+          add: true
         });
       } else {
         self.eventDispatcher.trigger('loadedFeed');
       }
     }
   },
-  scrollMap : function() {
+  scrollMap: function() {
     this.mapView.mapCenter = this.mapView.map.getCenter();
 
-    if($('#map-wrap').css('top') == '250px'){
+    if ($('#map-wrap').css('top') == '250px') {
       $('#map-wrap').css('min-height', '0px');
 
       $('#navigation, #address').animate({
-        opacity : 0
+        opacity: 0
       }, 500, function() {
         $('#navigation, #address').hide();
       });
-      
+
       $('#map-wrap').animate({
-        top : 544
+        top: 544
       }, 1000, function() {
         $('#activatemap').show();
         $('#scroll').text('Karte vergrößern ↑');
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(window.Trinkbrunnen.mapView.mapCenter);
       });
-      
-      if(this.routes[Backbone.history.fragment] == 'showRssFeed') {
+
+      if (this.routes[Backbone.history.fragment] == 'showRssFeed') {
         this.displayOnly('map_canvas map-wrap header-navigation feed');
-      }else if(this.routes[Backbone.history.fragment] == 'showAbout'){
+      } else if (this.routes[Backbone.history.fragment] == 'showAbout') {
         this.displayOnly('map_canvas map-wrap header-navigation info');
       }
-      
+
       $('#appinfo, #info, #feed, #left-hand-phone, #right-hand-phone').animate({
-        opacity : 1
+        opacity: 1
       }, 1000);
-      
+
     } else {
       $('#map-wrap').animate({
-        top : 250
+        top: 250
       }, 1000, function() {
         $('#map-wrap').css('min-height', '294px');
         $('#navigation').show();
         $('#navigation, #address').animate({
-          opacity : 1
+          opacity: 1
         }, 500);
         window.Trinkbrunnen.mapView.resizeMap();
         window.Trinkbrunnen.mapView.map.setCenter(window.Trinkbrunnen.mapView.mapCenter);
@@ -225,20 +217,20 @@ var AppRouter = Backbone.Router.extend({
         $('#scroll').text('Karte verkleinern ↓');
       });
       $('#appinfo, #info, #feed, #left-hand-phone, #right-hand-phone').animate({
-        opacity : 0
+        opacity: 0
       }, 1000, function() {
         $('#feed').css('display', 'none');
       });
     }
   },
-  nextFountain : function() {
-    if(this.isMobile()){
+  nextFountain: function() {
+    if (this.isMobile()) {
       this.navigate("", {
-        trigger : true
+        trigger: true
       });
     }
 
-    if(this.isMobile()) {
+    if (this.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
     } else {
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
@@ -250,116 +242,114 @@ var AppRouter = Backbone.Router.extend({
     this.eventDispatcher.on('drawRoute', function() {
       self.mapView.drawRouteUserLocationToNextFountain();
       self.eventDispatcher.off('drawRoute');
-      if(self.mapView.infoBox){
-          self.mapView.infoBox.close();
+      if (self.mapView.infoBox) {
+        self.mapView.infoBox.close();
       }
     });
   },
-  routeToFountain : function(id) {
+  routeToFountain: function(id) {
     this.calculateGeoLocation('drawRouteTo');
 
     var self = this;
     this.eventDispatcher.on('drawRouteTo', function() {
       self.mapView.drawRouteUserLocationToFountain(id);
       self.eventDispatcher.off('drawRouteTo');
-      if(self.mapView.infoBox){
-          self.mapView.infoBox.close();
+      if (self.mapView.infoBox) {
+        self.mapView.infoBox.close();
       }
     });
   },
-  showAddressSearch : function() {
-    if(this.isMobile()){
+  showAddressSearch: function() {
+    if (this.isMobile()) {
       this.navigate("", {
-        trigger : true
+        trigger: true
       });
     }
 
-    if(this.isMobile()) {
-        $('input[name=address]').blur(function() {
-          $('#address').hide();
-        });
-        this.displayOnly('map_canvas map-wrap header-navigation address');
-        $('input[name=address]').focus().select();    
+    if (this.isMobile()) {
+      $('input[name=address]').blur(function() {
+        $('#address').hide();
+      });
+      this.displayOnly('map_canvas map-wrap header-navigation address');
+      $('input[name=address]').focus().select();
     } else {
       this.displayOnly('map_canvas map-wrap address appinfo left-hand-phone right-hand-phone header-navigation');
       $('input[name=address]').focus().select();
     }
   },
-  blurAllElements: function(){
+  blurAllElements: function() {
     document.activeElement.blur();
     $("input").blur();
   },
-  showMaptype : function() {
+  showMaptype: function() {
     this.navigate("", {
-      trigger : true
+      trigger: true
     });
 
     this.displayOnly('map_canvas map-wrap header-navigation maptype');
   },
-  changeMaptype : function(type) {
-    if(this.isMobile()){
+  changeMaptype: function(type) {
+    if (this.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
       this.mapTypeView.changeType(type);
-    }
-    else{
+    } else {
       this.index();
     }
   },
-  showRssFeed : function() {
+  showRssFeed: function() {
     this.mapView.mapCenter = this.mapView.map.getCenter();
     this.navigate("feed", {
-      trigger : true
+      trigger: true
     });
-   
-    if(this.isMobile()) {
+
+    if (this.isMobile()) {
       this.displayOnly('feed back overlay');
     } else {
       this.displayOnly('map_canvas map-wrap feed header-navigation');
 
-      if($('#map-wrap').css('top') == '250px') {
+      if ($('#map-wrap').css('top') == '250px') {
         this.scrollMap();
       }
     }
-    return;
+
     var self = this;
-    if(this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+    if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
       this.feedItemCollection.reset();
       this.feedItemCollection.fetch({
-        success : function() {
+        success: function() {
           self.feedView.addFeedItemCollection(self.feedItemCollection);
           self.feedView.timestamp = new Date().getTime();
           self.feedItemCollection.timestamp = new Date().getTime();
-          
-          if(!self.isMobile()) {
+
+          if (!self.isMobile()) {
             self.canSlideArticle('left')
           }
         },
-        error : function() {
-          if(self.isMobile()){
+        error: function() {
+          if (self.isMobile()) {
             alert("Feed konnte nicht geladen werden!");
-          }
-          else{
+          } else {
             self.showFailureMessage("Feed konnte nicht geladen werden!");
           }
         },
-        add : true
+        add: true
       });
     } else {
-      if(!this.isMobile() && this.feedView.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+      if (!this.isMobile() && this.feedView.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
         self.feedView.addFeedItemCollection(self.feedItemCollection);
         self.feedView.timestamp = new Date().getTime();
         self.canSlideArticle('left')
       }
     }
   },
-  getUserLocation : function() {
-    if(this.isMobile()){
+  getUserLocation: function() {
+    if (this.isMobile()) {
       this.navigate("", {
-        trigger : true
+        trigger: true
       });
     }
 
-    if(this.isMobile()) {
+    if (this.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
     } else {
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
@@ -367,49 +357,49 @@ var AppRouter = Backbone.Router.extend({
 
     this.calculateGeoLocation();
   },
-  calculateGeoLocation : function(eventtype) {
+  calculateGeoLocation: function(eventtype) {
     var self = this;
-    if(navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var time = position.timestamp;
         var lat = position.coords.latitude;
-        //dezimal Grad
+        //decimal degree
         var lng = position.coords.longitude;
-        //dezimal Grad
+        //decimal degree
         var precision = position.coords.accuracy;
-        //Meter
+        //meter
         var altitude = position.coords.altitude;
-        //Meter
+        //meter
         var altitudeAcc = position.coords.altitudeAccuracy;
-        //Meter
+        //meter
         var speed = position.coords.speed;
-        //Meter pro Sek.
+        //meter per second
         var heading = position.coords.heading;
-        //Grad von wahrem Norden
+        //degree from true north
 
         self.userLocationModel.set({
-          latitude : lat,
-          longitude : lng,
-          time : time,
-          precision : precision,
-          altitude : altitude,
-          altitudeAcc : altitudeAcc,
-          speed : speed,
-          heading : heading
+          latitude: lat,
+          longitude: lng,
+          time: time,
+          precision: precision,
+          altitude: altitude,
+          altitudeAcc: altitudeAcc,
+          speed: speed,
+          heading: heading
         });
 
         self.mapView.removeUserLocation();
         self.mapView.placeUserLocation(self.userLocationModel);
         self.mapView.centerUserLocation(self.userLocationModel);
 
-        if(eventtype)
+        if (eventtype)
           self.eventDispatcher.trigger(eventtype);
         else
           self.eventDispatcher.trigger('hideLoadingView');
 
       }, function(error) {
         var message = 'Fehler bei der Positionsbestimmung!';
-        
+
         switch(error.code) {
           case error.PERMISSION_DENIED:
             message = "Zugriff auf Position verweigert!";
@@ -427,77 +417,75 @@ var AppRouter = Backbone.Router.extend({
             message = "Fehler bei der Positionsbestimmung!";
             break;
         }
-        
-        if(self.isMobile()){
+
+        if (self.isMobile()) {
           alert(message);
-        }
-        else{
+        } else {
           self.showFailureMessage(message);
         }
       }, {
-        enableHighAccuracy : true,
-        timeout : 5000,
-        maximumAge : 60000
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 60000
       });
     } else {
-      if(self.isMobile()){
+      if (self.isMobile()) {
         alert("Ihr Browser unterstützt keine Positionsbestimmung!");
-      }
-      else{
+      } else {
         self.showFailureMessage("Ihr Browser unterstützt keine Positionsbestimmung!");
       }
     }
   },
-  showAbout : function() {
+  showAbout: function() {
     this.mapView.mapCenter = this.mapView.map.getCenter();
     this.navigate("about", {
-      trigger : true
+      trigger: true
     });
-    
-    if(this.isMobile()) {
+
+    if (this.isMobile()) {
       this.displayOnly('info back overlay');
     } else {
       this.displayOnly('map_canvas map-wrap info header-navigation');
 
-      if($('#map-wrap').css('top') == '250px') {
+      if ($('#map-wrap').css('top') == '250px') {
         this.scrollMap();
       }
     }
   },
-  mainElements : new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'map-wrap'),
-  displayOnly : function(elementsToShow) {
+  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'map-wrap'),
+  displayOnly: function(elementsToShow) {
     var elementsArray = elementsToShow.split(" ");
     var shouldShow;
 
-    for(idx in this.mainElements) {
+    for (idx in this.mainElements) {
       shouldShow = false;
-      for(i in elementsArray) {
-        if(elementsArray[i] == this.mainElements[idx]) {
+      for (i in elementsArray) {
+        if (elementsArray[i] == this.mainElements[idx]) {
           shouldShow = true;
           break;
         }
       }
 
-      if(shouldShow)
+      if (shouldShow)
         $('#' + this.mainElements[idx]).show();
       else
         $('#' + this.mainElements[idx]).hide();
     }
 
-    if($('#map_canvas').is(':visible'))
+    if ($('#map_canvas').is(':visible'))
       google.maps.event.trigger(this.mapView.map, "resize");
   },
-  isMobile : function() {
+  isMobile: function() {
     var index = navigator.appVersion.indexOf("Mobile");
     return (index > -1);
   },
-  slideArticleToRight : function() {
+  slideArticleToRight: function() {
     var self = this;
     $('#next').off('click');
 
-    if(this.canSlideArticle('right')) {
+    if (this.canSlideArticle('right')) {
       $('#rss').animate({
-        'margin-left' : '-=888'
+        'margin-left': '-=888'
       }, 1800, function() {
         self.canSlideArticle('right');
         self.canSlideArticle('left');
@@ -511,13 +499,13 @@ var AppRouter = Backbone.Router.extend({
       });
     }
   },
-  slideArticleToLeft : function() {
+  slideArticleToLeft: function() {
     var self = this;
     $('#prev').off('click');
 
-    if(this.canSlideArticle('left')) {
+    if (this.canSlideArticle('left')) {
       $('#rss').animate({
-        'margin-left' : '+=888'
+        'margin-left': '+=888'
       }, 1800, function() {
         self.canSlideArticle('left');
         self.canSlideArticle('right');
@@ -531,24 +519,24 @@ var AppRouter = Backbone.Router.extend({
       });
     }
   },
-  canSlideArticle : function(direction) {
+  canSlideArticle: function(direction) {
     var currentMargin = $('#rss').css('margin-left');
     currentMargin = currentMargin.replace('px', '');
 
-    if(direction == 'left') {
-      if(currentMargin >= '0') {
+    if (direction == 'left') {
+      if (currentMargin >= '0') {
         $('#prev').toggleClass('prev_disabled', true);
         return false;
       } else {
         $('#prev').toggleClass('prev_disabled', false);
         return true;
       }
-    } else if(direction == 'right') {
+    } else if (direction == 'right') {
       var sizeFeedItemCollection = this.feedItemCollection.size()
       var lastPageItems = sizeFeedItemCollection % 4;
       var lastAllowedSlidePosition = ((sizeFeedItemCollection - lastPageItems) / 4 * 888) * (-1);
 
-      if(currentMargin <= lastAllowedSlidePosition) {
+      if (currentMargin <= lastAllowedSlidePosition) {
         $('#next').toggleClass('next_disabled', true);
         return false;
       } else {
@@ -557,14 +545,14 @@ var AppRouter = Backbone.Router.extend({
       }
     }
   },
-  showFailureMessage : function(message) {
+  showFailureMessage: function(message) {
     $('#failure_message').text(message);
     $('#failure').show();
     setTimeout(function() {
       $('#failure').fadeOut();
     }, 3500);
   },
-  toggleClusterSingled: function(){
+  toggleClusterSingled: function() {
     this.mapView.toggleClusterSingled();
   }
 });

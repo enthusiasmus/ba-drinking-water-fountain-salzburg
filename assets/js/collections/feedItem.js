@@ -5,6 +5,7 @@ var FeedItemCollection = Backbone.Collection.extend({
     var feedItems = new Array();
     for(idx in data){
       var description = data[idx].description;
+      
       //Extracting image tag if exists
       var image = "";
       if(description.charAt(0) == "<"){

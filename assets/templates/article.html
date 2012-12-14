@@ -1,0 +1,21 @@
+<script type="text/template" src="assets/templates/article.html" id="template_article">
+  <article>
+    <div id="latest-feed-headline">
+      <div id="latest-feed-news" onclick="window.Trinkbrunnen.showRssFeed()">
+        Wasser-News
+      </div>
+      <div id="latest-feed-date">
+        <%= pubDate %>
+      </div>
+    </div>
+    <div>
+      <div id="latest-feed-title">
+        <a href="<%= link %>" target="_blank"><%= title %></a>
+      </div>
+      <div onclick="window.Trinkbrunnen.showRssFeed()" id="latest-feed-more">
+        Mehr
+      </div>
+    </div>
+  </article>
+</script>
+

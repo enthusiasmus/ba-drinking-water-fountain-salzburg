@@ -391,6 +391,9 @@
 #lakes-content > ul {
   margin-top: 20px;
 }
+#lakes{
+  display:none;
+}
 #lakes big {
   font-size: 110%;
   font-weight: bold;

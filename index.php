@@ -17,7 +17,14 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
 	$isAndroid = true;
 ?>
 <!DOCTYPE html>
-<html>
+<?php
+if($isMobile){
+  echo "<html manifest='cache.manifest'>";
+}
+else{
+  echo "<html>";
+}
+?>
   <head>
     <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <?php if ($isMobile) {
@@ -216,7 +223,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
                     Obertrum
                   </li>
                   <li>
-                    <big>4.8 °C</big>
+                    <big>14.8 °C</big>
                   </li>
                   <li>
                     17:30 14.12.2012
@@ -230,7 +237,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
                     St. Gilgen
                   </li>
                   <li>
-                     <big>4.8 °C</big>
+                     <big>14.8 °C</big>
                   </li>
                   <li>
                     17:30 14.12.2012
@@ -244,7 +251,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
                     Wallersee
                   </li>
                   <li>
-                    <big>4.8 °C</big>
+                    <big>24.8 °C</big>
                   </li>
                   <li>
                     17:30 14.12.2012
@@ -258,7 +265,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
                     Zell am See
                   </li>
                   <li>
-                    <big>4.8 °C</big>
+                    <big>34.8 °C</big>
                   </li>
                   <li>
                     17:30 14.12.2012
@@ -266,6 +273,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
                 </ul>
               </li>
             </ul>
+            <p style="clear: both;"></p>
           </div>
         </div>
         <div id="feed">
@@ -415,7 +423,9 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <script type="text/javascript" src="assets/js/router.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
     <!-- stats -->
-    <?php include "stats/stats.php"
+    <?php if(!$isMobile){
+			include "stats/stats.php";
+		}
     ?>
   </body>
 </html>

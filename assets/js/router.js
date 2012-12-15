@@ -121,6 +121,14 @@ var AppRouter = Backbone.Router.extend({
             break;
         }
       });
+
+      if(window.innerWidth >= 768){
+        $("#lakes ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
+        $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
+      }
+      else{
+        $("#lakes ul li:nth-child(2n+1) ul").css('background', '#E9E9E9');
+      }
     }
   },
   index: function() {
@@ -228,6 +236,8 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   nextFountain: function() {
+    this.calculateGeoLocation('drawRoute');
+
     if (this.isMobile()) {
       this.navigate("", {
         trigger: true
@@ -240,10 +250,11 @@ var AppRouter = Backbone.Router.extend({
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
     }
 
-    this.calculateGeoLocation('drawRoute');
-
     var self = this;
     this.eventDispatcher.on('drawRoute', function() {
+      /**
+       * TODO: check if drawRouteUserLocation ToFountain and to ToNextFountain can gets simplyfied
+       */
       self.mapView.drawRouteUserLocationToNextFountain();
       self.eventDispatcher.off('drawRoute');
       if (self.mapView.infoBox) {
@@ -256,6 +267,9 @@ var AppRouter = Backbone.Router.extend({
 
     var self = this;
     this.eventDispatcher.on('drawRouteTo', function() {
+      /**
+       * TODO: check if drawRouteUserLocation ToFountain and to ToNextFountain can gets simplyfied
+       */
       self.mapView.drawRouteUserLocationToFountain(id);
       self.eventDispatcher.off('drawRouteTo');
       if (self.mapView.infoBox) {
@@ -362,6 +376,13 @@ var AppRouter = Backbone.Router.extend({
     this.calculateGeoLocation();
   },
   calculateGeoLocation: function(eventtype) {
+    /**
+     * Get GPS-/WLAN-Position - gets called:
+     * 1. from getUserLocation - gets position and place marker and center
+     * 2. from nextFountain - gets position, saves it at mapview and there draws route from position to next fontain
+     * 3. from routeToFountain - gets position, saves it at mapview and there draws route from position to chosen fontain
+     */
+
     var self = this;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {

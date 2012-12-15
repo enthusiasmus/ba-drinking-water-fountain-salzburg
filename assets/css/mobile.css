@@ -1,5 +1,5 @@
 /*** text indents ***/
-#logo{
+#logo {
   display: block;
   text-indent: -19999px;
   overflow: hidden;
@@ -14,7 +14,7 @@
   background-color: #005586;
   z-index: 10;
 }
-#logo{
+#logo {
   width: 155px;
   height: 22px;
   background: url('../img/android/sprite.png') 0 -144px no-repeat;
@@ -30,18 +30,20 @@
   color: #000;
   text-decoration: none;
   padding: 6px 0 0 7px;
-  display:none;
+  display: none;
 }
-#back:active {background-position: -51px -166px;}
+#back:active {
+  background-position: -51px -166px;
+}
 
 /*** google map ***/
 #map-wrap {
-  position:absolute;
+  position: absolute;
   top: 44px;
   left: 0;
   right: 0;
   bottom: 50px;
-  width: 100%; 
+  width: 100%;
 }
 #map_canvas {
   position: absolute;
@@ -53,17 +55,17 @@
   z-index: 5;
 }
 
-#map_canvas #info_offline{
+#map_canvas #info_offline {
   position: absolute;
-  top:50%;
-  left:50%;
-  margin-top:-25px;
-  margin-left:-150px;
-  text-align:center;
-  width:300px;
-  height:50px;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -150px;
+  text-align: center;
+  width: 300px;
+  height: 50px;
   font-size: 13px;
-  color:#fff;
+  color: #fff;
 }
 
 /*** navigation ***/
@@ -81,28 +83,28 @@
 }
 #navigation .menu-item {
   display: block;
-  float: left; 
+  float: left;
   width: 20%;
   font-size: 13px;
-  text-align: center; 
+  text-align: center;
 }
 #navigation .menu-item a {
   position: relative;
-  text-decoration: none; 
-  color: #8e8e8e; 
+  text-decoration: none;
+  color: #8e8e8e;
   width: 100%;
   height: 18px;
   margin: 0 auto;
   padding-top: 30px;
   display: inline-block;
 }
-  
+
 #navigation .menu-item a:active {
   color: #fff;
   background-color: #8e8e8e;
 }
 
-.navigation-a-active{
+.navigation-a-active {
   color: #fff !important;
   background-color: #8e8e8e !important;
 }
@@ -117,21 +119,51 @@
   background-image: url('../img/android/sprite.png');
   background-repeat: no-repeat;
 }
-#navigation .position span {background-position: 0 0;}
-#navigation .menu-item.position a:active > span {background-position: -48px 0;}
-.navigation-position-a-active-span{background-position: -48px 0 !important;}
-#navigation .address span {background-position: -96px 0;}
-#navigation .menu-item.address a:active > span {background-position: -144px 0;}
-.navigation-address-a-active-span{background-position: -144px 0 !important;}
-#navigation .fontain span {background-position: 0 -96px;}
-#navigation .menu-item.fontain a:active > span {background-position: -48px -96px;}
-.navigation-fontain-a-active-span{background-position: -48px -96px !important;}
-#navigation .maptype span {background-position: 0 -48px;}
-#navigation .menu-item.maptype a:active > span {background-position: -48px -48px;}
-.navigation-maptype-a-active-span{background-position: -48px -48px !important;}
-#navigation .feed span {background-position: -96px -48px;}
-#navigation .menu-item.feed a:active > span {background-position: -144px -48px;}
-.navigation-feed-a-active-span{background-position: -144px -48px !important;}
+#navigation .position span {
+  background-position: 0 0;
+}
+#navigation .menu-item.position a:active > span {
+  background-position: -48px 0;
+}
+.navigation-position-a-active-span {
+  background-position: -48px 0 !important;
+}
+#navigation .address span {
+  background-position: -96px 0;
+}
+#navigation .menu-item.address a:active > span {
+  background-position: -144px 0;
+}
+.navigation-address-a-active-span {
+  background-position: -144px 0 !important;
+}
+#navigation .fontain span {
+  background-position: 0 -96px;
+}
+#navigation .menu-item.fontain a:active > span {
+  background-position: -48px -96px;
+}
+.navigation-fontain-a-active-span {
+  background-position: -48px -96px !important;
+}
+#navigation .maptype span {
+  background-position: 0 -48px;
+}
+#navigation .menu-item.maptype a:active > span {
+  background-position: -48px -48px;
+}
+.navigation-maptype-a-active-span {
+  background-position: -48px -48px !important;
+}
+#navigation .feed span {
+  background-position: -96px -48px;
+}
+#navigation .menu-item.feed a:active > span {
+  background-position: -144px -48px;
+}
+.navigation-feed-a-active-span {
+  background-position: -144px -48px !important;
+}
 
 /*** info icon (header navigation) ***/
 #header-navigation {
@@ -139,7 +171,7 @@
   top: 0px;
   left: 0;
   z-index: 10;
-  width:100%;
+  width: 100%;
 }
 #header-navigation .menu-item a {
   display: block;
@@ -148,15 +180,15 @@
   width: 46px;
   height: 42px;
 }
-#header-navigation .about{
+#header-navigation .about {
   position: absolute;
-  right:0px;
+  right: 0px;
   top: 0px;
   background: url('../img/android/sprite.png') -192px -2px no-repeat
 }
-#header-navigation .lake{
+#header-navigation .lake {
   position: absolute;
-  left:0px;
+  left: 0px;
   top: 0px;
   background: url('../img/android/sprite.png') -192px -52px no-repeat;
 }
@@ -181,7 +213,9 @@
   width: 75%;
   background: url('../img/mobile/search.gif') #fff 10px 5px no-repeat;
 }
-.searchsubmit {display: none;}
+.searchsubmit {
+  display: none;
+}
 
 /*** maptypes ***/
 #maptype {
@@ -189,7 +223,7 @@
   bottom: 15px;
   left: 0;
   width: 100%;
-  display:none;
+  display: none;
   z-index: 10;
 }
 #maptype ul {
@@ -208,17 +242,22 @@
   font-size: 14px;
   text-align: center;
 }
-#maptype .menu-item:last-child {border-right: 1px solid #afafaf;}
+#maptype .menu-item:last-child {
+  border-right: 1px solid #afafaf;
+}
 #maptype .menu-item a {
   text-decoration: none;
   color: #8e8e8e;
 }
-#maptype .menu-item a:hover {color: #000;}
+#maptype .menu-item a:hover {
+  color: #000;
+}
 
 /*** feed ***/
-#feed {}
+#feed {
+}
 #rss {
-  height:100%;
+  height: 100%;
   background-color: #212121;
   padding: 10px 0 60px 0;
   margin-top: 44px;
@@ -231,7 +270,9 @@
   background-color: #fff;
   padding: 10px;
 }
-#rss a {text-decoration: none;}
+#rss a {
+  text-decoration: none;
+}
 #rss img {
   float: right;
   margin: -20px 10px 0 15px;
@@ -245,13 +286,13 @@
 }
 
 /*** info ***/
-#info {
+#info, #lakes {
   background-color: #212121;
   padding: 0 0 65px 0;
   margin-top: 44px;
-  display:none;
+  display: none;
 }
-#info #info-content{
+#info #info-content, #lakes #lakes-content {
   position: relative;
   width: 90%;
   top: 8px;
@@ -259,10 +300,39 @@
   background-color: #fff;
   padding: 10px;
 }
-
-#overlay{
+#lakes {
+  display: none;
+}
+#lakes big {
+  font-size: 110%;
+}
+#lakes h3 {
+  margin: 0px;
+}
+#lakes ul li ul {
+  width: 100%;
+  min-width:290px;
+  float: left;
+}
+#lakes ul li ul li {
+  float: left;
+  margin: 5px 3px 5px 3px;
+}
+#lakes ul li ul li {
+  width: 40%;
+  min-width:118px;
+}
+#lakes ul li ul li + li {
+  width: 20%;
+  min-width:47px;
+}
+#lakes ul li ul li + li + li {
+  width: 25%;
+  min-width:99px;
+}
+#overlay {
   position: fixed;
-  display:none;
+  display: none;
   top: 0;
   left: 0;
   width: 10000px;

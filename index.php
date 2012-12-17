@@ -19,7 +19,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
 <!DOCTYPE html>
 <?php
 if($isMobile){
-  echo "<html manifest='cache.manifest'>";
+  echo "<html>";
 }
 else{
   echo "<html>";
@@ -95,10 +95,10 @@ else{
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showRssFeed()'>Wasser-News</a>
               </li>
               <?php } ?>
-              <li class='menu-item lake'>
-                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showLakeTemperatures()'>Seetemperaturen</a>
+              <li class='menu-item lake' id='header-lake'>
+                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showLakes()'>Seetemperaturen</a>
               </li>
-              <li class='menu-item about'>
+              <li class='menu-item about' id='header-about'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
               </li>
             </ul>
@@ -177,7 +177,7 @@ else{
                 <ul>
                   <li>
                     <h3>Fuschlsee</h3>
-                    Fuschl am See
+                    <span>Fuschl am See</span>
                   </li>
                   <li>
                    <big>4.8 °C</big>
@@ -191,7 +191,7 @@ else{
                 <ul>
                   <li>
                     <h3>Grabensee</h3>
-                    Grabensee
+                    <span>Grabensee</span>
                   </li>
                   <li>
                     <big>4.8 °C</big>
@@ -206,7 +206,7 @@ else{
                 <ul>
                   <li>
                     <h3>Mattsee</h3>
-                    Mattsee
+                    <span>Mattsee</span>
                   </li>
                   <li>
                     <big>4.8 °C</big>
@@ -220,7 +220,7 @@ else{
                 <ul>
                   <li>
                     <h3>Obertrumer See</h3>
-                    Obertrum
+                    <span>Obertrum</span>
                   </li>
                   <li>
                     <big>14.8 °C</big>
@@ -234,7 +234,7 @@ else{
                 <ul>
                   <li>
                     <h3>Wolfgangsee</h3>
-                    St. Gilgen
+                    <span>St. Gilgen</span>
                   </li>
                   <li>
                      <big>14.8 °C</big>
@@ -248,13 +248,13 @@ else{
                 <ul>
                   <li>
                     <h3>Wallersee</h3>
-                    Wallersee
+                    <span>Wallersee</span>
                   </li>
                   <li>
                     <big>24.8 °C</big>
                   </li>
                   <li>
-                    17:30 14.12.2012
+                    23:30 30.02.2022
                   </li>
                 </ul>
               </li>
@@ -262,7 +262,7 @@ else{
                 <ul>
                   <li>
                     <h3>Zeller See</h3>
-                    Zell am See
+                    <span>Zell am See</span>
                   </li>
                   <li>
                     <big>34.8 °C</big>
@@ -388,7 +388,7 @@ else{
     ?>
     <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>
     <?php } ?>
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT"></script>
+   // <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT"></script>
     <!-- libs -->
     <script type="text/javascript" src="assets/js/libs/markerclusterer.js"></script>
     <script type="text/javascript" src="assets/js/libs/infobox.js"></script>

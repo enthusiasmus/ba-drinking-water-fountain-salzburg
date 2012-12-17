@@ -8,8 +8,6 @@ assets/css/mobile.css
 assets/css/reset.css
 assets/css/style.css
 
-assets/img/android/sprite.png
-
 assets/img/ios/sprite.png
 assets/img/ios/startup-iphone.png
 assets/img/ios/bg-search.png
@@ -19,6 +17,7 @@ assets/img/ios/bg-navigation.png
 
 assets/img/mobile/icon-apple.png
 assets/img/mobile/search.gif
+assets/img/mobile/sprite.png
 
 assets/img/logos.png
 assets/img/marker.png

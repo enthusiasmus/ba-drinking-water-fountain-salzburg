@@ -19,6 +19,16 @@ var AddressView = Backbone.View.extend({
       this.searchAddress();
   },
   searchAddress: function(){
+    /*
+     * TODO: Dispatch Event if offline then show Message
+     * google is initialize?
+     * 
+    if(navigator.connection.type == CONNECTION.NONE){
+      window.dispatchEvent("non connection"); 
+      return false;
+    }
+     */
+    
     var geocoder = new google.maps.Geocoder();
     var address = $('input[name=address]').val();
     this.blurAllElements();

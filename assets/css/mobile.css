@@ -17,7 +17,7 @@
 #logo {
   width: 155px;
   height: 22px;
-  background: url('../img/android/sprite.png') 0 -144px no-repeat;
+  background: url('../img/mobile/sprite.png') 0 -144px no-repeat;
   margin: 12px auto 0 auto;
 }
 #back {
@@ -26,7 +26,7 @@
   left: 10px;
   width: 44px;
   height: 20px;
-  background: url('../img/android/sprite.png') 0 -166px no-repeat;
+  background: url('../img/mobile/sprite.png') 0 -166px no-repeat;
   color: #000;
   text-decoration: none;
   padding: 6px 0 0 7px;
@@ -104,7 +104,7 @@
   background-color: #8e8e8e;
 }
 
-.navigation-a-active {
+.active-navi-a {
   color: #fff !important;
   background-color: #8e8e8e !important;
 }
@@ -116,53 +116,56 @@
   display: block;
   width: 48px;
   height: 48px;
-  background-image: url('../img/android/sprite.png');
+  background-image: url('../img/mobile/sprite.png');
   background-repeat: no-repeat;
 }
-#navigation .position span {
+
+#navigation .position a > span {
   background-position: 0 0;
 }
-#navigation .menu-item.position a:active > span {
-  background-position: -48px 0;
-}
-.navigation-position-a-active-span {
-  background-position: -48px 0 !important;
-}
-#navigation .address span {
+#navigation .address a > span {
   background-position: -96px 0;
 }
-#navigation .menu-item.address a:active > span {
-  background-position: -144px 0;
-}
-.navigation-address-a-active-span {
-  background-position: -144px 0 !important;
-}
-#navigation .fontain span {
+#navigation .fontain a > span {
   background-position: 0 -96px;
 }
-#navigation .menu-item.fontain a:active > span {
-  background-position: -48px -96px;
-}
-.navigation-fontain-a-active-span {
-  background-position: -48px -96px !important;
-}
-#navigation .maptype span {
+#navigation .maptype a > span {
   background-position: 0 -48px;
+}
+#navigation .feed a > span {
+  background-position: -96px -48px;
+}
+
+#navigation .menu-item .position a:active > span {
+  background-position: -48px 0;
+}
+#navigation .menu-item .address a:active > span {
+  background-position: -144px 0;
+}
+#navigation .menu-item .fontain a:active > span {
+  background-position: -48px -96px;
 }
 #navigation .menu-item.maptype a:active > span {
   background-position: -48px -48px;
 }
-.navigation-maptype-a-active-span {
-  background-position: -48px -48px !important;
-}
-#navigation .feed span {
-  background-position: -96px -48px;
-}
 #navigation .menu-item.feed a:active > span {
   background-position: -144px -48px;
 }
-.navigation-feed-a-active-span {
-  background-position: -144px -48px !important;
+
+.active-navi-position {
+  background-position: -48px 0;
+}
+.active-navi-address {
+  background-position: -144px 0;
+}
+.active-navi-fontain {
+  background-position: -48px -96px;
+}
+.active-navi-maptype {
+  background-position: -48px -48px;
+}
+.active-navi-feed {
+  background-position: -144px -48px;
 }
 
 /*** info icon (header navigation) ***/
@@ -184,13 +187,25 @@
   position: absolute;
   right: 0px;
   top: 0px;
-  background: url('../img/android/sprite.png') -192px -2px no-repeat
 }
 #header-navigation .lake {
   position: absolute;
   left: 0px;
   top: 0px;
-  background: url('../img/android/sprite.png') -192px -52px no-repeat;
+}
+
+#header-navigation .lake a:link, #header-navigation .lake a:visited{
+    background: url('../img/mobile/sprite.png') -192px -52px no-repeat;
+}
+#header-navigation .lake a:active, .fake-active-lake{
+    background: url('../img/mobile/sprite.png') -192px -152px no-repeat;
+}
+
+#header-navigation .about a:link, #header-navigation .about a:visited{
+    background: url('../img/mobile/sprite.png') -191px -2px no-repeat;
+}
+#header-navigation .about a:active, .fake-active-about{
+    background: url('../img/mobile/sprite.png') -191px -102px no-repeat;
 }
 
 /*** address search ***/
@@ -208,10 +223,14 @@
   display: block;
   border: 1px solid #afafaf;
   padding: 5px 10px 5px 30px;
-  color: #333;
+  color: #333;  
   margin: 7px auto 0 auto;
   width: 75%;
   background: url('../img/mobile/search.gif') #fff 10px 5px no-repeat;
+}
+.addressinput:focus{
+  padding: 5px 35px 5px 5px;
+  background:#fff;
 }
 .searchsubmit {
   display: none;
@@ -299,36 +318,53 @@
   margin: 0 auto;
   background-color: #fff;
   padding: 10px;
+  min-width: 273px;
 }
 #lakes {
   display: none;
+  min-width: 310px;
 }
 #lakes big {
-  font-size: 110%;
+  font-size: 120%;
 }
 #lakes h3 {
   margin: 0px;
+  font-size:14.5px;
+}
+#lakes-content p{
+  margin-bottom:20px;
+}
+#lakes-content > ul{
+  margin-top:20px;
 }
 #lakes ul li ul {
   width: 100%;
-  min-width:290px;
+  min-width: 279px;
   float: left;
 }
 #lakes ul li ul li {
   float: left;
-  margin: 5px 3px 5px 3px;
+  margin: 5px 0px 5px 0px;
+}
+#lakes ul li ul li span {
+
 }
 #lakes ul li ul li {
-  width: 40%;
-  min-width:118px;
+  width: 37%;
+  min-width: 107px;
+  margin: 5px 0px 5px 5px;
 }
 #lakes ul li ul li + li {
-  width: 20%;
-  min-width:47px;
+  width: 22%;
+  min-width: 48px;
+  text-align: center;
+  margin: 5px 2px 5px 0px;
 }
 #lakes ul li ul li + li + li {
-  width: 25%;
-  min-width:99px;
+  width: 35%;
+  min-width: 99px;
+  text-align: center;
+  margin: 5px 2px 5px 0px;
 }
 #overlay {
   position: fixed;

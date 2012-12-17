@@ -468,6 +468,9 @@
 }
 #latest_feed #latest-feed-date {
   float: right;
+  height:15px;
+  vertical-align: middle;
+  line-height: 15px;
 }
 #latest_feed #latest-feed-title {
   font-size: 13px;

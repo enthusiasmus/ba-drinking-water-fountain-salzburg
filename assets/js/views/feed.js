@@ -1,24 +1,23 @@
 var FeedView = Backbone.View.extend({
-  el : $('#feed'),
-  feedItemCollection : '',
-  tagName : 'section',
-  id : 'rss',
-  initialize : function() {
-  },
-  timestamp : '',
-  addFeedItemCollection : function(feedItemCollection) {
+  el: $('#feed'),
+  feedItemCollection: '',
+  timestamp: '',
+  tagName: 'section',
+  id: 'rss',
+  initialize: function() {},
+  addFeedItemCollection: function(feedItemCollection) {
     this.feedItemCollection = feedItemCollection;
+    this.timestamp = new Date().getTime();
     $('#rss').html("");
     this.render();
   },
-  render : function(){
-    if(this.isIpad()){
+  render: function() {
+    if (this.isIpad()) {
       var length = 300;
-    }
-    else{
+    } else {
       var length = 90;
     }
-    
+
     var potentialEnd = length - 40;
     var searchEnd = length - potentialEnd;
     _.each(this.feedItemCollection.toArray(), function(feedItemModel) {
@@ -29,50 +28,44 @@ var FeedView = Backbone.View.extend({
       shortDescription = shortDescription.substring(0, potentialEnd + endLastWord);
       shortDescription += '...';
 
-      $('#rss').append('<article>' + '<h3 class="feed-title"><a href="' + 
-      feedItemModel.escape('link') + '">' + feedItemModel.escape("title") + 
-      '</a></h3>' + '<p class="feed-date">' + feedItemModel.escape("pubDate") + 
-      '</p>' + '<p class="feed-content">' + feedItemModel.get('image') + 
-      shortDescription + '</p>' + '<a target="_blank" href="' + feedItemModel.escape('link') + 
-      '" class="feed-more">Mehr</a>' + '</article>');
+      $('#rss').append('<article>' + '<h3 class="feed-title"><a href="' + feedItemModel.escape('link') + '">' + feedItemModel.escape("title") + '</a></h3>' + '<p class="feed-date">' + feedItemModel.escape("pubDate") + '</p>' + '<p class="feed-content">' + feedItemModel.get('image') + shortDescription + '</p>' + '<a target="_blank" href="' + feedItemModel.escape('link') + '" class="feed-more">Mehr</a>' + '</article>');
     });
     this.scaleImages();
-    
+
     var self = this;
-    var checkState = window.setInterval(function(){
-      if(self.checkLoadingImages()){
+    var checkState = window.setInterval(function() {
+      if (self.checkLoadingImages()) {
         self.scaleImages();
         window.clearInterval(checkState);
-      }
-      else{
+      } else {
         self.scaleImages();
       }
     }, 300);
   },
-  checkLoadingImages: function(){
-    for(var i=0; i < document.images.length; i++){
-      if(!document.images[i].complete)
+  checkLoadingImages: function() {
+    for (var i = 0; i < document.images.length; i++) {
+      if (!document.images[i].complete)
         return false;
     }
     return true;
   },
-  scaleImages: function(){
+  scaleImages: function() {
     var allFeedImages = $('#rss').find('img');
-    for(idx in allFeedImages) {
-      if(allFeedImages[idx].height > 120 && allFeedImages[idx]) {
+    for (idx in allFeedImages) {
+      if (allFeedImages[idx].height > 120 && allFeedImages[idx]) {
         var scaleValue = allFeedImages[idx].height / 120;
-        
+
         //important to set first th width, then the height, because
         // it's the width which gets calculated for the height
         allFeedImages[idx].width = allFeedImages[idx].width / scaleValue;
         allFeedImages[idx].height = 120;
       }
-      if(allFeedImages[idx].width > 180){
+      if (allFeedImages[idx].width > 180) {
         allFeedImages[idx].width = 180;
       }
     }
   },
-  isIpad: function(){
+  isIpad: function() {
     return (navigator.userAgent.match(/iPad/i) != null);
   }
 });

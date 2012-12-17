@@ -2,7 +2,7 @@ var AppRouter = Backbone.Router.extend({
   routes: {
     "": "index",
     "feed": "showRssFeed",
-    "lakes": "showLakeTemperatures",
+    "lakes": "showLakes",
     "about": "showAbout",
     "maptype/:type": "changeMaptype",
     "*actions": "index"
@@ -22,7 +22,7 @@ var AppRouter = Backbone.Router.extend({
     this.feedView = new FeedView;
     this.infoView = new InfoView;
     this.mapTypeView = new MapTypeView;
-    this.addressView = new AddressView;
+    this.addressView = new AddressView;   //checked
 
     this.addressView.mapView = this.mapView;
     this.mapTypeView.mapView = this.mapView;
@@ -38,21 +38,21 @@ var AppRouter = Backbone.Router.extend({
     }
 
     var self = this;
-    this.markerCollection.fetch({
-      success: function() {
-        self.mapView.addMarkerCollection(self.markerCollection);
-        self.mapView.placeMarkersToMap();
-      },
-      error: function() {
-        if (self.isMobile()) {
-          alert("Trinkbrunnen konnten nicht geladen werden!");
-        } else {
-          //TODO: Think about a failure message place, when map is not scrolled up
-          //self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
-        }
-      },
-      add: true
-    });
+    /*this.markerCollection.fetch({
+     success: function() {
+     self.mapView.addMarkerCollection(self.markerCollection);
+     self.mapView.placeMarkersToMap();
+     },
+     error: function() {
+     if (self.isMobile()) {
+     alert("Trinkbrunnen konnten nicht geladen werden!");
+     } else {
+     //TODO: Think about a failure message place, when map is not scrolled up
+     //self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
+     }
+     },
+     add: true
+     });*/
 
     if (!this.isMobile()) {
       var self = this;
@@ -74,59 +74,26 @@ var AppRouter = Backbone.Router.extend({
       $("#lakes ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
       $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
     } else {
-      $(".menu-item").click(function(event) {
-        var self = this;
-        switch($(this).attr('id')) {
-          case 'navi-position':
-            $('#navi-position > a > span').addClass('navigation-position-a-active-span');
-            $('#navi-position > a').addClass('navigation-a-active');
-            setTimeout(function() {
-              $('#navi-position > a').removeClass('navigation-a-active');
-              $('#navi-position > a > span').removeClass('navigation-position-a-active-span');
-            }, 500);
-            break;
-          case 'navi-fontain':
-            $('#navi-fontain > a > span').addClass('navigation-fontain-a-active-span');
-            $('#navi-fontain > a').addClass('navigation-a-active');
-            setTimeout(function() {
-              $('#navi-fontain > a').removeClass('navigation-a-active');
-              $('#navi-fontain > a > span').removeClass('navigation-fontain-a-active-span');
-            }, 500);
-            break;
-          case 'navi-maptype':
-            $('#navi-maptype > a > span').addClass('navigation-maptype-a-active-span');
-            $('#navi-maptype > a').addClass('navigation-a-active');
-            setTimeout(function() {
-              $('#navi-maptype > a').removeClass('navigation-a-active');
-              $('#navi-maptype > a > span').removeClass('navigation-maptype-a-active-span');
-            }, 350);
-            break;
-          case 'navi-feed':
-            $('#navi-feed > a > span').addClass('navigation-feed-a-active-span');
-            $('#navi-feed > a').addClass('navigation-a-active');
-            setTimeout(function() {
-              $('#navi-feed > a').removeClass('navigation-a-active');
-              $('#navi-feed > a > span').removeClass('navigation-feed-a-active-span');
-            }, 350);
-            break;
-          case 'navi-address':
-            $('#navi-address > a > span').addClass('navigation-address-a-active-span');
-            $('#navi-address > a').addClass('navigation-a-active');
-            setTimeout(function() {
-              $('#navi-address > a').removeClass('navigation-a-active');
-              $('#navi-address > a > span').removeClass('navigation-address-a-active-span');
-            }, 500);
-            break;
-          default:
-            break;
-        }
+
+      $("#heaver-navigation .menu-item").bind("touchstart", function() {
+        $(this).addClass("active-" + $(this).attr('id'));
+      }).bind("touchend", function() {
+        $(this).removeClass("active-" + $(this).attr('id'));
       });
 
-      if(window.innerWidth >= 768){
+      $("#navigation .menu-item").bind("touchstart", function() {
+        $(this + " a").addClass("active-navi-a");
+        $(this + " a span").addClass("active-" + $(this).attr('id'));
+      }).bind("touchend", function() {
+        $(this + " a").removeClass("active-navi-a");
+        $(this + " a span").removeClass("active-" + $(this).attr('id'));
+      });
+
+      if (window.innerWidth >= 768) {
         $("#lakes ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
         $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
-      }
-      else{
+        $("#lakes ul li ul").css('width', '50%');
+      } else {
         $("#lakes ul li:nth-child(2n+1) ul").css('background', '#E9E9E9');
       }
     }
@@ -144,7 +111,6 @@ var AppRouter = Backbone.Router.extend({
       }
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
     }
-    this.mapView.map.setCenter(this.mapView.mapCenter);
 
     var self = this;
     //get latest feeditem
@@ -161,11 +127,11 @@ var AppRouter = Backbone.Router.extend({
 
         self.eventDispatcher.off('loadedFeed');
       });
+      
       if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
         this.feedItemCollection.reset();
         this.feedItemCollection.fetch({
           success: function() {
-            self.feedItemCollection.timestamp = new Date().getTime();
             self.eventDispatcher.trigger('loadedFeed');
           },
           error: function() {
@@ -184,9 +150,10 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   scrollMap: function() {
-    this.mapView.mapCenter = this.mapView.map.getCenter();
+    this.mapView.setCurrentCenterNew();
 
     if ($('#map-wrap').css('top') == '250px') {
+    //scroll down
       $('#map-wrap').css('min-height', '0px');
 
       $('#navigation, #address').animate({
@@ -201,20 +168,23 @@ var AppRouter = Backbone.Router.extend({
         $('#activatemap').show();
         $('#scroll').text('Karte vergrößern ↑');
         window.Trinkbrunnen.mapView.resizeMap();
-        window.Trinkbrunnen.mapView.map.setCenter(window.Trinkbrunnen.mapView.mapCenter);
+        window.Trinkbrunnen.mapView.setCurrentCenterNew();
       });
 
       if (this.routes[Backbone.history.fragment] == 'showRssFeed') {
         this.displayOnly('map_canvas map-wrap header-navigation feed');
       } else if (this.routes[Backbone.history.fragment] == 'showAbout') {
         this.displayOnly('map_canvas map-wrap header-navigation info');
+      } else if (this.routes[Backbone.history.fragment] == 'showLakes') {
+        this.displayOnly('map_canvas map-wrap header-navigation lakes');
       }
 
-      $('#appinfo, #info, #feed, #left-hand-phone, #right-hand-phone').animate({
+      $('#appinfo, #info, #feed, #left-hand-phone, #right-hand-phone, #lakes').animate({
         opacity: 1
       }, 1000);
 
     } else {
+    //scroll up
       $('#map-wrap').animate({
         top: 250
       }, 1000, function() {
@@ -224,18 +194,29 @@ var AppRouter = Backbone.Router.extend({
           opacity: 1
         }, 500);
         window.Trinkbrunnen.mapView.resizeMap();
-        window.Trinkbrunnen.mapView.map.setCenter(window.Trinkbrunnen.mapView.mapCenter);
+        window.Trinkbrunnen.mapView.setCurrentCenterNew();
         $('#activatemap').hide();
         $('#scroll').text('Karte verkleinern ↓');
       });
-      $('#appinfo, #info, #feed, #left-hand-phone, #right-hand-phone').animate({
+      $('#appinfo, #info, #feed, #left-hand-phone, #right-hand-phone, #lakes').animate({
         opacity: 0
       }, 1000, function() {
         $('#feed').css('display', 'none');
+        $('#about').css('display', 'none');
+        $('#lakes').css('display', 'none');
       });
     }
   },
   nextFountain: function() {
+    /*
+     * TODO: Dispatch Event if offline then show Message
+     * 
+    if(navigator.connection.type == CONNECTION.NONE){
+      window.dispatchEvent("non connection"); 
+      return false;
+    }
+     */
+    
     this.calculateGeoLocation('drawRoute');
 
     if (this.isMobile()) {
@@ -300,6 +281,15 @@ var AppRouter = Backbone.Router.extend({
     $("input").blur();
   },
   showMaptype: function() {
+    /*
+     * TODO: Dispatch Event if offline then show Message
+     * 
+    if(navigator.connection.type == CONNECTION.NONE){
+      window.dispatchEvent("non connection"); 
+      return false;
+    }
+     */
+    
     this.navigate("", {
       trigger: true
     });
@@ -315,7 +305,16 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showRssFeed: function() {
-    this.mapView.mapCenter = this.mapView.map.getCenter();
+    /*
+     * TODO: Dispatch Event if offline then show Message
+     * when feeds are already catched show them
+     * 
+    if(navigator.connection.type == CONNECTION.NONE){
+      window.dispatchEvent("non connection"); 
+      return false;
+    }
+     */
+    
     this.navigate("feed", {
       trigger: true
     });
@@ -331,12 +330,16 @@ var AppRouter = Backbone.Router.extend({
     }
 
     var self = this;
-    if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+    //because for the newest feed item on pc the rss feed is already catched
+    //and now we must only add it
+    if(this.feedItemCollection.size() > 0 && this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12){
+      self.feedView.addFeedItemCollection(self.feedItemCollection);
+    }
+    else if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {     
       this.feedItemCollection.reset();
       this.feedItemCollection.fetch({
         success: function() {
           self.feedView.addFeedItemCollection(self.feedItemCollection);
-          self.feedView.timestamp = new Date().getTime();
           self.feedItemCollection.timestamp = new Date().getTime();
 
           if (!self.isMobile()) {
@@ -352,12 +355,6 @@ var AppRouter = Backbone.Router.extend({
         },
         add: true
       });
-    } else {
-      if (!this.isMobile() && this.feedView.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
-        self.feedView.addFeedItemCollection(self.feedItemCollection);
-        self.feedView.timestamp = new Date().getTime();
-        self.canSlideArticle('left')
-      }
     }
   },
   getUserLocation: function() {
@@ -450,8 +447,7 @@ var AppRouter = Backbone.Router.extend({
         }
       }, {
         enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 60000
+        timeout: 30000
       });
     } else {
       if (self.isMobile()) {
@@ -461,8 +457,17 @@ var AppRouter = Backbone.Router.extend({
       }
     }
   },
-  showLakeTemperatures: function() {
-    this.mapView.mapCenter = this.mapView.map.getCenter();
+  showLakes: function() {
+    /*
+     * TODO: Dispatch Event if offline then show Message
+     * when infos are already catched show them
+     * 
+    if(navigator.connection.type == CONNECTION.NONE){
+      window.dispatchEvent("non connection"); 
+      return false;
+    }
+     */
+    
     this.navigate("lakes", {
       trigger: true
     });
@@ -478,7 +483,6 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showAbout: function() {
-    this.mapView.mapCenter = this.mapView.map.getCenter();
     this.navigate("about", {
       trigger: true
     });
@@ -513,8 +517,10 @@ var AppRouter = Backbone.Router.extend({
         $('#' + this.mainElements[idx]).hide();
     }
 
-    if ($('#map_canvas').is(':visible'))
-      google.maps.event.trigger(this.mapView.map, "resize");
+    if($(this.mapView.el).is(':visible') && this.mapView.isInitialize && typeof window.google != 'undefined'){
+      this.mapView.resizeMap();
+      this.mapView.setCurrentCenterNew();
+    }
   },
   isMobile: function() {
     var index = navigator.appVersion.indexOf("Mobile");
@@ -573,7 +579,7 @@ var AppRouter = Backbone.Router.extend({
         return true;
       }
     } else if (direction == 'right') {
-      var sizeFeedItemCollection = this.feedItemCollection.size()
+      var sizeFeedItemCollection = this.feedItemCollection.size();
       var lastPageItems = sizeFeedItemCollection % 4;
       var lastAllowedSlidePosition = ((sizeFeedItemCollection - lastPageItems) / 4 * 888) * (-1);
 

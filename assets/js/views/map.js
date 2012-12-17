@@ -1,7 +1,12 @@
 var MapView = Backbone.View.extend({
   el: $("#map_canvas"),
   initialize: function() {
-    this.render();
+    if (!this.isMobile()) {
+      this.render();
+    }
+    else if(navigator/*.connection.type != CONNECTION.NONE*/){
+      this.render();
+    }
   },
   render: function() {
     var mapOptions = {
@@ -22,8 +27,9 @@ var MapView = Backbone.View.extend({
       mapOptions.zoom = this.model.get('zoom') + 1;
     }
 
-    this.mapCenter = new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude'))
+    this.mapCenter = new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude'));
     this.map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    isInitialize = true;
   },
   markerCollection: undefined,
   map: undefined,
@@ -33,6 +39,7 @@ var MapView = Backbone.View.extend({
   userLocationPrecisionCircle: undefined,
   directionsDisplay: undefined,
   directionsService: undefined,
+  isInitialize: false,
   isIpad: function() {
     return (navigator.userAgent.match(/iPad/i) != null);
   },
@@ -41,6 +48,9 @@ var MapView = Backbone.View.extend({
   },
   resizeMap: function() {
     google.maps.event.trigger(this.map, 'resize');
+  },
+  setCurrentCenterNew: function() {
+    this.map.setCenter(this.map.getCenter());
   },
   addMarkerCollection: function(markerCollection) {
     this.markerCollection = markerCollection;

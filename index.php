@@ -346,15 +346,13 @@ else{
           </li>
         </ul>
       </nav>
-      <?php } ?>
-      <?php if ( !$isMobile ) {
-      ?>
       <div id="scroll-wrap">
         <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="scroll">Karte vergrößern &uarr;</a>
       </div>
       <?php } ?>
       <div id="map_canvas">
         <span id="info_offline">Bitte verbinden Sie sich mit dem Internet und starten Sie die Anwendung neu!</span>
+        <span id="reload_map"></span>
       </div>
       <div id="maptype">
         <div>
@@ -388,7 +386,7 @@ else{
     ?>
     <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>
     <?php } ?>
-   // <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT"></script>
+    <script type="text/javascript" id="script-google-map" src="https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT"></script>
     <!-- libs -->
     <script type="text/javascript" src="assets/js/libs/markerclusterer.js"></script>
     <script type="text/javascript" src="assets/js/libs/infobox.js"></script>

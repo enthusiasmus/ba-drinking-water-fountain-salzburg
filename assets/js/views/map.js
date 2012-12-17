@@ -1,11 +1,12 @@
 var MapView = Backbone.View.extend({
   el: $("#map_canvas"),
   initialize: function() {
+    //TODO: whats about mobile without phonegab?
     if (!this.isMobile()) {
       this.render();
     }
     else if(navigator/*.connection.type != CONNECTION.NONE*/){
-      this.render();
+      //this.render();
     }
   },
   render: function() {

@@ -22,7 +22,7 @@ var AppRouter = Backbone.Router.extend({
     this.feedView = new FeedView;
     this.infoView = new InfoView;
     this.mapTypeView = new MapTypeView;
-    this.addressView = new AddressView;   //checked
+    this.addressView = new AddressView;
 
     this.addressView.mapView = this.mapView;
     this.mapTypeView.mapView = this.mapView;
@@ -38,21 +38,13 @@ var AppRouter = Backbone.Router.extend({
     }
 
     var self = this;
-    /*this.markerCollection.fetch({
-     success: function() {
-     self.mapView.addMarkerCollection(self.markerCollection);
-     self.mapView.placeMarkersToMap();
-     },
-     error: function() {
-     if (self.isMobile()) {
-     alert("Trinkbrunnen konnten nicht geladen werden!");
-     } else {
-     //TODO: Think about a failure message place, when map is not scrolled up
-     //self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
-     }
-     },
-     add: true
-     });*/
+
+    //TODO: default for pc, mobile and mobile with phonegab (navigator.connection.type)
+    if (!this.isMobile()) {
+      this.loadMarkersToMap();
+    } else {
+      //this.loadMarkersToMap()
+    }
 
     if (!this.isMobile()) {
       var self = this;
@@ -74,7 +66,6 @@ var AppRouter = Backbone.Router.extend({
       $("#lakes ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
       $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
     } else {
-
       $("#heaver-navigation .menu-item").bind("touchstart", function() {
         $(this).addClass("active-" + $(this).attr('id'));
       }).bind("touchend", function() {
@@ -97,6 +88,48 @@ var AppRouter = Backbone.Router.extend({
         $("#lakes ul li:nth-child(2n+1) ul").css('background', '#E9E9E9');
       }
     }
+
+    $('#reload_map').click(function() {
+      $('#script-google-map').remove();
+      $('script[src*="google"]').remove();
+      $('script[src*="gstatic"]').remove();
+      $('script[src*="infobox"]').remove();
+
+      //TODO: got inserted at the wrong place
+
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "assets/js/libs/infobox.js";
+      document.body.appendChild(script);
+
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.id = "script-google-map";
+      script.src = "https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT&amp;callback=window.Trinkbrunnen.initializeMap";
+      document.body.appendChild(script);
+    });
+  },
+  loadMarkersToMap: function() {
+    var self = this;
+    this.markerCollection.fetch({
+      success: function() {
+        self.mapView.addMarkerCollection(self.markerCollection);
+        self.mapView.placeMarkersToMap();
+      },
+      error: function() {
+        if (self.isMobile()) {
+          alert("Trinkbrunnen konnten nicht geladen werden!");
+        } else {
+          //TODO: Think about a failure message place, when map is not scrolled up
+          //self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
+        }
+      },
+      add: true
+    });
+  },
+  initializeMap: function() {
+    this.mapView.render();
+    this.loadMarkersToMap();
   },
   index: function() {
     this.navigate("", {
@@ -127,7 +160,7 @@ var AppRouter = Backbone.Router.extend({
 
         self.eventDispatcher.off('loadedFeed');
       });
-      
+
       if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
         this.feedItemCollection.reset();
         this.feedItemCollection.fetch({
@@ -153,7 +186,7 @@ var AppRouter = Backbone.Router.extend({
     this.mapView.setCurrentCenterNew();
 
     if ($('#map-wrap').css('top') == '250px') {
-    //scroll down
+      //scroll down
       $('#map-wrap').css('min-height', '0px');
 
       $('#navigation, #address').animate({
@@ -184,7 +217,7 @@ var AppRouter = Backbone.Router.extend({
       }, 1000);
 
     } else {
-    //scroll up
+      //scroll up
       $('#map-wrap').animate({
         top: 250
       }, 1000, function() {
@@ -210,13 +243,13 @@ var AppRouter = Backbone.Router.extend({
   nextFountain: function() {
     /*
      * TODO: Dispatch Event if offline then show Message
-     * 
-    if(navigator.connection.type == CONNECTION.NONE){
-      window.dispatchEvent("non connection"); 
-      return false;
-    }
+     *
+     if(navigator.connection.type == CONNECTION.NONE){
+     window.dispatchEvent("non connection");
+     return false;
+     }
      */
-    
+
     this.calculateGeoLocation('drawRoute');
 
     if (this.isMobile()) {
@@ -283,13 +316,13 @@ var AppRouter = Backbone.Router.extend({
   showMaptype: function() {
     /*
      * TODO: Dispatch Event if offline then show Message
-     * 
-    if(navigator.connection.type == CONNECTION.NONE){
-      window.dispatchEvent("non connection"); 
-      return false;
-    }
+     *
+     if(navigator.connection.type == CONNECTION.NONE){
+     window.dispatchEvent("non connection");
+     return false;
+     }
      */
-    
+
     this.navigate("", {
       trigger: true
     });
@@ -308,13 +341,13 @@ var AppRouter = Backbone.Router.extend({
     /*
      * TODO: Dispatch Event if offline then show Message
      * when feeds are already catched show them
-     * 
-    if(navigator.connection.type == CONNECTION.NONE){
-      window.dispatchEvent("non connection"); 
-      return false;
-    }
+     *
+     if(navigator.connection.type == CONNECTION.NONE){
+     window.dispatchEvent("non connection");
+     return false;
+     }
      */
-    
+
     this.navigate("feed", {
       trigger: true
     });
@@ -332,10 +365,9 @@ var AppRouter = Backbone.Router.extend({
     var self = this;
     //because for the newest feed item on pc the rss feed is already catched
     //and now we must only add it
-    if(this.feedItemCollection.size() > 0 && this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12){
+    if (this.feedItemCollection.size() > 0 && this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
       self.feedView.addFeedItemCollection(self.feedItemCollection);
-    }
-    else if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {     
+    } else if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
       this.feedItemCollection.reset();
       this.feedItemCollection.fetch({
         success: function() {
@@ -461,13 +493,13 @@ var AppRouter = Backbone.Router.extend({
     /*
      * TODO: Dispatch Event if offline then show Message
      * when infos are already catched show them
-     * 
-    if(navigator.connection.type == CONNECTION.NONE){
-      window.dispatchEvent("non connection"); 
-      return false;
-    }
+     *
+     if(navigator.connection.type == CONNECTION.NONE){
+     window.dispatchEvent("non connection");
+     return false;
+     }
      */
-    
+
     this.navigate("lakes", {
       trigger: true
     });
@@ -517,7 +549,7 @@ var AppRouter = Backbone.Router.extend({
         $('#' + this.mainElements[idx]).hide();
     }
 
-    if($(this.mapView.el).is(':visible') && this.mapView.isInitialize && typeof window.google != 'undefined'){
+    if ($(this.mapView.el).is(':visible') && this.mapView.isInitialize && typeof window.google != 'undefined') {
       this.mapView.resizeMap();
       this.mapView.setCurrentCenterNew();
     }

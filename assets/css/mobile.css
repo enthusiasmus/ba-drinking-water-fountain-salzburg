@@ -66,6 +66,23 @@
   height: 50px;
   font-size: 13px;
   color: #fff;
+
+}
+
+#map_canvas #reload_map{
+  position: absolute;
+  /* TODO set correct z-index */
+  z-index:999;
+  top: 60%;
+  left: 50%;
+  margin-top: -13px;
+  margin-left: -12px;
+  text-align: center;
+  width: 24px;
+  height: 26px;
+  background: url('../img/mobile/reload.png') no-repeat;
+  border-radius:2px;
+  cursor:pointer;
 }
 
 /*** navigation ***/
@@ -194,18 +211,18 @@
   top: 0px;
 }
 
-#header-navigation .lake a:link, #header-navigation .lake a:visited{
-    background: url('../img/mobile/sprite.png') -192px -52px no-repeat;
+#header-navigation .lake a:link, #header-navigation .lake a:visited {
+  background: url('../img/mobile/sprite.png') -192px -52px no-repeat;
 }
-#header-navigation .lake a:active, .fake-active-lake{
-    background: url('../img/mobile/sprite.png') -192px -152px no-repeat;
+#header-navigation .lake a:active, .fake-active-lake {
+  background: url('../img/mobile/sprite.png') -192px -152px no-repeat;
 }
 
-#header-navigation .about a:link, #header-navigation .about a:visited{
-    background: url('../img/mobile/sprite.png') -191px -2px no-repeat;
+#header-navigation .about a:link, #header-navigation .about a:visited {
+  background: url('../img/mobile/sprite.png') -191px -2px no-repeat;
 }
-#header-navigation .about a:active, .fake-active-about{
-    background: url('../img/mobile/sprite.png') -191px -102px no-repeat;
+#header-navigation .about a:active, .fake-active-about {
+  background: url('../img/mobile/sprite.png') -191px -102px no-repeat;
 }
 
 /*** address search ***/
@@ -223,14 +240,14 @@
   display: block;
   border: 1px solid #afafaf;
   padding: 5px 10px 5px 30px;
-  color: #333;  
+  color: #333;
   margin: 7px auto 0 auto;
   width: 75%;
   background: url('../img/mobile/search.gif') #fff 10px 5px no-repeat;
 }
-.addressinput:focus{
+.addressinput:focus {
   padding: 5px 35px 5px 5px;
-  background:#fff;
+  background: #fff;
 }
 .searchsubmit {
   display: none;
@@ -329,13 +346,13 @@
 }
 #lakes h3 {
   margin: 0px;
-  font-size:14.5px;
+  font-size: 14.5px;
 }
-#lakes-content p{
-  margin-bottom:20px;
+#lakes-content p {
+  margin-bottom: 20px;
 }
-#lakes-content > ul{
-  margin-top:20px;
+#lakes-content > ul {
+  margin-top: 20px;
 }
 #lakes ul li ul {
   width: 100%;

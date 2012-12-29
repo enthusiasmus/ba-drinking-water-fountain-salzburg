@@ -77,29 +77,29 @@ else{
           <?php if ( !$isMobile ) {
           ?>
           <hgroup>
-            <h1 id="logo"><a href="javascript:void(0)" onclick="window.Trinkbrunnen.index()">Wasser Land Salzburg</a></h1>
+            <h1 id="logo"><a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.index()">Wasser Land Salzburg</a></h1>
             <h2 id="logo_salzburg"><a href="http://www.salzburg.gv.at/wasser" target="_blank">Land Salzburg</a></h2>
           </hgroup>
           <?php } else { ?>
           <h1 id="logo">Land Salzburg</h1>
-          <a href="javascript:void(0)" onclick='window.Trinkbrunnen.index()' id="back">Zurück</a>
+          <a href="javascript:void(0)" onclick='window.Trinkbrunnen.Router.index()' id="back">Zurück</a>
           <?php } ?>
           <nav id="header-navigation">
             <ul>
               <?php if ( !$isMobile ) {
               ?>
               <li class='menu-item show_map'>
-                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.scrollMap()'>Karte</a>
+                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.scrollMap()'>Karte</a>
               </li>
               <li class='menu-item feed'>
-              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showRssFeed()'>Wasser-News</a>
+              <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showRssFeed()'>Wasser-News</a>
               </li>
               <?php } ?>
               <li class='menu-item lake' id='header-lake'>
-                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showLakes()'>Seetemperaturen</a>
+                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showLakes()'>Seetemperaturen</a>
               </li>
               <li class='menu-item about' id='header-about'>
-                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAbout()'>Impressum</a>
+                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAbout()'>Impressum</a>
               </li>
             </ul>
           </nav>
@@ -310,16 +310,16 @@ else{
     <nav id="navigation">
       <ul>
         <li id='navi-position' class='menu-item position'>
-          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.getUserLocation()'><span></span>Position</a>
+          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.getUserLocation()'><span></span>Position</a>
         </li>
         <li id='navi-address' class='menu-item address'>
-          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAddressSearch()'><span></span>Adresse</a>
+          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAddressSearch()'><span></span>Adresse</a>
         </li>
         <li id='navi-fontain' class='menu-item fontain'>
-          <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.nextFountain()'><span></span>Brunnen</a>
+          <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.nextFountain()'><span></span>Brunnen</a>
         </li>
         <li id='navi-maptype' class='menu-item maptype'>
-          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showMaptype()'><span></span>Kartentyp</a>
+          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showMaptype()'><span></span>Kartentyp</a>
         </li>
         <li id='navi-feed' class='menu-item feed'>
           <a href='#feed'><span></span>News</a>
@@ -333,21 +333,21 @@ else{
       <nav id="navigation">
         <ul>
           <li id='navi-position' class='menu-item position'>
-            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.getUserLocation()'><span></span>Position</a>
+            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.getUserLocation()'><span></span>Position</a>
           </li>
           <li id='navi-address' class='menu-item address'>
-            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.showAddressSearch()'><span></span>Adresse</a>
+            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAddressSearch()'><span></span>Adresse</a>
           </li>
           <li id='navi-fontain' class='menu-item fontain'>
-            <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.nextFountain()'><span></span>Brunnen</a>
+            <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.nextFountain()'><span></span>Brunnen</a>
           </li>
           <li class='menu-item cluster'>
-            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.toggleClusterSingled()'><span></span>Gruppe</a>
+            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.toggleClusterSingled()'><span></span>Gruppe</a>
           </li>
         </ul>
       </nav>
       <div id="scroll-wrap">
-        <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="scroll">Karte vergrößern &uarr;</a>
+        <a href="javascript:void(0)" onclick='window.Trinkbrunnen.Router.scrollMap()' id="scroll">Karte vergrößern &uarr;</a>
       </div>
       <?php } ?>
       <div id="map_canvas">
@@ -384,7 +384,7 @@ else{
     </div>
     <?php if ( !$isMobile ) {
     ?>
-    <a href="javascript:void(0)" onclick='window.Trinkbrunnen.scrollMap()' id="activatemap"></a>
+    <a href="javascript:void(0)" onclick='window.Trinkbrunnen.Router.scrollMap()' id="activatemap"></a>
     <?php } ?>
     <script type="text/javascript" id="script-google-map" src="https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT"></script>
     <!-- libs -->

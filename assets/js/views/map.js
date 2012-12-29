@@ -3,15 +3,21 @@ var MapView = Backbone.View.extend({
   initialize: function() {
     //TODO: whats about mobile without phonegab?
     if (!this.isMobile()) {
-      this.render();
+      //this.render();
     }
     else if(navigator/*.connection.type != CONNECTION.NONE*/){
       //this.render();
     }
   },
   render: function() {
+    if(this.model == "undefined"){
+      console.error("Map doesn't have a model!");
+    }
+    
+    this.mapCenter = new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude'));
+    
     var mapOptions = {
-      center: new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude')),
+      center: this.mapCenter,
       zoom: this.model.get('zoom'),
       keyboardShortcuts: false,
       mapTypeControl: false,
@@ -28,7 +34,7 @@ var MapView = Backbone.View.extend({
       mapOptions.zoom = this.model.get('zoom') + 1;
     }
 
-    this.mapCenter = new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude'));
+    
     this.map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     isInitialize = true;
   },
@@ -51,7 +57,10 @@ var MapView = Backbone.View.extend({
     google.maps.event.trigger(this.map, 'resize');
   },
   setCurrentCenterNew: function() {
-    this.map.setCenter(this.map.getCenter());
+    this.map.setCenter(this.mapCenter);
+  },
+  saveCurrentCenter: function(){
+    this.mapCenter = this.map.getCenter();
   },
   addMarkerCollection: function(markerCollection) {
     this.markerCollection = markerCollection;
@@ -64,7 +73,7 @@ var MapView = Backbone.View.extend({
 
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
-
+   
     _.each(this.markerCollection.toArray(), function(markerModel) {
       var icon = new google.maps.MarkerImage(markerModel.get('imageUrl'), new google.maps.Size(17, 40), new google.maps.Point(0, 0), new google.maps.Point(9, 40));
       var shadow = new google.maps.MarkerImage(markerModel.get('shadowUrl'), new google.maps.Size(49, 40), new google.maps.Point(0, 0), new google.maps.Point(25, 40));

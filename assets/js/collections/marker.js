@@ -13,5 +13,9 @@ var MarkerCollection = Backbone.Collection.extend({
 			markers.push(markerModel);
 		}
 		return markers;
+	},
+	comparator: function(marker){
+	  //the highest markers should be the first ones
+	  return (-1)*marker.get("latitude");
 	}
 });

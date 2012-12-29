@@ -8,42 +8,26 @@ var AppRouter = Backbone.Router.extend({
     "*actions": "index"
   },
   initialize: function() {
-    this.mapModel = new MapModel;
-    this.feedModel = new FeedModel;
-    this.userLocationModel = new UserLocationModel;
-    this.markerCollection = new MarkerCollection;
-    this.markerCollection.url = 'wis.php';
-    this.feedItemCollection = new FeedItemCollection;
-    this.feedItemCollection.url = 'rss.php';
-
-    this.mapView = new MapView({
-      model: this.mapModel
-    });
-    this.feedView = new FeedView;
-    this.infoView = new InfoView;
-    this.mapTypeView = new MapTypeView;
-    this.addressView = new AddressView;
-
-    this.addressView.mapView = this.mapView;
-    this.mapTypeView.mapView = this.mapView;
-
     this.eventDispatcher = {};
     _.extend(this.eventDispatcher, Backbone.Events);
   },
   init: function() {
+    var self = this;
+    window.Trinkbrunnen.Collections.marker.url = 'wis.php';
+    window.Trinkbrunnen.Collections.feedItem.url = 'rss.php';
+    window.Trinkbrunnen.Views.map.model = window.Trinkbrunnen.Models.map;
+
     try {
       if (!(Backbone.history.start()))
         throw "Couldn't start backbone history!";
     } catch(e) {
     }
 
-    var self = this;
-
     //TODO: default for pc, mobile and mobile with phonegab (navigator.connection.type)
     if (!this.isMobile()) {
-      this.loadMarkersToMap();
+      this.initializeMap();
     } else {
-      //this.loadMarkersToMap()
+      this.loadMarkersToMap()
     }
 
     if (!this.isMobile()) {
@@ -96,25 +80,26 @@ var AppRouter = Backbone.Router.extend({
       $('script[src*="infobox"]').remove();
 
       //TODO: got inserted at the wrong place
-
+      //TODO: later loading doesn't work: Error <map>
       var script = document.createElement("script");
       script.type = "text/javascript";
       script.src = "assets/js/libs/infobox.js";
       document.body.appendChild(script);
 
+      //TODO: got inserted at the wrong place
       var script = document.createElement("script");
       script.type = "text/javascript";
       script.id = "script-google-map";
-      script.src = "https://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true&amp;region=AT&amp;callback=window.Trinkbrunnen.initializeMap";
+      script.src = "https://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=AT&callback=window.Trinkbrunnen.initializeMap";
       document.body.appendChild(script);
     });
   },
   loadMarkersToMap: function() {
     var self = this;
-    this.markerCollection.fetch({
+    window.Trinkbrunnen.Collections.marker.fetch({
       success: function() {
-        self.mapView.addMarkerCollection(self.markerCollection);
-        self.mapView.placeMarkersToMap();
+        window.Trinkbrunnen.Views.map.addMarkerCollection(window.Trinkbrunnen.Collections.marker);
+        window.Trinkbrunnen.Views.map.placeMarkersToMap();
       },
       error: function() {
         if (self.isMobile()) {
@@ -122,13 +107,14 @@ var AppRouter = Backbone.Router.extend({
         } else {
           //TODO: Think about a failure message place, when map is not scrolled up
           //self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
+          console.log("fail");
         }
       },
       add: true
     });
   },
   initializeMap: function() {
-    this.mapView.render();
+    window.Trinkbrunnen.Views.map.render();
     this.loadMarkersToMap();
   },
   index: function() {
@@ -149,7 +135,7 @@ var AppRouter = Backbone.Router.extend({
     //get latest feeditem
     if (!this.isMobile()) {
       this.eventDispatcher.on('loadedFeed', function() {
-        var element = _.first(self.feedItemCollection.toArray());
+        var element = _.first(window.Trinkbrunnen.Collections.feedItem.toArray());
         var template = _.template($("#template_article").html(), {
           pubDate: element.escape("pubDate"),
           link: element.escape("link"),
@@ -161,11 +147,13 @@ var AppRouter = Backbone.Router.extend({
         self.eventDispatcher.off('loadedFeed');
       });
 
-      if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
-        this.feedItemCollection.reset();
-        this.feedItemCollection.fetch({
+      if (window.Trinkbrunnen.Collections.feedItem.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+        window.Trinkbrunnen.Collections.feedItem.reset();
+        window.Trinkbrunnen.Collections.feedItem.fetch({
           success: function() {
+            window.Trinkbrunnen.Collections.feedItem.timestamp = new Date().getTime();
             self.eventDispatcher.trigger('loadedFeed');
+            self.canSlideArticle('left');
           },
           error: function() {
             if (self.isMobile()) {
@@ -173,6 +161,7 @@ var AppRouter = Backbone.Router.extend({
             } else {
               //TODO: Think about a failure message place, when map is not scrolled up
               //self.showFailureMessage("Feed konnte nicht geladen werden!");
+              console.log("fail");
             }
           },
           add: true
@@ -183,7 +172,7 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   scrollMap: function() {
-    this.mapView.setCurrentCenterNew();
+    window.Trinkbrunnen.Views.map.saveCurrentCenter();
 
     if ($('#map-wrap').css('top') == '250px') {
       //scroll down
@@ -200,8 +189,8 @@ var AppRouter = Backbone.Router.extend({
       }, 1000, function() {
         $('#activatemap').show();
         $('#scroll').text('Karte vergrößern ↑');
-        window.Trinkbrunnen.mapView.resizeMap();
-        window.Trinkbrunnen.mapView.setCurrentCenterNew();
+        window.Trinkbrunnen.Views.map.resizeMap();
+        window.Trinkbrunnen.Views.map.setCurrentCenterNew();
       });
 
       if (this.routes[Backbone.history.fragment] == 'showRssFeed') {
@@ -215,7 +204,6 @@ var AppRouter = Backbone.Router.extend({
       $('#appinfo, #info, #feed, #left-hand-phone, #right-hand-phone, #lakes').animate({
         opacity: 1
       }, 1000);
-
     } else {
       //scroll up
       $('#map-wrap').animate({
@@ -226,8 +214,8 @@ var AppRouter = Backbone.Router.extend({
         $('#navigation, #address').animate({
           opacity: 1
         }, 500);
-        window.Trinkbrunnen.mapView.resizeMap();
-        window.Trinkbrunnen.mapView.setCurrentCenterNew();
+        window.Trinkbrunnen.Views.map.resizeMap();
+        window.Trinkbrunnen.Views.map.setCurrentCenterNew();
         $('#activatemap').hide();
         $('#scroll').text('Karte verkleinern ↓');
       });
@@ -269,10 +257,10 @@ var AppRouter = Backbone.Router.extend({
       /**
        * TODO: check if drawRouteUserLocation ToFountain and to ToNextFountain can gets simplyfied
        */
-      self.mapView.drawRouteUserLocationToNextFountain();
+      window.Trinkbrunnen.Views.map.drawRouteUserLocationToNextFountain();
       self.eventDispatcher.off('drawRoute');
-      if (self.mapView.infoBox) {
-        self.mapView.infoBox.close();
+      if (window.Trinkbrunnen.Views.map.infoBox) {
+        window.Trinkbrunnen.Views.map.infoBox.close();
       }
     });
   },
@@ -284,10 +272,10 @@ var AppRouter = Backbone.Router.extend({
       /**
        * TODO: check if drawRouteUserLocation ToFountain and to ToNextFountain can gets simplyfied
        */
-      self.mapView.drawRouteUserLocationToFountain(id);
+      window.Trinkbrunnen.Views.map.drawRouteUserLocationToFountain(id);
       self.eventDispatcher.off('drawRouteTo');
-      if (self.mapView.infoBox) {
-        self.mapView.infoBox.close();
+      if (window.Trinkbrunnen.Views.map.infoBox) {
+        window.Trinkbrunnen.Views.map.infoBox.close();
       }
     });
   },
@@ -332,7 +320,7 @@ var AppRouter = Backbone.Router.extend({
   changeMaptype: function(type) {
     if (this.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
-      this.mapTypeView.changeType(type);
+      window.Trinkbrunnen.Views.mapType.changeType(type);
     } else {
       this.index();
     }
@@ -365,18 +353,15 @@ var AppRouter = Backbone.Router.extend({
     var self = this;
     //because for the newest feed item on pc the rss feed is already catched
     //and now we must only add it
-    if (this.feedItemCollection.size() > 0 && this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
-      self.feedView.addFeedItemCollection(self.feedItemCollection);
-    } else if (this.feedItemCollection.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
-      this.feedItemCollection.reset();
-      this.feedItemCollection.fetch({
+    if (window.Trinkbrunnen.Collections.feedItem.size() > 0 && window.Trinkbrunnen.Collections.feedItem.timestamp > new Date().getTime() - 1000 * 60 * 60 * 12) {
+      window.Trinkbrunnen.Views.feed.addFeedItemCollection(window.Trinkbrunnen.Collections.feedItem);
+    } else if (window.Trinkbrunnen.Collections.feedItem.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+      window.Trinkbrunnen.Collections.feedItem.reset();
+      window.Trinkbrunnen.Collections.feedItem.fetch({
         success: function() {
-          self.feedView.addFeedItemCollection(self.feedItemCollection);
-          self.feedItemCollection.timestamp = new Date().getTime();
-
-          if (!self.isMobile()) {
-            self.canSlideArticle('left')
-          }
+          window.Trinkbrunnen.Views.feed.addFeedItemCollection(window.Trinkbrunnen.Collections.feedItem);
+          window.Trinkbrunnen.Collections.feedItem.timestamp = new Date().getTime();
+          self.canSlideArticle('left');
         },
         error: function() {
           if (self.isMobile()) {
@@ -442,9 +427,9 @@ var AppRouter = Backbone.Router.extend({
           heading: heading
         });
 
-        self.mapView.removeUserLocation();
-        self.mapView.placeUserLocation(self.userLocationModel);
-        self.mapView.centerUserLocation(self.userLocationModel);
+        window.Trinkbrunnen.Views.map.removeUserLocation();
+        window.Trinkbrunnen.Views.map.placeUserLocation(window.Trinkbrunnen.Models.userLocation);
+        window.Trinkbrunnen.Views.map.centerUserLocation(window.Trinkbrunnen.Models.userLocation);
 
         if (eventtype)
           self.eventDispatcher.trigger(eventtype);
@@ -549,9 +534,9 @@ var AppRouter = Backbone.Router.extend({
         $('#' + this.mainElements[idx]).hide();
     }
 
-    if ($(this.mapView.el).is(':visible') && this.mapView.isInitialize && typeof window.google != 'undefined') {
-      this.mapView.resizeMap();
-      this.mapView.setCurrentCenterNew();
+    if ($(window.Trinkbrunnen.Views.map.el).is(':visible') && window.Trinkbrunnen.Views.map.isInitialize && typeof window.google != 'undefined') {
+      window.Trinkbrunnen.Views.map.resizeMap();
+      window.Trinkbrunnen.Views.map.setCurrentCenterNew();
     }
   },
   isMobile: function() {
@@ -599,6 +584,10 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   canSlideArticle: function(direction) {
+    if (this.isMobile()) {
+      return;
+    }
+
     var currentMargin = $('#rss').css('margin-left');
     currentMargin = currentMargin.replace('px', '');
 
@@ -611,9 +600,13 @@ var AppRouter = Backbone.Router.extend({
         return true;
       }
     } else if (direction == 'right') {
-      var sizeFeedItemCollection = this.feedItemCollection.size();
+      var sizeFeedItemCollection = window.Trinkbrunnen.Collections.feedItem.size();
       var lastPageItems = sizeFeedItemCollection % 4;
-      var lastAllowedSlidePosition = ((sizeFeedItemCollection - lastPageItems) / 4 * 888) * (-1);
+      var lastAllowedSlidePosition = (-1) * ((sizeFeedItemCollection - lastPageItems) / 4 * 888);
+
+      if (lastPageItems == 0) {
+        lastAllowedSlidePosition += 888;
+      }
 
       if (currentMargin <= lastAllowedSlidePosition) {
         $('#next').toggleClass('next_disabled', true);
@@ -632,6 +625,6 @@ var AppRouter = Backbone.Router.extend({
     }, 3500);
   },
   toggleClusterSingled: function() {
-    this.mapView.toggleClusterSingled();
+    window.Trinkbrunnen.Views.map.toggleClusterSingled();
   }
 });

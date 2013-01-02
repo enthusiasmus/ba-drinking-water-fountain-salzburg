@@ -35,11 +35,39 @@ window.Trinkbrunnen = {
     address: new AddressView
   },
   Router: new AppRouter,
+  EventDispatcher: _.extend({}, Backbone.Events),
   init: function() {
     this.Router.init();
   },
   isOnline: function(){
+    //TODO: whats about mobile without phonegab, mobile, mobile website, website?
+    //navigator.connection.type == "NONE" oder navigator.isOnline oder google != 'undefined'
     return true;
+  },
+  Messages: {
+    position: {
+      error: {
+        standard: "Fehler bei der Positionsbestimmung!",
+        timeout: "Zeitüberschreitung beim Ermitteln der Position!",
+        denied: "Zugriff auf Position verweigert!",
+        unavailable: "Position konnte nicht ermittelt werden!",
+        unknown: "Positionsbestimmung zur Zeit nicht möglich!",
+        unsupported: "Ihr Gerät unterstützt keine Positionsbestimmung!"
+      }
+    },
+    route: {
+      error: "Keine Route gefunden!"
+    },
+    fountain: {
+      error: {
+        unloadable: "Trinkbrunnen konnten nicht geladen werden!"
+      }
+    },
+    feed: {
+      error: {
+        unloadable: "News konnten nicht geladen werden!"
+      }
+    }
   }
 };
 

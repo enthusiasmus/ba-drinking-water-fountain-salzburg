@@ -95,15 +95,17 @@ else{
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showRssFeed()'>Wasser-News</a>
               </li>
               <?php } ?>
-              <li class='menu-item lake' id='header-lake'>
+              <!-- TODO: class menu-item and header or navigation + id is now standard -->
+              <li class='menu-item' id='header-lake'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showLakes()'>Seetemperaturen</a>
               </li>
-              <li class='menu-item about' id='header-about'>
+              <li class='menu-item' id='header-about'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAbout()'>Impressum</a>
               </li>
             </ul>
           </nav>
         </header>
+        <?php if ( $isMobile ) { ?><div id="spin"><img src="assets/img/mobile/spin.gif"/></div> <?php } ?>
         <div id='overlay'></div>
         <div id="info">
           <div id="info-content">
@@ -309,19 +311,19 @@ else{
     ?>
     <nav id="navigation">
       <ul>
-        <li id='navi-position' class='menu-item position'>
-          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.getUserLocation()'><span></span>Position</a>
+        <li id='navigation-position' class='menu-item'>
+          <a href='javascript:void(0)'><span></span>Position</a>
         </li>
-        <li id='navi-address' class='menu-item address'>
+        <li id='navigation-address' class='menu-item'>
           <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAddressSearch()'><span></span>Adresse</a>
         </li>
-        <li id='navi-fontain' class='menu-item fontain'>
-          <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.nextFountain()'><span></span>Brunnen</a>
+        <li id='navigation-fountain' class='menu-item'>
+          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.nextFountain()'><span></span>Brunnen</a>
         </li>
-        <li id='navi-maptype' class='menu-item maptype'>
+        <li id='navigation-maptype' class='menu-item'>
           <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showMaptype()'><span></span>Kartentyp</a>
         </li>
-        <li id='navi-feed' class='menu-item feed'>
+        <li id='navigation-feed' class='menu-item'>
           <a href='#feed'><span></span>News</a>
         </li>
       </ul>
@@ -339,7 +341,7 @@ else{
             <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAddressSearch()'><span></span>Adresse</a>
           </li>
           <li id='navi-fontain' class='menu-item fontain'>
-            <a id='fontain_toggle' href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.nextFountain()'><span></span>Brunnen</a>
+            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.nextFountain()'><span></span>Brunnen</a>
           </li>
           <li class='menu-item cluster'>
             <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.toggleClusterSingled()'><span></span>Gruppe</a>

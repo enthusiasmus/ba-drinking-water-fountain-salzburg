@@ -8,8 +8,6 @@ var AppRouter = Backbone.Router.extend({
     "*actions": "index"
   },
   initialize: function() {
-    this.eventDispatcher = {};
-    _.extend(this.eventDispatcher, Backbone.Events);
   },
   init: function() {
     var self = this;
@@ -17,17 +15,17 @@ var AppRouter = Backbone.Router.extend({
     window.Trinkbrunnen.Collections.feedItem.url = 'rss.php';
     window.Trinkbrunnen.Views.map.model = window.Trinkbrunnen.Models.map;
 
+    window.Trinkbrunnen.Views.map.userLocation = window.Trinkbrunnen.Models.userLocation;
+    window.Trinkbrunnen.Views.map.listenTo(window.Trinkbrunnen.Models.userLocation, 'change:latitude change:longitude', window.Trinkbrunnen.Views.map.updateUserLocation);
+
     try {
       if (!(Backbone.history.start()))
         throw "Couldn't start backbone history!";
     } catch(e) {
     }
 
-    //TODO: default for pc, mobile and mobile with phonegab (navigator.connection.type)
-    if (!this.isMobile()) {
-      this.initializeMap();
-    } else {
-      this.loadMarkersToMap()
+    if (window.Trinkbrunnen.isOnline()) {
+      this.renderMapWithFountains();
     }
 
     if (!this.isMobile()) {
@@ -51,17 +49,27 @@ var AppRouter = Backbone.Router.extend({
       $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
     } else {
       $("#heaver-navigation .menu-item").bind("touchstart", function() {
-        $(this).addClass("active-" + $(this).attr('id'));
+        $("#" + $(this).attr('id')).addClass("fake-active-" + $(this).attr('id'));
       }).bind("touchend", function() {
-        $(this).removeClass("active-" + $(this).attr('id'));
+        $("#" + $(this).attr('id')).removeClass("fake-active-" + $(this).attr('id'));
       });
 
-      $("#navigation .menu-item").bind("touchstart", function() {
-        $(this + " a").addClass("active-navi-a");
-        $(this + " a span").addClass("active-" + $(this).attr('id'));
+      $("#navigation-address .menu-item").bind("touchstart", function() {
+        $("#" + $(this).attr('id') + " a").addClass("active-navigation-a");
+        $("#" + $(this).attr('id') + " a span").addClass("active-" + $(this).attr('id'));
       }).bind("touchend", function() {
-        $(this + " a").removeClass("active-navi-a");
-        $(this + " a span").removeClass("active-" + $(this).attr('id'));
+        $("#" + $(this).attr('id') + " a").removeClass("active-navigation-a");
+        $("#" + $(this).attr('id') + " a span").removeClass("active-" + $(this).attr('id'));
+      });
+
+      $("#navigation-position").bind("click", function() {
+        $('#spin').fadeIn();
+        window.Trinkbrunnen.Router.getUserLocation();
+      });
+
+      $("#navigation-fountain").bind("click", function() {
+        $('#spin').fadeIn();
+        window.Trinkbrunnen.Router.nextFountain();
       });
 
       if (window.innerWidth >= 768) {
@@ -94,6 +102,10 @@ var AppRouter = Backbone.Router.extend({
       document.body.appendChild(script);
     });
   },
+  renderMapWithFountains: function() {
+    window.Trinkbrunnen.Views.map.render();
+    window.Trinkbrunnen.Router.loadMarkersToMap();
+  },
   loadMarkersToMap: function() {
     var self = this;
     window.Trinkbrunnen.Collections.marker.fetch({
@@ -103,19 +115,14 @@ var AppRouter = Backbone.Router.extend({
       },
       error: function() {
         if (self.isMobile()) {
-          alert("Trinkbrunnen konnten nicht geladen werden!");
+          self.showFailureMessage(window.Trinkbrunnen.Messages.fountain.error.unloadable);
         } else {
           //TODO: Think about a failure message place, when map is not scrolled up
-          //self.showFailureMessage("Trinkbrunnen konnten nicht geladen werden!");
-          console.log("fail");
+          //self.showFailureMessage(window.Trinkbrunnen.Messages.fountain.error.unloadable);
         }
       },
       add: true
     });
-  },
-  initializeMap: function() {
-    window.Trinkbrunnen.Views.map.render();
-    this.loadMarkersToMap();
   },
   index: function() {
     this.navigate("", {
@@ -134,7 +141,7 @@ var AppRouter = Backbone.Router.extend({
     var self = this;
     //get latest feeditem
     if (!this.isMobile()) {
-      this.eventDispatcher.on('loadedFeed', function() {
+      window.Trinkbrunnen.EventDispatcher.on('loadedFeed', function() {
         var element = _.first(window.Trinkbrunnen.Collections.feedItem.toArray());
         var template = _.template($("#template_article").html(), {
           pubDate: element.escape("pubDate"),
@@ -144,7 +151,7 @@ var AppRouter = Backbone.Router.extend({
         $('#latest_feed').html(template);
         $('#latest_feed').show();
 
-        self.eventDispatcher.off('loadedFeed');
+        window.Trinkbrunnen.EventDispatcher.off('loadedFeed');
       });
 
       if (window.Trinkbrunnen.Collections.feedItem.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
@@ -152,22 +159,21 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.Collections.feedItem.fetch({
           success: function() {
             window.Trinkbrunnen.Collections.feedItem.timestamp = new Date().getTime();
-            self.eventDispatcher.trigger('loadedFeed');
+            window.Trinkbrunnen.EventDispatcher.trigger('loadedFeed');
             self.canSlideArticle('left');
           },
           error: function() {
             if (self.isMobile()) {
-              alert("Feed konnte nicht geladen werden!");
+              self.showFailureMessage(window.Trinkbrunnen.Messages.feed.error.unloadable);
             } else {
               //TODO: Think about a failure message place, when map is not scrolled up
-              //self.showFailureMessage("Feed konnte nicht geladen werden!");
-              console.log("fail");
+              //self.showFailureMessage(window.Trinkbrunnen.Messages.feed.error.unloadable);
             }
           },
           add: true
         });
       } else {
-        self.eventDispatcher.trigger('loadedFeed');
+        window.Trinkbrunnen.EventDispatcher.trigger('loadedFeed');
       }
     }
   },
@@ -229,17 +235,6 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   nextFountain: function() {
-    /*
-     * TODO: Dispatch Event if offline then show Message
-     *
-     if(navigator.connection.type == CONNECTION.NONE){
-     window.dispatchEvent("non connection");
-     return false;
-     }
-     */
-
-    this.calculateGeoLocation('drawRoute');
-
     if (this.isMobile()) {
       this.navigate("", {
         trigger: true
@@ -252,32 +247,62 @@ var AppRouter = Backbone.Router.extend({
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
     }
 
-    var self = this;
-    this.eventDispatcher.on('drawRoute', function() {
-      /**
-       * TODO: check if drawRouteUserLocation ToFountain and to ToNextFountain can gets simplyfied
-       */
-      window.Trinkbrunnen.Views.map.drawRouteUserLocationToNextFountain();
-      self.eventDispatcher.off('drawRoute');
-      if (window.Trinkbrunnen.Views.map.infoBox) {
-        window.Trinkbrunnen.Views.map.infoBox.close();
-      }
-    });
+    this.getFountain('next');
   },
   routeToFountain: function(id) {
-    this.calculateGeoLocation('drawRouteTo');
+    this.getFountain(id);
+  },
+  getFountain: function(type) {
+    //TODO: write it every where it is needed
+    if (window.Trinkbrunnen.isOnline() == false) {
+      this.showFailureMessage("Bitte stellen Sie eine Internetverbindung her!");
+      return;
+    }
+
+    if (window.Trinkbrunnen.Views.map.readyFountains() == false) {
+      this.showFailureMessage("Trinkbrunnen wurden nicht korrekt geladen!");
+      return;
+    }
 
     var self = this;
-    this.eventDispatcher.on('drawRouteTo', function() {
-      /**
-       * TODO: check if drawRouteUserLocation ToFountain and to ToNextFountain can gets simplyfied
-       */
-      window.Trinkbrunnen.Views.map.drawRouteUserLocationToFountain(id);
-      self.eventDispatcher.off('drawRouteTo');
-      if (window.Trinkbrunnen.Views.map.infoBox) {
-        window.Trinkbrunnen.Views.map.infoBox.close();
+
+    window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
+      //TODO: Set UserLocation, active image icon
+      $('#spin').hide();
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
+    }, "once:userlocation");
+
+    window.Trinkbrunnen.EventDispatcher.on("error:userLocation", function(message) {
+      //TODO: Set UserLocation, deactive image icon
+      self.showFailureMessage(message);
+      self.isWatchingID = null;
+
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "permanent:userlocation");
+    }, "permanent:userlocation");
+    if (this.isMobile()) {
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type) {
+        window.Trinkbrunnen.Views.map.centerRoute();
+        $('#spin').hide();
+        return;
+      } else {
+        window.Trinkbrunnen.Views.map.setRouteType(type);
+        if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
+          window.Trinkbrunnen.Views.map.updateUserLocation();
+        } else {
+          //If position don't get watched, but userLocationMarker/-Position already exist
+          //call position but place update Route and userLocationMarker anyway
+          this.getPosition();
+
+          if (window.Trinkbrunnen.Views.map.userLocationMarker != null) {
+            window.Trinkbrunnen.Views.map.updateUserLocation();
+          }
+        }
       }
-    });
+    }
+
+    //TODO: Route to fountain id
+    //TODO: First UserLocation then Route to next Fountain or ID
   },
   showAddressSearch: function() {
     if (this.isMobile()) {
@@ -297,6 +322,7 @@ var AppRouter = Backbone.Router.extend({
       $('input[name=address]').focus().select();
     }
   },
+  isWatchingID: null, //have to be null for inside checking
   blurAllElements: function() {
     document.activeElement.blur();
     $("input").blur();
@@ -380,14 +406,112 @@ var AppRouter = Backbone.Router.extend({
         trigger: true
       });
     }
+    var self = this;
 
     if (this.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
+
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
+        window.Trinkbrunnen.Views.map.centerUserLocation();
+        $('#spin').hide();
+        return;
+      }
     } else {
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
+
+      //TODO: Check if EventDispatcher.off(); should be written here
     }
 
-    this.calculateGeoLocation();
+    window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
+      //TODO: Set UserLocation, deactive image icon
+      window.Trinkbrunnen.Views.map.centerAndFitUserLocation();
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
+      $('#spin').hide();
+    }, "once:userlocation");
+
+    window.Trinkbrunnen.EventDispatcher.on("error:userLocation", function(message) {
+      self.showFailureMessage(message);
+      self.isWatchingID = null;
+      //TODO: Change image of userlocation icon to grey one
+
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "permanent:userlocation");
+    }, "permanent:userlocation");
+
+    this.getPosition();
+  },
+  getPosition: function() {
+    if (navigator.geolocation) {
+      if (this.isMobile()) {
+        if (this.isWatchingID == null) {
+          this.isWatchingID = navigator.geolocation.watchPosition(this.getPositionSuccess, this.getPositionError, {
+            enableHighAccuracy: true,
+            timeout: 10000
+          });
+        }
+      } else {
+        navigator.geolocation.getCurrentPosition(this.getPositionSuccess, this.getPositionError, {
+          enableHighAccuracy: true,
+          timeout: 10000
+        });
+      }
+    } else {
+      window.Trinkbrunnen.EventDispatcher.trigger("error:userLocation", window.Trinkbrunnen.Messages.position.error.unsupported);
+    }
+  },
+  getPositionError: function(error) {
+    //FIXME: Firefox Bug "Not Now" doesn't lead to error callback
+    var message = window.Trinkbrunnen.Messages.position.error.standard;
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        message = window.Trinkbrunnen.Messages.position.error.denied;
+        break;
+      case error.POSITION_UNAVAILABLE:
+        message = window.Trinkbrunnen.Messages.position.error.unavailable;
+        break;
+      case error.TIMEOUT:
+        message = window.Trinkbrunnen.Messages.position.error.timeout;
+        break;
+      case error.UNKNOWN_ERROR:
+        message = window.Trinkbrunnen.Messages.position.error.unknown;
+        break;
+      default:
+        message = window.Trinkbrunnen.Messages.position.error.standard;
+        break;
+    }
+
+    window.Trinkbrunnen.EventDispatcher.trigger('error:userLocation', message);
+  },
+  getPositionSuccess: function(position) {
+    var time = position.timestamp;
+    var lat = position.coords.latitude;
+    //decimal degree
+    var lng = position.coords.longitude;
+    //decimal degree
+    var precision = position.coords.accuracy;
+    //meter
+    var altitude = position.coords.altitude;
+    //meter
+    var altitudeAcc = position.coords.altitudeAccuracy;
+    //meter
+    var speed = position.coords.speed;
+    //meter per second
+    var heading = position.coords.heading;
+    //degree from true north
+
+    window.Trinkbrunnen.Models.userLocation.set({
+      latitude: lat,
+      longitude: lng,
+      time: time,
+      precision: precision,
+      altitude: altitude,
+      altitudeAcc: altitudeAcc,
+      speed: speed,
+      heading: heading,
+      timestampAttributes: new Date().getTime()
+    });
+
+    window.Trinkbrunnen.EventDispatcher.trigger('success:userLocation');
   },
   calculateGeoLocation: function(eventtype) {
     /**
@@ -397,82 +521,6 @@ var AppRouter = Backbone.Router.extend({
      * 3. from routeToFountain - gets position, saves it at mapview and there draws route from position to chosen fontain
      */
 
-    var self = this;
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var time = position.timestamp;
-        var lat = position.coords.latitude;
-        //decimal degree
-        var lng = position.coords.longitude;
-        //decimal degree
-        var precision = position.coords.accuracy;
-        //meter
-        var altitude = position.coords.altitude;
-        //meter
-        var altitudeAcc = position.coords.altitudeAccuracy;
-        //meter
-        var speed = position.coords.speed;
-        //meter per second
-        var heading = position.coords.heading;
-        //degree from true north
-
-        self.userLocationModel.set({
-          latitude: lat,
-          longitude: lng,
-          time: time,
-          precision: precision,
-          altitude: altitude,
-          altitudeAcc: altitudeAcc,
-          speed: speed,
-          heading: heading
-        });
-
-        window.Trinkbrunnen.Views.map.removeUserLocation();
-        window.Trinkbrunnen.Views.map.placeUserLocation(window.Trinkbrunnen.Models.userLocation);
-        window.Trinkbrunnen.Views.map.centerUserLocation(window.Trinkbrunnen.Models.userLocation);
-
-        if (eventtype)
-          self.eventDispatcher.trigger(eventtype);
-        else
-          self.eventDispatcher.trigger('hideLoadingView');
-
-      }, function(error) {
-        var message = 'Fehler bei der Positionsbestimmung!';
-
-        switch(error.code) {
-          case error.PERMISSION_DENIED:
-            message = "Zugriff auf Position verweigert!";
-            break;
-          case error.POSITION_UNAVAILABLE:
-            message = "Position konnte nicht ermittelt werden!";
-            break;
-          case error.TIMEOUT:
-            message = "Zeitüberschreitung beim Ermitteln der Position!";
-            break;
-          case error.UNKNOWN_ERROR:
-            message = "Positionsbestimmung zur Zeit nicht möglich!";
-            break;
-          default:
-            message = "Fehler bei der Positionsbestimmung!";
-            break;
-        }
-
-        if (self.isMobile()) {
-          alert(message);
-        } else {
-          self.showFailureMessage(message);
-        }
-      }, {
-        enableHighAccuracy: true,
-        timeout: 30000
-      });
-    } else {
-      if (self.isMobile()) {
-        alert("Ihr Browser unterstützt keine Positionsbestimmung!");
-      } else {
-        self.showFailureMessage("Ihr Browser unterstützt keine Positionsbestimmung!");
-      }
-    }
   },
   showLakes: function() {
     /*
@@ -618,6 +666,13 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showFailureMessage: function(message) {
+    if (message == "" || message == null) {
+      return;
+    }
+    if (this.isMobile()) {
+      $('#spin').hide();
+    }
+
     $('#failure_message').text(message);
     $('#failure').show();
     setTimeout(function() {
@@ -628,3 +683,4 @@ var AppRouter = Backbone.Router.extend({
     window.Trinkbrunnen.Views.map.toggleClusterSingled();
   }
 });
+

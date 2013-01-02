@@ -66,13 +66,12 @@
   height: 50px;
   font-size: 13px;
   color: #fff;
-
 }
 
-#map_canvas #reload_map{
+#map_canvas #reload_map {
   position: absolute;
   /* TODO set correct z-index */
-  z-index:999;
+  z-index: 999;
   top: 60%;
   left: 50%;
   margin-top: -13px;
@@ -81,8 +80,8 @@
   width: 24px;
   height: 26px;
   background: url('../img/mobile/reload.png') no-repeat;
-  border-radius:2px;
-  cursor:pointer;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 /*** navigation ***/
@@ -116,15 +115,11 @@
   display: inline-block;
 }
 
-#navigation .menu-item a:active {
-  color: #fff;
-  background-color: #8e8e8e;
-}
-
-.active-navi-a {
+#navigation .menu-item a:active, .active-navigation-a {
   color: #fff !important;
   background-color: #8e8e8e !important;
 }
+
 #navigation .menu-item span {
   position: absolute;
   top: -7px;
@@ -137,52 +132,36 @@
   background-repeat: no-repeat;
 }
 
-#navigation .position a > span {
+#navigation #navigation-position a > span {
   background-position: 0 0;
 }
-#navigation .address a > span {
+#navigation #navigation-address a > span {
   background-position: -96px 0;
 }
-#navigation .fontain a > span {
+#navigation #navigation-fountain a > span {
   background-position: 0 -96px;
 }
-#navigation .maptype a > span {
+#navigation #navigation-maptype a > span {
   background-position: 0 -48px;
 }
-#navigation .feed a > span {
+#navigation #navigation-feed a > span {
   background-position: -96px -48px;
 }
 
-#navigation .menu-item .position a:active > span {
-  background-position: -48px 0;
+#navigation #navigation-position a:active > span, .active-navigation-position {
+  background-position: -48px 0 !important;
 }
-#navigation .menu-item .address a:active > span {
-  background-position: -144px 0;
+#navigation #navigation-address a:active > span, .active-navigation-address {
+  background-position: -144px 0 !important;
 }
-#navigation .menu-item .fontain a:active > span {
-  background-position: -48px -96px;
+#navigation #navigation-fountain a:active > span, .active-navigation-fontain {
+  background-position: -48px -96px !important;
 }
-#navigation .menu-item.maptype a:active > span {
-  background-position: -48px -48px;
+#navigation #navigation-maptype a:active > span, .active-navigation-maptype {
+  background-position: -48px -48px !important;
 }
-#navigation .menu-item.feed a:active > span {
-  background-position: -144px -48px;
-}
-
-.active-navi-position {
-  background-position: -48px 0;
-}
-.active-navi-address {
-  background-position: -144px 0;
-}
-.active-navi-fontain {
-  background-position: -48px -96px;
-}
-.active-navi-maptype {
-  background-position: -48px -48px;
-}
-.active-navi-feed {
-  background-position: -144px -48px;
+#navigation #navigation-feed a:active > span, .active-navigation-feed {
+  background-position: -144px -48px !important;
 }
 
 /*** info icon (header navigation) ***/
@@ -200,28 +179,28 @@
   width: 46px;
   height: 42px;
 }
-#header-navigation .about {
+#header-navigation #header-about {
   position: absolute;
   right: 0px;
   top: 0px;
 }
-#header-navigation .lake {
+#header-navigation #header-lake {
   position: absolute;
   left: 0px;
   top: 0px;
 }
 
-#header-navigation .lake a:link, #header-navigation .lake a:visited {
+#header-navigation #header-lake a:link, #header-navigation #header-lake a:visited {
   background: url('../img/mobile/sprite.png') -192px -52px no-repeat;
 }
-#header-navigation .lake a:active, .fake-active-lake {
+#header-navigation #header-lake a:active, .fake-active-header-lake {
   background: url('../img/mobile/sprite.png') -192px -152px no-repeat;
 }
 
-#header-navigation .about a:link, #header-navigation .about a:visited {
+#header-navigation #header-about a:link, #header-navigation #header-about a:visited {
   background: url('../img/mobile/sprite.png') -191px -2px no-repeat;
 }
-#header-navigation .about a:active, .fake-active-about {
+#header-navigation #header-about a:active, .fake-active-header-about {
   background: url('../img/mobile/sprite.png') -191px -102px no-repeat;
 }
 
@@ -391,4 +370,40 @@
   width: 10000px;
   height: 50000px;
   background-color: #212121;
+}
+#spin {
+  position: absolute;
+  z-index: 99;
+  bottom: 50px;
+  right: 0px;
+  background: #005586;
+  display: none;
+}
+
+#spin img {
+  margin: 3px 3px;
+}
+
+#failure {
+  display:none;
+  position: fixed;
+  top: auto;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  height: 32px;
+  background-color: #005586;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#failure_message {
+  height: 32px;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 32px;
+  vertical-align: middle;
+  overflow: hidden;
 }

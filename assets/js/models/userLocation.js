@@ -1,8 +1,8 @@
 var UserLocationModel = Backbone.Model.extend({
-  defaults:{
+  defaults: {
     title: "Eigene Position",
-    latitude: 47.80912,
-    longitude: 13.055162,
+    latitude: 47.809494,
+    longitude: 13.055019,
     initialZoom: 14,
     time: 0,
     precision: 0,
@@ -21,10 +21,11 @@ var UserLocationModel = Backbone.Model.extend({
     imageOriginX: 0,
     imageOriginY: 0,
     imageAnchorX: 14,
-    imageAnchorY: 14
+    imageAnchorY: 14,
+    timestampAttributes: new Date().getTime()
   },
-  validate: function(attrs){
-    if(attrs.precision >= 10000)
+  validate: function(attrs) {
+    if (attrs.precision >= 10000)
       this.precision = 0;
   }
 });

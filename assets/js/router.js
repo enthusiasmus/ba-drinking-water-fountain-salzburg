@@ -11,9 +11,10 @@ var AppRouter = Backbone.Router.extend({
   },
   init: function() {
     var self = this;
-    window.Trinkbrunnen.Collections.marker.url = 'wis.php';
-    window.Trinkbrunnen.Collections.feedItem.url = 'rss.php';
+    window.Trinkbrunnen.Collections.marker.url = window.Trinkbrunnen.Urls.fountain;
+    window.Trinkbrunnen.Collections.feedItem.url = window.Trinkbrunnen.Urls.feed;
     window.Trinkbrunnen.Views.map.model = window.Trinkbrunnen.Models.map;
+    window.Trinkbrunnen.Views.address.mapView = window.Trinkbrunnen.Views.map;
 
     window.Trinkbrunnen.Views.map.userLocation = window.Trinkbrunnen.Models.userLocation;
     window.Trinkbrunnen.Views.map.listenTo(window.Trinkbrunnen.Models.userLocation, 'change:latitude change:longitude', window.Trinkbrunnen.Views.map.updateUserLocation);
@@ -44,41 +45,34 @@ var AppRouter = Backbone.Router.extend({
       $('#next').click(function() {
         self.slideArticleToRight();
       })
-      //color the lake temperatues 1,2,5,6,9,10,etc.
-      $("#lakes ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
-      $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
     } else {
-      $("#heaver-navigation .menu-item").bind("touchstart", function() {
+      $("#header-navigation .menu-item").bind("touchstart", function() {
         $("#" + $(this).attr('id')).addClass("fake-active-" + $(this).attr('id'));
       }).bind("touchend", function() {
         $("#" + $(this).attr('id')).removeClass("fake-active-" + $(this).attr('id'));
       });
+      
+      $("#back").bind("touchstart", function() {
+        $("#back").addClass("active-back");
+      }).bind("touchend", function() {
+        $("#back").removeClass("active-back");
+      });
 
-      $("#navigation-address .menu-item").bind("touchstart", function() {
+      $("#navigation .menu-item").bind("touchstart", function() {
         $("#" + $(this).attr('id') + " a").addClass("active-navigation-a");
         $("#" + $(this).attr('id') + " a span").addClass("active-" + $(this).attr('id'));
       }).bind("touchend", function() {
         $("#" + $(this).attr('id') + " a").removeClass("active-navigation-a");
         $("#" + $(this).attr('id') + " a span").removeClass("active-" + $(this).attr('id'));
       });
+    }
 
-      $("#navigation-position").bind("click", function() {
-        $('#spin').fadeIn();
-        window.Trinkbrunnen.Router.getUserLocation();
-      });
-
-      $("#navigation-fountain").bind("click", function() {
-        $('#spin').fadeIn();
-        window.Trinkbrunnen.Router.nextFountain();
-      });
-
-      if (window.innerWidth >= 768) {
-        $("#lakes ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
-        $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
-        $("#lakes ul li ul").css('width', '50%');
-      } else {
-        $("#lakes ul li:nth-child(2n+1) ul").css('background', '#E9E9E9');
-      }
+    if (window.innerWidth >= 768) {
+      $("#lakes ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
+      $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
+      $("#lakes ul li ul").css('width', '50%');
+    } else {
+      $("#lakes ul li:nth-child(2n+1) ul").css('background', '#E9E9E9');
     }
 
     $('#reload_map').click(function() {
@@ -228,9 +222,7 @@ var AppRouter = Backbone.Router.extend({
       $('#appinfo, #info, #feed, #left-hand-phone, #right-hand-phone, #lakes').animate({
         opacity: 0
       }, 1000, function() {
-        $('#feed').css('display', 'none');
-        $('#about').css('display', 'none');
-        $('#lakes').css('display', 'none');
+        $('#feed, #about, #lakes').css('display', 'none');
       });
     }
   },
@@ -253,23 +245,65 @@ var AppRouter = Backbone.Router.extend({
     this.getFountain(id);
   },
   getFountain: function(type) {
+    $('#spin').fadeIn();
+
     //TODO: write it every where it is needed
     if (window.Trinkbrunnen.isOnline() == false) {
-      this.showFailureMessage("Bitte stellen Sie eine Internetverbindung her!");
+      this.showFailureMessage(window.Trinkbrunnen.Messages.state.offline);
       return;
     }
 
     if (window.Trinkbrunnen.Views.map.readyFountains() == false) {
-      this.showFailureMessage("Trinkbrunnen wurden nicht korrekt geladen!");
+      this.showFailureMessage(window.Trinkbrunnen.Messages.fountain.error.unloadable);
       return;
     }
 
     var self = this;
 
+    if (this.isMobile()) {
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type) {
+        window.Trinkbrunnen.Views.map.centerRoute();
+        $('#spin').hide();
+        return;
+      }
+    } else {
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type) {
+        window.Trinkbrunnen.Views.map.centerRoute();
+        return;
+      }
+    }
+
+    window.Trinkbrunnen.Views.map.setRouteType(type);
+    if (this.isMobile()) {
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
+        window.Trinkbrunnen.Views.map.updateUserLocation();
+      } else {
+        this.addEventListeners();
+        //If position don't get watched, but userLocationMarker/-Position already exist
+        //call position but place update Route and userLocationMarker anyway
+        this.getPosition();
+
+        if (window.Trinkbrunnen.Views.map.userLocationMarker != null) {
+          window.Trinkbrunnen.Views.map.updateUserLocation();
+        }
+      }
+    } else {
+      window.Trinkbrunnen.Views.map.setRouteType(type);
+      this.addEventListeners();
+      this.getPosition();
+    }
+  },
+  addEventListeners: function() {
+    var self = this;
     window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
       //TODO: Set UserLocation, active image icon
       $('#spin').hide();
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
+
+      //Because only getPosition is used once instead of watchPosition permanently
+      if (!self.isMobile()) {
+        window.Trinkbrunnen.EventDispatcher.off(null, null, "permanent:userlocation");
+      }
     }, "once:userlocation");
 
     window.Trinkbrunnen.EventDispatcher.on("error:userLocation", function(message) {
@@ -279,30 +313,7 @@ var AppRouter = Backbone.Router.extend({
 
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
       window.Trinkbrunnen.EventDispatcher.off(null, null, "permanent:userlocation");
-    }, "permanent:userlocation");
-    if (this.isMobile()) {
-      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type) {
-        window.Trinkbrunnen.Views.map.centerRoute();
-        $('#spin').hide();
-        return;
-      } else {
-        window.Trinkbrunnen.Views.map.setRouteType(type);
-        if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
-          window.Trinkbrunnen.Views.map.updateUserLocation();
-        } else {
-          //If position don't get watched, but userLocationMarker/-Position already exist
-          //call position but place update Route and userLocationMarker anyway
-          this.getPosition();
-
-          if (window.Trinkbrunnen.Views.map.userLocationMarker != null) {
-            window.Trinkbrunnen.Views.map.updateUserLocation();
-          }
-        }
-      }
-    }
-
-    //TODO: Route to fountain id
-    //TODO: First UserLocation then Route to next Fountain or ID
+    }, "permanent:userlocation");
   },
   showAddressSearch: function() {
     if (this.isMobile()) {
@@ -337,6 +348,7 @@ var AppRouter = Backbone.Router.extend({
      }
      */
 
+    console.log(this);
     this.navigate("", {
       trigger: true
     });
@@ -407,6 +419,7 @@ var AppRouter = Backbone.Router.extend({
       });
     }
     var self = this;
+    $('#spin').fadeIn();
 
     if (this.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
@@ -419,25 +432,14 @@ var AppRouter = Backbone.Router.extend({
     } else {
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
 
+      if (window.Trinkbrunnen.Views.map.userLocation != null) {
+        window.Trinkbrunnen.Views.map.centerUserLocation();
+        return;
+      }
       //TODO: Check if EventDispatcher.off(); should be written here
     }
 
-    window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
-      //TODO: Set UserLocation, deactive image icon
-      window.Trinkbrunnen.Views.map.centerAndFitUserLocation();
-      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
-      $('#spin').hide();
-    }, "once:userlocation");
-
-    window.Trinkbrunnen.EventDispatcher.on("error:userLocation", function(message) {
-      self.showFailureMessage(message);
-      self.isWatchingID = null;
-      //TODO: Change image of userlocation icon to grey one
-
-      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
-      window.Trinkbrunnen.EventDispatcher.off(null, null, "permanent:userlocation");
-    }, "permanent:userlocation");
-
+    this.addEventListeners();
     this.getPosition();
   },
   getPosition: function() {
@@ -461,7 +463,7 @@ var AppRouter = Backbone.Router.extend({
   },
   getPositionError: function(error) {
     //FIXME: Firefox Bug "Not Now" doesn't lead to error callback
-    var message = window.Trinkbrunnen.Messages.position.error.standard;
+    var message = "";
     switch(error.code) {
       case error.PERMISSION_DENIED:
         message = window.Trinkbrunnen.Messages.position.error.denied;

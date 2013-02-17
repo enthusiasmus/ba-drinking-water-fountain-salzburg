@@ -26,14 +26,14 @@
   left: 10px;
   width: 44px;
   height: 20px;
-  background: url('../img/mobile/sprite.png') 0 -166px no-repeat;
+  background: url('../img/mobile/sprite.png') 0 -165px no-repeat;
   color: #000;
   text-decoration: none;
-  padding: 6px 0 0 7px;
+  padding: 8px 0 0 7px;
   display: none;
 }
-#back:active {
-  background-position: -51px -166px;
+#back:active, .active-back {
+  background-position: -51px -165px;
 }
 
 /*** google map ***/
@@ -184,24 +184,12 @@
   right: 0px;
   top: 0px;
 }
-#header-navigation #header-lake {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-}
-
-#header-navigation #header-lake a:link, #header-navigation #header-lake a:visited {
-  background: url('../img/mobile/sprite.png') -192px -52px no-repeat;
-}
-#header-navigation #header-lake a:active, .fake-active-header-lake {
-  background: url('../img/mobile/sprite.png') -192px -152px no-repeat;
-}
 
 #header-navigation #header-about a:link, #header-navigation #header-about a:visited {
-  background: url('../img/mobile/sprite.png') -191px -2px no-repeat;
+  background: url('../img/mobile/sprite.png') -144px -96px no-repeat;
 }
 #header-navigation #header-about a:active, .fake-active-header-about {
-  background: url('../img/mobile/sprite.png') -191px -102px no-repeat;
+  background: url('../img/mobile/sprite.png') -97px -96px no-repeat;
 }
 
 /*** address search ***/

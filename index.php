@@ -94,11 +94,11 @@ else{
               <li class='menu-item feed'>
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showRssFeed()'>Wasser-News</a>
               </li>
-              <?php } ?>
               <!-- TODO: class menu-item and header or navigation + id is now standard -->
               <li class='menu-item' id='header-lake'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showLakes()'>Seetemperaturen</a>
               </li>
+              <?php } ?>
               <li class='menu-item' id='header-about'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAbout()'>Impressum</a>
               </li>
@@ -312,7 +312,7 @@ else{
     <nav id="navigation">
       <ul>
         <li id='navigation-position' class='menu-item'>
-          <a href='javascript:void(0)'><span></span>Position</a>
+          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.getUserLocation()'><span></span>Position</a>
         </li>
         <li id='navigation-address' class='menu-item'>
           <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAddressSearch()'><span></span>Adresse</a>
@@ -334,16 +334,16 @@ else{
       ?>
       <nav id="navigation">
         <ul>
-          <li id='navi-position' class='menu-item position'>
+          <li id='navigation-position' class='menu-item'>
             <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.getUserLocation()'><span></span>Position</a>
           </li>
-          <li id='navi-address' class='menu-item address'>
+          <li id='navigation-address' class='menu-item'>
             <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAddressSearch()'><span></span>Adresse</a>
           </li>
-          <li id='navi-fontain' class='menu-item fontain'>
-            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.nextFountain()'><span></span>Brunnen</a>
+          <li id='navigation-fountain' class='menu-item'>
+            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAddressSearch()'><span></span>Brunnen</a>
           </li>
-          <li class='menu-item cluster'>
+          <li id='navigation-cluster' class='menu-item'>
             <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.toggleClusterSingled()'><span></span>Gruppe</a>
           </li>
         </ul>

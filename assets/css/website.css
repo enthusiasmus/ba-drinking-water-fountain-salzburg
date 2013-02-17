@@ -99,16 +99,16 @@
   background-repeat: no-repeat;
   cursor: pointer;
 }
-#navigation .position span {
+#navigation-position span {
   background-position: 0 -104px;
 }
-#navigation .address span {
+#navigation-address span {
   background-position: -60px -104px;
 }
-#navigation .fontain span {
+#navigation-fountain span {
   background-position: -90px -104px;
 }
-#navigation .cluster span {
+#navigation-cluster span {
   background-position: -30px -104px;
 }
 #navigation .menu-item a:hover > span, #navigation .menu-item a:focus > span, #navigation .menu-item a:active > span {

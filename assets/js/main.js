@@ -67,7 +67,14 @@ window.Trinkbrunnen = {
       error: {
         unloadable: "News konnten nicht geladen werden!"
       }
+    },
+    state: {
+      offline: "Bitte stellen Sie eine Verbindung mit dem Internet her!"
     }
+  },
+  Urls: {
+    feed: "rss.php",
+    fountain: "wis.php"
   }
 };
 

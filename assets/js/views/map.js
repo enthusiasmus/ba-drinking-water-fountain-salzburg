@@ -42,6 +42,7 @@ var MapView = Backbone.View.extend({
   directionsService: undefined,
   isInitialize: false,
   lastUsedRoutePosition: null,
+  isRequestingRoute: null,
   isIpad: function() {
     return (navigator.userAgent.match(/iPad/i) != null);
   },
@@ -201,6 +202,7 @@ var MapView = Backbone.View.extend({
     }
   },
   fountainToRoute: null,
+  fountainToRouteId: null,
   setRouteType: function(type) {
     if (type == 'next') {
       this.fountainToRoute = 'next';
@@ -264,7 +266,7 @@ var MapView = Backbone.View.extend({
       this.userLocationPrecisionCircle = null;
     }
   },
-  updateUserLocation: function() {    
+  updateUserLocation: function() {
     if (this.readyMap()) {
       if (this.userLocationMarker == null) {
         this.createUserLocation();
@@ -294,7 +296,7 @@ var MapView = Backbone.View.extend({
         this.updateRoute();
       }
     }
-    
+
     console.log("Distance: " + distance + " isNewRoute: " + isNewRoute + " readyForRoute: " + this.readyForRoute());
   },
   hideRoute: function() {
@@ -323,6 +325,14 @@ var MapView = Backbone.View.extend({
   },
   drawRouteUserLocationToPosition: function(marker, shouldCenterRoute) {
     var self = this;
+    
+    console.log(marker);
+
+    if (this.isRequestingRoute == true) {
+      return;
+    } else {
+      this.isRequestingRoute = true;
+    }
 
     var request = {
       origin: this.userLocationMarker.getPosition(),
@@ -332,25 +342,28 @@ var MapView = Backbone.View.extend({
 
     this.directionsService = new google.maps.DirectionsService();
     this.directionsService.route(request, function(result, status) {
+      self.isRequestingRoute = false;
+
       if (status == google.maps.DirectionsStatus.OK) {
         self.hideRoute();
         self.closeInfobox();
+        
+        if(self.isNewRoute == false){
+          var preserveViewport = true;
+        }
 
         self.directionsDisplay = new google.maps.DirectionsRenderer({
           draggable: false,
           suppressMarkers: true,
           suppressInfoWindows: true,
           map: self.map,
+          preserveViewport: preserveViewport,
           fountain: self.fountainToRoute
         });
 
         self.directionsDisplay.setDirections(result);
       } else {
-        if (self.isMobile()) {
-          alert('Keine Route gefunden!');
-        } else {
-          self.showFailureMessage("Keine Route gefunden!");
-        }
+        self.showFailureMessage("Keine Route gefunden!");
       }
     });
   },
@@ -373,5 +386,20 @@ var MapView = Backbone.View.extend({
       }
     });
     return this.markerCollection.at(idx);
+  },
+  //TODO: Simply the Message function to a global message queue
+  showFailureMessage: function(message) {
+    if (message == "" || message == null) {
+      return;
+    }
+    if (this.isMobile()) {
+      $('#spin').hide();
+    }
+
+    $('#failure_message').text(message);
+    $('#failure').show();
+    setTimeout(function() {
+      $('#failure').fadeOut();
+    }, 3500);
   }
 });

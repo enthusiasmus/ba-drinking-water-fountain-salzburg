@@ -341,7 +341,7 @@ else{
             <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAddressSearch()'><span></span>Adresse</a>
           </li>
           <li id='navigation-fountain' class='menu-item'>
-            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAddressSearch()'><span></span>Brunnen</a>
+            <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.nextFountain()'><span></span>Brunnen</a>
           </li>
           <li id='navigation-cluster' class='menu-item'>
             <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.toggleClusterSingled()'><span></span>Gruppe</a>
@@ -383,7 +383,7 @@ else{
         <input type='button' name='search_address' class='searchsubmit' value='Suche' />
         <div id="search_close_button"></div>
       </div>
-    </div>
+    </div>    
     <?php if ( !$isMobile ) {
     ?>
     <a href="javascript:void(0)" onclick='window.Trinkbrunnen.Router.scrollMap()' id="activatemap"></a>
@@ -422,10 +422,19 @@ else{
     <!-- router -->
     <script type="text/javascript" src="assets/js/router.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/js/messages.js"></script>
     <!-- stats -->
     <?php if(!$isMobile){
 			include "stats/stats.php";
 		}
     ?>
+		<!-- DEBUGGING BEGIN -->
+		<div style="position:absolute; background: rgba(200, 54, 54, 0.5); z-index:99; top:30%; right:0px; width:100px; height:100px; color:white; padding:5px;">
+			Debugging
+			<input type="button" value="messages" onclick="Debugging.failureMessagesQueue();"/>
+			<input type="button" value="userlocation" onclick="Debugging.userLocationChange();"/>
+		</div>
+    <script type="text/javascript" src="assets/js/debug.js"></script>
+    <!-- DEBUGGING END -->
   </body>
 </html>

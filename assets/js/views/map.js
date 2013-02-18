@@ -23,7 +23,7 @@ var MapView = Backbone.View.extend({
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    if (!this.isMobile()) {
+    if (!window.Trinkbrunnen.isMobile()) {
       mapOptions.mapTypeControl = true;
     } else if (this.isIpad()) {
       mapOptions.zoom = this.model.get('zoom') + 1;
@@ -130,7 +130,8 @@ var MapView = Backbone.View.extend({
             infoContent += "Distanz: " + distanceInformation + "<br/>";
         }
         if (navigator.geolocation) {
-          //TODO: Remove onclick function and make it to $('#...').click(function(){});
+          //TODO: template
+          //TODO: Change Route symbole to spin when clicked or show spin wheel, at failure remove and at success close window and switch the image again
           infoContent += '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.routeToFountain(' + index + ')" class="calculate-route" title="Route berechnen">Route berechnen</a></p>';
         }
         infoContent += '<div class="pointer"></div>';
@@ -347,23 +348,21 @@ var MapView = Backbone.View.extend({
       if (status == google.maps.DirectionsStatus.OK) {
         self.hideRoute();
         self.closeInfobox();
-        
-        if(self.isNewRoute == false){
-          var preserveViewport = true;
-        }
 
         self.directionsDisplay = new google.maps.DirectionsRenderer({
           draggable: false,
           suppressMarkers: true,
           suppressInfoWindows: true,
           map: self.map,
-          preserveViewport: preserveViewport,
+          preserveViewport: true,
           fountain: self.fountainToRoute
         });
 
         self.directionsDisplay.setDirections(result);
+        window.Trinkbrunnen.EventDispatcher.trigger("success:route");
       } else {
-        self.showFailureMessage("Keine Route gefunden!");
+        //TODO: Stop routing here!
+        window.Trinkbrunnen.MessageHandler.addMessage("Keine Route gefunden!");
       }
     });
   },
@@ -386,20 +385,5 @@ var MapView = Backbone.View.extend({
       }
     });
     return this.markerCollection.at(idx);
-  },
-  //TODO: Simply the Message function to a global message queue
-  showFailureMessage: function(message) {
-    if (message == "" || message == null) {
-      return;
-    }
-    if (this.isMobile()) {
-      $('#spin').hide();
-    }
-
-    $('#failure_message').text(message);
-    $('#failure').show();
-    setTimeout(function() {
-      $('#failure').fadeOut();
-    }, 3500);
   }
 });

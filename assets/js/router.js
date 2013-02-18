@@ -29,11 +29,12 @@ var AppRouter = Backbone.Router.extend({
       this.renderMapWithFountains();
     }
 
-    if (!this.isMobile()) {
+    if (!window.Trinkbrunnen.isMobile()) {
       var self = this;
       $('#search_close_button, #failure_close_button').click(function() {
         $('#address').hide();
         $('#failure').hide();
+        //TODO: When closing failure, the next message don't show immediately
       });
       $('#activatemap').mousedown(function() {
         self.scrollMap();
@@ -51,7 +52,7 @@ var AppRouter = Backbone.Router.extend({
       }).bind("touchend", function() {
         $("#" + $(this).attr('id')).removeClass("fake-active-" + $(this).attr('id'));
       });
-      
+
       $("#back").bind("touchstart", function() {
         $("#back").addClass("active-back");
       }).bind("touchend", function() {
@@ -108,11 +109,11 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.Views.map.placeMarkersToMap();
       },
       error: function() {
-        if (self.isMobile()) {
-          self.showFailureMessage(window.Trinkbrunnen.Messages.fountain.error.unloadable);
+        if (window.Trinkbrunnen.isMobile()) {
+          window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.fountain.error.unloadable);
         } else {
           //TODO: Think about a failure message place, when map is not scrolled up
-          //self.showFailureMessage(window.Trinkbrunnen.Messages.fountain.error.unloadable);
+          //window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.fountain.error.unloadable);
         }
       },
       add: true
@@ -123,7 +124,7 @@ var AppRouter = Backbone.Router.extend({
       trigger: true
     });
 
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
     } else {
       if ($('#map-wrap').css('top') == '250px') {
@@ -134,7 +135,7 @@ var AppRouter = Backbone.Router.extend({
 
     var self = this;
     //get latest feeditem
-    if (!this.isMobile()) {
+    if (!window.Trinkbrunnen.isMobile()) {
       window.Trinkbrunnen.EventDispatcher.on('loadedFeed', function() {
         var element = _.first(window.Trinkbrunnen.Collections.feedItem.toArray());
         var template = _.template($("#template_article").html(), {
@@ -157,11 +158,11 @@ var AppRouter = Backbone.Router.extend({
             self.canSlideArticle('left');
           },
           error: function() {
-            if (self.isMobile()) {
-              self.showFailureMessage(window.Trinkbrunnen.Messages.feed.error.unloadable);
+            if (window.Trinkbrunnen.isMobile()) {
+              window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.feed.error.unloadable);
             } else {
               //TODO: Think about a failure message place, when map is not scrolled up
-              //self.showFailureMessage(window.Trinkbrunnen.Messages.feed.error.unloadable);
+              //window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.feed.error.unloadable);
             }
           },
           add: true
@@ -227,13 +228,13 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   nextFountain: function() {
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.navigate("", {
         trigger: true
       });
     }
 
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
     } else {
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
@@ -245,25 +246,25 @@ var AppRouter = Backbone.Router.extend({
     this.getFountain(id);
   },
   getFountain: function(type) {
-    $('#spin').fadeIn();
+    //$('#spin').fadeIn();
 
     //TODO: write it every where it is needed
     if (window.Trinkbrunnen.isOnline() == false) {
-      this.showFailureMessage(window.Trinkbrunnen.Messages.state.offline);
+      window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.state.offline);
       return;
     }
 
     if (window.Trinkbrunnen.Views.map.readyFountains() == false) {
-      this.showFailureMessage(window.Trinkbrunnen.Messages.fountain.error.unloadable);
+      window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.fountain.error.unloadable);
       return;
     }
 
     var self = this;
 
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type) {
         window.Trinkbrunnen.Views.map.centerRoute();
-        $('#spin').hide();
+        //$('#spin').hide();
         return;
       }
     } else {
@@ -274,7 +275,7 @@ var AppRouter = Backbone.Router.extend({
     }
 
     window.Trinkbrunnen.Views.map.setRouteType(type);
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
         window.Trinkbrunnen.Views.map.updateUserLocation();
       } else {
@@ -292,23 +293,29 @@ var AppRouter = Backbone.Router.extend({
       this.addEventListeners();
       this.getPosition();
     }
+
+    //at button click center the route by success
+    window.Trinkbrunnen.EventDispatcher.on("success:route", function() {
+      window.Trinkbrunnen.Views.map.centerRoute();
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:route:center");
+    }, "once:route:center");
   },
   addEventListeners: function() {
     var self = this;
     window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
       //TODO: Set UserLocation, active image icon
-      $('#spin').hide();
+      //$('#spin').hide();
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
 
       //Because only getPosition is used once instead of watchPosition permanently
-      if (!self.isMobile()) {
+      if (!window.Trinkbrunnen.isMobile()) {
         window.Trinkbrunnen.EventDispatcher.off(null, null, "permanent:userlocation");
       }
     }, "once:userlocation");
 
     window.Trinkbrunnen.EventDispatcher.on("error:userLocation", function(message) {
       //TODO: Set UserLocation, deactive image icon
-      self.showFailureMessage(message);
+      window.Trinkbrunnen.MessageHandler.addMessage(message);
       self.isWatchingID = null;
 
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
@@ -316,13 +323,13 @@ var AppRouter = Backbone.Router.extend({
     }, "permanent:userlocation");
   },
   showAddressSearch: function() {
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.navigate("", {
         trigger: true
       });
     }
 
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       $('input[name=address]').blur(function() {
         $('#address').hide();
       });
@@ -356,7 +363,7 @@ var AppRouter = Backbone.Router.extend({
     this.displayOnly('map_canvas map-wrap header-navigation maptype');
   },
   changeMaptype: function(type) {
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
       window.Trinkbrunnen.Views.mapType.changeType(type);
     } else {
@@ -378,7 +385,7 @@ var AppRouter = Backbone.Router.extend({
       trigger: true
     });
 
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('feed back overlay');
     } else {
       this.displayOnly('map_canvas map-wrap feed header-navigation');
@@ -402,10 +409,10 @@ var AppRouter = Backbone.Router.extend({
           self.canSlideArticle('left');
         },
         error: function() {
-          if (self.isMobile()) {
+          if (window.Trinkbrunnen.isMobile()) {
             alert("Feed konnte nicht geladen werden!");
           } else {
-            self.showFailureMessage("Feed konnte nicht geladen werden!");
+            window.Trinkbrunnen.MessageHandler.addMessage("Feed konnte nicht geladen werden!");
           }
         },
         add: true
@@ -413,20 +420,20 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   getUserLocation: function() {
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.navigate("", {
         trigger: true
       });
     }
     var self = this;
-    $('#spin').fadeIn();
+    //$('#spin').fadeIn();
 
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
 
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
         window.Trinkbrunnen.Views.map.centerUserLocation();
-        $('#spin').hide();
+        //$('#spin').hide();
         return;
       }
     } else {
@@ -441,10 +448,16 @@ var AppRouter = Backbone.Router.extend({
 
     this.addEventListeners();
     this.getPosition();
+    
+    //at button click center the userlocation by success
+    window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
+      window.Trinkbrunnen.Views.map.center();
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userLocation:center");
+    }, "once:userLocation:center");
   },
   getPosition: function() {
     if (navigator.geolocation) {
-      if (this.isMobile()) {
+      if (window.Trinkbrunnen.isMobile()) {
         if (this.isWatchingID == null) {
           this.isWatchingID = navigator.geolocation.watchPosition(this.getPositionSuccess, this.getPositionError, {
             enableHighAccuracy: true,
@@ -458,27 +471,28 @@ var AppRouter = Backbone.Router.extend({
         });
       }
     } else {
-      window.Trinkbrunnen.EventDispatcher.trigger("error:userLocation", window.Trinkbrunnen.Messages.position.error.unsupported);
+      window.Trinkbrunnen.EventDispatcher.trigger("error:userLocation", window.Trinkbrunnen.MessageHandler.messages.position.error.unsupported);
     }
   },
   getPositionError: function(error) {
     //FIXME: Firefox Bug "Not Now" doesn't lead to error callback
+    //FIXME: Android Bug "Not now" -||-
     var message = "";
     switch(error.code) {
       case error.PERMISSION_DENIED:
-        message = window.Trinkbrunnen.Messages.position.error.denied;
+        message = window.Trinkbrunnen.MessageHandler.messages.position.error.denied;
         break;
       case error.POSITION_UNAVAILABLE:
-        message = window.Trinkbrunnen.Messages.position.error.unavailable;
+        message = window.Trinkbrunnen.MessageHandler.messages.position.error.unavailable;
         break;
       case error.TIMEOUT:
-        message = window.Trinkbrunnen.Messages.position.error.timeout;
+        message = window.Trinkbrunnen.MessageHandler.messages.position.error.timeout;
         break;
       case error.UNKNOWN_ERROR:
-        message = window.Trinkbrunnen.Messages.position.error.unknown;
+        message = window.Trinkbrunnen.MessageHandler.messages.position.error.unknown;
         break;
       default:
-        message = window.Trinkbrunnen.Messages.position.error.standard;
+        message = window.Trinkbrunnen.MessageHandler.messages.position.error.standard;
         break;
     }
 
@@ -539,7 +553,7 @@ var AppRouter = Backbone.Router.extend({
       trigger: true
     });
 
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('lakes back overlay');
     } else {
       this.displayOnly('map_canvas map-wrap lakes header-navigation');
@@ -554,7 +568,7 @@ var AppRouter = Backbone.Router.extend({
       trigger: true
     });
 
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('info back overlay');
     } else {
       this.displayOnly('map_canvas map-wrap info header-navigation');
@@ -588,10 +602,6 @@ var AppRouter = Backbone.Router.extend({
       window.Trinkbrunnen.Views.map.resizeMap();
       window.Trinkbrunnen.Views.map.setCurrentCenterNew();
     }
-  },
-  isMobile: function() {
-    var index = navigator.appVersion.indexOf("Mobile");
-    return (index > -1);
   },
   slideArticleToRight: function() {
     var self = this;
@@ -634,7 +644,7 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   canSlideArticle: function(direction) {
-    if (this.isMobile()) {
+    if (window.Trinkbrunnen.isMobile()) {
       return;
     }
 
@@ -666,20 +676,6 @@ var AppRouter = Backbone.Router.extend({
         return true;
       }
     }
-  },
-  showFailureMessage: function(message) {
-    if (message == "" || message == null) {
-      return;
-    }
-    if (this.isMobile()) {
-      $('#spin').hide();
-    }
-
-    $('#failure_message').text(message);
-    $('#failure').show();
-    setTimeout(function() {
-      $('#failure').fadeOut();
-    }, 3500);
   },
   toggleClusterSingled: function() {
     window.Trinkbrunnen.Views.map.toggleClusterSingled();

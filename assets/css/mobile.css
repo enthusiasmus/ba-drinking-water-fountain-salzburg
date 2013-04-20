@@ -12,7 +12,7 @@
   width: 100%;
   height: 44px;
   background-color: #005586;
-  z-index: 10;
+  z-index: 99;
 }
 #logo {
   width: 155px;
@@ -39,6 +39,7 @@
 /*** google map ***/
 #map-wrap {
   position: absolute;
+  z-index: 1;
   top: 44px;
   left: 0;
   right: 0;
@@ -52,7 +53,8 @@
   right: 0;
   bottom: 0;
   background: #212121;
-  z-index: 5;
+  z-index: -1;
+  overflow:hidden;
 }
 
 #map_canvas #info_offline {
@@ -87,15 +89,15 @@
 /*** navigation ***/
 #navigation {
   position: fixed;
+  z-index: 99;
   top: auto;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 48px;
   background-color: #000;
-  border-top: 2px solid #8e8e8e;
+  border-top: 2px solid #005586;
   overflow: hidden;
-  z-index: 10;
 }
 #navigation .menu-item {
   display: block;
@@ -179,17 +181,35 @@
   width: 46px;
   height: 42px;
 }
-#header-navigation #header-about {
+#header-navigation #header-about, #header-navigation #header-lake {
   position: absolute;
-  right: 0px;
   top: 0px;
 }
 
-#header-navigation #header-about a:link, #header-navigation #header-about a:visited {
-  background: url('../img/mobile/sprite.png') -144px -96px no-repeat;
+#header-navigation #header-about {
+  right: 0px;
 }
+#header-navigation #header-lake {
+  left: 0px;
+}
+#header-navigation #header-about a, #header-navigation #header-lake a {
+  background-image: url('../img/mobile/sprite.png');
+  background-repeat: no-repeat;
+}
+#header-navigation #header-about a:link, #header-navigation #header-about a:visited {
+  background-position: -192px -3px;
+}
+
 #header-navigation #header-about a:active, .fake-active-header-about {
-  background: url('../img/mobile/sprite.png') -97px -96px no-repeat;
+  background-position: -97px -99px;
+}
+
+#header-navigation #header-lake a:link, #header-navigation #header-lake a:visited {
+  background-position: -192px -53px;
+}
+
+#header-navigation #header-lake a:active, .fake-active-header-lake {
+  background-position: -192px -99px;
 }
 
 /*** address search ***/
@@ -201,7 +221,7 @@
   height: 44px;
   background-color: #eee;
   display: none;
-  z-index: 30;
+  z-index: 100;
 }
 .addressinput {
   display: block;
@@ -227,7 +247,7 @@
   left: 0;
   width: 100%;
   display: none;
-  z-index: 10;
+  z-index: 100;
 }
 #maptype ul {
   width: 85%;
@@ -258,20 +278,30 @@
 
 /*** feed ***/
 #feed {
+  display: none;
+  background-color: #212121;
+  padding: 0 10px 65px 10px;
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 #rss {
   height: 100%;
   background-color: #212121;
-  padding: 10px 0 60px 0;
-  margin-top: 44px;
+  padding: 10px 0 0px 0;
 }
 #rss article {
   position: relative;
-  width: 90%;
+  width: 100%;
   min-height: 160px;
   margin: 0 auto 10px auto;
   background-color: #fff;
   padding: 10px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 #rss a {
   text-decoration: none;
@@ -291,64 +321,65 @@
 /*** info ***/
 #info, #lakes {
   background-color: #212121;
-  padding: 0 0 65px 0;
-  margin-top: 44px;
+  padding: 0 10px 65px 10px;
   display: none;
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 #info #info-content, #lakes #lakes-content {
   position: relative;
-  width: 90%;
   top: 8px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0 auto 0px;
   background-color: #fff;
+  border: 1px solid #ababab;
   padding: 10px;
-  min-width: 273px;
+  min-width: 280px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 #lakes {
   display: none;
-  min-width: 310px;
 }
-#lakes big {
-  font-size: 120%;
-}
-#lakes h3 {
-  margin: 0px;
-  font-size: 14.5px;
-}
-#lakes-content p {
-  margin-bottom: 20px;
-}
-#lakes-content > ul {
-  margin-top: 20px;
-}
-#lakes ul li ul {
-  width: 100%;
-  min-width: 279px;
-  float: left;
-}
-#lakes ul li ul li {
-  float: left;
-  margin: 5px 0px 5px 0px;
-}
-#lakes ul li ul li span {
 
+#lakes ul {
+  width: 100%;
+  min-width: 260px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#lakes ul li {
+  width: 100%;
+}
+
+#lakes ul li ul {
+  float: left;
+  min-width: 260px;
+}
+
+#lakes ul li ul li {
+  padding: 10px 10px 10px 10px;
+  float: left;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 #lakes ul li ul li {
-  width: 37%;
-  min-width: 107px;
-  margin: 5px 0px 5px 5px;
+  min-width: 85px;
+  width: 40%;
 }
 #lakes ul li ul li + li {
-  width: 22%;
-  min-width: 48px;
-  text-align: center;
-  margin: 5px 2px 5px 0px;
+  min-width: 70px;
+  width: 23%;
 }
 #lakes ul li ul li + li + li {
   width: 35%;
-  min-width: 99px;
-  text-align: center;
-  margin: 5px 2px 5px 0px;
 }
 #overlay {
   position: fixed;
@@ -359,9 +390,10 @@
   height: 50000px;
   background-color: #212121;
 }
+
 #spin {
   position: absolute;
-  z-index: 99;
+  z-index: 100;
   bottom: 50px;
   right: 0px;
   background: #005586;
@@ -373,7 +405,7 @@
 }
 
 #failure {
-  display:none;
+  display: none;
   position: fixed;
   top: auto;
   bottom: 50px;
@@ -382,7 +414,7 @@
   height: 32px;
   background-color: #005586;
   overflow: hidden;
-  z-index: 10;
+  z-index: 100;
 }
 
 #failure_message {

@@ -95,10 +95,10 @@ else{
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showRssFeed()'>Wasser-News</a>
               </li>
               <!-- TODO: class menu-item and header or navigation + id is now standard -->
+              <?php } ?>
               <li class='menu-item' id='header-lake'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showLakes()'>Seetemperaturen</a>
               </li>
-              <?php } ?>
               <li class='menu-item' id='header-about'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAbout()'>Impressum</a>
               </li>
@@ -173,109 +173,31 @@ else{
         </div>
         <div id="lakes">
           <div id="lakes-content">
-            <h2>Seetemperaturen</h2>
-            <ul>
-              <li>
-                <ul>
-                  <li>
-                    <h3>Fuschlsee</h3>
-                    <span>Fuschl am See</span>
-                  </li>
-                  <li>
-                   <big>4.8 °C</big>
-                  </li>
-                  <li>
-                    17:30 14.12.2012
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <ul>
-                  <li>
-                    <h3>Grabensee</h3>
-                    <span>Grabensee</span>
-                  </li>
-                  <li>
-                    <big>4.8 °C</big>
-                  </li>
-                  <li>
-                    17:30 14.12.2012
-                  </li>
-                </ul>
-              </li>
-              <li>
-
-                <ul>
-                  <li>
-                    <h3>Mattsee</h3>
-                    <span>Mattsee</span>
-                  </li>
-                  <li>
-                    <big>4.8 °C</big>
-                  </li>
-                  <li>
-                    17:30 14.12.2012
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <ul>
-                  <li>
-                    <h3>Obertrumer See</h3>
-                    <span>Obertrum</span>
-                  </li>
-                  <li>
-                    <big>14.8 °C</big>
-                  </li>
-                  <li>
-                    17:30 14.12.2012
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <ul>
-                  <li>
-                    <h3>Wolfgangsee</h3>
-                    <span>St. Gilgen</span>
-                  </li>
-                  <li>
-                     <big>14.8 °C</big>
-                  </li>
-                  <li>
-                    17:30 14.12.2012
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <ul>
-                  <li>
-                    <h3>Wallersee</h3>
-                    <span>Wallersee</span>
-                  </li>
-                  <li>
-                    <big>24.8 °C</big>
-                  </li>
-                  <li>
-                    23:30 30.02.2022
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <ul>
-                  <li>
-                    <h3>Zeller See</h3>
-                    <span>Zell am See</span>
-                  </li>
-                  <li>
-                    <big>34.8 °C</big>
-                  </li>
-                  <li>
-                    17:30 14.12.2012
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <p style="clear: both;"></p>
+            <div id="lakes-listing">
+            	<h2>Seetemperaturen</h2>
+	           	<ul>
+	            	<!-- lakes gets added here -->
+	            </ul>
+	            <p style="clear: both;"></p>
+	            <p>
+            		Seetemperatur [°C] gemessen 50 cm unter der Wasseroberfläche.
+            	</p>
+            </div>
+            <div id="lakes-graphics">
+	            <?php if ( !$isMobile ) { ?>
+	          		<!--<h2>Salzburger Vorlandseen</h2>
+	          		<img src="http://www.salzburg.gv.at/2043wiskiweb/APP_See_WT_Vorlandseen_KiBasicGrafikenWTVorlandsee.png"/>
+	          		<h2>Salzburger Bergseen</h2>
+	          		<img src="http://www.salzburg.gv.at/2043wiskiweb/APP_See_WT_Berglandseen_KiBasicGrafikenWTBerglandseen.png"/>-->
+	            <?php } else { ?>
+		            <p>
+		            	<a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.showLakeGraphic('nord')">Salzburger Vorlandseen</a>
+		            </p>
+		            <p>
+		            	<a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.showLakeGraphic('south')">Salzburger Berglandseen</a>
+		            </p>
+	            <?php } ?>
+            </div>
           </div>
         </div>
         <div id="feed">
@@ -402,22 +324,25 @@ else{
     <script type="text/javascript" src="assets/js/libs/underscore.js"></script>
     <script type="text/javascript" src="assets/js/libs/backbone.js"></script>
     <!--templates -->
-    <?php include "assets/templates/article.html"
+    <?php include "assets/templates/article.html";
+					include "assets/templates/lake_temperature.html";
     ?>
     <!--models -->
     <script type="text/javascript" src="assets/js/models/feedItem.js"></script>
     <script type="text/javascript" src="assets/js/models/feed.js"></script>
+    <script type="text/javascript" src="assets/js/models/lake.js"></script>
     <script type="text/javascript" src="assets/js/models/map.js"></script>
     <script type="text/javascript" src="assets/js/models/marker.js"></script>
     <script type="text/javascript" src="assets/js/models/userLocation.js"></script>
     <!-- views -->
     <script type="text/javascript" src="assets/js/views/address.js"></script>
     <script type="text/javascript" src="assets/js/views/feed.js"></script>
-    <script type="text/javascript" src="assets/js/views/info.js"></script>
+    <script type="text/javascript" src="assets/js/views/lakes.js"></script>
     <script type="text/javascript" src="assets/js/views/mapType.js"></script>
     <script type="text/javascript" src="assets/js/views/map.js"></script>
     <!-- collections -->
     <script type="text/javascript" src="assets/js/collections/marker.js"></script>
+    <script type="text/javascript" src="assets/js/collections/lake.js"></script>
     <script type="text/javascript" src="assets/js/collections/feedItem.js"></script>
     <!-- router -->
     <script type="text/javascript" src="assets/js/router.js"></script>
@@ -433,6 +358,7 @@ else{
 			Debugging
 			<input type="button" value="messages" onclick="Debugging.failureMessagesQueue();"/>
 			<input type="button" value="userlocation" onclick="Debugging.userLocationChange();"/>
+			<input type="button" value="map-canvas" onclick="$('#map_canvas').toggle();"/>
 		</div>
     <script type="text/javascript" src="assets/js/debug.js"></script>
     <!-- DEBUGGING END -->

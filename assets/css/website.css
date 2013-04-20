@@ -306,7 +306,7 @@
   display: none;
 }
 
-/*** feed & imprint ***/
+/*** feed, lakes & imprint ***/
 #feed, #info, #lakes {
   position: absolute;
   top: 180px;
@@ -362,6 +362,7 @@
   overflow: auto;
   border: 20px solid #fff;
 }
+
 #info h2, #lakes h2 {
   color: #005586;
   font-size: 140%;
@@ -388,12 +389,23 @@
   margin-bottom: 20px;
 }
 
-#lakes-content > ul {
-  margin-top: 20px;
+/* lakes style */
+#lakes {
+  display: none;
 }
-#lakes{
-  display:none;
+#lakes #lakes-content #lakes-graphics {
+  width: 100%;
 }
+#lakes #lakes-content #lakes-graphics img {
+  width: 700px;
+  display: block;
+  margin: auto;
+}
+#lakes #lakes-content #lakes-graphics h2 {
+  margin-top: 10px;
+}
+
+/* lake temperatures font style */
 #lakes big {
   font-size: 110%;
   font-weight: bold;
@@ -402,16 +414,23 @@
   margin: 0px;
   font-weight: bold;
 }
-#lakes ul li {
+
+/* lake temperatures listing */
+#lakes #lakes-content #lakes-listing > ul {
   font-size: 13px;
+  margin: 10px 20px 0px 0px;
+}
+#lakes #lakes-content #lakes-listing > p {
+  padding-top:5px;
+  margin-bottom:0px;
 }
 #lakes ul li ul {
   width: 50%;
   float: left;
 }
 #lakes ul li ul li {
-  float: left;
   margin: 10px 10px 10px 15px;
+  float: left;
 }
 #lakes ul li ul li {
   width: 130px;
@@ -468,7 +487,7 @@
 }
 #latest_feed #latest-feed-date {
   float: right;
-  height:15px;
+  height: 15px;
   vertical-align: middle;
   line-height: 15px;
 }

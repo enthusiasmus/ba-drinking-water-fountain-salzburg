@@ -18,8 +18,10 @@ var UserLocationModel = Backbone.Model.extend({
     imageUrl: 'assets/img/userlocation.png',
     imageWidth: 28,
     imageHeight: 28,
-    imageOriginX: 0,
-    imageOriginY: 0,
+    imageActiveOriginX: 0,
+    imageActiveOriginY: 0,
+    imageInactiveOriginX: 28,
+    imageInactiveOriginY: 0,
     imageAnchorX: 14,
     imageAnchorY: 14,
     timestampAttributes: new Date().getTime()

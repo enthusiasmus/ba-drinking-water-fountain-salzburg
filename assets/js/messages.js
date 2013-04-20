@@ -2,11 +2,14 @@ window.Trinkbrunnen.MessageHandler = {
   queue: new Array(),
   isShowingMessage: false,
   addMessage: function(message) {
-    if (message != "" && message != null) {
+    if (message == "" || message == null) {
+      return;
+    } else {
       this.queue.push(message);
     }
+
     //call only once the showMessage function
-    if(!this.isShowingMessage){
+    if (!this.isShowingMessage) {
       this.showMessage();
     }
   },

@@ -12,7 +12,7 @@
   width: 100%;
   height: 44px;
   background-color: #005586;
-  z-index: 10;
+  z-index: 99;
 }
 #logo {
   width: 155px;
@@ -29,21 +29,22 @@
   background: url('../img/ios/sprite.png') 0 -166px no-repeat;
   color: #fff;
   text-decoration: none;
-  padding: 7px 0 0 14px;
+  padding: 9px 0 0 15px;
   display: none;
 }
 #back:active {
   background-position: -60px -166px;
 }
+
 /*** google map ***/
 #map-wrap {
   position: absolute;
+  z-index: 1;
   top: 44px;
   left: 0;
   right: 0;
   bottom: 49px;
   width: 100%;
-  background-color: #555;
 }
 #map_canvas {
   position: absolute;
@@ -52,7 +53,8 @@
   right: 0;
   bottom: 0;
   background: url('../img/ios/bg.png');
-  z-index: 5;
+  z-index: -1;
+  overflow:hidden;
 }
 #map_canvas #info_offline {
   position: absolute;
@@ -69,6 +71,7 @@
 /*** navigation ***/
 #navigation {
   position: fixed;
+  z-index: 99;
   top: auto;
   bottom: 0;
   left: 0;
@@ -93,12 +96,10 @@
   padding-top: 31px;
   display: inline-block;
 }
-#navigation .menu-item a:active {
+#navigation .menu-item a:active, .active-navigation-a {
   color: #fff;
 }
-.navigation-a-active {
-  color: #fff;
-}
+
 #navigation .menu-item span {
   position: absolute;
   top: -6px;
@@ -110,49 +111,36 @@
   background-image: url('../img/ios/sprite.png');
   background-repeat: no-repeat;
 }
-#navigation .position span {
+
+#navigation #navigation-position a > span {
   background-position: 0 0;
 }
-#navigation .menu-item.position a:active > span {
-  background-position: -48px 0;
-}
-.navigation-position-a-active-span {
-  background-position: -48px 0 !important;
-}
-#navigation .address span {
+#navigation #navigation-address a > span {
   background-position: -96px 0;
 }
-#navigation .menu-item.address a:active > span {
-  background-position: -144px 0;
-}
-.navigation-address-a-active-span {
-  background-position: -144px 0 !important;
-}
-#navigation .fontain span {
+#navigation #navigation-fountain a > span {
   background-position: 0 -96px;
 }
-#navigation .menu-item.fontain a:active > span {
-  background-position: -48px -96px;
-}
-.navigation-fontain-a-active-span {
-  background-position: -48px -96px !important;
-}
-#navigation .maptype span {
+#navigation #navigation-maptype a > span {
   background-position: 0 -48px;
 }
-#navigation .menu-item.maptype a:active > span {
-  background-position: -48px -48px;
-}
-.navigation-maptype-a-active-span {
-  background-position: -48px -48px !important;
-}
-#navigation .feed span {
+#navigation #navigation-feed a > span {
   background-position: -96px -48px;
 }
-#navigation .menu-item.feed a:active > span {
-  background-position: -144px -48px;
+
+#navigation #navigation-position a:active > span, .active-navigation-position {
+  background-position: -48px 0 !important;
 }
-.navigation-feed-a-active-span {
+#navigation #navigation-address a:active > span, .active-navigation-address {
+  background-position: -144px 0 !important;
+}
+#navigation #navigation-fountain a:active > span, .active-navigation-fontain {
+  background-position: -48px -96px !important;
+}
+#navigation #navigation-maptype a:active > span, .active-navigation-maptype {
+  background-position: -48px -48px !important;
+}
+#navigation #navigation-feed a:active > span, .active-navigation-feed {
   background-position: -144px -48px !important;
 }
 
@@ -171,17 +159,35 @@
   width: 46px;
   height: 42px;
 }
-#header-navigation .about {
+#header-navigation #header-about, #header-navigation #header-lake {
   position: absolute;
-  right: 0px;
   top: 0px;
-  background: url('../img/ios/sprite.png') -192px -2px no-repeat
 }
-#header-navigation .lake {
-  position: absolute;
+
+#header-navigation #header-about {
+  right: 0px;
+}
+#header-navigation #header-lake {
   left: 0px;
-  top: 0px;
-  background: url('../img/ios/sprite.png') -192px -52px no-repeat;
+}
+#header-navigation #header-about a, #header-navigation #header-lake a {
+  background-image: url('../img/ios/sprite.png');
+  background-repeat: no-repeat;
+}
+#header-navigation #header-about a:link, #header-navigation #header-about a:visited {
+  background-position: -192px -2px;
+}
+
+#header-navigation #header-about a:active, .fake-active-header-about {
+  background-position: -145px -97px;
+}
+
+#header-navigation #header-lake a:link, #header-navigation #header-lake a:visited {
+  background-position: -192px -52px;
+}
+
+#header-navigation #header-lake a:active, .fake-active-header-lake {
+  background-position: -192px -98px;
 }
 
 /*** address search ***/
@@ -193,7 +199,7 @@
   height: 44px;
   background: url('../img/ios/bg-search.png') 0 0 repeat-x;
   display: none;
-  z-index: 30;
+  z-index: 100;
 }
 .addressinput {
   display: block;
@@ -215,6 +221,7 @@
   left: 0;
   width: 100%;
   display: none;
+  z-index: 100;
 }
 #maptype ul {
   width: 85%;
@@ -249,11 +256,19 @@
 }
 /*** feed ***/
 #feed {
+  display: none;
+  background-color: #212121;
+  padding: 0 10px 65px 10px;
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 #rss {
   height: 100%;
   background: url('../img/ios/bg.png') repeat;
-  padding: 10px 0 60px 0;
+  padding: 10px 0 0px 0;
   margin-top: 44px;
 }
 #rss article {
@@ -277,28 +292,74 @@
   font-size: 11px;
   color: #a8a8a8;
 }
-/*** info ***/
+/*** info (about) and lakes ***/
 #info, #lakes {
   background: url('../img/ios/bg.png');
-  padding: 0 0 65px 0;
-  margin-top: 44px;
+  padding: 0 10px 65px 10px;
   display: none;
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 #info #info-content, #lakes #lakes-content {
   position: relative;
   top: 8px;
-  width: 90%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0 auto 0px;
   background-color: #fff;
   border: 1px solid #ababab;
   border-radius: 10px;
   padding: 10px;
+  min-width: 280px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 #lakes {
   display: none;
 }
+
+#lakes ul {
+  width: 100%;
+  min-width: 280px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#lakes ul li {
+  width: 100%;
+}
+
+#lakes ul li ul {
+  float: left;
+  min-width: 280px;
+}
+
+#lakes ul li ul li {
+  padding: 10px 10px 10px 10px;
+  float: left;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+#lakes ul li ul li {
+  min-width: 85px;
+  width: 40%;
+}
+#lakes ul li ul li + li {
+  min-width: 70px;
+  width: 23%;
+}
+#lakes ul li ul li + li + li {
+  width: 35%;
+}
+
 #overlay {
   position: fixed;
+  z-index:10;
   display: none;
   top: 0;
   left: 0;
@@ -313,4 +374,41 @@
     height: auto;
     margin-top: 0;
   }
+}
+
+#spin {
+  position: absolute;
+  z-index: 100;
+  bottom: 50px;
+  right: 0px;
+  background: #005586;
+  display: none;
+}
+
+#spin img {
+  margin: 3px 3px;
+}
+
+#failure {
+  display: none;
+  position: fixed;
+  top: auto;
+  bottom: 49px;
+  left: 0;
+  width: 100%;
+  height: 32px;
+  background-color: #005586;
+  overflow: hidden;
+  z-index: 100;
+}
+
+#failure_message {
+  height: 32px;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 32px;
+  vertical-align: middle;
+  overflow: hidden;
 }

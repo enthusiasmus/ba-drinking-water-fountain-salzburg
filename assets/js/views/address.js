@@ -1,12 +1,12 @@
 var AddressView = Backbone.View.extend({
   el: $("#address"),
-  show: function(){
+  show: function() {
     $(this.el).show();
   },
-  hide: function(){
+  hide: function() {
     $(this.el).hide();
   },
-  switchVisibility: function(){
+  switchVisibility: function() {
     $(this.el).toggle();
   },
   mapView: "",
@@ -14,58 +14,49 @@ var AddressView = Backbone.View.extend({
     'click input[name=search_address]': 'searchAddress',
     'keypress input[name=address]': 'keypress'
   },
-  keypress: function(event){
-    if(event.keyCode == 13)
+  keypress: function(event) {
+    if (event.keyCode == 13)
       this.searchAddress();
   },
-  searchAddress: function(){
+  searchAddress: function() {
     /*
      * TODO: Dispatch Event if offline then show Message
      * google is initialize?
-     * 
-    if(navigator.connection.type == CONNECTION.NONE){
-      window.dispatchEvent("non connection"); 
-      return false;
-    }
+     *
+     if(navigator.connection.type == CONNECTION.NONE){
+     window.dispatchEvent("non connection");
+     return false;
+     }
      */
-    
+
     var geocoder = new google.maps.Geocoder();
     var address = $('input[name=address]').val();
     this.blurAllElements();
-    
+
     var self = this;
-    geocoder.geocode({ 'address': address}, function(results, status) {
-      if(status == google.maps.GeocoderStatus.OK){
+    geocoder.geocode({
+      'address': address
+    }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
         self.mapView.map.setCenter(results[0].geometry.location);
-		    self.mapView.map.fitBounds(results[0].geometry.viewport);
-      }
-      else{
-        if(self.isMobile()){
-          alert('Keine Suchergebnisse!');
-        }
-        else{
-          self.showFailureMessage("Keine Suchergebnisse!");
-        }
+        self.mapView.map.fitBounds(results[0].geometry.viewport);
+      } else {
+        window.Trinkbrunnen.MessageHandler.addMessage('Keine Suchergebnisse!');
       }
 
       $(self.el).hide();
       self.blurAllElements();
-      if(self.mapView.infoBox){
+      if (self.mapView.infoBox) {
         self.mapView.infoBox.close();
       }
     });
   },
-  blurAllElements: function(){
+  blurAllElements: function() {
     document.activeElement.blur();
     $("input").blur();
   },
-  isMobile : function() {
+  isMobile: function() {
     var index = navigator.appVersion.indexOf("Mobile");
     return (index > -1);
-  },
-  showFailureMessage: function(message){
-    $('#failure_message').text(message);
-    $('#failure').show();
-    setTimeout(function(){$('#failure').fadeOut();}, 2000);
   }
-});
+}); 

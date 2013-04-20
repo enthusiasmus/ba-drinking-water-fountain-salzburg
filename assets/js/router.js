@@ -9,10 +9,12 @@ var AppRouter = Backbone.Router.extend({
   },
   initialize: function() {
   },
+  isFetchingLakes: false,
   init: function() {
     var self = this;
-    window.Trinkbrunnen.Collections.marker.url = window.Trinkbrunnen.Urls.fountain;
-    window.Trinkbrunnen.Collections.feedItem.url = window.Trinkbrunnen.Urls.feed;
+    window.Trinkbrunnen.Collections.markers.url = window.Trinkbrunnen.Urls.fountains;
+    window.Trinkbrunnen.Collections.lakes.url = window.Trinkbrunnen.Urls.lakes;
+    window.Trinkbrunnen.Collections.feedItems.url = window.Trinkbrunnen.Urls.feed;
     window.Trinkbrunnen.Views.map.model = window.Trinkbrunnen.Models.map;
     window.Trinkbrunnen.Views.address.mapView = window.Trinkbrunnen.Views.map;
 
@@ -68,14 +70,6 @@ var AppRouter = Backbone.Router.extend({
       });
     }
 
-    if (window.innerWidth >= 768) {
-      $("#lakes ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
-      $("#lakes ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
-      $("#lakes ul li ul").css('width', '50%');
-    } else {
-      $("#lakes ul li:nth-child(2n+1) ul").css('background', '#E9E9E9');
-    }
-
     $('#reload_map').click(function() {
       $('#script-google-map').remove();
       $('script[src*="google"]').remove();
@@ -103,9 +97,9 @@ var AppRouter = Backbone.Router.extend({
   },
   loadMarkersToMap: function() {
     var self = this;
-    window.Trinkbrunnen.Collections.marker.fetch({
+    window.Trinkbrunnen.Collections.markers.fetch({
       success: function() {
-        window.Trinkbrunnen.Views.map.addMarkerCollection(window.Trinkbrunnen.Collections.marker);
+        window.Trinkbrunnen.Views.map.addMarkerCollection(window.Trinkbrunnen.Collections.markers);
         window.Trinkbrunnen.Views.map.placeMarkersToMap();
       },
       error: function() {
@@ -121,7 +115,8 @@ var AppRouter = Backbone.Router.extend({
   },
   index: function() {
     this.navigate("", {
-      trigger: true
+      trigger: false,
+      replace: false
     });
 
     if (window.Trinkbrunnen.isMobile()) {
@@ -137,7 +132,7 @@ var AppRouter = Backbone.Router.extend({
     //get latest feeditem
     if (!window.Trinkbrunnen.isMobile()) {
       window.Trinkbrunnen.EventDispatcher.on('loadedFeed', function() {
-        var element = _.first(window.Trinkbrunnen.Collections.feedItem.toArray());
+        var element = _.first(window.Trinkbrunnen.Collections.feedItems.toArray());
         var template = _.template($("#template_article").html(), {
           pubDate: element.escape("pubDate"),
           link: element.escape("link"),
@@ -149,11 +144,11 @@ var AppRouter = Backbone.Router.extend({
         window.Trinkbrunnen.EventDispatcher.off('loadedFeed');
       });
 
-      if (window.Trinkbrunnen.Collections.feedItem.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
-        window.Trinkbrunnen.Collections.feedItem.reset();
-        window.Trinkbrunnen.Collections.feedItem.fetch({
+      if (window.Trinkbrunnen.Collections.feedItems.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+        window.Trinkbrunnen.Collections.feedItems.reset();
+        window.Trinkbrunnen.Collections.feedItems.fetch({
           success: function() {
-            window.Trinkbrunnen.Collections.feedItem.timestamp = new Date().getTime();
+            window.Trinkbrunnen.Collections.feedItems.timestamp = new Date().getTime();
             window.Trinkbrunnen.EventDispatcher.trigger('loadedFeed');
             self.canSlideArticle('left');
           },
@@ -230,7 +225,8 @@ var AppRouter = Backbone.Router.extend({
   nextFountain: function() {
     if (window.Trinkbrunnen.isMobile()) {
       this.navigate("", {
-        trigger: true
+        trigger: false,
+        replace: false
       });
     }
 
@@ -243,11 +239,11 @@ var AppRouter = Backbone.Router.extend({
     this.getFountain('next');
   },
   routeToFountain: function(id) {
+    window.Trinkbrunnen.Views.map.closeInfobox();
     this.getFountain(id);
+    //TODO: Check for desktop pcs
   },
   getFountain: function(type) {
-    //$('#spin').fadeIn();
-
     //TODO: write it every where it is needed
     if (window.Trinkbrunnen.isOnline() == false) {
       window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.state.offline);
@@ -263,8 +259,9 @@ var AppRouter = Backbone.Router.extend({
 
     if (window.Trinkbrunnen.isMobile()) {
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type) {
+
         window.Trinkbrunnen.Views.map.centerRoute();
-        //$('#spin').hide();
+        $('#spin').hide();
         return;
       }
     } else {
@@ -276,6 +273,7 @@ var AppRouter = Backbone.Router.extend({
 
     window.Trinkbrunnen.Views.map.setRouteType(type);
     if (window.Trinkbrunnen.isMobile()) {
+      $('#spin').fadeIn();
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
         window.Trinkbrunnen.Views.map.updateUserLocation();
       } else {
@@ -288,6 +286,7 @@ var AppRouter = Backbone.Router.extend({
           window.Trinkbrunnen.Views.map.updateUserLocation();
         }
       }
+      $('#spin').hide();
     } else {
       window.Trinkbrunnen.Views.map.setRouteType(type);
       this.addEventListeners();
@@ -296,15 +295,22 @@ var AppRouter = Backbone.Router.extend({
 
     //at button click center the route by success
     window.Trinkbrunnen.EventDispatcher.on("success:route", function() {
+      $('#spin').hide();
       window.Trinkbrunnen.Views.map.centerRoute();
-      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:route:center");
-    }, "once:route:center");
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:route:click");
+    }, "once:route:click");
+
+    window.Trinkbrunnen.EventDispatcher.on("error:route", function(message) {
+      $('#spin').hide();
+      window.Trinkbrunnen.MessageHandler.addMessage(message);
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:route:click");
+    }, "once:route:click");
   },
   addEventListeners: function() {
     var self = this;
     window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
-      //TODO: Set UserLocation, active image icon
-      //$('#spin').hide();
+      $('#spin').hide();
+      window.Trinkbrunnen.Views.map.activateUserLocation();
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
 
       //Because only getPosition is used once instead of watchPosition permanently
@@ -314,7 +320,8 @@ var AppRouter = Backbone.Router.extend({
     }, "once:userlocation");
 
     window.Trinkbrunnen.EventDispatcher.on("error:userLocation", function(message) {
-      //TODO: Set UserLocation, deactive image icon
+      $('#spin').hide();
+      window.Trinkbrunnen.Views.map.deactivateUserLocation();
       window.Trinkbrunnen.MessageHandler.addMessage(message);
       self.isWatchingID = null;
 
@@ -325,7 +332,8 @@ var AppRouter = Backbone.Router.extend({
   showAddressSearch: function() {
     if (window.Trinkbrunnen.isMobile()) {
       this.navigate("", {
-        trigger: true
+        trigger: false,
+        replace: false
       });
     }
 
@@ -355,9 +363,9 @@ var AppRouter = Backbone.Router.extend({
      }
      */
 
-    console.log(this);
     this.navigate("", {
-      trigger: true
+      trigger: false,
+      replace: false
     });
 
     this.displayOnly('map_canvas map-wrap header-navigation maptype');
@@ -382,7 +390,8 @@ var AppRouter = Backbone.Router.extend({
      */
 
     this.navigate("feed", {
-      trigger: true
+      trigger: false,
+      replace: false
     });
 
     if (window.Trinkbrunnen.isMobile()) {
@@ -398,14 +407,14 @@ var AppRouter = Backbone.Router.extend({
     var self = this;
     //because for the newest feed item on pc the rss feed is already catched
     //and now we must only add it
-    if (window.Trinkbrunnen.Collections.feedItem.size() > 0 && window.Trinkbrunnen.Collections.feedItem.timestamp > new Date().getTime() - 1000 * 60 * 60 * 12) {
-      window.Trinkbrunnen.Views.feed.addFeedItemCollection(window.Trinkbrunnen.Collections.feedItem);
-    } else if (window.Trinkbrunnen.Collections.feedItem.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
-      window.Trinkbrunnen.Collections.feedItem.reset();
-      window.Trinkbrunnen.Collections.feedItem.fetch({
+    if (window.Trinkbrunnen.Collections.feedItems.size() > 0 && window.Trinkbrunnen.Collections.feedItems.timestamp > new Date().getTime() - 1000 * 60 * 60 * 12) {
+      window.Trinkbrunnen.Views.feed.addFeedItemCollection(window.Trinkbrunnen.Collections.feedItems);
+    } else if (window.Trinkbrunnen.Collections.feedItems.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+      window.Trinkbrunnen.Collections.feedItems.reset();
+      window.Trinkbrunnen.Collections.feedItems.fetch({
         success: function() {
-          window.Trinkbrunnen.Views.feed.addFeedItemCollection(window.Trinkbrunnen.Collections.feedItem);
-          window.Trinkbrunnen.Collections.feedItem.timestamp = new Date().getTime();
+          window.Trinkbrunnen.Views.feed.addFeedItemCollection(window.Trinkbrunnen.Collections.feedItems);
+          window.Trinkbrunnen.Collections.feedItems.timestamp = new Date().getTime();
           self.canSlideArticle('left');
         },
         error: function() {
@@ -422,24 +431,25 @@ var AppRouter = Backbone.Router.extend({
   getUserLocation: function() {
     if (window.Trinkbrunnen.isMobile()) {
       this.navigate("", {
-        trigger: true
+        trigger: false,
+        replace: false
       });
     }
     var self = this;
-    //$('#spin').fadeIn();
 
     if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
 
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
+        $('#spin').fadeIn();
         window.Trinkbrunnen.Views.map.centerUserLocation();
-        //$('#spin').hide();
+        $('#spin').hide();
         return;
       }
     } else {
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
 
-      if (window.Trinkbrunnen.Views.map.userLocation != null) {
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null) {
         window.Trinkbrunnen.Views.map.centerUserLocation();
         return;
       }
@@ -448,16 +458,18 @@ var AppRouter = Backbone.Router.extend({
 
     this.addEventListeners();
     this.getPosition();
-    
+
     //at button click center the userlocation by success
     window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
-      window.Trinkbrunnen.Views.map.center();
+      $('#spin').hide();
+      window.Trinkbrunnen.Views.map.centerUserLocation();
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userLocation:center");
     }, "once:userLocation:center");
   },
   getPosition: function() {
     if (navigator.geolocation) {
       if (window.Trinkbrunnen.isMobile()) {
+        $('#spin').fadeIn();
         if (this.isWatchingID == null) {
           this.isWatchingID = navigator.geolocation.watchPosition(this.getPositionSuccess, this.getPositionError, {
             enableHighAccuracy: true,
@@ -539,18 +551,9 @@ var AppRouter = Backbone.Router.extend({
 
   },
   showLakes: function() {
-    /*
-     * TODO: Dispatch Event if offline then show Message
-     * when infos are already catched show them
-     *
-     if(navigator.connection.type == CONNECTION.NONE){
-     window.dispatchEvent("non connection");
-     return false;
-     }
-     */
-
     this.navigate("lakes", {
-      trigger: true
+      trigger: false,
+      replace: false
     });
 
     if (window.Trinkbrunnen.isMobile()) {
@@ -562,10 +565,42 @@ var AppRouter = Backbone.Router.extend({
         this.scrollMap();
       }
     }
+
+    if (window.Trinkbrunnen.Collections.lakes.timestamp < new Date().getTime() - 1000 * 60 && this.isFetchingLakes === false) {
+      window.Trinkbrunnen.Collections.lakes.reset();
+      this.isFetchingLakes = true;
+      window.Trinkbrunnen.Collections.lakes.fetch({
+        success: function() {
+          window.Trinkbrunnen.Router.isFetchingLakes = false;
+          window.Trinkbrunnen.Views.lakes.addLakesCollection(window.Trinkbrunnen.Collections.lakes);
+          window.Trinkbrunnen.Collections.lakes.timestamp = new Date().getTime();
+
+          //TODO: For mobile and refactoring the copies
+          if (!window.Trinkbrunnen.isMobile()) {
+            $("#lakes-listing ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
+            $("#lakes-listing ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
+          }
+          if (window.Trinkbrunnen.isMobile()) {
+            $("#lakes ul li:nth-child(2n+1) ul").css('background', '#E9E9E9');
+          }
+        },
+        error: function() {
+          window.Trinkbrunnen.Router.isFetchingLakes = false;
+          window.Trinkbrunnen.MessageHandler.addMessage("Seetemperaturen konnten nicht geladen werden!");
+        },
+        add: true
+      });
+    } else {
+      if (!window.Trinkbrunnen.isMobile()) {
+        $("#lakes-listing ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
+        $("#lakes-listing ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
+      }
+    }
   },
   showAbout: function() {
     this.navigate("about", {
-      trigger: true
+      trigger: false,
+      replace: false
     });
 
     if (window.Trinkbrunnen.isMobile()) {
@@ -578,9 +613,11 @@ var AppRouter = Backbone.Router.extend({
       }
     }
   },
-  mainElements: new Array('address', 'map_canvas', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'map-wrap', 'lakes'),
+  mainElements: new Array('address', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'lakes'),
   displayOnly: function(elementsToShow) {
+    //TODO: show map all the time, but at lakes, about and rss only in background
     var elementsArray = elementsToShow.split(" ");
+    window.Trinkbrunnen.Views.map.saveCurrentCenter();
     var shouldShow;
 
     for (idx in this.mainElements) {
@@ -592,10 +629,11 @@ var AppRouter = Backbone.Router.extend({
         }
       }
 
-      if (shouldShow)
+      if (shouldShow) {
         $('#' + this.mainElements[idx]).show();
-      else
+      } else {
         $('#' + this.mainElements[idx]).hide();
+      }
     }
 
     if ($(window.Trinkbrunnen.Views.map.el).is(':visible') && window.Trinkbrunnen.Views.map.isInitialize && typeof window.google != 'undefined') {
@@ -660,7 +698,7 @@ var AppRouter = Backbone.Router.extend({
         return true;
       }
     } else if (direction == 'right') {
-      var sizeFeedItemCollection = window.Trinkbrunnen.Collections.feedItem.size();
+      var sizeFeedItemCollection = window.Trinkbrunnen.Collections.feedItems.size();
       var lastPageItems = sizeFeedItemCollection % 4;
       var lastAllowedSlidePosition = (-1) * ((sizeFeedItemCollection - lastPageItems) / 4 * 888);
 

@@ -24,13 +24,14 @@ window.Trinkbrunnen = {
     userLocation: new UserLocationModel
   },
   Collections: {
-    marker: new MarkerCollection,
-    feedItem: new FeedItemCollection
+    markers: new MarkerCollection,
+    lakes: new LakeCollection,
+    feedItems: new FeedItemCollection
   },
   Views: {
     map: new MapView,
     feed: new FeedView,
-    info: new InfoView,
+    lakes: new LakesView,
     mapType: new MapTypeView,
     address: new AddressView
   },
@@ -50,7 +51,8 @@ window.Trinkbrunnen = {
   },
   Urls: {
     feed: "rss.php",
-    fountain: "wis.php"
+    fountains: "fountains.php",
+    lakes: "lakes.php"
   }
 };
 

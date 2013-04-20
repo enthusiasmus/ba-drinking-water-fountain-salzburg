@@ -32,6 +32,7 @@ var MapView = Backbone.View.extend({
     this.map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     isInitialize = true;
   },
+  mapCenter: undefined,
   markerCollection: undefined,
   map: undefined,
   markerCluster: undefined,
@@ -50,13 +51,19 @@ var MapView = Backbone.View.extend({
     return (navigator.appVersion.indexOf("Mobile") > -1);
   },
   resizeMap: function() {
-    google.maps.event.trigger(this.map, 'resize');
+    if (this.map !== undefined) {
+      google.maps.event.trigger(this.map, 'resize');
+    }
   },
   setCurrentCenterNew: function() {
-    this.map.setCenter(this.mapCenter);
+    if (this.map !== undefined) {
+      this.map.setCenter(this.mapCenter);
+    }
   },
   saveCurrentCenter: function() {
-    this.mapCenter = this.map.getCenter();
+    if (this.map !== undefined) {
+      this.mapCenter = this.map.getCenter();
+    }
   },
   addMarkerCollection: function(markerCollection) {
     this.markerCollection = markerCollection;
@@ -67,6 +74,7 @@ var MapView = Backbone.View.extend({
     var myOptions = new Object();
     this.infoBox = new Object();
 
+    //TODO: refactore?!
     userLocationMarker = this.userLocationMarker;
     google.maps.Marker.prototype.content = "";
 
@@ -228,7 +236,7 @@ var MapView = Backbone.View.extend({
     this.markerCluster.clearMarkers();
   },
   createUserLocation: function() {
-    var icon = new google.maps.MarkerImage(this.userLocation.get("imageUrl"), new google.maps.Size(this.userLocation.get("imageWidth"), this.userLocation.get("imageHeight")), new google.maps.Point(this.userLocation.get("imageOriginX"), this.userLocation.get("imageOriginX")), new google.maps.Point(this.userLocation.get("imageAnchorX"), this.userLocation.get("imageAnchorY")));
+    var icon = new google.maps.MarkerImage(this.userLocation.get("imageUrl"), new google.maps.Size(this.userLocation.get("imageWidth"), this.userLocation.get("imageHeight")), new google.maps.Point(this.userLocation.get("imageActiveOriginX"), this.userLocation.get("imageActiveOriginX")), new google.maps.Point(this.userLocation.get("imageAnchorX"), this.userLocation.get("imageAnchorY")));
 
     this.userLocationMarker = new google.maps.Marker({
       map: this.map,
@@ -251,6 +259,22 @@ var MapView = Backbone.View.extend({
     userLocationCircle.setCenter(centerPoint);
 
     this.map.fitBounds(userLocationCircle.getBounds());
+  },
+  activateUserLocation: function() {
+    var activeOriginX = this.userLocation.get("imageActiveOriginX");
+    var activeOriginY = this.userLocation.get("imageActiveOriginY");
+    var changeIcon = this.userLocationMarker.getIcon();
+    changeIcon.origin.x = activeOriginX;
+    changeIcon.origin.y = activeOriginY;
+    this.userLocationMarker.setIcon(changeIcon);
+  },
+  deactivateUserLocation: function() {
+    var inactiveOriginX = this.userLocation.get("imageInactiveOriginX");
+    var inactiveOriginY = this.userLocation.get("imageInactiveOriginY");
+    var changeIcon = this.userLocationMarker.getIcon();
+    changeIcon.origin.x = inactiveOriginX;
+    changeIcon.origin.y = inactiveOriginY;
+    this.userLocationMarker.setIcon(changeIcon);
   },
   centerUserLocation: function() {
     if (this.userLocationMarker) {
@@ -296,9 +320,8 @@ var MapView = Backbone.View.extend({
         this.lastUsedPosition = this.userLocationMarker.getPosition();
         this.updateRoute();
       }
+      //TODO: else trigger success:route?!
     }
-
-    console.log("Distance: " + distance + " isNewRoute: " + isNewRoute + " readyForRoute: " + this.readyForRoute());
   },
   hideRoute: function() {
     if (this.directionsDisplay) {
@@ -307,7 +330,10 @@ var MapView = Backbone.View.extend({
     }
   },
   centerRoute: function() {
-    this.map.fitBounds(this.directionsDisplay.getDirections().routes[0].bounds);
+    if (this.directionsDisplay) {
+      this.map.fitBounds(this.directionsDisplay.getDirections().routes[0].bounds);
+    }
+
   },
   closeInfobox: function() {
     if (this.infoBox) {
@@ -326,9 +352,8 @@ var MapView = Backbone.View.extend({
   },
   drawRouteUserLocationToPosition: function(marker, shouldCenterRoute) {
     var self = this;
-    
-    console.log(marker);
 
+    //Because we are already waiting for a response
     if (this.isRequestingRoute == true) {
       return;
     } else {
@@ -361,8 +386,8 @@ var MapView = Backbone.View.extend({
         self.directionsDisplay.setDirections(result);
         window.Trinkbrunnen.EventDispatcher.trigger("success:route");
       } else {
-        //TODO: Stop routing here!
-        window.Trinkbrunnen.MessageHandler.addMessage("Keine Route gefunden!");
+        //TODO: Stop routing here!?
+        window.Trinkbrunnen.EventDispatcher.trigger("error:route", window.Trinkbrunnen.MessageHandler.messages.route.error);
       }
     });
   },

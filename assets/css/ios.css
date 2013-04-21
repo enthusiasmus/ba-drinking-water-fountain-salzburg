@@ -22,8 +22,8 @@
 }
 #back {
   position: absolute;
-  top: 8px;
-  left: 7px;
+  top: 7px;
+  left: 5px;
   width: 46px;
   height: 22px;
   background: url('../img/ios/sprite.png') 0 -166px no-repeat;
@@ -54,19 +54,7 @@
   bottom: 0;
   background: url('../img/ios/bg.png');
   z-index: -1;
-  overflow:hidden;
-}
-#map_canvas #info_offline {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -25px;
-  margin-left: -150px;
-  text-align: center;
-  width: 300px;
-  height: 50px;
-  font-size: 13px;
-  color: #333;
+  overflow: hidden;
 }
 /*** navigation ***/
 #navigation {
@@ -231,10 +219,9 @@
   display: block;
   float: left;
   width: 24%;
-  height: 27px;
+  height: 40px;
   background: url('../img/ios/bg-maptype.gif') 0 0 repeat-x;
   border-right: 1px solid #afafaf;
-  padding: 13px 0 0 0;
   font-size: 14px;
   text-align: center;
 }
@@ -248,16 +235,21 @@
   border-right: 0;
 }
 #maptype .menu-item a {
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  vertical-align: middle;
+  text-align: center;
   text-decoration: none;
   color: #7f7f7f;
 }
-#maptype .menu-item a:hover {
+#maptype .menu-item a:active {
   color: #3f3f3f;
 }
 /*** feed ***/
 #feed {
   display: none;
-  background-color: #212121;
   padding: 0 10px 65px 10px;
   position: absolute;
   top: 44px;
@@ -267,19 +259,20 @@
 }
 #rss {
   height: 100%;
-  background: url('../img/ios/bg.png') repeat;
   padding: 10px 0 0px 0;
-  margin-top: 44px;
 }
 #rss article {
   position: relative;
-  width: 90%;
+  width: 100%;
   min-height: 160px;
   margin: 0 auto 10px auto;
   background-color: #fff;
   border: 1px solid #ababab;
   border-radius: 10px;
   padding: 10px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 #rss a {
   text-decoration: none;
@@ -320,6 +313,21 @@
 #lakes {
   display: none;
 }
+/* lake temperatures font style */
+#lakes big {
+  font-size: 110%;
+  font-weight: bold;
+}
+#lakes h3 {
+  margin: 0px;
+  font-weight: bold;
+}
+
+/* lake temperatures listing */
+#lakes #lakes-content #lakes-listing > p {
+  padding: 0px 0px 5px 0px;
+  margin-bottom: 0px;
+}
 
 #lakes ul {
   width: 100%;
@@ -357,9 +365,14 @@
   width: 35%;
 }
 
+/* lakes graphics */
+#lakes #lakes-content #lakes-graphics {
+  padding: 5px 0px 0px 0px;
+}
+
 #overlay {
   position: fixed;
-  z-index:10;
+  z-index: 10;
   display: none;
   top: 0;
   left: 0;
@@ -379,7 +392,7 @@
 #spin {
   position: absolute;
   z-index: 100;
-  bottom: 50px;
+  bottom: 49px;
   right: 0px;
   background: #005586;
   display: none;
@@ -412,3 +425,156 @@
   vertical-align: middle;
   overflow: hidden;
 }
+
+/* reloading stuff */
+
+#reloading_map, #reloading_lakes, #reloading_feed, #reloading_fountains {
+  display: none;
+}
+
+/*.reload_first .info_offline {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ margin-top: -15px;
+ margin-left: -150px;
+ text-align: center;
+ width: 300px;
+ height: 30px;
+ font-size: 13px;
+ color: #fff;
+ }
+
+ .reload_first .reload_button {
+ position: absolute;
+ z-index: 50;
+ top: 50%;
+ left: 50%;
+ margin-top: 15px;
+ margin-left: -12px;
+ text-align: center;
+ }*/
+
+.reload_button {
+  width: 24px;
+  height: 26px;
+  background: url('../img/ios/reload.png') no-repeat;
+  cursor: pointer;
+}
+
+/** LAKES **/
+#reloading_lakes {
+  border-radius: 10px;
+  padding: 10px;
+  height: 80px;
+  line-height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+  background: #E9E9E9;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#reloading_lakes .info_offline {
+  width: 100%;
+}
+#reloading_lakes .reload_button {
+  margin: auto;
+  background-position: -48px 0px;
+}
+#reloading_lakes .reload_button:active {
+  background-position: -24px 0px;
+}
+
+/** FEED **/
+#reloading_feed {
+  margin-top: 10px;
+  padding: 10px;
+  height: 80px;
+  line-height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  min-width: 260px;
+  width: 100%;
+  background: #FFF;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-radius: 10px;
+}
+
+#reloading_feed .info_offline {
+  line-height: 30px;
+  width: 100%;
+}
+#reloading_feed .reload_button {
+  margin: auto;
+  background-position: -48px 0px;
+}
+#reloading_feed .reload_button:active {
+  background-position: -24px 0px;
+}
+
+/** MAP **/
+#reloading_map {
+  padding: 10px;
+  min-width: 300px;
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#reloading_map > div {
+  width: 100%;
+  height: 80px;
+  background: white;
+  border-radius: 10px;
+}
+
+#reloading_map .info_offline {
+  padding-top: 10px;
+  line-height: 30px;
+  width: 100%;
+}
+#reloading_map .reload_button {
+  margin: auto;
+  background-position: -48px 0px;
+}
+#reloading_map .reload_button:active {
+  background-position: -24px 0px;
+}
+
+/** FOUNTAINS **/
+#reloading_fountains {
+  color: white;
+  width: 100%;
+  height: 38px;
+  margin: auto;
+  background: rgba(0, 85, 134, 0.65);
+  text-align: center;
+}
+
+#reloading_fountains div {
+  display: inline-block;
+}
+
+#reloading_fountains .info_offline {
+  float: left;
+  height: 38px;
+  line-height: 38px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+#reloading_fountains .reload_button {
+  margin-top: 4px;
+  float: right;
+}
+#reloading_fountains .reload_button:active {
+  background-position: -24px 0px;
+}
+

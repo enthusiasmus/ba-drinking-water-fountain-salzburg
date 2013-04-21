@@ -27,7 +27,9 @@ var AppRouter = Backbone.Router.extend({
     } catch(e) {
     }
 
-    if (window.Trinkbrunnen.isOnline()) {
+    if (window.Trinkbrunnen.isMobile() && window.google === undefined) {
+      $('#reloading_map').show();
+    } else {
       this.renderMapWithFountains();
     }
 
@@ -68,42 +70,64 @@ var AppRouter = Backbone.Router.extend({
         $("#" + $(this).attr('id') + " a").removeClass("active-navigation-a");
         $("#" + $(this).attr('id') + " a span").removeClass("active-" + $(this).attr('id'));
       });
+
+      $('#reloading_map .reload_button').click(function() {
+        $('#script-google-map').remove();
+        $('script[src*="google"]').remove();
+        $('script[src*="gstatic"]').remove();
+        $('script[src*="infobox"]').remove();
+
+        //TODO: got inserted at the wrong place
+        //TODO: later loading doesn't work: Error <map>
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "assets/js/libs/infobox.js";
+        document.body.appendChild(script);
+
+        //TODO: got inserted at the wrong place
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.id = "script-google-map";
+        script.src = "https://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=AT&callback=window.Trinkbrunnen.Views.map.render";
+        document.body.appendChild(script);
+      });
+      $('#reloading_lakes .reload_button').click(function() {
+        window.Trinkbrunnen.Router.showLakes();
+      });
+      $('#reloading_feed .reload_button').click(function() {
+        window.Trinkbrunnen.Router.showRssFeed();
+      });
+      $('#reloading_fountains .reload_button').click(function() {
+        window.Trinkbrunnen.Router.loadMarkersToMap();
+      });
     }
-
-    $('#reload_map').click(function() {
-      $('#script-google-map').remove();
-      $('script[src*="google"]').remove();
-      $('script[src*="gstatic"]').remove();
-      $('script[src*="infobox"]').remove();
-
-      //TODO: got inserted at the wrong place
-      //TODO: later loading doesn't work: Error <map>
-      var script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "assets/js/libs/infobox.js";
-      document.body.appendChild(script);
-
-      //TODO: got inserted at the wrong place
-      var script = document.createElement("script");
-      script.type = "text/javascript";
-      script.id = "script-google-map";
-      script.src = "https://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=AT&callback=window.Trinkbrunnen.initializeMap";
-      document.body.appendChild(script);
-    });
   },
   renderMapWithFountains: function() {
-    window.Trinkbrunnen.Views.map.render();
-    window.Trinkbrunnen.Router.loadMarkersToMap();
+    if (window.Trinkbrunnen.isMobile()) {
+      if (window.Trinkbrunnen.Views.map.render() === true) {
+        window.Trinkbrunnen.Router.loadMarkersToMap();
+      } else {
+        $('#reloading_map').show();
+      }
+    } else {
+      window.Trinkbrunnen.Views.map.render();
+      window.Trinkbrunnen.Router.loadMarkersToMap();
+    }
+  },
+  downloadGraphic: function(area) {
+    window.open('graphics.php?area=' + area, 'download', 'status=0');
   },
   loadMarkersToMap: function() {
     var self = this;
     window.Trinkbrunnen.Collections.markers.fetch({
       success: function() {
+        $('#reloading_fountains').hide();
         window.Trinkbrunnen.Views.map.addMarkerCollection(window.Trinkbrunnen.Collections.markers);
         window.Trinkbrunnen.Views.map.placeMarkersToMap();
       },
       error: function() {
         if (window.Trinkbrunnen.isMobile()) {
+          $('#reloading_fountains').show();
           window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.fountain.error.unloadable);
         } else {
           //TODO: Think about a failure message place, when map is not scrolled up
@@ -121,6 +145,10 @@ var AppRouter = Backbone.Router.extend({
 
     if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
+
+      if (window.google !== undefined) {
+        $('#reloading_map').show();
+      }
     } else {
       if ($('#map-wrap').css('top') == '250px') {
         this.scrollMap();
@@ -419,8 +447,7 @@ var AppRouter = Backbone.Router.extend({
         },
         error: function() {
           if (window.Trinkbrunnen.isMobile()) {
-            alert("Feed konnte nicht geladen werden!");
-          } else {
+            $('#reloading_feed').show();
             window.Trinkbrunnen.MessageHandler.addMessage("Feed konnte nicht geladen werden!");
           }
         },
@@ -541,15 +568,6 @@ var AppRouter = Backbone.Router.extend({
 
     window.Trinkbrunnen.EventDispatcher.trigger('success:userLocation');
   },
-  calculateGeoLocation: function(eventtype) {
-    /**
-     * Get GPS-/WLAN-Position - gets called:
-     * 1. from getUserLocation - gets position and place marker and center
-     * 2. from nextFountain - gets position, saves it at mapview and there draws route from position to next fontain
-     * 3. from routeToFountain - gets position, saves it at mapview and there draws route from position to chosen fontain
-     */
-
-  },
   showLakes: function() {
     this.navigate("lakes", {
       trigger: false,
@@ -586,7 +604,11 @@ var AppRouter = Backbone.Router.extend({
         },
         error: function() {
           window.Trinkbrunnen.Router.isFetchingLakes = false;
-          window.Trinkbrunnen.MessageHandler.addMessage("Seetemperaturen konnten nicht geladen werden!");
+
+          if (window.Trinkbrunnen.isMobile()) {
+            $('#reloading_lakes').show();
+            window.Trinkbrunnen.MessageHandler.addMessage("Seetemperaturen konnten nicht geladen werden!");
+          }
         },
         add: true
       });
@@ -613,7 +635,7 @@ var AppRouter = Backbone.Router.extend({
       }
     }
   },
-  mainElements: new Array('address', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'lakes'),
+  mainElements: new Array('address', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'reloading_lakes', 'reloading_map', 'reloading_feed', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'lakes'),
   displayOnly: function(elementsToShow) {
     //TODO: show map all the time, but at lakes, about and rss only in background
     var elementsArray = elementsToShow.split(" ");

@@ -5,8 +5,8 @@ var MapView = Backbone.View.extend({
   initialize: function() {
   },
   render: function() {
-    if (this.model == "undefined") {
-      console.error("Map doesn't have a model!");
+    if (window.google === undefined) {
+      return false;
     }
 
     this.mapCenter = new google.maps.LatLng(this.model.get('centerLatitude'), this.model.get('centerLongitude'));
@@ -31,6 +31,7 @@ var MapView = Backbone.View.extend({
 
     this.map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     isInitialize = true;
+    return true;
   },
   mapCenter: undefined,
   markerCollection: undefined,
@@ -271,6 +272,7 @@ var MapView = Backbone.View.extend({
   deactivateUserLocation: function() {
     var inactiveOriginX = this.userLocation.get("imageInactiveOriginX");
     var inactiveOriginY = this.userLocation.get("imageInactiveOriginY");
+    console.log(this.userLocationMarker);
     var changeIcon = this.userLocationMarker.getIcon();
     changeIcon.origin.x = inactiveOriginX;
     changeIcon.origin.y = inactiveOriginY;
@@ -314,6 +316,10 @@ var MapView = Backbone.View.extend({
         if (this.directionsDisplay.fountain != this.fountainToRoute) {
           isNewRoute = true;
         }
+      }
+
+      if (isNewRoute) {
+        this.closeInfobox();
       }
 
       if (distance > 12 || isNewRoute) {
@@ -372,7 +378,6 @@ var MapView = Backbone.View.extend({
 
       if (status == google.maps.DirectionsStatus.OK) {
         self.hideRoute();
-        self.closeInfobox();
 
         self.directionsDisplay = new google.maps.DirectionsRenderer({
           draggable: false,

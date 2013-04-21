@@ -54,36 +54,7 @@
   bottom: 0;
   background: #212121;
   z-index: -1;
-  overflow:hidden;
-}
-
-#map_canvas #info_offline {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -25px;
-  margin-left: -150px;
-  text-align: center;
-  width: 300px;
-  height: 50px;
-  font-size: 13px;
-  color: #fff;
-}
-
-#map_canvas #reload_map {
-  position: absolute;
-  /* TODO set correct z-index */
-  z-index: 999;
-  top: 60%;
-  left: 50%;
-  margin-top: -13px;
-  margin-left: -12px;
-  text-align: center;
-  width: 24px;
-  height: 26px;
-  background: url('../img/mobile/reload.png') no-repeat;
-  border-radius: 2px;
-  cursor: pointer;
+  overflow: hidden;
 }
 
 /*** navigation ***/
@@ -257,11 +228,10 @@
   display: block;
   float: left;
   width: 24%;
-  height: 27px;
+  height: 40px;
   background-color: #eee;
   border: 1px solid #afafaf;
   border-right: 0;
-  padding: 13px 0 0 0;
   font-size: 14px;
   text-align: center;
 }
@@ -269,6 +239,12 @@
   border-right: 1px solid #afafaf;
 }
 #maptype .menu-item a {
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  vertical-align: middle;
+  text-align: center;
   text-decoration: none;
   color: #8e8e8e;
 }
@@ -345,6 +321,22 @@
 #lakes {
   display: none;
 }
+/* lake temperatures font style */
+#lakes big {
+  font-size: 110%;
+  font-weight: bold;
+}
+#lakes h3 {
+  margin: 0px;
+  font-weight: bold;
+}
+
+/* lake temperatures listing */
+
+#lakes #lakes-content #lakes-listing > p {
+  padding: 0px 0px 5px 0px;
+  margin-bottom: 0px;
+}
 
 #lakes ul {
   width: 100%;
@@ -381,6 +373,12 @@
 #lakes ul li ul li + li + li {
   width: 35%;
 }
+
+/* lakes graphics */
+#lakes #lakes-content #lakes-graphics {
+  padding: 5px 0px 0px 0px;
+}
+
 #overlay {
   position: fixed;
   display: none;
@@ -426,4 +424,8 @@
   line-height: 32px;
   vertical-align: middle;
   overflow: hidden;
+}
+
+#reloading_map, #reloading_lakes, #reloading_feed, #reloading_fountains {
+  display: none;
 }

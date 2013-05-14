@@ -73,22 +73,20 @@ var AppRouter = Backbone.Router.extend({
 
       $('#reloading_map .reload_button').click(function() {
         $('#script-google-map').remove();
+        $('#script-google-infobox').remove();
+        $('script[src*="infobox"]').remove();
         $('script[src*="google"]').remove();
         $('script[src*="gstatic"]').remove();
         $('script[src*="infobox"]').remove();
 
         //TODO: got inserted at the wrong place
         //TODO: later loading doesn't work: Error <map>
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "assets/js/libs/infobox.js";
-        document.body.appendChild(script);
 
         //TODO: got inserted at the wrong place
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.id = "script-google-map";
-        script.src = "https://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=AT&callback=window.Trinkbrunnen.Views.map.render";
+        script.src = "https://maps.google.com/maps/api/js?libraries=geometry&sensor=true&region=AT&callback=window.Trinkbrunnen.Router.reloadingMapsLibrary";
         document.body.appendChild(script);
       });
       $('#reloading_lakes .reload_button').click(function() {
@@ -100,11 +98,27 @@ var AppRouter = Backbone.Router.extend({
       $('#reloading_fountains .reload_button').click(function() {
         window.Trinkbrunnen.Router.loadMarkersToMap();
       });
+      $('input[name=address]').blur(function() {
+        $('#address').hide();
+      });
     }
+  },
+  reloadingMapsLibrary: function() {
+    var script = document.createElement("script");
+    script.id = "script-google-infobox";
+    script.type = "text/javascript";
+    script.src = "assets/js/libs/infobox.js";
+    document.body.appendChild(script);
+    setTimeout(function() {
+      window.Trinkbrunnen.Router.renderMapWithFountains();
+    }, 200);
+    //TODO: 200 ms are enough?
   },
   renderMapWithFountains: function() {
     if (window.Trinkbrunnen.isMobile()) {
-      if (window.Trinkbrunnen.Views.map.render() === true) {
+      if (window.Trinkbrunnen.Views.map.isInitialize === true) {
+        window.Trinkbrunnen.Router.loadMarkersToMap();
+      } else if (window.Trinkbrunnen.Views.map.render() === true) {
         window.Trinkbrunnen.Router.loadMarkersToMap();
       } else {
         $('#reloading_map').show();
@@ -115,7 +129,20 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   downloadGraphic: function(area) {
-    window.open('graphics.php?area=' + area, 'download', 'status=0');
+    var filename = "";
+    if (area == "north") {
+      filename = "APP_KiBasicGrafikenAPP_Vorlandseen.png";
+    } else if (area == "south") {
+      filename = "APP_KiBasicGrafikenAPP_Berglandseen.png";
+    } else {
+      return;
+    }
+
+    if (window.Trinkbrunnen.isNative === true) {
+      //TODO
+    } else {
+      window.open(window.Trinkbrunnen.Urls.graphics + '?area=' + area, 'download', 'status=0');
+    }
   },
   loadMarkersToMap: function() {
     var self = this;
@@ -146,7 +173,7 @@ var AppRouter = Backbone.Router.extend({
     if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-navigation');
 
-      if (window.google !== undefined) {
+      if (window.google === undefined) {
         $('#reloading_map').show();
       }
     } else {
@@ -287,9 +314,7 @@ var AppRouter = Backbone.Router.extend({
 
     if (window.Trinkbrunnen.isMobile()) {
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type) {
-
         window.Trinkbrunnen.Views.map.centerRoute();
-        $('#spin').hide();
         return;
       }
     } else {
@@ -298,10 +323,8 @@ var AppRouter = Backbone.Router.extend({
         return;
       }
     }
-
     window.Trinkbrunnen.Views.map.setRouteType(type);
     if (window.Trinkbrunnen.isMobile()) {
-      $('#spin').fadeIn();
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
         window.Trinkbrunnen.Views.map.updateUserLocation();
       } else {
@@ -314,7 +337,6 @@ var AppRouter = Backbone.Router.extend({
           window.Trinkbrunnen.Views.map.updateUserLocation();
         }
       }
-      $('#spin').hide();
     } else {
       window.Trinkbrunnen.Views.map.setRouteType(type);
       this.addEventListeners();
@@ -323,13 +345,11 @@ var AppRouter = Backbone.Router.extend({
 
     //at button click center the route by success
     window.Trinkbrunnen.EventDispatcher.on("success:route", function() {
-      $('#spin').hide();
       window.Trinkbrunnen.Views.map.centerRoute();
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:route:click");
     }, "once:route:click");
 
     window.Trinkbrunnen.EventDispatcher.on("error:route", function(message) {
-      $('#spin').hide();
       window.Trinkbrunnen.MessageHandler.addMessage(message);
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:route:click");
     }, "once:route:click");
@@ -337,7 +357,6 @@ var AppRouter = Backbone.Router.extend({
   addEventListeners: function() {
     var self = this;
     window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
-      $('#spin').hide();
       window.Trinkbrunnen.Views.map.activateUserLocation();
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userlocation");
 
@@ -348,7 +367,6 @@ var AppRouter = Backbone.Router.extend({
     }, "once:userlocation");
 
     window.Trinkbrunnen.EventDispatcher.on("error:userLocation", function(message) {
-      $('#spin').hide();
       window.Trinkbrunnen.Views.map.deactivateUserLocation();
       window.Trinkbrunnen.MessageHandler.addMessage(message);
       self.isWatchingID = null;
@@ -366,9 +384,6 @@ var AppRouter = Backbone.Router.extend({
     }
 
     if (window.Trinkbrunnen.isMobile()) {
-      $('input[name=address]').blur(function() {
-        $('#address').hide();
-      });
       this.displayOnly('map_canvas map-wrap header-navigation address');
       $('input[name=address]').focus().select();
     } else {
@@ -407,23 +422,13 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   showRssFeed: function() {
-    /*
-     * TODO: Dispatch Event if offline then show Message
-     * when feeds are already catched show them
-     *
-     if(navigator.connection.type == CONNECTION.NONE){
-     window.dispatchEvent("non connection");
-     return false;
-     }
-     */
-
     this.navigate("feed", {
       trigger: false,
       replace: false
     });
 
     if (window.Trinkbrunnen.isMobile()) {
-      this.displayOnly('feed back overlay');
+      this.displayOnly('feed back');
     } else {
       this.displayOnly('map_canvas map-wrap feed header-navigation');
 
@@ -448,6 +453,7 @@ var AppRouter = Backbone.Router.extend({
         error: function() {
           if (window.Trinkbrunnen.isMobile()) {
             $('#reloading_feed').show();
+            window.Trinkbrunnen.Views.feed.reset();
             window.Trinkbrunnen.MessageHandler.addMessage("Feed konnte nicht geladen werden!");
           }
         },
@@ -468,9 +474,7 @@ var AppRouter = Backbone.Router.extend({
       this.displayOnly('map_canvas map-wrap header-navigation');
 
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
-        $('#spin').fadeIn();
         window.Trinkbrunnen.Views.map.centerUserLocation();
-        $('#spin').hide();
         return;
       }
     } else {
@@ -488,7 +492,6 @@ var AppRouter = Backbone.Router.extend({
 
     //at button click center the userlocation by success
     window.Trinkbrunnen.EventDispatcher.on("success:userLocation", function() {
-      $('#spin').hide();
       window.Trinkbrunnen.Views.map.centerUserLocation();
       window.Trinkbrunnen.EventDispatcher.off(null, null, "once:userLocation:center");
     }, "once:userLocation:center");
@@ -496,7 +499,6 @@ var AppRouter = Backbone.Router.extend({
   getPosition: function() {
     if (navigator.geolocation) {
       if (window.Trinkbrunnen.isMobile()) {
-        $('#spin').fadeIn();
         if (this.isWatchingID == null) {
           this.isWatchingID = navigator.geolocation.watchPosition(this.getPositionSuccess, this.getPositionError, {
             enableHighAccuracy: true,
@@ -575,7 +577,7 @@ var AppRouter = Backbone.Router.extend({
     });
 
     if (window.Trinkbrunnen.isMobile()) {
-      this.displayOnly('lakes back overlay');
+      this.displayOnly('lakes back');
     } else {
       this.displayOnly('map_canvas map-wrap lakes header-navigation');
 
@@ -584,12 +586,10 @@ var AppRouter = Backbone.Router.extend({
       }
     }
 
-    if (window.Trinkbrunnen.Collections.lakes.timestamp < new Date().getTime() - 1000 * 60 && this.isFetchingLakes === false) {
+    if (window.Trinkbrunnen.Collections.lakes.timestamp < new Date().getTime() - 1000 * 60 * 15) {
       window.Trinkbrunnen.Collections.lakes.reset();
-      this.isFetchingLakes = true;
       window.Trinkbrunnen.Collections.lakes.fetch({
         success: function() {
-          window.Trinkbrunnen.Router.isFetchingLakes = false;
           window.Trinkbrunnen.Views.lakes.addLakesCollection(window.Trinkbrunnen.Collections.lakes);
           window.Trinkbrunnen.Collections.lakes.timestamp = new Date().getTime();
 
@@ -603,10 +603,9 @@ var AppRouter = Backbone.Router.extend({
           }
         },
         error: function() {
-          window.Trinkbrunnen.Router.isFetchingLakes = false;
-
           if (window.Trinkbrunnen.isMobile()) {
             $('#reloading_lakes').show();
+            window.Trinkbrunnen.Views.lakes.reset();
             window.Trinkbrunnen.MessageHandler.addMessage("Seetemperaturen konnten nicht geladen werden!");
           }
         },
@@ -626,7 +625,7 @@ var AppRouter = Backbone.Router.extend({
     });
 
     if (window.Trinkbrunnen.isMobile()) {
-      this.displayOnly('info back overlay');
+      this.displayOnly('info back');
     } else {
       this.displayOnly('map_canvas map-wrap info header-navigation');
 
@@ -635,7 +634,7 @@ var AppRouter = Backbone.Router.extend({
       }
     }
   },
-  mainElements: new Array('address', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'reloading_lakes', 'reloading_map', 'reloading_feed', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'overlay', 'lakes'),
+  mainElements: new Array('map-wrap', 'map_canvas', 'address', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'reloading_lakes', 'reloading_map', 'reloading_feed', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'lakes'),
   displayOnly: function(elementsToShow) {
     //TODO: show map all the time, but at lakes, about and rss only in background
     var elementsArray = elementsToShow.split(" ");
@@ -658,10 +657,8 @@ var AppRouter = Backbone.Router.extend({
       }
     }
 
-    if ($(window.Trinkbrunnen.Views.map.el).is(':visible') && window.Trinkbrunnen.Views.map.isInitialize && typeof window.google != 'undefined') {
-      window.Trinkbrunnen.Views.map.resizeMap();
-      window.Trinkbrunnen.Views.map.setCurrentCenterNew();
-    }
+    window.Trinkbrunnen.Views.map.resizeMap();
+    window.Trinkbrunnen.Views.map.setCurrentCenterNew();
   },
   slideArticleToRight: function() {
     var self = this;
@@ -741,4 +738,3 @@ var AppRouter = Backbone.Router.extend({
     window.Trinkbrunnen.Views.map.toggleClusterSingled();
   }
 });
-

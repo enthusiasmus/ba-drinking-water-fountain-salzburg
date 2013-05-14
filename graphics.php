@@ -4,10 +4,10 @@ $area = $_GET['area'];
 $file = "";
 
 if ($area == "north") {
-	$file = "http://www.salzburg.gv.at/2043wiskiweb/APP_See_WT_Vorlandseen_KiBasicGrafikenWTVorlandsee.png";
+	$file = "http://www.salzburg.gv.at/2043wiskiweb/APP_KiBasicGrafikenAPP_Vorlandseen.png";
 }
 else if ($area == "south") {
-	$file = "http://www.salzburg.gv.at/2043wiskiweb/APP_See_WT_Berglandseen_KiBasicGrafikenWTBerglandseen.png";
+	$file = "http://www.salzburg.gv.at/2043wiskiweb/APP_KiBasicGrafikenAPP_Berglandseen.png";
 }
 else {
 	die("no allowed area");

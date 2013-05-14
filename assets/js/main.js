@@ -3,18 +3,23 @@
  */
 
 $(document).ready(function() {
-  if (navigator.appVersion.indexOf("Mobile") < 0) {
-    $('#slider').nivoSlider({
-      effect: 'fade',
-      animSpeed: 800,
-      pauseTime: 5000,
-      directionNav: false,
-      controlNav: false,
-      pauseOnHover: false
-    });
+  if (window.Trinkbrunnen.isNative === true) {
+    document.addEventListener("deviceready", function() {
+      window.Trinkbrunnen.init();
+    }, false);
+  } else {
+    if (navigator.appVersion.indexOf("Mobile") < 0) {
+      $('#slider').nivoSlider({
+        effect: 'fade',
+        animSpeed: 800,
+        pauseTime: 5000,
+        directionNav: false,
+        controlNav: false,
+        pauseOnHover: false
+      });
+    }
+    window.Trinkbrunnen.init();
   }
-
-  window.Trinkbrunnen.init();
 });
 
 window.Trinkbrunnen = {
@@ -40,30 +45,27 @@ window.Trinkbrunnen = {
   init: function() {
     this.Router.init();
   },
-  isMobile: function(){
+  isMobile: function() {
     var index = navigator.appVersion.indexOf("Mobile");
     return (index > -1);
   },
-  isOnline: function(){
-    //TODO: whats about mobile without phonegab, mobile, mobile website, website?
-    //navigator.connection.type == "NONE" oder navigator.isOnline oder google != 'undefined'
-    return true;
+  isNative: false,
+  isOnline: function() {
+    if (this.isNative === true) {
+      if (navigator.connection.type === Connection.NONE) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    else{
+      return true;
+    }
   },
   Urls: {
     feed: "rss.php",
-    fountains: "fountains.php",
-    lakes: "lakes.php"
+    fountains: "wis.php",
+    lakes: "lakes.php",
+    graphics: "graphics.php"
   }
 };
-
-/* HTML5 MANIFEST */
-function logEvent(event) {
-  console.log(event.type);
-}
-window.applicationCache.addEventListener('checking', logEvent, false);
-window.applicationCache.addEventListener('noupdate', logEvent, false);
-window.applicationCache.addEventListener('downloading', logEvent, false);
-window.applicationCache.addEventListener('cached', logEvent, false);
-window.applicationCache.addEventListener('updateready', logEvent, false);
-window.applicationCache.addEventListener('obsolete', logEvent, false);
-window.applicationCache.addEventListener('error', logEvent, false);

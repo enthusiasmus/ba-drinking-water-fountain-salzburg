@@ -8,7 +8,7 @@ $config = array(
 );
 
 $adapter = new PDO($config['dsn'], $config['username'], $config['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(date('c') . ' Failure database!');
-$select = $adapter->query("SELECT * FROM lake_temperatures ORDER BY lake");
+$select = $adapter->query("SELECT * FROM lake_temperatures ORDER BY pk_lake_temperature");
 
 if (!$select) {
 	die("Failure at database!");
@@ -17,8 +17,7 @@ if (!$select) {
 $lakeTemperatures = array();
 
 foreach ($select as $row) {
-	$dateGerman = date("H:i d.m.Y", strtotime($row["timestamp"]));
-
+	$dateGerman = date("H:i d.m.Y", strtotime($row["timestamp"]) + 60 * 60);
 	$lakeTemperature = array(
 		"lake" => $row["lake"],
 		"city" => $row['city'],

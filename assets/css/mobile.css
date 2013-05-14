@@ -3,73 +3,51 @@
   display: block;
   text-indent: -19999px;
   overflow: hidden;
+  width: 155px;
+  height: 22px;
+  margin: 12px auto 0 auto;
 }
+
 /*** header ***/
 #header {
   position: fixed;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 100%;
   height: 44px;
   background-color: #005586;
-  z-index: 99;
-}
-#logo {
-  width: 155px;
-  height: 22px;
-  background: url('../img/mobile/sprite.png') 0 -144px no-repeat;
-  margin: 12px auto 0 auto;
-}
-#back {
-  position: absolute;
-  top: 9px;
-  left: 10px;
-  width: 44px;
-  height: 20px;
-  background: url('../img/mobile/sprite.png') 0 -165px no-repeat;
-  color: #000;
-  text-decoration: none;
-  padding: 8px 0 0 7px;
-  display: none;
-}
-#back:active, .active-back {
-  background-position: -51px -165px;
 }
 
 /*** google map ***/
 #map-wrap {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   top: 44px;
   left: 0;
   right: 0;
-  bottom: 50px;
   width: 100%;
 }
+
 #map_canvas {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #212121;
   z-index: -1;
-  overflow: hidden;
 }
 
-/*** navigation ***/
 #navigation {
   position: fixed;
-  z-index: 99;
+  z-index: 999;
   top: auto;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 48px;
-  background-color: #000;
-  border-top: 2px solid #005586;
   overflow: hidden;
 }
+
 #navigation .menu-item {
   display: block;
   float: left;
@@ -77,31 +55,21 @@
   font-size: 13px;
   text-align: center;
 }
+
 #navigation .menu-item a {
   position: relative;
   text-decoration: none;
-  color: #8e8e8e;
-  width: 100%;
-  height: 18px;
   margin: 0 auto;
-  padding-top: 30px;
   display: inline-block;
-}
-
-#navigation .menu-item a:active, .active-navigation-a {
-  color: #fff !important;
-  background-color: #8e8e8e !important;
 }
 
 #navigation .menu-item span {
   position: absolute;
-  top: -7px;
   left: 50%;
   margin-left: -24px;
   display: block;
   width: 48px;
   height: 48px;
-  background-image: url('../img/mobile/sprite.png');
   background-repeat: no-repeat;
 }
 
@@ -163,25 +131,6 @@
 #header-navigation #header-lake {
   left: 0px;
 }
-#header-navigation #header-about a, #header-navigation #header-lake a {
-  background-image: url('../img/mobile/sprite.png');
-  background-repeat: no-repeat;
-}
-#header-navigation #header-about a:link, #header-navigation #header-about a:visited {
-  background-position: -192px -3px;
-}
-
-#header-navigation #header-about a:active, .fake-active-header-about {
-  background-position: -97px -99px;
-}
-
-#header-navigation #header-lake a:link, #header-navigation #header-lake a:visited {
-  background-position: -192px -53px;
-}
-
-#header-navigation #header-lake a:active, .fake-active-header-lake {
-  background-position: -192px -99px;
-}
 
 /*** address search ***/
 #address {
@@ -190,7 +139,6 @@
   left: 0;
   width: 100%;
   height: 44px;
-  background-color: #eee;
   display: none;
   z-index: 100;
 }
@@ -203,15 +151,9 @@
   width: 75%;
   background: url('../img/mobile/search.gif') #fff 10px 5px no-repeat;
 }
-.addressinput:focus {
-  padding: 5px 35px 5px 5px;
-  background: #fff;
-}
 .searchsubmit {
   display: none;
 }
-
-/*** maptypes ***/
 #maptype {
   position: absolute;
   bottom: 15px;
@@ -229,14 +171,8 @@
   float: left;
   width: 24%;
   height: 40px;
-  background-color: #eee;
-  border: 1px solid #afafaf;
-  border-right: 0;
   font-size: 14px;
   text-align: center;
-}
-#maptype .menu-item:last-child {
-  border-right: 1px solid #afafaf;
 }
 #maptype .menu-item a {
   display: block;
@@ -246,26 +182,9 @@
   vertical-align: middle;
   text-align: center;
   text-decoration: none;
-  color: #8e8e8e;
-}
-#maptype .menu-item a:hover {
-  color: #000;
-}
-
-/*** feed ***/
-#feed {
-  display: none;
-  background-color: #212121;
-  padding: 0 10px 65px 10px;
-  position: absolute;
-  top: 44px;
-  left: 0;
-  right: 0;
-  z-index: 50;
 }
 #rss {
   height: 100%;
-  background-color: #212121;
   padding: 10px 0 0px 0;
 }
 #rss article {
@@ -285,25 +204,23 @@
 #rss img {
   float: right;
   margin: -20px 10px 0 15px;
-  max-width: 100px;
-  height: auto;
-  margin-top: 0;
 }
 #rss .feed-date {
   font-size: 11px;
   color: #a8a8a8;
 }
-
-/*** info ***/
-#info, #lakes {
-  background-color: #212121;
+#info, #lakes, #feed {
   padding: 0 10px 65px 10px;
   display: none;
   position: absolute;
   top: 44px;
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 500;
+  min-height:100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 #info #info-content, #lakes #lakes-content {
   position: relative;
@@ -318,20 +235,15 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
-#lakes {
-  display: none;
-}
-/* lake temperatures font style */
+
 #lakes big {
-  font-size: 110%;
+  font-size: 120%;
   font-weight: bold;
 }
 #lakes h3 {
   margin: 0px;
   font-weight: bold;
 }
-
-/* lake temperatures listing */
 
 #lakes #lakes-content #lakes-listing > p {
   padding: 0px 0px 5px 0px;
@@ -356,7 +268,7 @@
 }
 
 #lakes ul li ul li {
-  padding: 10px 10px 10px 10px;
+  padding: 8px 8px 8px 8px;
   float: left;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -367,52 +279,40 @@
   width: 40%;
 }
 #lakes ul li ul li + li {
-  min-width: 70px;
+  min-width: 65px;
   width: 23%;
 }
 #lakes ul li ul li + li + li {
   width: 35%;
 }
 
-/* lakes graphics */
 #lakes #lakes-content #lakes-graphics {
   padding: 5px 0px 0px 0px;
 }
 
-#overlay {
-  position: fixed;
-  display: none;
-  top: 0;
-  left: 0;
-  width: 10000px;
-  height: 50000px;
-  background-color: #212121;
+#lakes #lakes-content #lakes-graphics img{
+  width:100%;
 }
 
-#spin {
-  position: absolute;
-  z-index: 100;
-  bottom: 50px;
-  right: 0px;
-  background: #005586;
-  display: none;
-}
-
-#spin img {
-  margin: 3px 3px;
+@media only screen and (max-width: 320px) {
+  #rss img {
+    max-width: 80px;
+    height: auto;
+    margin-top: 0;
+  }
 }
 
 #failure {
   display: none;
   position: fixed;
   top: auto;
-  bottom: 50px;
+  bottom: 49px;
   left: 0;
   width: 100%;
   height: 32px;
   background-color: #005586;
   overflow: hidden;
-  z-index: 100;
+  z-index: 999;
 }
 
 #failure_message {
@@ -428,4 +328,119 @@
 
 #reloading_map, #reloading_lakes, #reloading_feed, #reloading_fountains {
   display: none;
+}
+
+.reload_button {
+  width: 24px;
+  height: 26px;
+  cursor: pointer;
+}
+
+#reloading_lakes {
+  padding: 10px;
+  height: 80px;
+  line-height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+  background: #E9E9E9;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#reloading_lakes .info_offline {
+  width: 100%;
+}
+#reloading_lakes .reload_button {
+  margin: auto;
+  background-position: -48px 0px;
+}
+#reloading_lakes .reload_button:active {
+  background-position: -24px 0px;
+}
+
+#reloading_feed {
+  margin-top: 10px;
+  padding: 10px;
+  height: 80px;
+  line-height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  min-width: 260px;
+  width: 100%;
+  background: #FFF;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#reloading_feed .info_offline {
+  line-height: 30px;
+  width: 100%;
+}
+#reloading_feed .reload_button {
+  margin: auto;
+  background-position: -48px 0px;
+}
+#reloading_feed .reload_button:active {
+  background-position: -24px 0px;
+}
+
+#reloading_map {
+  padding: 10px;
+  min-width: 300px;
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#reloading_map > div {
+  width: 100%;
+  height: 80px;
+  background: white;
+}
+
+#reloading_map .info_offline {
+  padding-top: 10px;
+  line-height: 30px;
+  width: 100%;
+}
+#reloading_map .reload_button {
+  margin: auto;
+  background-position: -48px 0px;
+}
+#reloading_map .reload_button:active {
+  background-position: -24px 0px;
+}
+
+#reloading_fountains {
+  color: white;
+  width: 100%;
+  height: 38px;
+  margin: auto;
+  background: rgba(0, 85, 134, 0.65);
+  text-align: center;
+}
+
+#reloading_fountains div {
+  display: inline-block;
+}
+
+#reloading_fountains .info_offline {
+  float: left;
+  height: 38px;
+  line-height: 38px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+#reloading_fountains .reload_button {
+  margin-top: 4px;
+  float: right;
+}
+#reloading_fountains .reload_button:active {
+  background-position: -24px 0px;
 }

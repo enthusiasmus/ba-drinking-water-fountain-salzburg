@@ -140,7 +140,6 @@ var MapView = Backbone.View.extend({
         }
         if (navigator.geolocation) {
           //TODO: template
-          //TODO: Change Route symbole to spin when clicked or show spin wheel, at failure remove and at success close window and switch the image again
           infoContent += '<a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.routeToFountain(' + index + ')" class="calculate-route" title="Route berechnen">Route berechnen</a></p>';
         }
         infoContent += '<div class="pointer"></div>';
@@ -272,7 +271,6 @@ var MapView = Backbone.View.extend({
   deactivateUserLocation: function() {
     var inactiveOriginX = this.userLocation.get("imageInactiveOriginX");
     var inactiveOriginY = this.userLocation.get("imageInactiveOriginY");
-    console.log(this.userLocationMarker);
     var changeIcon = this.userLocationMarker.getIcon();
     changeIcon.origin.x = inactiveOriginX;
     changeIcon.origin.y = inactiveOriginY;
@@ -346,6 +344,7 @@ var MapView = Backbone.View.extend({
       this.infoBox.close();
     }
   },
+  //TODO: Stop route when error happend and only restart on new click from user
   updateRoute: function(shouldCenterRoute) {
     if (this.readyForRoute()) {
       if ( typeof this.fountainToRoute == "number") {

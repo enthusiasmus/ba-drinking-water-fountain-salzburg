@@ -1,0 +1,101 @@
+#logo {
+  background: url('../img/ios/sprite.png') 0 -144px no-repeat;
+}
+#back {
+  position: absolute;
+  top: 7px;
+  left: 5px;
+  width: 46px;
+  height: 22px;
+  background: url('../img/ios/sprite.png') 0 -166px no-repeat;
+  color: #fff;
+  padding: 9px 0 0 15px;
+  display: none;
+  text-decoration: none;
+}
+#back:active, .active-back {
+  background-position: -60px -166px;
+}
+#map-wrap {
+  bottom: 49px;
+}
+#map_canvas {
+  background: url('../img/ios/bg.png');
+}
+#navigation {
+  height: 49px;
+  background: url('../img/ios/bg-navigation.png') 0 0 repeat-x;
+}
+#navigation .menu-item a {
+  color: #a8a8a8;
+  width: auto;
+  padding-top: 31px;
+}
+#navigation .menu-item a:active, .active-navigation-a {
+  color: #fff;
+}
+#navigation .menu-item span {
+  top: -6px;
+  background-image: url('../img/ios/sprite.png');
+}
+
+#header-navigation #header-about a, #header-navigation #header-lake a {
+  background-image: url('../img/ios/sprite.png');
+  background-repeat: no-repeat;
+}
+#header-navigation #header-about a:link, #header-navigation #header-about a:visited {
+  background-position: -192px -2px;
+}
+
+#header-navigation #header-about a:active, .fake-active-header-about {
+  background-position: -145px -97px;
+}
+
+#header-navigation #header-lake a:link, #header-navigation #header-lake a:visited {
+  background-position: -192px -52px;
+}
+
+#header-navigation #header-lake a:active, .fake-active-header-lake {
+  background-position: -192px -98px;
+}
+
+#address {
+  background: url('../img/ios/bg-search.png') 0 0 repeat-x;
+}
+.addressinput {
+  border-radius: 15px;
+}
+
+#maptype .menu-item {
+  background: url('../img/ios/bg-maptype.gif') 0 0 repeat-x;
+  border-right: 1px solid #afafaf;
+}
+#maptype .menu-item:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+#maptype .menu-item:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-right: 0;
+}
+#maptype .menu-item a:active {
+  color: #3f3f3f;
+}
+#rss article {
+  border: 1px solid #ababab;
+  border-radius: 10px;
+}
+#info, #lakes, #feed {
+  background: url('../img/ios/bg.png');
+}
+#info #info-content, #lakes #lakes-content {
+  border-radius: 10px;
+}
+
+.reload_button {
+  background: url('../img/ios/reload.png') no-repeat;
+}
+#reloading_lakes, #reloading_feed, #reloading_map > div {
+  border-radius: 10px;
+}

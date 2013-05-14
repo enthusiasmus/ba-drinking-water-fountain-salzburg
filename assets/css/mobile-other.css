@@ -1,0 +1,99 @@
+#logo {
+  background: url('../img/mobile/sprite.png') 0 -144px no-repeat;
+}
+#back {
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  width: 44px;
+  height: 20px;
+  background: url('../img/mobile/sprite.png') 0 -165px no-repeat;
+  color: #000;
+  text-decoration: none;
+  padding: 8px 0 0 7px;
+  display: none;
+}
+#back:active, .active-back {
+  background-position: -51px -165px;
+}
+#map-wrap {
+  bottom: 50px;
+}
+#map_canvas {
+  background: #212121;
+}
+#navigation {
+  height: 48px;
+  background-color: #000;
+  border-top: 2px solid #005586;
+}
+#navigation .menu-item a {
+  color: #8e8e8e;
+  width: 100%;
+  height: 18px;
+  padding-top: 30px;
+}
+
+#navigation .menu-item a:active, .active-navigation-a {
+  color: #fff !important;
+  background-color: #8e8e8e !important;
+}
+#navigation .menu-item span {
+  top: -7px;
+  background-image: url('../img/mobile/sprite.png');
+}
+
+#header-navigation #header-about a, #header-navigation #header-lake a {
+  background-image: url('../img/mobile/sprite.png');
+  background-repeat: no-repeat;
+}
+#header-navigation #header-about a:link, #header-navigation #header-about a:visited {
+  background-position: -192px -3px;
+}
+
+#header-navigation #header-about a:active, .fake-active-header-about {
+  background-position: -97px -99px;
+}
+
+#header-navigation #header-lake a:link, #header-navigation #header-lake a:visited {
+  background-position: -192px -53px;
+}
+
+#header-navigation #header-lake a:active, .fake-active-header-lake {
+  background-position: -192px -99px;
+}
+
+#address {
+  background-color: #eee;
+}
+.addressinput:focus {
+  padding: 5px 35px 5px 5px;
+  background: #fff;
+}
+
+#maptype .menu-item {
+  background-color: #eee;
+  border: 1px solid #afafaf;
+  border-right: 0;
+}
+
+#maptype .menu-item:last-child {
+  border-right: 1px solid #afafaf;
+}
+#maptype .menu-item a:active {
+  background-color: #DDD;
+}
+
+#rss img {
+  max-width: 100px;
+  height: auto;
+  margin-top: 0;
+}
+
+#info, #lakes, #feed {
+  background-color: #212121;
+}
+
+.reload_button {
+  background: url('../img/mobile/reload.png') no-repeat;
+}

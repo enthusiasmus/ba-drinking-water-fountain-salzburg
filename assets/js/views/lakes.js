@@ -1,7 +1,9 @@
 var LakesView = Backbone.View.extend({
   el: $("#lakes"),
   lakesCollection: undefined,
+  timestamp: undefined,
   render: function() {
+    this.reset();
     _.each(this.lakesCollection.toArray(), function(lakeModel) {
       var template = _.template($("#template_lake_temperature").html(), {
         lake: lakeModel.get("lake"),
@@ -14,10 +16,10 @@ var LakesView = Backbone.View.extend({
   },
   addLakesCollection: function(lakesCollection) {
     this.lakesCollection = lakesCollection;
+    this.timestamp = new Date().getTime();
     this.render();
   },
-  isMobile: function() {
-    var index = navigator.appVersion.indexOf("Mobile");
-    return (index > -1);
+  reset: function() {
+    $("#lakes-listing > ul").html("");
   }
 });

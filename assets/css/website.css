@@ -419,17 +419,25 @@
 #lakes #lakes-content #lakes-listing > ul {
   font-size: 13px;
   margin: 10px 20px 0px 0px;
+  overflow:hidden;
 }
 #lakes #lakes-content #lakes-listing > p {
-  padding-top:5px;
-  margin-bottom:0px;
+  padding-top: 5px;
+  margin-bottom: 0px;
 }
-#lakes ul li ul {
+
+#lakes ul li {
   width: 50%;
+  height:auto;
   float: left;
 }
+
+#lakes ul li ul {
+  width: 100%;
+  float: left;  height:auto;
+}
 #lakes ul li ul li {
-  margin: 10px 10px 10px 15px;
+  padding: 10px 10px 10px 15px;
   float: left;
 }
 #lakes ul li ul li {

@@ -4,6 +4,6 @@ var LakeModel = Backbone.Model.extend({
     city: undefined,
     lake: undefined,
     timestamp: undefined,
-    value: undefined,
+    value: undefined
   }
 }); 

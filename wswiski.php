@@ -38,6 +38,7 @@ foreach ($dnrs as $lake => $dnr) {
 	}
 	catch (SoapFault $fault) {
 		trigger_error("SOAP-Fehler: (Fehlernummer: {$fault->faultcode}, " . "Fehlermeldung: {$fault->faultstring})", E_USER_ERROR);
+		die("SOAP ERROR");
 	}
 
 	$latestValues = array(

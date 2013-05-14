@@ -16,10 +16,6 @@ window.Trinkbrunnen.MessageHandler = {
   showMessage: function() {
     var self = this;
 
-    if (window.Trinkbrunnen.isMobile()) {
-      //$('#spin').hide();
-    }
-
     if (this.queue.length > 0) {
       this.isShowingMessage = true;
       $('#failure_message').text(this.queue.shift());

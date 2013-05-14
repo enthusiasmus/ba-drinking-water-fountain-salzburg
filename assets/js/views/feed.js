@@ -4,14 +4,16 @@ var FeedView = Backbone.View.extend({
   timestamp: '',
   tagName: 'section',
   id: 'rss',
-  initialize: function() {},
+  initialize: function() {
+  },
   addFeedItemCollection: function(feedItemCollection) {
     this.feedItemCollection = feedItemCollection;
     this.timestamp = new Date().getTime();
-    $('#rss').html("");
     this.render();
   },
   render: function() {
+    this.reset();
+
     if (this.isIpad()) {
       var length = 300;
     } else {
@@ -67,5 +69,8 @@ var FeedView = Backbone.View.extend({
   },
   isIpad: function() {
     return (navigator.userAgent.match(/iPad/i) != null);
+  },
+  reset: function() {
+    $('#rss').html("");
   }
 });

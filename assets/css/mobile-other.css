@@ -43,7 +43,7 @@
   background-image: url('../img/mobile/sprite.png');
 }
 
-#header-navigation #header-about a, #header-navigation #header-lake a {
+#header-navigation #header-about a, #header-navigation #header-maptype a{
   background-image: url('../img/mobile/sprite.png');
   background-repeat: no-repeat;
 }
@@ -55,12 +55,12 @@
   background-position: -97px -99px;
 }
 
-#header-navigation #header-lake a:link, #header-navigation #header-lake a:visited {
-  background-position: -192px -53px;
+#header-navigation #header-maptype a:link, #header-navigation #header-maptype a:visited {
+  background-position: -54px -54px;
 }
 
-#header-navigation #header-lake a:active, .fake-active-header-lake {
-  background-position: -192px -99px;
+#header-navigation #header-maptype a:active, .fake-active-header-maptype {
+  background-position: -6px -54px;
 }
 
 #address {

@@ -8,7 +8,7 @@ $config = array(
 );
 
 $adapter = new PDO($config['dsn'], $config['username'], $config['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(date('c') . ' Failure database!');
-$select = $adapter->query("SELECT * FROM lake_temperatures ORDER BY pk_lake_temperature");
+$select = $adapter->query("SELECT * FROM lake_temperatures ORDER BY lake");
 
 if (!$select) {
 	die("Failure at database!");

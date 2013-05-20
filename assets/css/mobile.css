@@ -82,8 +82,8 @@
 #navigation #navigation-fountain a > span {
   background-position: 0 -96px;
 }
-#navigation #navigation-maptype a > span {
-  background-position: 0 -48px;
+#navigation #navigation-lakes a > span {
+  background-position: -192px -98px;
 }
 #navigation #navigation-feed a > span {
   background-position: -96px -48px;
@@ -98,8 +98,8 @@
 #navigation #navigation-fountain a:active > span, .active-navigation-fontain {
   background-position: -48px -96px !important;
 }
-#navigation #navigation-maptype a:active > span, .active-navigation-maptype {
-  background-position: -48px -48px !important;
+#navigation #navigation-lakes a:active > span, .active-navigation-lakes {
+  background-position: -192px -52px !important;
 }
 #navigation #navigation-feed a:active > span, .active-navigation-feed {
   background-position: -144px -48px !important;
@@ -120,16 +120,20 @@
   width: 46px;
   height: 42px;
 }
-#header-navigation #header-about, #header-navigation #header-lake {
+#header-navigation #header-about {
   position: absolute;
   top: 0px;
-}
-
-#header-navigation #header-about {
   right: 0px;
 }
-#header-navigation #header-lake {
-  left: 0px;
+
+#header-navigation #header-maptype {
+  position: absolute;
+  top: 50px;
+  right: 6px;
+  background: #005586;
+  height: 36px;
+  width: 36px;
+  display:none;
 }
 
 /*** address search ***/
@@ -217,7 +221,7 @@
   left: 0;
   right: 0;
   z-index: 500;
-  min-height:100%;
+  min-height: 100%;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -290,8 +294,8 @@
   padding: 5px 0px 0px 0px;
 }
 
-#lakes #lakes-content #lakes-graphics img{
-  width:100%;
+#lakes #lakes-content #lakes-graphics img {
+  width: 100%;
 }
 
 @media only screen and (max-width: 320px) {
@@ -309,19 +313,19 @@
   bottom: 49px;
   left: 0;
   width: 100%;
-  height: 32px;
+  height: 38px;
   background-color: #005586;
   overflow: hidden;
   z-index: 999;
 }
 
 #failure_message {
-  height: 32px;
+  height: 38px;
   color: #FFF;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
-  line-height: 32px;
+  line-height: 38px;
   vertical-align: middle;
   overflow: hidden;
 }
@@ -418,6 +422,8 @@
 }
 
 #reloading_fountains {
+  position:absolute;
+  bottom:0px;
   color: white;
   width: 100%;
   height: 38px;
@@ -438,7 +444,7 @@
   margin-right: 10px;
 }
 #reloading_fountains .reload_button {
-  margin-top: 4px;
+  margin-top: 6px;
   float: right;
 }
 #reloading_fountains .reload_button:active {

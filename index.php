@@ -92,10 +92,14 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showRssFeed()'>Wasser-News</a>
               </li>
               <!-- TODO: class menu-item and header or navigation + id is now standard -->
-              <?php } ?>
               <li class='menu-item' id='header-lake'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showLakes()'>Seetemperaturen</a>
               </li>
+              <?php } else { ?>
+              <li class='menu-item' id='header-maptype'>
+                <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showMaptype()'>Maptyp</a>
+              </li>
+              <?php } ?>	
               <li class='menu-item' id='header-about'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showAbout()'>Impressum</a>
               </li>
@@ -207,10 +211,14 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
               <?php } else { ?>
               <h2>Wochenrückblick</h2>
               <p>
-                <a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.downloadGraphic('north');">Salzburger Vorlandseen</a>
+				        <h4>Salzburger Vorlandseen</h4>
+				        <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_KiBasicGrafikenAPP_Vorlandseen.png" class="lake-graphic"/>
+                <a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.downloadGraphic('north');">Download</a>
               </p>
               <p>
-                <a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.downloadGraphic('south');">Salzburger Berglandseen</a>
+		            <h4>Salzburger Bergseen</h4>
+		            <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_KiBasicGrafikenAPP_Berglandseen.png" class="lake-graphic"/>
+                <a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.downloadGraphic('south');">Download</a>
               </p>
               <?php } ?>
             </div>
@@ -266,8 +274,8 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         <li id='navigation-fountain' class='menu-item'>
           <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.nextFountain()'><span></span>Brunnen</a>
         </li>
-        <li id='navigation-maptype' class='menu-item'>
-          <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showMaptype()'><span></span>Kartentyp</a>
+        <li id='navigation-lakes' class='menu-item'>
+        	<a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showLakes()'><span></span>Seen</a>
         </li>
         <li id='navigation-feed' class='menu-item'>
           <a href='#feed'><span></span>News</a>
@@ -313,11 +321,11 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
       </div>
       <?php if($isMobile){
       ?>
-      <div id="reloading_fountains" class="reload_second">
-      <div>
-      <span class="info_offline">Bitte verbinden Sie sich mit dem Internet!</span>
-      <span class="reload_button"></span>
-      </div>
+      <div id="reloading_fountains">
+	      <div>
+		      <span class="info_offline">Bitte verbinden Sie sich mit dem Internet!</span>
+		      <span class="reload_button"></span>
+	      </div>
       </div>
       <?php } ?>
       <div id="maptype">

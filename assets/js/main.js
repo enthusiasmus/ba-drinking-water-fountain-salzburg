@@ -6,6 +6,12 @@ $(document).ready(function() {
   if (window.Trinkbrunnen.isNative === true) {
     document.addEventListener("deviceready", function() {
       window.Trinkbrunnen.init();
+      
+          document.addEventListener("backbutton", function() {
+     $('#address').hide();
+     $('#logo').append("1");
+    }, false);
+      
     }, false);
   } else {
     if (navigator.appVersion.indexOf("Mobile") < 0) {
@@ -57,8 +63,7 @@ window.Trinkbrunnen = {
       } else {
         return true;
       }
-    }
-    else{
+    } else {
       return true;
     }
   },

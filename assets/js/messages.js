@@ -53,13 +53,8 @@ window.Trinkbrunnen.MessageHandler = {
         unloadable: "Trinkbrunnen konnten nicht geladen werden!"
       }
     },
-    feed: {
-      error: {
-        unloadable: "News konnten nicht geladen werden!"
-      }
-    },
     state: {
-      offline: "Bitte stellen Sie eine Verbindung mit dem Internet her!"
+      offline: "Bitte verbinden Sie sich mit dem Internet!"
     }
   }
 };

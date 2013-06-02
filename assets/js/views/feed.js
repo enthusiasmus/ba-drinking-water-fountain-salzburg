@@ -53,14 +53,16 @@ var FeedView = Backbone.View.extend({
   },
   scaleImages: function() {
     var allFeedImages = $('#rss').find('img');
+    var limit = (window.Trinkbrunnen.isMobile() === true || this.isIpad() === true) ? 100 : 120;
+
     for (idx in allFeedImages) {
-      if (allFeedImages[idx].height > 120 && allFeedImages[idx]) {
-        var scaleValue = allFeedImages[idx].height / 120;
+      if (allFeedImages[idx].height > limit && allFeedImages[idx]) {
+        var scaleValue = allFeedImages[idx].height / limit;
 
         //important to set first th width, then the height, because
         // it's the width which gets calculated for the height
         allFeedImages[idx].width = allFeedImages[idx].width / scaleValue;
-        allFeedImages[idx].height = 120;
+        allFeedImages[idx].height = limit;
       }
       if (allFeedImages[idx].width > 180) {
         allFeedImages[idx].width = 180;

@@ -70,7 +70,6 @@ window.Trinkbrunnen = {
   Urls: {
     feed: "rss.php",
     fountains: "wis.php",
-    lakes: "lakes.php",
-    graphics: "graphics.php"
+    lakes: "lakes.php"
   }
 };

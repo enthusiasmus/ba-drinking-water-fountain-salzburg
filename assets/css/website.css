@@ -396,8 +396,9 @@
 #lakes #lakes-content #lakes-graphics {
   width: 100%;
 }
-#lakes #lakes-content #lakes-graphics img {
-  width: 700px;
+#lakes #lakes-content #lakes-graphics div {
+  width: 50%;
+  float:left;
   display: block;
   margin: auto;
 }

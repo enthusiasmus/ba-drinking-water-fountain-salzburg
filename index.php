@@ -203,23 +203,29 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
             </div>
             <div id="lakes-graphics">
               <?php if ( !$isMobile ) {
-              ?>
-              <!--<h2>Salzburger Vorlandseen</h2>
-              <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_See_WT_Vorlandseen_KiBasicGrafikenWTVorlandsee.png"/>
-              <h2>Salzburger Bergseen</h2>
-              <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_See_WT_Berglandseen_KiBasicGrafikenWTBerglandseen.png"/>-->
+              ?><br>
+              <h2>Wochenrückblick</h2>
+              <div>
+				        <h4>Salzburger Vorlandseen</h4>
+				        <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_Web_KiBasicGrafikenWEB_App_Vorl.png" class="lake-graphic"/>
+              </div>
+              <div>
+		            <h4>Salzburger Bergseen</h4>
+		            <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_Web_KiBasicGrafikenWEB_App_Berg.png" class="lake-graphic"/>
+              </div>
               <?php } else { ?>
               <h2>Wochenrückblick</h2>
-              <p>
+              <div>
 				        <h4>Salzburger Vorlandseen</h4>
-				        <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_KiBasicGrafikenAPP_Vorlandseen.png" class="lake-graphic"/>
-                <a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.downloadGraphic('north');">Download</a>
-              </p>
-              <p>
+				        <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_KiBasicGrafikenAPP_Vorlandseen.png" class="lake-graphic"/><br>
+                <a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.downloadGraphic('north');">Detailansicht</a>
+              </div>
+              <div>
+              	<br>
 		            <h4>Salzburger Bergseen</h4>
-		            <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_KiBasicGrafikenAPP_Berglandseen.png" class="lake-graphic"/>
-                <a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.downloadGraphic('south');">Download</a>
-              </p>
+		            <img src="http://www.salzburg.gv.at/2043wiskiweb/APP_KiBasicGrafikenAPP_Berglandseen.png" class="lake-graphic"/><br>
+                <a href="javascript:void(0)" onclick="window.Trinkbrunnen.Router.downloadGraphic('south');">Detailansicht</a>
+              </div>
               <?php } ?>
             </div>
           </div>

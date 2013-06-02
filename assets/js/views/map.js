@@ -45,6 +45,7 @@ var MapView = Backbone.View.extend({
   isInitialize: false,
   lastUsedRoutePosition: null,
   isRequestingRoute: null,
+  userWantsRouting: false,
   isIpad: function() {
     return (navigator.userAgent.match(/iPad/i) != null);
   },
@@ -271,10 +272,14 @@ var MapView = Backbone.View.extend({
   deactivateUserLocation: function() {
     var inactiveOriginX = this.userLocation.get("imageInactiveOriginX");
     var inactiveOriginY = this.userLocation.get("imageInactiveOriginY");
-    var changeIcon = this.userLocationMarker.getIcon();
-    changeIcon.origin.x = inactiveOriginX;
-    changeIcon.origin.y = inactiveOriginY;
-    this.userLocationMarker.setIcon(changeIcon);
+    if (this.userLocationMarker !== undefined) {
+      var changeIcon = this.userLocationMarker.getIcon();
+      changeIcon.origin.x = inactiveOriginX;
+      changeIcon.origin.y = inactiveOriginY;
+      this.userLocationMarker.setIcon(changeIcon);
+    } else {
+      return false;
+    }
   },
   centerUserLocation: function() {
     if (this.userLocationMarker) {
@@ -359,7 +364,7 @@ var MapView = Backbone.View.extend({
     var self = this;
 
     //Because we are already waiting for a response
-    if (this.isRequestingRoute == true) {
+    if (this.isRequestingRoute === true || this.userWantsRouting === false) {
       return;
     } else {
       this.isRequestingRoute = true;
@@ -375,7 +380,7 @@ var MapView = Backbone.View.extend({
     this.directionsService.route(request, function(result, status) {
       self.isRequestingRoute = false;
 
-      if (status == google.maps.DirectionsStatus.OK) {
+      if (status === google.maps.DirectionsStatus.OK) {
         self.hideRoute();
 
         self.directionsDisplay = new google.maps.DirectionsRenderer({
@@ -390,7 +395,7 @@ var MapView = Backbone.View.extend({
         self.directionsDisplay.setDirections(result);
         window.Trinkbrunnen.EventDispatcher.trigger("success:route");
       } else {
-        //TODO: Stop routing here!?
+        self.userWantsRouting = false;
         window.Trinkbrunnen.EventDispatcher.trigger("error:route", window.Trinkbrunnen.MessageHandler.messages.route.error);
       }
     });

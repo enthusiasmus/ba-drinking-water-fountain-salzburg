@@ -133,7 +133,13 @@
   background: #005586;
   height: 36px;
   width: 36px;
-  display:none;
+  display: none;
+}
+
+/* overwrite the attribute from .menu-item a */
+#header-navigation #header-maptype a {
+  width: 37px !important;
+  height: 36px !important;
 }
 
 /*** address search ***/
@@ -160,7 +166,7 @@
 }
 #maptype {
   position: absolute;
-  bottom: 15px;
+  bottom: 25px;
   left: 0;
   width: 100%;
   display: none;
@@ -266,6 +272,13 @@
   width: 100%;
 }
 
+@media only screen and (min-width: 700px) {
+  #lakes ul li {
+    width: 50%;
+    float:left;
+  }
+}
+
 #lakes ul li ul {
   float: left;
   min-width: 260px;
@@ -294,8 +307,14 @@
   padding: 5px 0px 0px 0px;
 }
 
+#lakes #lakes-content #lakes-graphics h4 {
+  font-size: 140%;
+  margin: 10px 0px 10px 0px;
+}
+
 #lakes #lakes-content #lakes-graphics img {
   width: 100%;
+  max-width: 800px;
 }
 
 @media only screen and (max-width: 320px) {
@@ -422,8 +441,8 @@
 }
 
 #reloading_fountains {
-  position:absolute;
-  bottom:0px;
+  position: absolute;
+  bottom: 0px;
   color: white;
   width: 100%;
   height: 38px;

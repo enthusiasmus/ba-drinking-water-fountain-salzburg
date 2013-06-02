@@ -131,19 +131,27 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   downloadGraphic: function(area) {
-    var filename = "";
-    if (area == "north") {
-      filename = "APP_KiBasicGrafikenAPP_Vorlandseen.png";
-    } else if (area == "south") {
-      filename = "APP_KiBasicGrafikenAPP_Berglandseen.png";
+    var file = device = "";
+    if (window.Trinkbrunnen.isNative === true || window.Trinkbrunnen.isMobile() === true) {
+      device = "mobile";
     } else {
-      return;
+      device = "pc";
+    }
+
+    if (area == "north" && device == "pc") {
+      file = "APP_Web_KiBasicGrafikenWEB_App_Vorl.png";
+    } else if (area == "south" && device == "pc") {
+      file = "APP_Web_KiBasicGrafikenWEB_App_Berg.png";
+    } else if (area == "north" && device == "mobile") {
+      file = "APP_KiBasicGrafikenAPP_Vorlandseen.png";
+    } else if (area == "south" && device == "mobile") {
+      file = "APP_KiBasicGrafikenAPP_Berglandseen.png";
     }
 
     if (window.Trinkbrunnen.isNative === true) {
-      //TODO
+      window.open("http://www.salzburg.gv.at/2043wiskiweb/" + file, '_blank');
     } else {
-      window.open(window.Trinkbrunnen.Urls.graphics + '?area=' + area, 'download', 'status=0');
+      window.open("http://www.salzburg.gv.at/2043wiskiweb/" + file, '_self');
     }
   },
   loadMarkersToMap: function() {
@@ -304,7 +312,6 @@ var AppRouter = Backbone.Router.extend({
     //TODO: Check for desktop pcs
   },
   getFountain: function(type) {
-    //TODO: write it every where it is needed
     if (window.Trinkbrunnen.isOnline() === false) {
       window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.state.offline);
       return;
@@ -328,7 +335,10 @@ var AppRouter = Backbone.Router.extend({
         return;
       }
     }
+
     window.Trinkbrunnen.Views.map.setRouteType(type);
+    window.Trinkbrunnen.Views.map.userWantsRouting = true;
+
     if (window.Trinkbrunnen.isMobile()) {
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
         window.Trinkbrunnen.Views.map.updateUserLocation();
@@ -343,7 +353,6 @@ var AppRouter = Backbone.Router.extend({
         }
       }
     } else {
-      window.Trinkbrunnen.Views.map.setRouteType(type);
       this.addEventListeners();
       this.getPosition();
     }
@@ -356,8 +365,7 @@ var AppRouter = Backbone.Router.extend({
 
     window.Trinkbrunnen.EventDispatcher.on("error:route", function(message) {
       window.Trinkbrunnen.MessageHandler.addMessage(message);
-      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:route:click");
-    }, "once:route:click");
+    }, "permanent:route:click");
   },
   addEventListeners: function() {
     var self = this;
@@ -397,6 +405,7 @@ var AppRouter = Backbone.Router.extend({
       }
 
       if (window.Trinkbrunnen.isOnline() === false) {
+        this.displayOnly('map_canvas map-wrap header-navigation header-maptype');
         window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.state.offline);
         return;
       }
@@ -600,9 +609,9 @@ var AppRouter = Backbone.Router.extend({
             if (image.className === "lake-graphic") {
               if (image.src.indexOf("?") >= 0) {
                 var path = image.src.substr(0, image.src.indexOf("?"));
-                image.src = path + "?" + new Date().getTime();
+                image.src = path + "?t=" + new Date().getTime();
               } else {
-                image.src = image.src + "?" + new Date().getTime();
+                image.src = image.src + "?t=" + new Date().getTime();
               }
             }
           });
@@ -624,11 +633,10 @@ var AppRouter = Backbone.Router.extend({
           window.Trinkbrunnen.Collections.lakes.timestamp = new Date().getTime();
 
           //TODO: For mobile and refactoring the copies
-          if (!window.Trinkbrunnen.isMobile()) {
+          if (!window.Trinkbrunnen.isMobile() || window.innerWidth >= 700) {
             $("#lakes-listing ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
             $("#lakes-listing ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
-          }
-          if (window.Trinkbrunnen.isMobile()) {
+          } else {
             $("#lakes ul li:nth-child(2n+1) ul").css('background', '#E9E9E9');
           }
         },
@@ -640,11 +648,6 @@ var AppRouter = Backbone.Router.extend({
         },
         add: true
       });
-    } else {
-      if (!window.Trinkbrunnen.isMobile()) {
-        $("#lakes-listing ul li:nth-child(4n+1) ul").css('background', '#E9E9E9');
-        $("#lakes-listing ul li:nth-child(4n+2) ul").css('background', '#E9E9E9');
-      }
     }
   },
   showAbout: function() {
@@ -768,7 +771,7 @@ var AppRouter = Backbone.Router.extend({
   },
   areImagesLoaded: function() {
     for (var i = 0; i < document.images.length; i++) {
-      if (!document.images[i].complete) {
+      if (!document.images[i].complete || (document.images[i].width * document.images[i].height) <= 0 || document.images[i].height < 50) {
         return false;
       }
     }

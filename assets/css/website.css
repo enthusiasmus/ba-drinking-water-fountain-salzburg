@@ -393,11 +393,8 @@
 #lakes {
   display: none;
 }
-#lakes #lakes-content #lakes-graphics {
-  width: 100%;
-}
 #lakes #lakes-content #lakes-graphics div {
-  width: 50%;
+  width: 49%;
   float:left;
   display: block;
   margin: auto;
@@ -428,7 +425,8 @@
 }
 
 #lakes ul li {
-  width: 50%;
+  /*not 50% - because of ie*/
+  width: 49.9%;
   height:auto;
   float: left;
 }

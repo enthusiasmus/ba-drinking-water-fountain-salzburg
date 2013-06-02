@@ -342,7 +342,6 @@ var MapView = Backbone.View.extend({
     if (this.directionsDisplay) {
       this.map.fitBounds(this.directionsDisplay.getDirections().routes[0].bounds);
     }
-
   },
   closeInfobox: function() {
     if (this.infoBox) {
@@ -350,17 +349,17 @@ var MapView = Backbone.View.extend({
     }
   },
   //TODO: Stop route when error happend and only restart on new click from user
-  updateRoute: function(shouldCenterRoute) {
+  updateRoute: function() {
     if (this.readyForRoute()) {
       if ( typeof this.fountainToRoute == "number") {
-        this.drawRouteUserLocationToPosition(this.markerCollection.at(this.fountainToRoute), shouldCenterRoute);
+        this.drawRouteUserLocationToPosition(this.markerCollection.at(this.fountainToRoute));
       }
       if ( typeof this.fountainToRoute == "string" && this.fountainToRoute == "next") {
-        this.drawRouteUserLocationToPosition(this.nearestFountain(), shouldCenterRoute);
+        this.drawRouteUserLocationToPosition(this.nearestFountain());
       }
     }
   },
-  drawRouteUserLocationToPosition: function(marker, shouldCenterRoute) {
+  drawRouteUserLocationToPosition: function(marker) {
     var self = this;
 
     //Because we are already waiting for a response
@@ -395,6 +394,9 @@ var MapView = Backbone.View.extend({
         self.directionsDisplay.setDirections(result);
         window.Trinkbrunnen.EventDispatcher.trigger("success:route");
       } else {
+        if(!window.Trinkbrunnen.isMobile()){
+          self.hideRoute();
+        }
         self.userWantsRouting = false;
         window.Trinkbrunnen.EventDispatcher.trigger("error:route", window.Trinkbrunnen.MessageHandler.messages.route.error);
       }

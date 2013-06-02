@@ -338,6 +338,16 @@ var AppRouter = Backbone.Router.extend({
 
     window.Trinkbrunnen.Views.map.setRouteType(type);
     window.Trinkbrunnen.Views.map.userWantsRouting = true;
+    
+    //at button click center the route by success
+    window.Trinkbrunnen.EventDispatcher.on("success:route", function() {
+      window.Trinkbrunnen.Views.map.centerRoute();
+      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:route:click");
+    }, "once:route:click");
+
+    window.Trinkbrunnen.EventDispatcher.on("error:route", function(message) {
+      window.Trinkbrunnen.MessageHandler.addMessage(message);
+    }, "permanent:route:click");
 
     if (window.Trinkbrunnen.isMobile()) {
       if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null) {
@@ -353,19 +363,14 @@ var AppRouter = Backbone.Router.extend({
         }
       }
     } else {
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null) {
+        window.Trinkbrunnen.Views.map.updateRoute();
+        return;
+      }
+
       this.addEventListeners();
       this.getPosition();
     }
-
-    //at button click center the route by success
-    window.Trinkbrunnen.EventDispatcher.on("success:route", function() {
-      window.Trinkbrunnen.Views.map.centerRoute();
-      window.Trinkbrunnen.EventDispatcher.off(null, null, "once:route:click");
-    }, "once:route:click");
-
-    window.Trinkbrunnen.EventDispatcher.on("error:route", function(message) {
-      window.Trinkbrunnen.MessageHandler.addMessage(message);
-    }, "permanent:route:click");
   },
   addEventListeners: function() {
     var self = this;
@@ -446,7 +451,7 @@ var AppRouter = Backbone.Router.extend({
     if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('feed back');
     } else {
-      this.displayOnly('map_canvas map-wrap feed header-maptype');
+      this.displayOnly('map_canvas map-wrap feed header-navigation');
 
       if ($('#map-wrap').css('top') == '250px') {
         this.scrollMap();

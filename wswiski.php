@@ -55,6 +55,12 @@ foreach ($dnrs as $lake => $dnr) {
 		}
 	}
 
+	//if timestamp is younger than the 1st june 2013 cancel this single update
+	if (strtotime($latestValues['timestamp']) < 1370044800) {
+		echo "Fehler im Datensatz: " . $lake . "<br>";
+		continue;
+	}
+
 	$adapter = new PDO($config['dsn'], $config['username'], $config['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die(date('c') . ' Failure database!');
 	$update = $adapter->prepare("UPDATE lake_temperatures SET timestamp = CAST(:timestamp AS datetime), value = :value WHERE lake = :lake");
 	$isUpdated = $update->execute(array(
@@ -63,7 +69,7 @@ foreach ($dnrs as $lake => $dnr) {
 		':lake' => strip_tags($latestValues['lake'])
 	));
 
-	if(!$isUpdated){
+	if (!$isUpdated) {
 		die("Failure at database!");
 	}
 }

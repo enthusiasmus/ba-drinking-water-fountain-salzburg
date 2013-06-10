@@ -325,7 +325,7 @@ var AppRouter = Backbone.Router.extend({
     var self = this;
 
     if (window.Trinkbrunnen.isMobile()) {
-      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type) {
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type && window.Trinkbrunnen.Views.map.userWantsRouting === true) {
         window.Trinkbrunnen.Views.map.centerRoute();
         return;
       }
@@ -338,7 +338,7 @@ var AppRouter = Backbone.Router.extend({
 
     window.Trinkbrunnen.Views.map.setRouteType(type);
     window.Trinkbrunnen.Views.map.userWantsRouting = true;
-    
+
     //at button click center the route by success
     window.Trinkbrunnen.EventDispatcher.on("success:route", function() {
       window.Trinkbrunnen.Views.map.centerRoute();
@@ -781,5 +781,9 @@ var AppRouter = Backbone.Router.extend({
       }
     }
     return true;
+  },
+  scrollLakesDown: function() {
+    var objDiv = document.getElementById("lakes");
+    objDiv.scrollTop = objDiv.scrollHeight-270;
   }
 });

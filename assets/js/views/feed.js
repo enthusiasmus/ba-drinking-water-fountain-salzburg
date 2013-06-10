@@ -30,7 +30,11 @@ var FeedView = Backbone.View.extend({
       shortDescription = shortDescription.substring(0, potentialEnd + endLastWord);
       shortDescription += '...';
 
-      $('#rss').append('<article>' + '<h3 class="feed-title"><a href="' + feedItemModel.escape('link') + '">' + feedItemModel.escape("title") + '</a></h3>' + '<p class="feed-date">' + feedItemModel.escape("pubDate") + '</p>' + '<p class="feed-content">' + feedItemModel.get('image') + shortDescription + '</p>' + '<a target="_blank" href="' + feedItemModel.escape('link') + '" class="feed-more">Mehr</a>' + '</article>');
+      if (window.Trinkbrunnen.isNative === true) {
+        $('#rss').append("<article>" + "<h3 class='feed-title'><a href='void:javascript(0)' onclick=\"window.open('" + feedItemModel.escape("link") + "', '_system');\">" + feedItemModel.escape("title") + "</a></h3>" + "<p class='feed-date'>" + feedItemModel.escape("pubDate") + "</p>" + "<p class='feed-content'>" + feedItemModel.get("image") + shortDescription + "</p>" + "<a href='void:javascript(0)' onclick=\"window.open('" + feedItemModel.escape("link") + "', '_system');\" class='feed-more'>Mehr</a>" + "</article>");
+      } else {
+        $('#rss').append('<article>' + '<h3 class="feed-title"><a href="' + feedItemModel.escape('link') + '">' + feedItemModel.escape("title") + '</a></h3>' + '<p class="feed-date">' + feedItemModel.escape("pubDate") + '</p>' + '<p class="feed-content">' + feedItemModel.get('image') + shortDescription + '</p>' + '<a target="_blank" href="' + feedItemModel.escape('link') + '" class="feed-more">Mehr</a>' + '</article>');
+      }
     });
     this.scaleImages();
 

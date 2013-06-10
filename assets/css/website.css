@@ -389,13 +389,42 @@
   margin-bottom: 20px;
 }
 
+#lakes #lakes-content #lakes-listing h2 {
+  width: 700px;
+  float: left;
+  margin:0px;
+}
+
+#lakes #lakes-content #lakes-listing #scroll-down-wrapper {
+  width: 203px;
+  height: 20px;
+  float: right;
+}
+
+#scroll-down-wrapper #scroll-down {
+  height: 20px;
+  width: 25px;
+  float: right;
+  background: url(../img/website/diagram.png) no-repeat;
+  cursor: pointer;
+  margin-top:2px;
+  margin-right: 38px;
+  -moz-box-shadow: 0 0 3px #888;
+  -webkit-box-shadow: 0 0 3px #888;
+  box-shadow: 0 0 3px #888;
+}
+
+#scroll-down-wrapper #scroll-down:hover {
+  background: url(../img/website/diagram_hover.png) no-repeat;
+}
+
 /* lakes style */
 #lakes {
   display: none;
 }
 #lakes #lakes-content #lakes-graphics div {
   width: 49%;
-  float:left;
+  float: left;
   display: block;
   margin: auto;
 }
@@ -415,9 +444,11 @@
 
 /* lake temperatures listing */
 #lakes #lakes-content #lakes-listing > ul {
+  width: 96%;
   font-size: 13px;
   margin: 10px 20px 0px 0px;
-  overflow:hidden;
+  overflow: hidden;
+  float: left;
 }
 #lakes #lakes-content #lakes-listing > p {
   padding-top: 5px;
@@ -427,13 +458,14 @@
 #lakes ul li {
   /*not 50% - because of ie*/
   width: 49.9%;
-  height:auto;
+  height: auto;
   float: left;
 }
 
 #lakes ul li ul {
   width: 100%;
-  float: left;  height:auto;
+  float: left;
+  height: auto;
 }
 #lakes ul li ul li {
   padding: 10px 10px 10px 15px;

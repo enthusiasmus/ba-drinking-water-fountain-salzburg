@@ -185,6 +185,11 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
           <div id="lakes-content">
             <div id="lakes-listing">
               <h2>Seetemperaturen</h2>
+              <?php if(!$isMobile){ ?>
+              <div id="scroll-down-wrapper">
+              	<div id="scroll-down" onclick="window.Trinkbrunnen.Router.scrollLakesDown();"></div>
+              </div>
+              <?php } ?>
               <ul>
                 <!-- lakes gets added here -->
               </ul>

@@ -52,15 +52,15 @@
 }
 
 #header-navigation #header-about a:active, .fake-active-header-about {
-  background-position: -145px -97px;
+  background-position: -145px -98px;
 }
 
 #header-navigation #header-maptype a:link, #header-navigation #header-maptype a:visited {
-  background-position: -54px -54px;
+  background-position: -6px -54px;
 }
 
 #header-navigation #header-maptype a:active, .fake-active-header-maptype {
-  background-position: -6px -54px;
+  background-position: -54px -54px;
 }
 
 #address {

@@ -1,5 +1,12 @@
 <?php
 
+$currentHour = date('H');
+if($currentHour >= 0 && $currentHour <= 5){
+	//exit because the servers of the country
+	//salzburg aren't working at this time
+	return;
+}
+
 $dnrs = array(
 	"Obertrumer See" => "00203612_2",
 	"Mattsee" => "00203604_2",
@@ -73,4 +80,14 @@ foreach ($dnrs as $lake => $dnr) {
 		die("Failure at database!");
 	}
 }
+
+/**
+ * Update the database at the domain http://wasser.salzburg.mobi
+ */
+
+$handle = fopen("http://wasser.salzburg.mobi/rss.php", "r");
+if($handle == FALSE){
+	echo "Fehler beim Update der DB auf http://wasser.salzburg.mobi";
+}
+
 ?>

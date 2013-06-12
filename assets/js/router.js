@@ -149,7 +149,7 @@ var AppRouter = Backbone.Router.extend({
     }
 
     if (window.Trinkbrunnen.isNative === true) {
-      window.open("http://www.salzburg.gv.at/2043wiskiweb/" + file, '_blank');
+      window.open("http://www.salzburg.gv.at/2043wiskiweb/" + file, '_blank', 'closebuttoncaption=Zurück');
     } else {
       window.open("http://www.salzburg.gv.at/2043wiskiweb/" + file, '_self');
     }

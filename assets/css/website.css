@@ -390,31 +390,47 @@
 }
 
 #lakes #lakes-content #lakes-listing h2 {
-  width: 700px;
+  margin: 0px;
+}
+
+#lakes #lakes-content #lakes-listing #info-text {
   float: left;
-  margin:0px;
+  width: 900px;
+  height: 25px;
+  line-height: 25px;
+  vertical-align: middle;
+}
+
+#lakes #lakes-content #lakes-listing #info-text .text {
+  float: left;
+  width: 700px;
 }
 
 #lakes #lakes-content #lakes-listing #scroll-down-wrapper {
-  width: 203px;
-  height: 20px;
+  width: 155px;
+  height: 25px;
   float: right;
 }
 
-#scroll-down-wrapper #scroll-down {
+#scroll-down-wrapper #scroll-down-info {
+  float: left;
+  width: 90px;
+}
+
+#scroll-down-wrapper #scroll-down-button {
   height: 20px;
   width: 25px;
   float: right;
   background: url(../img/website/diagram.png) no-repeat;
   cursor: pointer;
-  margin-top:2px;
-  margin-right: 38px;
+  margin-top: 2px;
+  margin-right:35px;
   -moz-box-shadow: 0 0 3px #888;
   -webkit-box-shadow: 0 0 3px #888;
   box-shadow: 0 0 3px #888;
 }
 
-#scroll-down-wrapper #scroll-down:hover {
+#scroll-down-wrapper #scroll-down-button:hover {
   background: url(../img/website/diagram_hover.png) no-repeat;
 }
 

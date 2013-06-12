@@ -185,11 +185,6 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
           <div id="lakes-content">
             <div id="lakes-listing">
               <h2>Seetemperaturen</h2>
-              <?php if(!$isMobile){ ?>
-              <div id="scroll-down-wrapper">
-              	<div id="scroll-down" onclick="window.Trinkbrunnen.Router.scrollLakesDown();"></div>
-              </div>
-              <?php } ?>
               <ul>
                 <!-- lakes gets added here -->
               </ul>
@@ -202,9 +197,21 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
               </div>
               <?php } ?>
               <p style="clear: both;"></p>
-              <p>
-                Seetemperatur [°C] einheitlich gemessen 50 cm unter der Wasseroberfläche.
-              </p>
+              <?php if($isMobile){ ?>
+              	<p>
+	                Seetemperatur [°C] einheitlich gemessen 50 cm unter der Wasseroberfläche.
+	              </p>
+              <?php } else { ?>
+	              <div id="info-text">
+	              	<span class="text">
+	                Seetemperatur [°C] einheitlich gemessen 50 cm unter der Wasseroberfläche.
+	                </span>
+		              <span id="scroll-down-wrapper">
+		              	<span id="scroll-down-info">Zu den Grafiken</span>
+		              	<span id="scroll-down-button" onclick="window.Trinkbrunnen.Router.scrollLakesDown();"></span>
+		              </span>
+	              </div>
+              <?php } ?>           
             </div>
             <div id="lakes-graphics">
               <?php if ( !$isMobile ) {

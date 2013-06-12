@@ -15,23 +15,24 @@ var AddressView = Backbone.View.extend({
     'keypress input[name=address]': 'keypress'
   },
   keypress: function(event) {
-    if (event.keyCode == 13)
+    if (event.keyCode == 13) {
       this.searchAddress();
+    }
   },
   searchAddress: function() {
-    /*
-     * TODO: Dispatch Event if offline then show Message
-     * google is initialize?
-     *
-     if(navigator.connection.type == CONNECTION.NONE){
-     window.dispatchEvent("non connection");
-     return false;
-     }
-     */
-
     var geocoder = new google.maps.Geocoder();
     var address = $('input[name=address]').val();
     this.blurAllElements();
+    
+    if (address.length <= 0) {
+      window.Trinkbrunnen.MessageHandler.addMessage('Keine Suchergebnisse!');
+      $(self.el).hide();
+      self.blurAllElements();
+      if (self.mapView.infoBox) {
+        self.mapView.infoBox.close();
+      }
+      return;
+    }
 
     var self = this;
     geocoder.geocode({
@@ -59,4 +60,4 @@ var AddressView = Backbone.View.extend({
     var index = navigator.appVersion.indexOf("Mobile");
     return (index > -1);
   }
-}); 
+});

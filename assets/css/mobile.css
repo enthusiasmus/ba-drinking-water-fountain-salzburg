@@ -152,16 +152,14 @@
   display: none;
   z-index: 100;
 }
-.addressinput {
+#address .addressinput {
   display: block;
   border: 1px solid #afafaf;
-  padding: 5px 10px 5px 30px;
   color: #333;
   margin: 7px auto 0 auto;
   width: 75%;
-  background: url('../img/mobile/search.gif') #fff 10px 5px no-repeat;
 }
-.searchsubmit {
+#address .searchsubmit {
   display: none;
 }
 #maptype {

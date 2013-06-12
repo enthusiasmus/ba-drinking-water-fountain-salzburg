@@ -39,7 +39,7 @@
   background-image: url('../img/ios/sprite.png');
 }
 
-#header-navigation #header-maptype{
+#header-navigation #header-maptype {
   border-radius: 5px;
 }
 
@@ -66,8 +66,10 @@
 #address {
   background: url('../img/ios/bg-search.png') 0 0 repeat-x;
 }
-.addressinput {
+#address .addressinput {
   border-radius: 15px;
+  padding: 5px 10px 5px 30px;
+  background: url('../img/mobile/search.gif') #fff 10px 5px no-repeat;
 }
 
 #maptype .menu-item {

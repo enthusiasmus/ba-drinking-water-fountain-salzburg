@@ -43,7 +43,7 @@
   background-image: url('../img/mobile/sprite.png');
 }
 
-#header-navigation #header-about a, #header-navigation #header-maptype a{
+#header-navigation #header-about a, #header-navigation #header-maptype a {
   background-image: url('../img/mobile/sprite.png');
   background-repeat: no-repeat;
 }
@@ -66,9 +66,27 @@
 #address {
   background-color: #eee;
 }
-.addressinput:focus {
+#address .addressinput {
   padding: 5px 35px 5px 5px;
+}
+#address .addressinput:focus {
   background: #fff;
+}
+#address .searchsubmit {
+  position: absolute;
+  z-index: 99;
+  top: 7px;
+  right: 11.8%;
+  display: block;
+  background: url('../img/mobile/search.gif') #fff 2px 2px no-repeat;
+  border: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  cursor: pointer;
+  /* hide the w3c-nessecary value on the button */
+  text-indent: -9000px;
+  text-transform: capitalize;
 }
 
 #maptype .menu-item {

@@ -88,9 +88,9 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
               <li class='menu-item show_map'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.scrollMap()'>Karte</a>
               </li>
-              <li class='menu-item feed'>
+              <!--<li class='menu-item feed'>
               <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showRssFeed()'>Wasser-News</a>
-              </li>
+              </li>-->
               <!-- TODO: class menu-item and header or navigation + id is now standard -->
               <li class='menu-item' id='header-lake'>
                 <a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showLakes()'>Seetemperaturen</a>
@@ -136,6 +136,9 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
                 5010, Salzburg
                 <br>
                 <a href="http://www.salzburg.gv.at" target="_blank">www.salzburg.gv.at</a>
+              </p>
+              <p>
+              	Die Daten der Seentemperaturen werden durch den Hydrographischen Landesdienst zur Verfügung gestellt.
               </p>
             </div>
             <div class="right">
@@ -215,7 +218,7 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
             </div>
             <div id="lakes-graphics">
               <?php if ( !$isMobile ) {
-              ?><br>
+              ?><br><br>
               <h2>Wochenrückblick</h2>
               <div>
 				        <h4>Salzburger Vorlandseen</h4>
@@ -295,9 +298,9 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
         <li id='navigation-lakes' class='menu-item'>
         	<a href='javascript:void(0)' onclick='window.Trinkbrunnen.Router.showLakes()'><span></span>Seen</a>
         </li>
-        <li id='navigation-feed' class='menu-item'>
+        <!--<li id='navigation-feed' class='menu-item'>
           <a href='#feed'><span></span>News</a>
-        </li>
+        </li>-->
       </ul>
     </nav>
     <?php } ?>
@@ -400,7 +403,6 @@ if (strstr($_SERVER['HTTP_USER_AGENT'], 'Android'))
     <script type="text/javascript" src="assets/js/libs/json2.js"></script>
     <script type="text/javascript" src="assets/js/libs/underscore.js"></script>
     <script type="text/javascript" src="assets/js/libs/backbone.js"></script>
-    <script type="text/javascript" src="assets/js/libs/iscroll.js"></script>
     <!--templates -->
     <?php
 		include "assets/templates/article.html";

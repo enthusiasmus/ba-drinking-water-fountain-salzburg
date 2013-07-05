@@ -14,20 +14,21 @@ if (!$select) {
 	die("Failure at database!");
 }
 
-$lakeTemperatures = array();
+$lakes = array();
 
 foreach ($select as $row) {
 	$dateGerman = date("H:i d.m.Y", strtotime($row["timestamp"]) + 60 * 60);
-	$lakeTemperature = array(
+	$lake = array(
 		"lake" => $row["lake"],
 		"city" => $row['city'],
 		"timestamp" => $dateGerman,
-		"value" => $row["value"] . " °C"
+		"value" => $row["value"] . " °C",
+		"latitude" => $row["latitude"],
+		"longitude" => $row["longitude"]
 	);
-	$lakeTemperatures[] = $lakeTemperature;
+	$lakes[] = $lake;
 }
 
-$jsonLakesTemperatures = json_encode($lakeTemperatures);
-echo $jsonLakesTemperatures;
+echo json_encode($lakes);
 
 ?>

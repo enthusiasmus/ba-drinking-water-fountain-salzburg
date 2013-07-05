@@ -85,8 +85,8 @@ foreach ($dnrs as $lake => $dnr) {
  * Update the database at the domain http://wasser.salzburg.mobi
  */
 
-$handle = fopen("http://wasser.salzburg.mobi/rss.php", "r");
-if($handle == FALSE){
+$handle = file_get_contents("http://wasser.salzburg.mobi/wswiski.php");
+if($handle === FALSE){
 	echo "Fehler beim Update der DB auf http://wasser.salzburg.mobi";
 }
 

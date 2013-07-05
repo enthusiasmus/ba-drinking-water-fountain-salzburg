@@ -26,10 +26,10 @@ var AddressView = Backbone.View.extend({
     
     if (address.length <= 0) {
       window.Trinkbrunnen.MessageHandler.addMessage('Keine Suchergebnisse!');
-      $(self.el).hide();
-      self.blurAllElements();
-      if (self.mapView.infoBox) {
-        self.mapView.infoBox.close();
+      $(this.el).hide();
+      this.blurAllElements();
+      if (this.mapView.infoBox) {
+        this.mapView.infoBox.close();
       }
       return;
     }

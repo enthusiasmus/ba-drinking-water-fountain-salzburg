@@ -46,6 +46,7 @@ var MapView = Backbone.View.extend({
   lastUsedRoutePosition: null,
   isRequestingRoute: null,
   userWantsRouting: false,
+  lakeMarker: undefined,
   isIpad: function() {
     return (navigator.userAgent.match(/iPad/i) != null);
   },
@@ -211,13 +212,22 @@ var MapView = Backbone.View.extend({
       return false;
     }
   },
-  fountainToRoute: null,
-  fountainToRouteId: null,
-  setRouteType: function(type) {
-    if (type == 'next') {
-      this.fountainToRoute = 'next';
-    } else if ( typeof type == "number") {
-      this.fountainToRoute = type;
+  fountainToRoute: {},
+  setRouteType: function(route) {
+    this.fountainToRoute.type = route.type;
+    this.fountainToRoute.id = route.id;
+  },
+  equalsFountainToRoute: function(route) {
+    if (this.fountainToRoute.type == route.type) {
+      if (this.fountainToRoute.type == "next") {
+        return true;
+      } else if (this.fountainToRoute.type == "lake" || this.fountainToRoute.type == "fountain") {
+        if (this.fountainToRoute.id == route.id) {
+          return true;
+        } else {
+          return false
+        }
+      }
     }
   },
   distanceCalculator: function(userPosition, markerPosition) {
@@ -315,8 +325,8 @@ var MapView = Backbone.View.extend({
       }
 
       var isNewRoute = false;
-      if (this.directionsDisplay != null && this.fountainToRoute != null) {
-        if (this.directionsDisplay.fountain != this.fountainToRoute) {
+      if (this.directionsDisplay != null && typeof this.fountainToRoute.type != "undefined") {
+        if (this.directionsDisplay.fountain.type != this.fountainToRoute.type || this.directionDisplay.fountain.id != this.fountainToRoute.id) {
           isNewRoute = true;
         }
       }
@@ -351,16 +361,18 @@ var MapView = Backbone.View.extend({
   //TODO: Stop route when error happend and only restart on new click from user
   updateRoute: function() {
     if (this.readyForRoute()) {
-      if ( typeof this.fountainToRoute == "number") {
-        this.drawRouteUserLocationToPosition(this.markerCollection.at(this.fountainToRoute));
-      }
-      if ( typeof this.fountainToRoute == "string" && this.fountainToRoute == "next") {
+      if (this.fountainToRoute.type == "next") {
         this.drawRouteUserLocationToPosition(this.nearestFountain());
+      } else if (this.fountainToRoute.type == "lake") {
+        this.drawRouteUserLocationToPosition(window.Trinkbrunnen.Collections.lakes.at(this.fountainToRoute.id));
+      } else if (this.fountainToRoute.type == "fountain") {
+        this.drawRouteUserLocationToPosition(this.markerCollection.at(this.fountainToRoute.id));
       }
     }
   },
   drawRouteUserLocationToPosition: function(marker) {
     var self = this;
+    var marker = marker;
 
     //Because we are already waiting for a response
     if (this.isRequestingRoute === true || this.userWantsRouting === false) {
@@ -392,15 +404,36 @@ var MapView = Backbone.View.extend({
         });
 
         self.directionsDisplay.setDirections(result);
+        self.checkAndPlaceLakeMarker(marker);
         window.Trinkbrunnen.EventDispatcher.trigger("success:route");
       } else {
-        if(!window.Trinkbrunnen.isMobile()){
+        if (!window.Trinkbrunnen.isMobile()) {
           self.hideRoute();
         }
         self.userWantsRouting = false;
         window.Trinkbrunnen.EventDispatcher.trigger("error:route", window.Trinkbrunnen.MessageHandler.messages.route.error);
       }
     });
+  },
+  checkAndPlaceLakeMarker: function(marker) {
+    //if the marker is a lake, then draw an extra marker, else delete it
+    if (marker.get("lake") != undefined) {
+      var icon = new google.maps.MarkerImage(marker.get('imageUrl'), new google.maps.Size(17, 40), new google.maps.Point(0, 0), new google.maps.Point(9, 40));
+      var shadow = new google.maps.MarkerImage(marker.get('shadowUrl'), new google.maps.Size(49, 40), new google.maps.Point(0, 0), new google.maps.Point(25, 40));
+
+      this.lakeMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(marker.get("latitude"), marker.get("longitude")),
+        icon: icon,
+        title: marker.get("lake"),
+        shadow: shadow,
+        zIndex: 1,
+        map: this.map
+      });
+    } else {
+      if ( typeof this.lakeMarker != undefined) {
+        this.lakeMarker.setMap(null);
+      }
+    }
   },
   nearestFountain: function(position) {
     var distanceToNextFontain = tempShortestDistance = idx = 0;

@@ -9,7 +9,9 @@ var LakeCollection = Backbone.Collection.extend({
         lake: data[idx].lake,
         city: data[idx].city,
         value: data[idx].value,
-        timestamp: data[idx].timestamp
+        timestamp: data[idx].timestamp,
+        latitude: data[idx].latitude,
+        longitude: data[idx].longitude        
       });
       lakes.push(lakeModel);
     }

@@ -80,9 +80,6 @@ var AppRouter = Backbone.Router.extend({
         $('script[src*="infobox"]').remove();
 
         //TODO: got inserted at the wrong place
-        //TODO: later loading doesn't work: Error <map>
-
-        //TODO: got inserted at the wrong place
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.id = "script-google-map";
@@ -98,9 +95,12 @@ var AppRouter = Backbone.Router.extend({
       $('#reloading_fountains .reload_button').click(function() {
         window.Trinkbrunnen.Router.loadMarkersToMap();
       });
+
       $('input[name=address]').blur(function() {
-        $('#address').hide();
-        $('#header-maptype').css('top', '50px');
+        setTimeout(function() {
+          $('#address').hide();
+          $('#header-maptype').css('top', '50px');
+        }, 100);
       });
     }
   },
@@ -149,7 +149,11 @@ var AppRouter = Backbone.Router.extend({
     }
 
     if (window.Trinkbrunnen.isNative === true) {
-      window.open("http://www.salzburg.gv.at/2043wiskiweb/" + file, '_blank', 'closebuttoncaption=Zurück');
+      if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false) {
+        window.open("http://www.salzburg.gv.at/2043wiskiweb/" + file, '_blank', 'closebuttoncaption=Zurück,enableViewportScale=yes');
+      } else {
+        window.open("http://www.salzburg.gv.at/2043wiskiweb/" + file, '_blank', 'closebuttoncaption=Zurück');
+      }
     } else {
       window.open("http://www.salzburg.gv.at/2043wiskiweb/" + file, '_self');
     }
@@ -195,40 +199,40 @@ var AppRouter = Backbone.Router.extend({
 
     var self = this;
     //get latest feeditem
-    if (!window.Trinkbrunnen.isMobile()) {
-      window.Trinkbrunnen.EventDispatcher.on('loadedFeed', function() {
-        var element = _.first(window.Trinkbrunnen.Collections.feedItems.toArray());
-        var template = _.template($("#template_article").html(), {
-          pubDate: element.escape("pubDate"),
-          link: element.escape("link"),
-          title: element.escape("title")
-        });
-        $('#latest_feed').html(template);
-        $('#latest_feed').show();
+    /*if (!window.Trinkbrunnen.isMobile()) {
+     window.Trinkbrunnen.EventDispatcher.on('loadedFeed', function() {
+     var element = _.first(window.Trinkbrunnen.Collections.feedItems.toArray());
+     var template = _.template($("#template_article").html(), {
+     pubDate: element.escape("pubDate"),
+     link: element.escape("link"),
+     title: element.escape("title")
+     });
+     $('#latest_feed').html(template);
+     $('#latest_feed').show();
 
-        window.Trinkbrunnen.EventDispatcher.off('loadedFeed');
-      });
+     window.Trinkbrunnen.EventDispatcher.off('loadedFeed');
+     });
 
-      if (window.Trinkbrunnen.Collections.feedItems.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
-        window.Trinkbrunnen.Collections.feedItems.reset();
-        window.Trinkbrunnen.Collections.feedItems.fetch({
-          success: function() {
-            window.Trinkbrunnen.Collections.feedItems.timestamp = new Date().getTime();
-            window.Trinkbrunnen.EventDispatcher.trigger('loadedFeed');
-            self.canSlideArticle('left');
-          },
-          error: function() {
-            if (!window.Trinkbrunnen.isMobile()) {
-              //TODO: Think about a failure message place, when map is not scrolled up
-              //window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.feed.error.unloadable);
-            }
-          },
-          add: true
-        });
-      } else {
-        window.Trinkbrunnen.EventDispatcher.trigger('loadedFeed');
-      }
-    }
+     if (window.Trinkbrunnen.Collections.feedItems.timestamp < new Date().getTime() - 1000 * 60 * 60 * 12) {
+     window.Trinkbrunnen.Collections.feedItems.reset();
+     window.Trinkbrunnen.Collections.feedItems.fetch({
+     success: function() {
+     window.Trinkbrunnen.Collections.feedItems.timestamp = new Date().getTime();
+     window.Trinkbrunnen.EventDispatcher.trigger('loadedFeed');
+     self.canSlideArticle('left');
+     },
+     error: function() {
+     if (!window.Trinkbrunnen.isMobile()) {
+     //TODO: Think about a failure message place, when map is not scrolled up
+     //window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.feed.error.unloadable);
+     }
+     },
+     add: true
+     });
+     } else {
+     window.Trinkbrunnen.EventDispatcher.trigger('loadedFeed');
+     }
+     }*/
   },
   scrollMap: function() {
     window.Trinkbrunnen.Views.map.saveCurrentCenter();
@@ -285,7 +289,7 @@ var AppRouter = Backbone.Router.extend({
       });
     }
   },
-  nextFountain: function() {
+  prepareViewForRoute: function() {
     if (window.Trinkbrunnen.isMobile()) {
       this.navigate("", {
         trigger: false,
@@ -303,15 +307,36 @@ var AppRouter = Backbone.Router.extend({
     } else {
       this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
     }
+  },
+  nextFountain: function() {
+    this.prepareViewForRoute();
+    this.getFountain({
+      "type": "next",
+      "id": -1
+    });
+  },
+  routeToLake: function(id) {
+    this.prepareViewForRoute();
 
-    this.getFountain('next');
+    if (!window.Trinkbrunnen.isMobile()) {
+      if ($('#map-wrap').css('top') != '250px') {
+        this.scrollMap();
+      }
+    }
+
+    this.getFountain({
+      "type": "lake",
+      "id": id
+    });
   },
   routeToFountain: function(id) {
     window.Trinkbrunnen.Views.map.closeInfobox();
-    this.getFountain(id);
-    //TODO: Check for desktop pcs
+    this.getFountain({
+      "type": "fountain",
+      "id": id
+    });
   },
-  getFountain: function(type) {
+  getFountain: function(point) {
     if (window.Trinkbrunnen.isOnline() === false) {
       window.Trinkbrunnen.MessageHandler.addMessage(window.Trinkbrunnen.MessageHandler.messages.state.offline);
       return;
@@ -319,24 +344,25 @@ var AppRouter = Backbone.Router.extend({
 
     if (window.Trinkbrunnen.Views.map.readyFountains() == false) {
       $('#reloading_fountains').show();
-      return;
+      if (point.type === "next") {
+        return;
+      }
     }
 
     var self = this;
-
     if (window.Trinkbrunnen.isMobile()) {
-      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type && window.Trinkbrunnen.Views.map.userWantsRouting === true) {
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && this.isWatchingID != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.equalsFountainToRoute(point) && window.Trinkbrunnen.Views.map.userWantsRouting === true) {
         window.Trinkbrunnen.Views.map.centerRoute();
         return;
       }
     } else {
-      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.fountainToRoute == type) {
+      if (window.Trinkbrunnen.Views.map.userLocationMarker != null && window.Trinkbrunnen.Views.map.directionsDisplay != null && window.Trinkbrunnen.Views.map.equalsFountainToRoute(point)) {
         window.Trinkbrunnen.Views.map.centerRoute();
         return;
       }
     }
 
-    window.Trinkbrunnen.Views.map.setRouteType(type);
+    window.Trinkbrunnen.Views.map.setRouteType(point);
     window.Trinkbrunnen.Views.map.userWantsRouting = true;
 
     //at button click center the route by success
@@ -634,8 +660,18 @@ var AppRouter = Backbone.Router.extend({
       window.Trinkbrunnen.Collections.lakes.reset();
       window.Trinkbrunnen.Collections.lakes.fetch({
         success: function() {
+
           window.Trinkbrunnen.Views.lakes.addLakesCollection(window.Trinkbrunnen.Collections.lakes);
           window.Trinkbrunnen.Collections.lakes.timestamp = new Date().getTime();
+
+          $('div#lakes-listing ul li ul li a').click(function(event) {
+            var longitude = $(event.currentTarget).attr("data-longitude");
+            var latitude = $(event.currentTarget).attr("data-latitude");
+            window.Trinkbrunnen.Router.routeToLake({
+              "latitude": latitude,
+              "longitude": longitude
+            });
+          });
 
           //TODO: For mobile and refactoring the copies
           if (!window.Trinkbrunnen.isMobile() || window.innerWidth >= 700) {
@@ -673,7 +709,6 @@ var AppRouter = Backbone.Router.extend({
   },
   mainElements: new Array('map-wrap', 'map_canvas', 'header-maptype', 'address', 'map_pointer', 'map_pointer_text', 'feed', 'info', 'maptype', 'appinfo', 'reloading_lakes', 'reloading_map', 'reloading_feed', 'left-hand-phone', 'right-hand-phone', 'back', 'failure', 'header-navigation', 'lakes'),
   displayOnly: function(elementsToShow) {
-    //TODO: show map all the time, but at lakes, about and rss only in background
     var elementsArray = elementsToShow.split(" ");
     window.Trinkbrunnen.Views.map.saveCurrentCenter();
     var shouldShow;
@@ -784,6 +819,6 @@ var AppRouter = Backbone.Router.extend({
   },
   scrollLakesDown: function() {
     var objDiv = document.getElementById("lakes");
-    objDiv.scrollTop = objDiv.scrollHeight-270;
+    objDiv.scrollTop = objDiv.scrollHeight - 270;
   }
 });

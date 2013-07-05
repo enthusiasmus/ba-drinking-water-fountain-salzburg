@@ -9,7 +9,8 @@ var LakesView = Backbone.View.extend({
         lake: lakeModel.get("lake"),
         city: lakeModel.get("city"),
         value: lakeModel.get("value"),
-        timestamp: lakeModel.get("timestamp")
+        timestamp: lakeModel.get("timestamp"),
+        id: lakeModel.get("id")
       });
       $('#lakes-listing > ul').append(template);
     });

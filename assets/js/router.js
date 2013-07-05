@@ -290,14 +290,13 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   prepareViewForRoute: function() {
+    window.Trinkbrunnen.Views.map.closeInfobox();
     if (window.Trinkbrunnen.isMobile()) {
       this.navigate("", {
         trigger: false,
         replace: false
       });
-    }
 
-    if (window.Trinkbrunnen.isMobile()) {
       this.displayOnly('map_canvas map-wrap header-maptype header-navigation');
 
       if (window.google === undefined) {
@@ -305,7 +304,10 @@ var AppRouter = Backbone.Router.extend({
         return;
       }
     } else {
-      this.displayOnly('map_canvas map-wrap appinfo left-hand-phone right-hand-phone header-navigation');
+      $('#address').hide();
+      if ($('#map-wrap').css('top') != '250px') {
+        this.scrollMap();
+      }
     }
   },
   nextFountain: function() {
@@ -317,20 +319,13 @@ var AppRouter = Backbone.Router.extend({
   },
   routeToLake: function(id) {
     this.prepareViewForRoute();
-
-    if (!window.Trinkbrunnen.isMobile()) {
-      if ($('#map-wrap').css('top') != '250px') {
-        this.scrollMap();
-      }
-    }
-
     this.getFountain({
       "type": "lake",
       "id": id
     });
   },
   routeToFountain: function(id) {
-    window.Trinkbrunnen.Views.map.closeInfobox();
+    this.prepareViewForRoute();
     this.getFountain({
       "type": "fountain",
       "id": id
@@ -660,18 +655,8 @@ var AppRouter = Backbone.Router.extend({
       window.Trinkbrunnen.Collections.lakes.reset();
       window.Trinkbrunnen.Collections.lakes.fetch({
         success: function() {
-
           window.Trinkbrunnen.Views.lakes.addLakesCollection(window.Trinkbrunnen.Collections.lakes);
           window.Trinkbrunnen.Collections.lakes.timestamp = new Date().getTime();
-
-          $('div#lakes-listing ul li ul li a').click(function(event) {
-            var longitude = $(event.currentTarget).attr("data-longitude");
-            var latitude = $(event.currentTarget).attr("data-latitude");
-            window.Trinkbrunnen.Router.routeToLake({
-              "latitude": latitude,
-              "longitude": longitude
-            });
-          });
 
           //TODO: For mobile and refactoring the copies
           if (!window.Trinkbrunnen.isMobile() || window.innerWidth >= 700) {

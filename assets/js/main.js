@@ -6,15 +6,10 @@ $(document).ready(function() {
   if (window.Trinkbrunnen.isNative === true) {
     document.addEventListener("deviceready", function() {
       window.Trinkbrunnen.init();
-      
-          document.addEventListener("backbutton", function() {
-     $('#address').hide();
-     $('#logo').append("1");
-    }, false);
-      
+      navigator.splashscreen.hide();
     }, false);
   } else {
-    if (navigator.appVersion.indexOf("Mobile") < 0) {
+    if (navigator.userAgent.indexOf("Mobile") < 0) {
       $('#slider').nivoSlider({
         effect: 'fade',
         animSpeed: 800,
@@ -52,7 +47,7 @@ window.Trinkbrunnen = {
     this.Router.init();
   },
   isMobile: function() {
-    var index = navigator.appVersion.indexOf("Mobile");
+    var index = navigator.userAgent.indexOf("Mobile");
     return (index > -1);
   },
   isNative: false,
